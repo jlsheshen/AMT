@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/LeftDrawlayoutStyle"
+    android:layout_gravity="start"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:paddingLeft="10px"
+    android:paddingRight="10px"
+    android:background="@mipmap/bg"
+    >
+
+
+    <TextView
+        style="@style/SettingItem"
+        android:gravity="center"
+        android:text="@string/setting"
+        android:textSize="@dimen/title_text_size"
+        android:textColor="@color/colorWhite"
+        />
+
+    <View style="@style/HorizontalLine"
+
+        />
+
+    <LinearLayout
+        style="@style/SettingItem"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/middle_interval"
+        android:paddingRight="@dimen/middle_interval"
+        >
+
+        <com.edu.accountingteachingmaterial.view.CircleImageView
+            android:id="@+id/my_head_civ"
+            android:layout_width="45px"
+            android:layout_height="45px"
+            android:src="@mipmap/touxiang_setting"
+            android:layout_gravity="center_vertical"
+            app:civ_border_overlay="false"
+            app:civ_border_width="0dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="right"
+            android:text="点击登陆"
+            android:paddingRight="15px"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/content_text_size"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_go"
+            />
+    </LinearLayout>
+
+    <View style="@style/HorizontalLine" />
+    <LinearLayout
+        android:id="@+id/change_ip_ly"
+        style="@style/SettingItem"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/middle_interval"
+        android:paddingRight="@dimen/middle_interval"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+            android:text="更换IP"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_go"
+            />
+    </LinearLayout>
+    <View style="@style/HorizontalLine" />
+    <LinearLayout
+        style="@style/SettingItem"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/middle_interval"
+        android:paddingRight="@dimen/middle_interval"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+            android:text="清除缓存"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="3.6M"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            android:textStyle="bold"
+
+            />
+    </LinearLayout>
+    <View style="@style/HorizontalLine" />
+
+    <LinearLayout
+        style="@style/SettingItem"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/middle_interval"
+        android:paddingRight="@dimen/middle_interval"
+
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+            android:text="版本更新"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_go"
+            />
+    </LinearLayout>
+    <View style="@style/HorizontalLine" />
+    <LinearLayout
+        style="@style/SettingItem"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/middle_interval"
+        android:paddingRight="@dimen/middle_interval"
+
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+            android:text="关于产品"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_go"
+            />
+    </LinearLayout>
+    <View style="@style/HorizontalLine" />
+
+
+</LinearLayout>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/main_aty_title_layout"
+        style="@style/TitleBarStyle"
+        android:background="@color/blue">
+
+        <ImageView
+            android:id="@+id/class_aty_back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15px"
+            android:src="@mipmap/icon_fanhui_n" />
+
+        <TextView
+            android:id="@+id/test_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="会计凭证单元测"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/title_text_size" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/main_aty_title_layout"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/class_id_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15px"
+                android:text="会计凭证随堂练习"
+                android:textColor="@color/red"
+                android:textSize="@dimen/title_text_size" />
+
+            <LinearLayout
+                android:id="@+id/item_exam_above_ly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/class_id_title_tv"
+                android:layout_marginLeft="15px"
+                android:layout_marginTop="10px"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发布人："
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/item_text_size" />
+
+                <TextView
+                    android:id="@+id/publisher_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15px"
+                    android:text="李有才"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/item_text_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15px"
+                    android:text="发布时间："
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/item_text_size"
+
+                    />
+
+                <TextView
+                    android:id="@+id/release_time_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15px"
+                    android:text="2016-11-11 11:11"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/item_text_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/img_show">
+
+                <TextView
+                    android:id="@+id/score_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="15px"
+                    android:text="91分"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/title_text_size" />
+
+                <LinearLayout
+                    android:id="@+id/item_submitting_ly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/score_tv"
+                    android:layout_marginLeft="15px"
+                    android:layout_marginTop="10px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="交卷时间："
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/item_title_text_size" />
+
+                    <TextView
+                        android:id="@+id/submitting_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15px"
+                        android:text="2016-11-11 11:11"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/item_title_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_answer_ly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/item_submitting_ly"
+                    android:layout_marginLeft="15px"
+                    android:layout_marginTop="10px"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15px"
+                        android:text="答题时间："
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/item_title_text_size"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/answer_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15px"
+                        android:text="1:28:06"
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/item_title_text_size" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/img_show"
+                android:layout_width="40px"
+                android:layout_height="180px"
+                android:layout_alignParentRight="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/item_u"
+        layout="@layout/item_unit_text_info" />
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20px"
+        android:text="开始答题"
+        android:textSize="@dimen/item_title_text_size" />
+</RelativeLayout>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="75px"
+    android:background="@color/colorWhite"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        style="@style/LeftDrawlayoutStyle"
+        android:background="@color/colorBlueBar"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="185px"
+            android:background="@color/colorBlueBackground">
+
+            <com.edu.accountingteachingmaterial.view.CircleImageView
+                android:id="@+id/my_head_civ"
+                android:layout_width="85px"
+                android:layout_height="85px"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/touxiang_me"
+                app:civ_border_overlay="false"
+                app:civ_border_width="0dp" />
+
+            <TextView
+                android:id="@+id/my_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_head_civ"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5px"
+                android:text="@string/login"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/content_text_size" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="60px"
+            android:layout_marginLeft="30px"
+            android:drawableLeft="@mipmap/icon_wodecuoti_n"
+            android:gravity="center_vertical"
+            android:text="@string/my_errors"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="@dimen/item_title_text_size"
+            android:textStyle="bold" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_marginLeft="20px"
+            android:layout_marginRight="20px" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title_layout_height"
+            android:layout_marginLeft="30px"
+            android:gravity="center_vertical"
+            android:text="@string/my_errors"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold" />
+
+        <View
+            style="@style/HorizontalLine"
+            android:layout_marginLeft="25px"
+            android:layout_marginRight="25px" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/my_background_iv"
+                android:layout_width="320px"
+                android:layout_height="320px"
+                android:scaleType="fitCenter"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/my_bacground"
+
+                />
+
+            <TextView
+                android:id="@+id/my_noerror_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_background_iv"
+                android:layout_marginTop="25px"
+                android:layout_centerHorizontal="true"
+                android:text="我的人生没有错题"
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/item_title_text_size" />
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

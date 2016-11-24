@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    style="@style/FragmentPadding"
+    android:layout_marginLeft="100px"
+
+
+    >
+    <LinearLayout style="@style/TitleBarStyle">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/exam"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/title_text_size" />
+    </LinearLayout>
+
+    <View style="@style/HorizontalLine"></View>
+
+    <ListView
+        android:id="@+id/exam_lv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/colorBlueContent"
+        android:dividerHeight="1dp"
+        ></ListView>
+
+</LinearLayout>

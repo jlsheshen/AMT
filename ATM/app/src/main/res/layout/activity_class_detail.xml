@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/class_aty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="71px"></FrameLayout>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@mipmap/navibar" />
+
+        <RadioGroup style="@style/SizeBarStyle">
+
+            <RadioButton
+                android:id="@+id/class_emphasis_iv"
+                style="@style/SizeBarButtonStyle"
+                android:checked="true"
+                android:drawableTop="@drawable/selector_class_detail_emphasis" />
+
+            <RadioButton
+                android:id="@+id/class_example_iv"
+                style="@style/SizeBarButtonStyle"
+                android:drawableTop="@drawable/selector_class_detail_example" />
+
+            <RadioButton
+                android:id="@+id/class_exercise_iv"
+                style="@style/SizeBarButtonStyle"
+                android:drawableTop="@drawable/selector_class_detail_exercise" />
+
+            <RadioButton
+                android:id="@+id/class_review_iv"
+                style="@style/SizeBarButtonStyle"
+                android:drawableTop="@drawable/selector_class_detail_review"
+                android:onClick="stopvideo"
+                android:enabled="false"
+                android:clickable="false"
+                />
+        </RadioGroup>
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/main_aty_title_layout"
+        style="@style/TitleBarStyle"
+        android:layout_marginLeft="100px"
+        android:paddingLeft="10px">
+
+        <ImageView
+            android:id="@+id/class_aty_back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_fanhui_n"
+
+            />
+
+        <TextView
+            android:id="@+id/class_id_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="第一节 会计要素"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/title_text_size" />
+
+        <ImageView
+            android:id="@+id/class_aty_history_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_zhangjieliebiao_n"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View
+        style="@style/HorizontalLine"
+        android:layout_marginLeft="100px"
+        android:layout_marginRight="10px"
+        android:layout_marginTop="70px" />
+
+
+</RelativeLayout>

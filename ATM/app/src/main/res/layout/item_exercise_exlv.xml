@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="80px"
+    style="@style/FragmentPadding"
+    >
+    <ImageView
+        android:id="@+id/item_exercise_head_iv"
+        android:layout_width="60px"
+        android:layout_height="60px"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/touxiangexam"
+        android:layout_marginTop="10px"
+
+        />
+
+    <LinearLayout
+        android:id="@+id/item_exercise_above_ly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/item_exercise_head_iv"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15px"
+        android:layout_marginTop="10px"
+        >
+
+        <TextView
+            android:id="@+id/item_exercise_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            />
+
+        <TextView
+            android:id="@+id/item_exercise_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            android:layout_marginLeft="15px"
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/item_exercise_below_ly"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_exercise_above_ly"
+        android:layout_toRightOf="@id/item_exercise_head_iv"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15px"
+
+
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_text_size"
+            android:drawableLeft="@mipmap/icon_shitishu_n"
+            android:text="@string/test_number"
+
+            />
+        <TextView
+            android:id="@+id/item_exercise_testnum_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_text_size"
+             />
+
+
+    </LinearLayout>
+
+    <ImageView
+
+        android:id="@+id/item_exercise_type_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/selector_exam_type"
+        android:layout_centerVertical="true"
+        />
+    <ProgressBar
+        android:id="@+id/item_exercise_type_pb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        />
+
+</RelativeLayout>

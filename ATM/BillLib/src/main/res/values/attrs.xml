@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ZoomableBillView">
+        <attr name="text_size" format="float" />
+        <attr name="scale_weight" format="float" />
+        <attr name="scroll_radio" format="float" />
+    </declare-styleable>
+
+</resources>
