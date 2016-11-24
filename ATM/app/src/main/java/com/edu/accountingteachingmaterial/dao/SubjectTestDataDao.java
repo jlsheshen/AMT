@@ -1,4 +1,4 @@
-package com.edu.testbill.data;
+package com.edu.accountingteachingmaterial.dao;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.util.Log;
 
+import com.edu.accountingteachingmaterial.bean.SubjectEntryDataDao;
+import com.edu.accountingteachingmaterial.bean.TestEntryData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
 import com.edu.library.util.ToastUtil;
@@ -175,7 +177,7 @@ public class SubjectTestDataDao extends BaseDataDao {
                 testData.setTestMode(testMode);
                 parseCursor(curs, testData);
                 // 初始化题目数据
-                subjectData = (SubjectBillData) SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).getData(testData.getSubjectId(), mDb);
+                subjectData = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).getData(testData.getSubjectId(), mDb);
                 testData.setSubjectData(subjectData);
                 // 初始化模板数据
                 BillTemplate template = BillTemplateFactory.createTemplate(mDb, ((SubjectBillData) subjectData).getTemplateId(), mContext);
@@ -190,6 +192,29 @@ public class SubjectTestDataDao extends BaseDataDao {
 
                 break;
             case SubjectType.SUBJECT_ENTRY:
+                testData = new TestEntryData();
+                testData.setTestMode(testMode);
+                parseCursor(curs, testData);
+//                isChild = false;
+//                indexChild++;
+                subjectData = (BaseSubjectData) SubjectEntryDataDao.getInstance(mContext).getDataById(Integer.valueOf(testData.getSubjectId().split(">>>")[0]));
+                testData.setSubjectData(subjectData);
+
+//                SubjectEntryData entryData = (SubjectEntryData) SubjectEntryDataDao.getInstance(mContext).getDataById(Integer.valueOf(testData.getSubjectId().split(">>>")[0]));
+//                if (entryData.getType() != 2) {
+//                    data.setTitle(entryData.getQuestion());
+//                    Log.e(TAG, "分录的问题" + entryData.getQuestion());
+//                    entryData.setSubjectIndex(index++);
+//                    entryData.setIndexName((indexChild) + "");
+//                    data.setData(entryData);
+//                } else if (entryData.getType() == 2) {// child
+//                    data.setTitle(entryData.getQuestion());
+//                    entryData.setIndexName((indexChild) + "-1");
+//                    entryData.setSubjectIndex(index++);
+//                    data.setData(entryData);
+//                    datas.addAll(setData(entryData.getChildren(), indexChild));
+//                    isChild = false;
+//                }
 
 
             case SubjectType.SUBJECT_SINGLE:
@@ -239,7 +264,7 @@ public class SubjectTestDataDao extends BaseDataDao {
         data.setId(curs.getInt(curs.getColumnIndex("ID")));
         data.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
         data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
-        data.setSubjectId(curs.getInt(curs.getColumnIndex(SUBJECT_ID)));
+        data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
         data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
         if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
             data.setuAnswer(null);
@@ -270,7 +295,7 @@ public class SubjectTestDataDao extends BaseDataDao {
         data.setId(curs.getInt(curs.getColumnIndex("ID")));
         data.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
         data.setSubjectType(curs.getColumnIndex(SUBJECT_TYPE));
-        data.setSubjectId(curs.getInt(curs.getColumnIndex(SUBJECT_ID)));
+        data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
         data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
         if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
             data.setuAnswer(null);

@@ -10,9 +10,7 @@ import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
-import com.edu.testbill.data.SubjectTestDataDao;
-
-import org.greenrobot.eventbus.EventBus;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;

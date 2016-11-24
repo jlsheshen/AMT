@@ -213,6 +213,7 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 		return mData.getuScore();
 	}
 
+
 	/**
 	 * 判断答案等操作
 	 * 

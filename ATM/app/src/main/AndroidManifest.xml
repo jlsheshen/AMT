@@ -15,9 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <!--android:name="com.edu.accountingteachingmaterial.activity.LaunchActivity"-->
+        <!--android:name="com.edu.accountingteachingmaterial.util.UnitTestActivity"-->
 
         <activity
-            android:name="com.edu.accountingteachingmaterial.util.UnitTestActivity"
+        android:name="com.edu.accountingteachingmaterial.activity.LaunchActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
             <intent-filter>

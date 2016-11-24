@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
@@ -17,8 +19,11 @@ import com.edu.accountingteachingmaterial.entity.ChapterData;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.library.util.ToastUtil;
+import com.google.gson.reflect.TypeToken;
 import com.lucher.net.req.RequestMethod;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,6 +64,25 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         bindAndListener(tvShort, R.id.short_tv);
         bindAndListener(tvComprehensive, R.id.comprehensive_tv);
         bindAndListener(btnStart, R.id.btn_start);
+
+        Type type = new TypeToken<ArrayList<HomepageInformationData>>(){}.getType();
+        SingleRequestQueue.getInstance().addArrayRequest(NetUrlContstant.homeInfoUrl + "5926", type,
+                new Response.Listener<ArrayList<HomepageInformationData>>() {
+
+                    @Override
+                    public void onResponse(ArrayList<HomepageInformationData> response) {
+                        ToastUtil.showToast(UnitTestActivity.this, "" + response + response.get(0).getId() + response.get(0).getTitle());
+                        Log.d("UnitTestActivity", "uploadHomepageInfo" + "success" + response);
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                },"");
 //        uploadHomepageInfo();
 //        uploadChapter();
 //        uploadChapterList();

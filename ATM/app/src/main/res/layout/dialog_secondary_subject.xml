@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300px"
+    android:layout_height="415px"
+    android:background="@mipmap/subject_second">
+
+    <!--<TextView-->
+        <!--android:id="@+id/tv_title"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:background="@color/white"-->
+        <!--android:gravity="center"-->
+        <!--android:padding="10dp"-->
+        <!--android:text="二级科目"-->
+        <!--android:textColor="#252525"-->
+        <!--android:textSize="23sp" />-->
+
+    <!--<View-->
+        <!--android:id="@+id/iv_split"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@+id/tv_title" />-->
+
+    <ListView
+        android:id="@+id/lv_subjects"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50px"
+        android:layout_marginLeft="-10dp"
+        android:cacheColorHint="@android:color/transparent" />
+
+</RelativeLayout>

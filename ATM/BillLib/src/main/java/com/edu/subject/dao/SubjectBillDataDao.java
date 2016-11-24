@@ -57,7 +57,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 	 * @param db
 	 * @return
 	 */
-	public SubjectBillData getData(int id, SQLiteDatabase db) {
+	public SubjectBillData getData(String id, SQLiteDatabase db) {
 		SubjectBillData data = null;
 		Cursor curs = null;
 		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;
@@ -86,7 +86,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 	 * @param mDb
 	 * @return
 	 */
-	public List<SubjectBillData> getDatas(int id, SQLiteDatabase db) {
+	public List<SubjectBillData> getDatas(String id, SQLiteDatabase db) {
 		List<SubjectBillData> datas = null;
 		Cursor curs = null;
 		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + id;

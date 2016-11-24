@@ -24,7 +24,7 @@ public abstract class BaseTestData extends BaseData implements IbaseTestData {
      */
     protected int subjectType;
     // 题目id
-    protected int subjectId;
+    protected String subjectId;
     // 用户答案
     protected String uAnswer;
     // 用户得分
@@ -89,11 +89,11 @@ public abstract class BaseTestData extends BaseData implements IbaseTestData {
         this.subjectType = subjectType;
     }
 
-    public int getSubjectId() {
+    public String getSubjectId() {
         return subjectId;
     }
 
-    public void setSubjectId(int subjectId) {
+    public void setSubjectId(String subjectId) {
         this.subjectId = subjectId;
     }
 

@@ -23,7 +23,7 @@ import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.SignData;
 import com.edu.testbill.Constant;
-import com.edu.testbill.data.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.testbill.dialog.SignChooseDialog;
 
 import org.greenrobot.eventbus.EventBus;

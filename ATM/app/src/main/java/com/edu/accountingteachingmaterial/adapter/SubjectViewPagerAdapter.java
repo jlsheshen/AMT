@@ -17,7 +17,7 @@ import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.SignData;
 import com.edu.subject.data.TestBillData;
 import com.edu.subject.data.TestGroupBillData;
-import com.edu.testbill.data.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 
 import java.util.ArrayList;
 import java.util.List;

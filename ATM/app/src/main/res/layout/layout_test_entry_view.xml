@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_entry_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_borrow_loan_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_add_or_rmovegroup"
+                android:layout_width="32px"
+                android:layout_height="32px"
+                android:layout_marginLeft="150px"
+                android:background="@mipmap/jiayizu"
+                android:focusable="false" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_marginLeft="10px"
+                android:layout_marginRight="150px"
+                android:layout_marginTop="15px"
+                android:layout_toRightOf="@+id/btn_add_or_rmovegroup"
+                android:background="@color/colorGray" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/divide_line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginLeft="15px"
+            android:layout_marginRight="15px"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20px">
+
+            <ImageView
+                android:id="@+id/iv_result_state"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_correct_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="5px"
+                android:layout_toRightOf="@+id/iv_result_state"
+                android:lineSpacingExtra="10px"
+                android:textSize="16sp"
+                android:visibility="gone" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</RelativeLayout>

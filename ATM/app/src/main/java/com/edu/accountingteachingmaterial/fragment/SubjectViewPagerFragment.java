@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.subject.view.FenLuContentView;
 import com.edu.accountingteachingmaterial.subject.view.SubjectJudgeView;
 import com.edu.accountingteachingmaterial.subject.view.SubjectMultiSelectView;
 import com.edu.accountingteachingmaterial.subject.view.SubjectSingleSelectView;
@@ -69,6 +70,10 @@ public class SubjectViewPagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
         EventBus.getDefault().post("1");
+        if (mData.getSubjectType()==SubjectType.SUBJECT_ENTRY||mData.getSubjectType()==SubjectType.SUBJECT_GROUP_BILL) {
+            int a = 1;
+        }
+        Log.d(TAG, "mData.getSubjectId()" + mData.getSubjectId());
         switch (mData.getSubjectType()) {
             case SubjectType.SUBJECT_BILL:
                 mView = new BillView(mContext, (TestBillData) mData);
@@ -77,7 +82,6 @@ public class SubjectViewPagerFragment extends Fragment {
 
             case SubjectType.SUBJECT_GROUP_BILL:
                 mView = new GroupBillView(mContext, (TestGroupBillData) mData);
-
                 break;
 
             case SubjectType.SUBJECT_SINGLE:
@@ -89,6 +93,9 @@ public class SubjectViewPagerFragment extends Fragment {
                 break;
             case SubjectType.SUBJECT_MULTI:
                 mView = new SubjectMultiSelectView(mContext, mData,ClassContstant.TEST_MODE_NORMAL);
+                break;
+            case SubjectType.SUBJECT_ENTRY:
+                mView = new FenLuContentView(mContext,mData,ClassContstant.TEST_MODE_NORMAL);
                 break;
             default:
                 break;
@@ -123,14 +130,12 @@ public class SubjectViewPagerFragment extends Fragment {
      */
     private void delayLoad() {
         if (!prepared) {
-            Log.e(TAG, "~~~delayLoad , prepared false");
             return;
         }
         int delay = 0;
         if (mData.getSubjectType() == SubjectType.SUBJECT_BILL || mData.getSubjectType() == SubjectType.SUBJECT_GROUP_BILL) {
             delay = 300;
         }
-        Log.i(TAG, "~~~delayLoad:" + delay);
         mView.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -143,7 +148,6 @@ public class SubjectViewPagerFragment extends Fragment {
      * fragment可见时回调
      */
     private void onVisible() {
-        Log.d(TAG, "~~~onVisible:" + mData.getId() + "," + mData.getSubjectData().getQuestion());
         if (mData.getSubjectType() == SubjectType.SUBJECT_BILL) {
             ((BillView) subjectView).onVisible();
         } else if (mData.getSubjectType() == SubjectType.SUBJECT_GROUP_BILL) {

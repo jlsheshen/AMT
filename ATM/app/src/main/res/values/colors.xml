@@ -9,4 +9,5 @@
     <color name="colorNodeListItem">#ffc805</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorGray">#a0a5aa</color>
 </resources>

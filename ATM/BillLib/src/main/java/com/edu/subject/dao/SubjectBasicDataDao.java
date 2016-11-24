@@ -53,7 +53,7 @@ public class SubjectBasicDataDao extends BaseDataDao {
 		return instance;
 	}
 
-	public SubjectBasicData getData(int subjectId, SQLiteDatabase db) {
+	public SubjectBasicData getData(String subjectId, SQLiteDatabase db) {
 		SubjectBasicData data = null;
 		Cursor curs = null;
 		String sql = "SELECT * FROM " + TABLE_NAME + " WHERE ID = " + subjectId;

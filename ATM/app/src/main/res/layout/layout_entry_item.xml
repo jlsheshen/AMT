@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/btn_rmovegroup"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        android:background="@mipmap/jiayizu"
+        android:focusable="false"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/tv_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/colorGray"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_primary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/entry_item_subject_correct"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="一级科目"
+        android:textColor="@color/colorGray"
+        android:textSize="24sp" />
+
+
+    <View
+        android:layout_width="30px"
+        android:layout_height="1px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@color/colorGray" />
+
+    <TextView
+        android:id="@+id/tv_secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/entry_item_subject_correct"
+        android:focusable="false"
+        android:gravity="center"
+        android:hint="二级科目"
+        android:textColor="@color/colorGray"
+        android:textSize="24sp" />
+
+
+    <View
+        android:layout_width="30px"
+        android:layout_height="1px"
+        android:layout_marginLeft="15px"
+        android:layout_marginRight="15px"
+        android:background="@color/colorGray" />
+
+    <EditText
+        android:id="@+id/et_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/entry_item_subject_correct"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:hint="输入金额"
+        android:singleLine="true"
+        android:textColor="@color/colorGray"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btn_add_or_remove"
+        android:layout_width="32px"
+        android:layout_height="32px"
+        android:layout_marginLeft="15px"
+        android:background="@mipmap/daijia"
+        android:focusable="false"
+        android:gravity="center" />
+
+</LinearLayout>

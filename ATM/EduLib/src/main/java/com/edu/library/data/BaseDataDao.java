@@ -132,7 +132,7 @@ public abstract class BaseDataDao {
 	 * @param id
 	 * @param values
 	 */
-	public synchronized void updateData(long id, ContentValues values) {
+	public synchronized void updateData(String id, ContentValues values) {
 		try {
 			Log.d(TAG, TABLE_NAME + "-updateData:" + id);
 			DBHelper helper = new DBHelper(mContext, dbName, null);

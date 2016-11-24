@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400px"
+    android:layout_height="423px"
+    android:background="@mipmap/subject_first">
+
+    <!--<TextView-->
+    <!--android:id="@+id/tv_title"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:gravity="center"-->
+    <!--android:padding="10dp"-->
+    <!--android:text="一级科目"-->
+    <!--android:textColor="#252525"-->
+    <!--android:textSize="23sp" />-->
+
+    <!--<View-->
+    <!--android:id="@+id/iv_split"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="1dp"-->
+    <!--android:layout_below="@+id/tv_title"-->
+    <!--android:background="@color/trans_parent" />-->
+
+    <LinearLayout
+        android:id="@+id/rl_range_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50px"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:id="@+id/rg_subjects"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"></RadioGroup>
+
+        <View
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:background="#D1CCC6" />
+
+        <ListView
+            android:id="@+id/lv_subjects"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:cacheColorHint="@android:color/transparent" />
+    </LinearLayout>
+
+</RelativeLayout>
