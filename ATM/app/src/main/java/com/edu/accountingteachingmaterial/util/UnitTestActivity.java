@@ -59,8 +59,9 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         bindAndListener(tvShort, R.id.short_tv);
         bindAndListener(tvComprehensive, R.id.comprehensive_tv);
         bindAndListener(btnStart, R.id.btn_start);
-
-
+//        uploadHomepageInfo();
+//        uploadChapter();
+//        uploadChapterList();
     }
 
     @Override
@@ -101,7 +102,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 if (jsonObject.getString("success").equals("true")) {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
                     ToastUtil.showToast(UnitTestActivity.this, "" + hData + hData.get(0).getId() + hData.get(0).getTitle());
-                    Log.d("UnitTestActivity", "uploadHomepageInfo" + "success");
+                    Log.d("UnitTestActivity", "uploadHomepageInfo" + "success" + hData);
                 }
             }
 
@@ -121,7 +122,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 if (jsonObject.getString("success").equals("true")) {
                     List<ChapterData> chapterData = JSON.parseArray(jsonObject.getString("message"), ChapterData.class);
                     ToastUtil.showToast(UnitTestActivity.this, "" + chapterData + chapterData.get(0).getTitle() + chapterData.get(1).getTitle());
-                    Log.d("UnitTestActivity", "uploadChapter" + "success");
+                    Log.d("UnitTestActivity", "uploadChapter" + "success" + chapterData);
                 }
             }
 
@@ -141,7 +142,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 if (jsonObject.getString("success").equals("true")) {
                     List<ExamListData> examListData = JSON.parseArray(jsonObject.getString("message"), ExamListData.class);
                     ToastUtil.showToast(UnitTestActivity.this, "" + examListData.get(0).getExam_name());
-                    Log.d("UnitTestActivity", "uploadChapterList" + "success");
+                    Log.d("UnitTestActivity", "uploadChapterList" + "success" + examListData);
                 }
             }
 

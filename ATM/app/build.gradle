@@ -31,4 +31,5 @@ dependencies {
     compile project(':BillLib')
     compile project(':EduLib')
     compile 'org.greenrobot:eventbus:3.0.0'
+
 }
