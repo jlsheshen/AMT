@@ -136,7 +136,7 @@ public class SubjectTestDataDao extends BaseDataDao {
         int subjectType = curs.getInt(curs.getColumnIndex(SUBJECT_TYPE));
         Log.d(TAG, "subjectType:" + subjectType);
 
-        if (subjectType == 5) {
+        if (subjectType == 9) {
             Log.d(TAG, "subjectType:" + subjectType);
         }
 
@@ -294,7 +294,7 @@ public class SubjectTestDataDao extends BaseDataDao {
     public void parseCursor(Cursor curs, BaseTestData data, int index) {
         data.setId(curs.getInt(curs.getColumnIndex("ID")));
         data.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
-        data.setSubjectType(curs.getColumnIndex(SUBJECT_TYPE));
+        data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
         data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
         data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
         if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据

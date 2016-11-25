@@ -73,7 +73,7 @@ public class SubjectViewPagerFragment extends Fragment {
         if (mData.getSubjectType()==SubjectType.SUBJECT_ENTRY||mData.getSubjectType()==SubjectType.SUBJECT_GROUP_BILL) {
             int a = 1;
         }
-        Log.d(TAG, "mData.getSubjectId()" + mData.getSubjectId());
+        Log.d(TAG, "mData.getSubjectId()" + mData.getSubjectId() + "---" + mData.getSubjectType());
         switch (mData.getSubjectType()) {
             case SubjectType.SUBJECT_BILL:
                 mView = new BillView(mContext, (TestBillData) mData);

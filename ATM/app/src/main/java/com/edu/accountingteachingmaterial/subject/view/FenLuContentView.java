@@ -128,7 +128,6 @@ public class FenLuContentView extends RelativeLayout implements OnClickListener,
                         int dy = endY - startY;
 //                       ViewGroup.LayoutParams layoutParams =  viewPager2.getLayoutParams();
 //                        layoutParams.height =view.getBottom() + dy;
-
                         // 更新左上右下距离
 //                        int l = view.getLeft() + dx;
 //                        int r = view.getRight() + dx;
@@ -138,7 +137,6 @@ public class FenLuContentView extends RelativeLayout implements OnClickListener,
 //                        if (l < 0 || r > winWidth || t < 0 || b > winHeight - 20) {
 //                            break;
 //                        }
-
                         // 更新界面
                         //  view.layout(view.getLeft(), t, view.getRight(), b);
                         //                    viewPager2.setTop( view.getBottom() + dy);
@@ -148,7 +146,6 @@ public class FenLuContentView extends RelativeLayout implements OnClickListener,
 //                        Log.d("MyFragment", "getMaxScrollAmount: " + backgroundSv.getChildAt(0).getMeasuredHeight());
                         Log.d("MyFragment", "backgroundSv.getHeight(): " + backgroundSv.getHeight());
 //                        Log.d("MyFragment", "dy " + dy);
-
                         if (backgroundSv.getScrollY() + backgroundSv.getHeight() >= backgroundSv.getChildAt(0).getMeasuredHeight()) {
                             backgroundSv.scrollTo(0, backgroundSv.getChildAt(0).getMeasuredHeight() - backgroundSv.getHeight());
                         }
