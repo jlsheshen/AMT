@@ -215,6 +215,7 @@ public class SubjectTestDataDao extends BaseDataDao {
 //                    datas.addAll(setData(entryData.getChildren(), indexChild));
 //                    isChild = false;
 //                }
+                break;
 
 
             case SubjectType.SUBJECT_SINGLE:
