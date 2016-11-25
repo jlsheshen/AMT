@@ -1,11 +1,13 @@
 package com.edu.accountingteachingmaterial.entity;
 
+import com.edu.library.data.BaseData;
+
 /**
  * Created by Administrator on 2016/11/21.
  * 首页课程信息
  */
 
-public class HomepageInformationData {
+public class HomepageInformationData extends BaseData {
     /**
      * course_id : 111
      * create_date : 2016-11-21 10:38:55

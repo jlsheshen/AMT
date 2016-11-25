@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.subject.view;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -21,6 +22,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.EntryViewAdapter;
 import com.edu.accountingteachingmaterial.bean.BillDataModel;
 import com.edu.accountingteachingmaterial.bean.SubjectEntryData;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.view.ViewPagerParent;
 import com.edu.library.util.ToastUtil;
@@ -396,7 +398,10 @@ public class FenLuContentView extends RelativeLayout implements OnClickListener,
         mTestData.setState(rightStatic);
 
         mTestData.setuScore(userTotalScore);
-
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(SubjectTestDataDao.USCORE,mTestData.getuScore());
+        contentValues.put(SubjectTestDataDao.STATE,rightStatic);
+        SubjectTestDataDao.getInstance(mContext).updateData(String.valueOf(mTestData.getId()),contentValues);
        // TestDataModel.getInstance(mContext).updateState(Integer.valueOf(mTestData.getId()), rightStatic, userTotalScore);
 
         btnFinish.setVisibility(View.GONE);
@@ -415,7 +420,7 @@ public class FenLuContentView extends RelativeLayout implements OnClickListener,
 
     @Override
     public float submit() {
-        return 0;
+        return mTestData.getuScore();
     }
 
     @Override

@@ -9,13 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.bean.ClassChapterBean;
+import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
 public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
-	List<ClassChapterBean> datas;
+	List<ClassChapterData> datas;
 	Context context;
 
 	public ClassChapterExLvAdapter(Context context) {
@@ -23,8 +23,9 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 		this.context = context;
 	}
 
-	public void setDatas(List<ClassChapterBean> datas) {
+	public void setDatas(List<ClassChapterData> datas) {
 		this.datas = datas;
+		notifyDataSetChanged();
 	}
 
 	@Override
@@ -38,7 +39,7 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 		
 		
 		// TODO Auto-generated method stub
-		return datas.get(groupPosition).getNodes() == null? 0 : datas.get(groupPosition).getNodes().size();
+		return datas.get(groupPosition).getSubChapters() == null? 0 : datas.get(groupPosition).getSubChapters().size();
 	}
 
 	@Override
@@ -51,7 +52,7 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
 		// TODO Auto-generated method stub
-		return datas.get(groupPosition).getNodes().get(childPosition).getTitle();
+		return datas.get(groupPosition).getSubChapters().get(childPosition).getTitle();
 	}
 
 	@Override
@@ -80,7 +81,7 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 		TextView titlyTv = (TextView) convertView.findViewById(R.id.item_classchapter_tv);
 		titlyTv.setText(datas.get(groupPosition).getTitle());
 		TextView titleNum = (TextView) convertView.findViewById(R.id.item_classchapter_num_tv);
-		titleNum.setText(datas.get(groupPosition).getChapterNum());
+		titleNum.setText("第" + groupPosition + "章");
 		ImageView imageView = (ImageView) convertView.findViewById(R.id.item_classchapter_iv);
 		//箭头随着子列的展开而变化
 		if (isExpanded){
@@ -95,9 +96,9 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 		convertView = LayoutInflater.from(context).inflate(R.layout.item_main_classnode_exlv, parent,false);
 		AutoUtils.autoSize(convertView);
 		TextView textView = (TextView) convertView.findViewById(R.id.item_classnode_tv);
-		textView.setText(datas.get(groupPosition).getNodes().get(childPosition).getTitle());
+		textView.setText(datas.get(groupPosition).getSubChapters().get(childPosition).getTitle());
 		TextView num = (TextView) convertView.findViewById(R.id.item_classnode_num_tv);
-		num.setText(datas.get(groupPosition).getNodes().get(childPosition).getNodeNum());
+		num.setText("第" + groupPosition + "节");
 		return convertView;
 	}
 

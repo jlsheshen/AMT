@@ -5,6 +5,13 @@
     android:background="@mipmap/startstudy_bg"
     >
 
+    <ProgressBar
+        android:id="@+id/startstudy_aty_pb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
+
     <ImageView
         android:id="@+id/activity_startstudy_iv"
         android:layout_width="wrap_content"
@@ -13,6 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="50px"
+        android:visibility="gone"
         />
 
 </RelativeLayout>

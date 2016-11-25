@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     DrawerLayout drawerLayout;
     LinearLayout changeIpLy;
 
+
     @Override
     public int setLayout() {
         // TODO Auto-generated method stub

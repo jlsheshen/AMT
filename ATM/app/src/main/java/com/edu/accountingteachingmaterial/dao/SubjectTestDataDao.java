@@ -199,6 +199,7 @@ public class SubjectTestDataDao extends BaseDataDao {
 //                indexChild++;
                 subjectData = (BaseSubjectData) SubjectEntryDataDao.getInstance(mContext).getDataById(Integer.valueOf(testData.getSubjectId().split(">>>")[0]));
                 testData.setSubjectData(subjectData);
+                int a = 0;
 
 //                SubjectEntryData entryData = (SubjectEntryData) SubjectEntryDataDao.getInstance(mContext).getDataById(Integer.valueOf(testData.getSubjectId().split(">>>")[0]));
 //                if (entryData.getType() != 2) {

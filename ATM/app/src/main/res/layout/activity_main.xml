@@ -7,6 +7,8 @@
     android:orientation="horizontal"
     tools:context="${relativePackage}.${activityClass}">
 
+
+
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,8 +54,8 @@
         </RadioGroup>
         </FrameLayout>
 
-
     </com.zhy.autolayout.AutoRelativeLayout>
+
 
     <include layout="@layout/include_setting_drawlayout" />
 

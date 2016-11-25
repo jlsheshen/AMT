@@ -12,6 +12,18 @@ import android.content.SharedPreferences.Editor;
  */
 public class PreferenceHelper {
 	/**
+	 * 用户id
+	 *
+	 */
+	public  static final String USER_ID = "USER_ID";
+	/**
+	 * 课程id
+	 *
+	 */
+	public  static final String COURSE_ID = "COURSE_ID";
+
+
+	/**
 	 * 保存记录是否第一次进入某个页面的key
 	 */
 	private static final String PREFERENCE_ISFIRSTTIME_KEY = "is_first_time";

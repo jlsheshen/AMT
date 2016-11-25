@@ -17,6 +17,6 @@ public class TestEntryData extends BaseTestData {
 
     @Override
     public void setSubjectData(BaseSubjectData subjectData) {
-
+        this.subjectData = (SubjectEntryData) subjectData;
     }
 }
