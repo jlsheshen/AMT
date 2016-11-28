@@ -12,7 +12,6 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
 import com.edu.accountingteachingmaterial.adapter.ClassChapterExLvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
-import com.edu.accountingteachingmaterial.bean.ClassChapterBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -26,7 +25,7 @@ import java.util.List;
 public class ClassFragment  extends BaseFragment{
 
 	ExpandableListView expandableListView;
-	List<ClassChapterBean> datas;
+	List<ClassChapterData> datas;
 	ClassChapterExLvAdapter chapterExLvAdapter;
 //	List<ChapterData> chapterData;
 	@Override
@@ -51,7 +50,7 @@ public class ClassFragment  extends BaseFragment{
 		expandableListView.setOnChildClickListener(new OnChildClickListener() {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-				String id1 = datas.get(groupPosition).getNodes().get(childPosition).getNodeId();
+				String id1 = String.valueOf(datas.get(groupPosition).getSubChapters().get(childPosition).getId());
 				Log.e("www", id1);
 				startActivity(ClassDetailActivity.class);
 				// TODO Auto-generated method stub
@@ -65,6 +64,7 @@ public class ClassFragment  extends BaseFragment{
                 for (int i = 0, count = expandableListView .getExpandableListAdapter().getGroupCount(); i < count; i++) {
                     if (groupPosition != i) {// 关闭其他分组
                     	expandableListView.collapseGroup(i);
+
                     }
                 }
             }
@@ -103,9 +103,9 @@ public class ClassFragment  extends BaseFragment{
 			@Override
 			public void onSuccess(JSONObject jsonObject) {
 				if (jsonObject.getString("success").equals("true")) {
-					List<ClassChapterData> chapterData = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
-					Log.d("UnitTestActivity", "uploadChapter" + "success" + chapterData);
-					chapterExLvAdapter.setDatas(chapterData);
+					datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
+					Log.d("UnitTestActivity", "uploadChapter" + "success" + datas);
+					chapterExLvAdapter.setDatas(datas);
 				}
 			}
 
