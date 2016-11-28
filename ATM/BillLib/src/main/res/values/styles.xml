@@ -9,10 +9,10 @@
     </style>
     <!-- 选项单项按钮样式 -->
     <style name="rb_option_style">
-        <item name="android:paddingBottom">10dp</item>
+        <item name="android:paddingBottom">10px</item>
         <item name="android:textColor">@drawable/rb_selector_subject_text_color</item>
         <item name="android:button">@null</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingTop">10px</item>
         <item name="android:focusable">true</item>
     </style>
 

@@ -110,7 +110,7 @@ public class LaunchActivity extends BaseActivity{
 		}).start();
 		uploadHomepageInfo();
 
-		
+
 	}
 
 	/**
