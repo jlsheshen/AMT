@@ -114,7 +114,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         if (mCurrentIndex < 0 || mCurrentIndex > mSubjectAdapter.getCount() - 1)
             return;
         BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
-        ;
         // 刷新题目数据
         tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {

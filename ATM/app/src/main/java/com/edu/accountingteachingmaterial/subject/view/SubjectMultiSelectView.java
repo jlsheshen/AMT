@@ -99,7 +99,7 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
 
         tvAnalysis = (TextView) this.findViewById(R.id.tv_analysis);
 
-//        tvQestion.setText(data.getQuestion());
+        tvQestion.setText(data.getQuestion());
 
         String[] options = data.getOption().split(">>>");// 选项
         String[] rightAns = data.getAnswer().split(">>>");// 正确答案

@@ -76,7 +76,7 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
         layout = (RelativeLayout) this.findViewById(R.id.layout_parent);
         layout.setOnClickListener(this);
         tvQestion = (TextView) this.findViewById(R.id.tv_question);
-//        tvQestion.setText( data.getQuestion());
+        tvQestion.setText( data.getQuestion());
         tvAnswer = (TextView) this.findViewById(R.id.tv_answer);
         tvSubjectType = (TextView) this.findViewById(R.id.tv_subject_type);
         tvSubjectType.setOnClickListener(this);
