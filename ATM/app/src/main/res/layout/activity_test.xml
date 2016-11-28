@@ -105,6 +105,7 @@
             android:onClick="onClick"
             android:text="left" />
 
+
         <Button
             android:id="@+id/btnRight"
             android:layout_width="wrap_content"
