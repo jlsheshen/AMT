@@ -3,145 +3,64 @@
     android:id="@+id/layout_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
-    android:paddingLeft="15px"
-    android:paddingRight="10px"
-    android:paddingTop="10px">
+    android:paddingLeft="15dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
 
-    <LinearLayout
-        android:id="@+id/rl_top"
+    <TextView
+        android:id="@+id/tv_subject_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="25px"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@mipmap/icon_duoxuan_n" />
-
-        <TextView
-            android:id="@+id/tv_subject_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
-            android:gravity="center_vertical"
-            android:text="多选 - 2"
-            android:textColor="@color/black"
-            android:textSize="@dimen/item_title_text_size" />
-
-        <TextView
-            android:id="@+id/tv_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="15px"
-            android:text="(2分)"
-            android:textColor="@color/black"
-            android:textSize="@dimen/item_title_text_size" />
-
-        <TextView
-            android:id="@+id/user_score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
-            android:background="@mipmap/bg_score"
-            android:paddingLeft="15px"
-            android:text="2分"
-            android:textColor="@color/red"
-            android:textSize="@dimen/item_title_text_size"
-            android:visibility="gone" />
-
-
-    </LinearLayout>
-
+        android:background="@drawable/bg_error_count"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="多选题"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_size_small"
+        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/sl_option"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_top"
-        android:scrollbars="vertical">
+        android:layout_below="@+id/tv_subject_type"
+        android:layout_marginTop="-15dp"
+        android:scrollbars="vertical" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_question"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25px"
-                android:singleLine="false"
-                android:textColor="@color/colorBlueBackground"
-                android:textSize="@dimen/item_title_text_size" />
+            android:layout_height="wrap_content" >
 
             <LinearLayout
                 android:id="@+id/ll_option_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_question"
-                android:orientation="vertical" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@+id/ll_option_content"
-                android:layout_marginLeft="25px"
-                android:layout_marginRight="25px"
-                android:layout_marginTop="10px"
-                android:background="@color/colorBlueBar"
-                android:visibility="gone" />
+                android:orientation="vertical"
+                android:paddingRight="10dp" >
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/view"
-                android:layout_marginTop="15px"
-                android:paddingLeft="25px"
+                android:layout_below="@+id/ll_option_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="120dp"
                 android:textColor="@android:color/holo_red_dark"
-                android:textSize="@dimen/item_title_text_size"
+                android:textSize="@dimen/txt_size_half_medium"
                 android:visibility="gone" />
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tv_analysis"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_answer"
-                android:layout_marginTop="10px"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/img_jiexi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:paddingLeft="25px"
-                    android:src="@mipmap/icon_jiexi_n" />
-
-                <TextView
-                    android:id="@+id/tv_analysi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10px"
-                    android:layout_toRightOf="@+id/img_jiexi"
-                    android:text="解析："
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/item_title_text_size" />
-
-                <TextView
-                    android:id="@+id/tv_analysis"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_analysi"
-                    android:layout_marginLeft="10px"
-                    android:layout_toRightOf="@+id/img_jiexi"
-                    android:textColor="@color/colorLightGray"
-                    android:textSize="@dimen/item_title_text_size"
-                    android:visibility="gone" />
-            </RelativeLayout>
+                android:layout_marginTop="10dp"
+                android:paddingLeft="120dp"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/txt_size_half_medium"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/btn_submit"
@@ -159,13 +78,17 @@
         </RelativeLayout>
     </ScrollView>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@mipmap/bg_test_right"
-        android:focusable="false"
-        android:onClick="onClick" />
+    <!-- <Button -->
+    <!-- android:id="@+id/btn_submit" -->
+    <!-- android:layout_width="320dp" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_below="@+id/sl_option" -->
+    <!-- android:layout_centerHorizontal="true" -->
+    <!-- android:layout_marginBottom="60dp" -->
+    <!-- android:layout_marginTop="20dp" -->
+    <!-- android:text="确定" -->
+    <!-- android:textColor="@color/white" -->
+    <!-- android:textSize="@dimen/txt_size_half_medium" -->
+    <!-- android:visibility="visible" /> -->
 
 </RelativeLayout>

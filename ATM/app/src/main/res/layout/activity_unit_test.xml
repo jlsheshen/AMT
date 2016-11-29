@@ -5,16 +5,15 @@
 
     <RelativeLayout
         android:id="@+id/main_aty_title_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@mipmap/navibar_top">
+        style="@style/TitleBarStyle"
+        android:background="@color/blue">
 
         <ImageView
             android:id="@+id/class_aty_back_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="25px"
+            android:layout_marginLeft="15px"
             android:src="@mipmap/icon_fanhui_n" />
 
         <TextView
@@ -44,10 +43,9 @@
                 android:id="@+id/class_id_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25px"
-                android:layout_marginTop="10px"
+                android:padding="15px"
                 android:text="会计凭证随堂练习"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/red"
                 android:textSize="@dimen/title_text_size" />
 
             <LinearLayout
@@ -55,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/class_id_title_tv"
-                android:layout_marginLeft="25px"
+                android:layout_marginLeft="15px"
                 android:layout_marginTop="10px"
                 android:orientation="horizontal">
 
@@ -63,25 +61,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="发布人："
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/content_text_size" />
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/item_text_size" />
 
                 <TextView
                     android:id="@+id/publisher_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5px"
+                    android:layout_marginLeft="15px"
                     android:text="李有才"
-                    android:textColor="@color/colorBlueBackground"
-                    android:textSize="@dimen/content_text_size" />
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/item_text_size" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15px"
                     android:text="发布时间："
-                    android:textColor="@color/colorGray"
-                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/gray"
+                    android:textSize="@dimen/item_text_size"
 
                     />
 
@@ -89,10 +87,10 @@
                     android:id="@+id/release_time_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5px"
+                    android:layout_marginLeft="15px"
                     android:text="2016-11-11 11:11"
-                    android:textColor="@color/colorBlueBackground"
-                    android:textSize="@dimen/content_text_size" />
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/item_text_size" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -106,58 +104,41 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/img_show">
 
-                <LinearLayout
-                    android:id="@+id/ly_score"
+                <TextView
+                    android:id="@+id/score_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="10px"
-                    android:background="@mipmap/bg_score"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/score_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15px"
-                        android:gravity="center"
-                        android:text="91"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/title_text_size" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="分"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/content_text_size" />
-                </LinearLayout>
-
+                    android:padding="15px"
+                    android:text="91分"
+                    android:textColor="@color/red"
+                    android:textSize="@dimen/title_text_size" />
 
                 <LinearLayout
                     android:id="@+id/item_submitting_ly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/ly_score"
+                    android:layout_below="@+id/score_tv"
+                    android:layout_marginLeft="15px"
+                    android:layout_marginTop="10px"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="交卷时间："
-                        android:textColor="@color/colorGray"
-                        android:textSize="@dimen/content_text_size" />
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/item_title_text_size" />
 
                     <TextView
                         android:id="@+id/submitting_time_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5px"
+                        android:layout_marginLeft="15px"
                         android:text="2016-11-11 11:11"
-                        android:textColor="@color/colorBlueBackground"
-                        android:textSize="@dimen/content_text_size" />
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/item_title_text_size" />
 
                 </LinearLayout>
 
@@ -167,6 +148,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/item_submitting_ly"
+                    android:layout_marginLeft="15px"
+                    android:layout_marginTop="10px"
                     android:orientation="horizontal">
 
                     <TextView
@@ -174,27 +157,27 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15px"
                         android:text="答题时间："
-                        android:textColor="@color/colorGray"
-                        android:textSize="@dimen/content_text_size" />
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/item_title_text_size"
+
+                        />
 
                     <TextView
                         android:id="@+id/answer_time_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5px"
+                        android:layout_marginLeft="15px"
                         android:text="1:28:06"
-                        android:textColor="@color/colorBlueBackground"
-                        android:textSize="@dimen/content_text_size" />
+                        android:textColor="@color/blue"
+                        android:textSize="@dimen/item_title_text_size" />
                 </LinearLayout>
             </RelativeLayout>
 
             <ImageView
                 android:id="@+id/img_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="25px"
-                android:src="@mipmap/weitijao" />
+                android:layout_width="40px"
+                android:layout_height="180px"
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -208,13 +191,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="50px"
-        android:background="@drawable/selector_start" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:src="@mipmap/img_left_show" />
+        android:layout_marginBottom="20px"
+        android:text="开始答题"
+        android:textSize="@dimen/item_title_text_size" />
 </RelativeLayout>

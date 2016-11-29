@@ -273,7 +273,6 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showDone(String message) {
 
-            ToastUtil.showToast(this,"噶一首歌的原始股第一");
 
     }
 

@@ -12,6 +12,16 @@ import android.view.MotionEvent;
  * 
  */
 public class UnTouchableViewPager extends ViewPager {
+	private int type ;
+
+	public int getType() {
+		return type;
+	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
 
 	public UnTouchableViewPager(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -19,7 +29,10 @@ public class UnTouchableViewPager extends ViewPager {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent arg0) {
-		return false;
+		if (type == 6||type == 9) {
+			return false;
+		}
+		return super.onInterceptTouchEvent(arg0);
 	}
 
 	@Override

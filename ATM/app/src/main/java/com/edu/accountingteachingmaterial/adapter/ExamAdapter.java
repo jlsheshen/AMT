@@ -81,7 +81,7 @@ public class ExamAdapter extends BaseAdapter {
                 viewHolder.imageView.setImageResource(R.mipmap.btn_yipiyue_n);
 
                 break;
-            case ClassContstant.EXMA_UNDONE:
+            case ClassContstant.EXAM_UNDONE:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_weitijiao_n);
 
                 break;

@@ -10,7 +10,4 @@
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorGray">#a0a5aa</color>
-    <color name="colorLightGray">#666666</color>
-    <color name="colorTextBlack">#222222</color>
-    <color name="colorTestInfo">#999999</color>
 </resources>

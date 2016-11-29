@@ -109,7 +109,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
             case R.id.btn_start:
 //                uploadChapter();
-                uploadChapterList();
+             //   uploadChapterList();
                 break;
 
 
