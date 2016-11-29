@@ -157,7 +157,7 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
 
         if (testMode == TEST_MODE_NORMAL) {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
-                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
+               showCorrectAnswer(state == SubjectState.STATE_CORRECT);
                 tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             } else {// 未完成或是尚未做
@@ -165,6 +165,7 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
                 btnSubmit.setVisibility(View.VISIBLE);
             }
         } else {
+
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
             tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
@@ -218,6 +219,8 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
     protected void showCorrectAnswer(boolean correct) {
         tvAnswer.setVisibility(View.VISIBLE);
         tvAnalysis.setVisibility(View.VISIBLE);
+        findViewById(R.id.rl_analysis).setVisibility(VISIBLE);
+
         if (correct) {
             tvAnswer.setTextColor(Color.parseColor("#6766cc"));
         } else {

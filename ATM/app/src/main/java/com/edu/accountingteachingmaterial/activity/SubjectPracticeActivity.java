@@ -6,12 +6,13 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
@@ -24,7 +25,6 @@ import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.SignData;
 import com.edu.testbill.Constant;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.testbill.dialog.SignChooseDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -36,6 +36,7 @@ import java.util.List;
 
 
 /**
+ * 页面内有重做功能
  * Created by Administrator on 2016/11/18.
  */
 
@@ -51,7 +52,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 完成/重做按钮，印章，闪电符按钮
-    private Button btnDone, btnSign, btnFlash;
+    private ImageView btnDone, btnSign;
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
@@ -92,9 +93,8 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         viewPager = (ViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
-        btnDone = (Button) findViewById(R.id.btnDone);
-        btnSign = (Button) findViewById(R.id.btnSign);
-        btnFlash = (Button) findViewById(R.id.btnFlash);
+        btnDone = (ImageView) findViewById(R.id.btnFlash);
+        btnSign = (ImageView) findViewById(R.id.btnSign);
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
@@ -123,13 +123,11 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnDone.setVisibility(View.VISIBLE);
             btnSign.setVisibility(View.VISIBLE);
-            btnFlash.setVisibility(View.VISIBLE);
             refreshDoneState();
 
         } else {
             btnDone.setVisibility(View.GONE);
             btnSign.setVisibility(View.GONE);
-            btnFlash.setVisibility(View.GONE);
         }
     }
     /**
@@ -137,9 +135,9 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      */
     private void refreshDoneState() {
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
-            btnDone.setText("完成");
+            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         } else {
-            btnDone.setText("重做");
+            btnDone.setImageResource(R.mipmap.icon_fasong_n);
         }
     }
 
@@ -183,10 +181,10 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
             float score = mSubjectAdapter.submit(mCurrentIndex);
             ToastUtil.showToast(this, "score:" + score);
-            btnDone.setText("重做");
+            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         } else {
             mSubjectAdapter.reset(mCurrentIndex);
-            btnDone.setText("完成");
+            btnDone.setImageResource(R.mipmap.icon_fasong_n);
         }
     }
 

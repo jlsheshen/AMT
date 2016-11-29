@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
@@ -19,6 +20,7 @@ import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.common.SubjectCardAdapter;
 import com.edu.subject.common.SubjectCardDialog;
+import com.edu.subject.common.UnTouchableViewPager;
 import com.edu.subject.dao.SignDataDao;
 import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
@@ -35,13 +37,14 @@ import java.util.List;
 
 
 /**
+ * 页面内无重做功能
  * Created by Administrator on 2016/11/18.
  */
 
 public class SubjectTestActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener {
 
     // 显示题目的viewpager控件
-    private ViewPager viewPager;
+    private UnTouchableViewPager viewPager;
     private SubjectViewPagerAdapter mSubjectAdapter;
 
     private int mCurrentIndex;
@@ -64,6 +67,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         public void onPageSelected(int item) {
             mCurrentIndex = item;
             refreshToolBar();
+            viewPager.setType(datas.get(item).getSubjectType());
         }
 
         @Override
@@ -88,7 +92,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
 
-        viewPager = (ViewPager) findViewById(R.id.vp_content);
+        viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         btnSign = (ImageView) findViewById(R.id.btnSign);
@@ -96,6 +100,8 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
+        mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
+
         viewPager.setAdapter(mSubjectAdapter);
 
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());

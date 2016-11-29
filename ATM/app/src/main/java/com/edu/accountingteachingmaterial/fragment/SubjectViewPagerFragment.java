@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.subject.view.FenLuContentView;
 import com.edu.accountingteachingmaterial.subject.view.SubjectJudgeView;
 import com.edu.accountingteachingmaterial.subject.view.SubjectMultiSelectView;
@@ -40,6 +39,10 @@ public class SubjectViewPagerFragment extends Fragment {
     private BaseTestData mData;
     // 题目视图
     private ISubject subjectView;
+    /**
+     * 是否可以查看答案
+     */
+    int testMode;
 
     /**
      * 对应的视图
@@ -66,6 +69,10 @@ public class SubjectViewPagerFragment extends Fragment {
         return fragment;
     }
 
+    public void setTestMode(int testMode) {
+        this.testMode = testMode;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mContext = getActivity();
@@ -86,16 +93,16 @@ public class SubjectViewPagerFragment extends Fragment {
 
             case SubjectType.SUBJECT_SINGLE:
                 //	mView = new SingleSelectView(mContext, mData);
-                mView = new SubjectSingleSelectView(mContext, mData, ClassContstant.TEST_MODE_NORMAL);
+                mView = new SubjectSingleSelectView(mContext, mData, testMode);
                 break;
             case SubjectType.SUBJECT_JUDGE:
-                mView = new SubjectJudgeView(mContext, mData,ClassContstant.TEST_MODE_NORMAL);
+                mView = new SubjectJudgeView(mContext, mData,testMode);
                 break;
             case SubjectType.SUBJECT_MULTI:
-                mView = new SubjectMultiSelectView(mContext, mData,ClassContstant.TEST_MODE_NORMAL);
+                mView = new SubjectMultiSelectView(mContext, mData,testMode);
                 break;
             case SubjectType.SUBJECT_ENTRY:
-                mView = new FenLuContentView(mContext,mData,ClassContstant.TEST_MODE_NORMAL);
+                mView = new FenLuContentView(mContext,mData,testMode);
                 break;
             default:
                 break;

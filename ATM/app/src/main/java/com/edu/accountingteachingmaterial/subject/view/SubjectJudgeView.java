@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,10 +41,7 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
     private TextView tvSubjectType;
     private RelativeLayout layout;
 
-    /**
-     * 发送按钮
-     */
-    private Button btnSend;
+
 
     /**
      * 处理延时自动翻页
@@ -114,7 +110,7 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
 
         if (testMode == TEST_MODE_NORMAL) {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
-                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
+//                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
                 tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
@@ -164,6 +160,8 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
     protected void showCorrectAnswer(boolean correct) {
         tvAnswer.setVisibility(View.VISIBLE);
         tvAnalysis.setVisibility(View.VISIBLE);
+        findViewById(R.id.rl_analysis).setVisibility(VISIBLE);
+
         if (correct) {
             tvAnswer.setTextColor(Color.parseColor("#6766cc"));
         } else {
@@ -189,7 +187,6 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
         rbFalse.setEnabled(true);
         tvAnswer.setVisibility(View.GONE);
         tvAnalysis.setVisibility(View.GONE);
-        btnSend.setVisibility(View.GONE);
         mTestData.setRemark("0");
 //		mTestData.setSendState(0);
         mTestData.setState(SubjectState.STATE_INIT);
@@ -214,7 +211,6 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
                 String answerA = v.getTag().toString();
 
                 handleOnClick(answerA);
-                // btnSend.setVisibility(View.VISIBLE);
                 handler.removeMessages(0);
                 handler.sendEmptyMessageDelayed(0, 300);
                 break;
@@ -223,14 +219,12 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
                 rbTrue.setTextColor(Color.BLACK);
                 String answerB = v.getTag().toString();
                 handleOnClick(answerB);
-                // btnSend.setVisibility(View.VISIBLE);
                 handler.removeMessages(0);
                 handler.sendEmptyMessageDelayed(0, 300);
                 break;
             default:
                 // String answer = v.getTag().toString();
                 // handleOnClick(answer);
-                // btnSend.setVisibility(View.VISIBLE);
                 // handler.removeMessages(0);
                 // handler.sendEmptyMessageDelayed(0, 300);
                 break;

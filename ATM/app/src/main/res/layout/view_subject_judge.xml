@@ -126,6 +126,7 @@
         android:visibility="gone" />
 
     <RelativeLayout
+        android:id="@+id/rl_analysis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_answer"
@@ -159,7 +160,7 @@
             android:layout_toRightOf="@+id/img_jiexi"
             android:textColor="@color/colorLightGray"
             android:textSize="@dimen/item_title_text_size"
-            android:visibility="gone" />
+             />
     </RelativeLayout>
 
     <ImageView

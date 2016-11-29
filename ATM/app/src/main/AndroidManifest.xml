@@ -48,6 +48,8 @@
         <activity android:name=".activity.SubjectTestActivity"
             android:screenOrientation="landscape"
             />
+        <activity android:name=".activity.SubjectDetailsContentActivity"
+            android:screenOrientation="landscape"/>
 
 
         <meta-data

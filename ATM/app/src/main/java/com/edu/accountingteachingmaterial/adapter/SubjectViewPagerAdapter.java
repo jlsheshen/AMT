@@ -44,6 +44,8 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 	private Context mContext;
 	private SubjectListener mListener;
 
+	int testMode;
+
 	public SubjectViewPagerAdapter(FragmentManager childFragmentManager, List<BaseTestData> datas, Context context, SubjectListener listener) {
 		super(childFragmentManager);
 		mContext = context;
@@ -61,11 +63,14 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 		return POSITION_NONE;
 	}
 
+
 	@Override
 	public Fragment getItem(int position) {
 		Log.d(TAG, "get item...." + position);
 		if (mPagerList.get(position) == null) {
 			mPagerList.set(position, SubjectViewPagerFragment.newInstance(mSubjectList.get(position), mListener));
+
+			mPagerList.get(position).setTestMode(testMode);
 		}
 		return mPagerList.get(position);
 	}
@@ -76,6 +81,10 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 			return -1;
 		}
 		return mSubjectList.size();
+	}
+
+	public void setTestMode(int testMode) {
+		this.testMode = testMode;
 	}
 
 	/**
@@ -197,6 +206,9 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 	public void reset() {
 		for (int i = 0; i < mPagerList.size(); i++) {
 			resetSubject(i);
+			mSubjectList.get(i).setuAnswer("");
+			mSubjectList.get(i).setState(SubjectState.STATE_INIT);
+			mSubjectList.get(i).setuScore(0);
 		}
 		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList);
 	}

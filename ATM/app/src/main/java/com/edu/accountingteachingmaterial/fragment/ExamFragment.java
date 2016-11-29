@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.activity.SubjectTestActivity;
+import com.edu.accountingteachingmaterial.activity.SubjectPracticeActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExamBean;
@@ -79,7 +79,7 @@ public class ExamFragment extends BaseFragment {
 
 
                 }else {
-                    startActivity(SubjectTestActivity.class);
+                    startActivity(SubjectPracticeActivity.class);
 
                 }
             }

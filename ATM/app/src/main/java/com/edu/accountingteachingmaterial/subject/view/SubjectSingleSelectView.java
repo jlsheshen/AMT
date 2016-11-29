@@ -136,11 +136,12 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
      * 更新正确答案的显示状态以及用户的选择状态
      */
     private void refreshAnswerState(SubjectBasicData data) {
+
         String userAnswer = mTestData.getuAnswer();
         int state = mTestData.getState();// 答题状态 0未答，1/2正误，3未完成
         if (testMode == TEST_MODE_NORMAL) {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
-                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
+//                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
                 tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
@@ -148,6 +149,8 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
             tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
+
+
         }
 
         // 设置指定答案的按钮为选中状态
@@ -169,6 +172,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
     protected void showCorrectAnswer(boolean correct) {
         tvAnswer.setVisibility(View.VISIBLE);
         tvAnalysis.setVisibility(View.VISIBLE);
+        findViewById(R.id.rl_analysis).setVisibility(VISIBLE);
         if (correct) {
             tvAnswer.setTextColor(Color.parseColor("#6766cc"));
         } else {
@@ -192,15 +196,14 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
 
                 break;
             default:
-                String answer = v.getTag().toString();
-                handleOnClick(answer);
-//				SubjectModel.getInstance(getContext()).updateRemark(mData.getId(), "1");
-//				SubjectBasicData data = (SubjectBasicData) SubjectBasicDataDao.getInstance(getContext()).getDataById(mData.getId());
-//				if (data.getRemark().equals("1")) {
-//					mData.setDone(true);
-//				}
-//				handler.removeMessages(0);
-//				handler.sendEmptyMessageDelayed(0, 300);
+                try {
+                    String answer = v.getTag().toString();
+                    handleOnClick(answer);
+                }finally {
+
+                }
+
+
                 break;
         }
     }
