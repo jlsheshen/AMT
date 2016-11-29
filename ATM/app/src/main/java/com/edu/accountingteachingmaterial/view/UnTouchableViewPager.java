@@ -9,7 +9,7 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 
 /**
  * 不能触摸滑动的ViewPager
- * 
+ * 基础题可滑动
  * @author lucher
  * 
  */
