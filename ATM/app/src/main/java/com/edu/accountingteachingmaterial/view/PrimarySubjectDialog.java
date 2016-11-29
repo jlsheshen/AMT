@@ -94,7 +94,6 @@ public class PrimarySubjectDialog extends BaseDialog implements OnCheckedChangeL
             FirstSubjectData data = datas.get(i);
             RadioButton rb = (RadioButton) View.inflate(mContext, R.layout.item_p_button, null);
             rb.setText(data.getName());
-            rb.setTextSize(16);
             rb.setId(data.getId());
             rgPSubjects.addView(rb);
             if (i == 0) {// 默认设置第一个为选中
