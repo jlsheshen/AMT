@@ -71,14 +71,14 @@
     </style>
     <!-- 选项多项按钮样式 -->
     <style name="cb_option_style">
-        <item name="android:paddingBottom">20dp</item>
+        <item name="android:paddingBottom">10px</item>
          <item name="android:textColor">@drawable/rb_selector_subject_text_color</item>
-        <item name="android:paddingTop">20dp</item>
-        <item name="android:paddingLeft">120dp</item>
+        <item name="android:paddingTop">10px</item>
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/txt_size_half_medium</item>
         <item name="android:focusable">true</item>
-        <item name="android:drawablePadding">5dp</item>
+        <item name="android:drawablePadding">5px</item>
+        <item name="android:paddingLeft">25px</item>
     </style>
 
 

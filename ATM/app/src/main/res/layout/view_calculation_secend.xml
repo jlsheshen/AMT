@@ -3,7 +3,7 @@
     android:id="@+id/rl_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorWhite"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="15px"
                 android:text="分录题"
-                android:textSize="24sp" />
+                android:textSize="@dimen/item_title_text_size" />
 
             <TextView
                 android:id="@+id/tv_score"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="15px"
                 android:text="(12分)"
-                android:textSize="24sp" />
+                android:textSize="@dimen/item_title_text_size" />
         </LinearLayout>
         <!--<TextView-->
         <!--android:id="@+id/tv_subject_type"-->
@@ -67,7 +67,7 @@
                 android:layout_marginTop="10px"
                 android:paddingBottom="20px"
                 android:textColor="@color/colorBlueBackground"
-                android:textSize="20sp" />
+                android:textSize="@dimen/content_text_size" />
         </ScrollView>
     </LinearLayout>
 
@@ -75,8 +75,7 @@
         android:id="@+id/rlyout_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="200px"
-        android:background="@color/white">
+        android:layout_marginTop="100px">
 
         <RelativeLayout
             android:id="@+id/l"
@@ -107,8 +106,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="25px"
                 android:text="子题"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/tv_num"
@@ -117,8 +116,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/tv"
                 android:text="1/3"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/tv_pointscore"
@@ -128,8 +127,22 @@
                 android:layout_marginLeft="15px"
                 android:layout_toRightOf="@+id/tv_num"
                 android:text="（3分）"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/content_text_size" />
+
+            <TextView
+                android:id="@+id/tv_user_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15px"
+                android:layout_toRightOf="@+id/tv_pointscore"
+                android:background="@mipmap/bg_score"
+                android:gravity="center"
+                android:text="3分"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/content_text_size"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/on_down"
@@ -144,7 +157,8 @@
             android:id="@+id/rl_bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/rl_top">
+            android:layout_below="@+id/rl_top"
+            android:background="@color/colorWhite">
 
 
             <Button
@@ -188,7 +202,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:text="完成"
-            android:textColor="@color/white"
+            android:textColor="@color/colorWhite"
             android:visibility="gone" />
     </RelativeLayout>
 

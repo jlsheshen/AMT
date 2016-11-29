@@ -6,12 +6,13 @@ import android.support.v4.view.ViewPager;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectType;
@@ -23,7 +24,6 @@ import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.SignData;
 import com.edu.testbill.Constant;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.testbill.dialog.SignChooseDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,7 +50,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 印章，闪电符按钮
-    private Button  btnSign, btnFlash;
+    private ImageView btnSign, btnFlash;
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
@@ -91,8 +91,8 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         viewPager = (ViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
-        btnSign = (Button) findViewById(R.id.btnSign);
-        btnFlash = (Button) findViewById(R.id.btnFlash);
+        btnSign = (ImageView) findViewById(R.id.btnSign);
+        btnFlash = (ImageView) findViewById(R.id.btnFlash);
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
@@ -114,8 +114,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         if (mCurrentIndex < 0 || mCurrentIndex > mSubjectAdapter.getCount() - 1)
             return;
         BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
-        ;
-        // 刷新题目数据
+//         刷新题目数据
         tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnSign.setVisibility(View.VISIBLE);
@@ -249,7 +248,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showDone(String message) {
 
-            ToastUtil.showToast(this,"噶一首歌的原始股第一");
+        ToastUtil.showToast(this, "噶一首歌的原始股第一");
 
     }
 
