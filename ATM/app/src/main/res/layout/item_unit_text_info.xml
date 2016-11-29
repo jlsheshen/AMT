@@ -3,38 +3,57 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/ly"
+    android:layout_marginLeft="25px"
+    android:layout_marginRight="25px"
+    android:layout_marginTop="-30px"
     android:orientation="horizontal">
 
     <RelativeLayout
         android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@mipmap/bg_left">
 
-        <TextView
-            android:id="@+id/class_id_title_tv"
+        <LinearLayout
+            android:id="@+id/ily_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15px"
-            android:text="测验信息"
-            android:textColor="@color/red"
-            android:textSize="@dimen/title_text_size" />
+            android:layout_marginTop="5px"
+            android:background="@mipmap/bg_left_title"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="5px"
+                android:src="@mipmap/icon_ceyanxinxi_n" />
+
+            <TextView
+                android:id="@+id/class_id_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5px"
+                android:text="测验信息"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/item_title_text_size" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/item_start_time_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/class_id_title_tv"
-            android:layout_marginLeft="15px"
-            android:layout_marginTop="10px"
-            android:layout_toRightOf="@id/item_exam_head_iv"
+            android:layout_below="@+id/ily_title"
+            android:layout_marginLeft="80px"
+            android:layout_marginTop="5px"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="测验时间："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_text_size" />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/start_time_tv"
@@ -42,9 +61,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="2016-11-11 11:11"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_text_size" />
-
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
 
         </LinearLayout>
 
@@ -53,17 +71,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_start_time_ly"
-            android:layout_marginLeft="15px"
-            android:layout_marginTop="10px"
-            android:layout_toRightOf="@id/item_exam_head_iv"
+            android:layout_marginLeft="80px"
+            android:layout_marginTop="5px"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="截止时间："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/end_time_tv"
@@ -71,8 +88,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="2016-11-11 11:11"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
 
         </LinearLayout>
 
@@ -81,17 +98,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_end_time_ly"
-            android:layout_marginLeft="15px"
-            android:layout_marginTop="10px"
-            android:layout_toRightOf="@id/item_exam_head_iv"
+            android:layout_marginLeft="80px"
+            android:layout_marginTop="5px"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="测验时长："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/challeng_time_tv"
@@ -99,43 +115,84 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="90分钟"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_challeng_time_ly"
+            android:layout_marginLeft="80px"
+            android:layout_marginTop="5px"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="测验时长："
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
         </LinearLayout>
+
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="0px"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="0.1"></RelativeLayout>
 
-        <TextView
-            android:id="@+id/test_tv"
+    <RelativeLayout
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@mipmap/bg_left">
+
+        <LinearLayout
+            android:id="@+id/ly_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="15px"
-            android:text="试题信息"
-            android:textColor="@color/red"
-            android:textSize="@dimen/title_text_size" />
+            android:layout_marginTop="5px"
+            android:background="@mipmap/bg_right_title"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:layout_marginTop="5px"
+                android:src="@mipmap/icon_shitixinxi_n" />
+
+            <TextView
+                android:id="@+id/test_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5px"
+                android:text="试题信息"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/item_title_text_size" />
+        </LinearLayout>
+
 
         <LinearLayout
             android:id="@+id/item_choose_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/test_tv"
-            android:layout_marginLeft="15px"
-            android:layout_marginTop="10px"
-            android:layout_toRightOf="@id/item_exam_head_iv"
+            android:layout_below="@+id/ly_title"
+            android:layout_marginLeft="60px"
+            android:layout_marginTop="5px"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
                 android:text="单选题："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/single_tv"
@@ -143,16 +200,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="5道"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
                 android:text="多选题："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/multiple_tv"
@@ -160,9 +217,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="5道"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
-
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -170,8 +226,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_choose_ly"
-            android:layout_marginTop="10px"
-            android:layout_toRightOf="@id/item_exam_head_iv"
+            android:layout_marginLeft="60px"
+            android:layout_marginTop="5px"
             android:orientation="horizontal">
 
             <TextView
@@ -179,10 +235,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="判断题："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size"
-
-                />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/judge_tv"
@@ -190,18 +244,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="5道"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
                 android:text="简答题："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size"
-
-                />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/fill_in_tv"
@@ -209,8 +261,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="5道"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
         </LinearLayout>
 
         <LinearLayout
@@ -218,8 +270,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_judge_ly"
-            android:layout_marginTop="10px"
-            android:layout_toRightOf="@id/item_exam_head_iv"
+            android:layout_marginLeft="60px"
+            android:layout_marginTop="5px"
             android:orientation="horizontal">
 
             <TextView
@@ -227,10 +279,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="判断题："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size"
-
-                />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/short_tv"
@@ -238,18 +288,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="5道"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
                 android:text="综合题："
-                android:textColor="@color/gray"
-                android:textSize="@dimen/item_title_text_size"
-
-                />
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
 
             <TextView
                 android:id="@+id/comprehensive_tv"
@@ -257,8 +305,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
                 android:text="5道"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/item_title_text_size" />
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_short_ly"
+            android:layout_marginLeft="60px"
+            android:layout_marginTop="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:text="合计："
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
+
+            <TextView
+                android:id="@+id/total_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:text="30道"
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
+
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
