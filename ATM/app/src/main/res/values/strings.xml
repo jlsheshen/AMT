@@ -8,4 +8,9 @@
     <string name="my_errors">我的错题</string>
     <string name="test_number">试题数:</string>
 
+    <string-array name="data">
+        <item></item>
+        <item>今天</item>
+        <item>更早</item>
+    </string-array>
 </resources>

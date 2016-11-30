@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.activity;
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,23 +10,33 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.constant.UriConstant;
+import com.edu.accountingteachingmaterial.entity.ClassicCase;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyPresenter;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyView;
+import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.lucher.net.req.RequestMethod;
 
 import java.io.File;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/11/8.
  */
-public class MediaActivity extends BaseMvpActivity<MediaAtyView,MediaAtyPresenter> implements MediaAtyView{
+public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresenter> implements MediaAtyView {
     String TAG = "MediaActivity";
     public VideoView videoView;
     SeekBar seekBar;
     MediaController mController;
     private boolean isPlaying;
+    private ClassicCase classicCase;
+    private String url = NetUrlContstant.BASE_URL + "interface/filedown/down/439";
 
     @Override
     public int setLayout() {
@@ -34,12 +45,15 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView,MediaAtyPresente
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
+        upload();
         videoView = bindView(R.id.media_vv);
         mController = new MediaController(this);
-       // presenter.start();
+        // presenter.start();
         // 设置播放视频源的路径
-        videoView.setVideoPath(UriConstant.VIDEO_PATH + "aaa.mp4");
+        //videoView.setVideoPath(UriConstant.VIDEO_PATH + "aaa.mp4");
+        //videoView.setVideoURI(Uri.parse("http://192.168.1.159/interface/filedown/down/439"));
+        videoView.setVideoURI(Uri.parse(url));
+
         // 为VideoView指定MediaController
         videoView.setMediaController(mController);
         // 为MediaController指定控制的VideoView
@@ -56,7 +70,6 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView,MediaAtyPresente
             public void onClick(View v) {
             }
         });
-
 
 
 //     seekBar = bindView(R.id.media_sb);
@@ -97,11 +110,12 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView,MediaAtyPresente
 //            }
 ////        });
 //        play(0);
-}
+    }
 
     protected void play(int msec) {
         Log.i(TAG, " 获取视频文件地址");
         String path = UriConstant.VIDEO_PATH + "VID_20161103_125654.mp4";
+
         File file = new File(path);
         if (!file.exists()) {
             Toast.makeText(this, "视频文件路径错误", Toast.LENGTH_LONG).show();
@@ -204,5 +218,31 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView,MediaAtyPresente
     @Override
     public MediaAtyPresenter initPresenter() {
         return new MediaAtyPresenter();
+    }
+
+
+    /**
+     * 根据用户id请求用户数据
+     */
+    private void upload() {
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.classicCaseUrl + "291-2");
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    List<ClassicCase> hData = JSON.parseArray(jsonObject.getString("message"), ClassicCase.class);
+                    classicCase = hData.get(0);
+                    Log.d(TAG, "classicCase" + "2016lkkkkkkkkkk");
+                }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("LaunchActivity", errorInfo);
+
+            }
+        });
     }
 }
