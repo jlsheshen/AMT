@@ -20,6 +20,7 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
@@ -111,8 +112,8 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
 
         Bundle bundle = getIntent().getExtras();
-         dataId = (int) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,dataId);
+        ExamListData data = (ExamListData) bundle.get("ExamListData");
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
