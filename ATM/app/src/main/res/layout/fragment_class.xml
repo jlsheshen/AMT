@@ -2,20 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_marginLeft="110px"
     android:layout_marginRight="10px"
-    >
+    android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/main_aty_title_layout"
         style="@style/TitleBarStyle"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="@string/class_name"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size"
@@ -25,18 +24,20 @@
             android:id="@+id/main_study_history_iv"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:scaleType="fitCenter"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25px"
             android:src="@mipmap/icon_history_n"
-            android:visibility="gone"
-            />
-    </LinearLayout>
-    <View
-        style="@style/HorizontalLine"/>
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <View style="@style/HorizontalLine" />
 
     <ExpandableListView
         android:id="@+id/class_classchapter_exlv"
-        style="@style/ExpandableLvStyle"
-        ></ExpandableListView>
+        style="@style/ExpandableLvStyle">
+
+    </ExpandableListView>
 
 
 </LinearLayout>

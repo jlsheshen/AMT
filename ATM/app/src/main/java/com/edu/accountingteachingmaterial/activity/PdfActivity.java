@@ -13,6 +13,7 @@ import java.io.File;
  */
 public class PdfActivity extends BaseActivity {
     PDFView pdfView;
+
     @Override
     public int setLayout() {
         return R.layout.activity_pdfview;
@@ -21,12 +22,11 @@ public class PdfActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         pdfView = bindView(R.id.pdfView);
-
     }
 
     @Override
     public void initData() {
-        File file = new File("/sdcard/EduResources/AccCourse/pdf/aaa.pdf");
+        File file = new File("/sdcard/EduResources/AccCourse/pdf/401-1");
         pdfView.fromFile(file)
                 // pdfView.fromAsset(String)
                 .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
@@ -40,4 +40,5 @@ public class PdfActivity extends BaseActivity {
                 .load();
 
     }
+
 }

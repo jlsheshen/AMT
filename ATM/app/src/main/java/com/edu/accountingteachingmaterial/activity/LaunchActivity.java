@@ -21,18 +21,18 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 
-public class LaunchActivity extends BaseActivity{
-	CountDownTimer timer;
-	HomepageInformationData data;
+public class LaunchActivity extends BaseActivity {
+    CountDownTimer timer;
+    HomepageInformationData data;
 
-	@Override
-	public int setLayout() {
-		// TODO Auto-generated method stub
-		return R.layout.activity_launch;
-	}
+    @Override
+    public int setLayout() {
+        // TODO Auto-generated method stub
+        return R.layout.activity_launch;
+    }
 
-	@Override
-	public void initView(Bundle savedInstanceState) {
+    @Override
+    public void initView(Bundle savedInstanceState) {
 //		new Thread(new Runnable() {
 //			@Override
 //			public void run() {
@@ -84,70 +84,69 @@ public class LaunchActivity extends BaseActivity{
 //
 //		}).start();
 //		// TODO Auto-generated method stub
-		timer = new CountDownTimer(3000,1000) {
-			@Override
-			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub
-				// 检测数据库是否已拷贝
-				DBCopyUtil fileCopyUtil = new DBCopyUtil(LaunchActivity.this);
-				fileCopyUtil.checkDBVersion(Constant.DATABASE_NAME);
+        timer = new CountDownTimer(3000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // TODO Auto-generated method stub
+                // 检测数据库是否已拷贝
+                DBCopyUtil fileCopyUtil = new DBCopyUtil(LaunchActivity.this);
+                fileCopyUtil.checkDBVersion(Constant.DATABASE_NAME);
 
-			}
-			@Override
-			public void onFinish() {
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("HomepageInformationData",data);
-				startActivity(StartStudyActivity.class,bundle);
-			}
-		}.start();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				Log.d("LaunchActivity", "线程启动");
-				uploadHomepageInfo();
+            }
 
-			}
-		}).start();
-		uploadHomepageInfo();
+            @Override
+            public void onFinish() {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("HomepageInformationData", data);
+                startActivity(StartStudyActivity.class, bundle);
+            }
+        }.start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.d("LaunchActivity", "线程启动");
+                uploadHomepageInfo();
 
-
-	}
-
-	/**
-	 * 根据用户id请求用户数据
-	 */
-	private void uploadHomepageInfo() {
-		SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + "5926");
-		sendJsonNetReqManager.sendRequest(netSendCodeEntity);
-		sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-			@Override
-			public void onSuccess(JSONObject jsonObject) {
-				if (jsonObject.getString("success").equals("true")) {
-					List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
-					data = hData.get(0);
-					Log.d("LaunchActivity", "线程启动获取成功");
-
-					EventBus.getDefault().post(data);
-					finish();
-				}
-			}
-
-			@Override
-			public void onFailure(String errorInfo) {
-				Log.d("LaunchActivity", "线程启动获取失败");
-
-			}
-		});
-	}
-
-	@Override
-	public void initData() {
-		// TODO Auto-generated method stub
-		
-	}
+            }
+        }).start();
+        uploadHomepageInfo();
 
 
+    }
 
-	
+    /**
+     * 根据用户id请求用户数据
+     */
+    private void uploadHomepageInfo() {
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + "5926");
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
+                    data = hData.get(0);
+                    Log.d("LaunchActivity", "线程启动获取成功");
+
+                    EventBus.getDefault().post(data);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("LaunchActivity", "线程启动获取失败");
+
+            }
+        });
+    }
+
+    @Override
+    public void initData() {
+        // TODO Auto-generated method stub
+
+    }
+
+
 }

@@ -14,89 +14,95 @@ import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassFragment;
+import com.edu.accountingteachingmaterial.view.ScbjectChapterListDialog;
 
 public class ClassDetailActivity extends BaseActivity implements OnClickListener {
-	// 重点难点,经典实例,精选练习,自我检测
-	RadioButton classEmphasisButton, classExampleButton, classExerciseButton, classReviewButton;
-	Fragment classEmphasisFragment, classExampleFragment, classExerciseFragment, classReviewFragment;
-	ImageView backIv;
+    // 重点难点,经典实例,精选练习,自我检测
+    RadioButton classEmphasisButton, classExampleButton, classExerciseButton, classReviewButton;
+    Fragment classEmphasisFragment, classExampleFragment, classExerciseFragment, classReviewFragment;
+    ImageView backIv, imgZhangjie;
+    ScbjectChapterListDialog chapterListDialog;
 
-	@Override
-	public int setLayout() {
-		// TODO Auto-generated method stub
-		return R.layout.activity_class_detail;
-	}
+    @Override
+    public int setLayout() {
+        // TODO Auto-generated method stub
+        return R.layout.activity_class_detail;
+    }
 
-	@Override
-	public void initView(Bundle savedInstanceState) {
-		bindAndListener(classEmphasisButton, R.id.class_emphasis_iv);
-		bindAndListener(classExampleButton, R.id.class_example_iv);
-		bindAndListener(classExerciseButton, R.id.class_exercise_iv);
-		bindAndListener(classReviewButton, R.id.class_review_iv);
-		bindAndListener(backIv,R.id.class_aty_back_iv);
+    @Override
+    public void initView(Bundle savedInstanceState) {
+        bindAndListener(classEmphasisButton, R.id.class_emphasis_iv);
+        bindAndListener(classExampleButton, R.id.class_example_iv);
+        bindAndListener(classExerciseButton, R.id.class_exercise_iv);
+        bindAndListener(classReviewButton, R.id.class_review_iv);
+        bindAndListener(backIv, R.id.class_aty_back_iv);
+        bindAndListener(imgZhangjie, R.id.class_aty_zhangjie_iv);
 
+        chapterListDialog = new ScbjectChapterListDialog(this);
+    }
 
-	}
-
-	@Override
-	public void initData() {
-		if (null == classEmphasisFragment) {
-			classEmphasisFragment = new ClassEmphasisFragment();
+    @Override
+    public void initData() {
+        if (null == classEmphasisFragment) {
+            classEmphasisFragment = new ClassEmphasisFragment();
         }
-		replaceFragment(classEmphasisFragment );
+        replaceFragment(classEmphasisFragment);
 
-		// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	private void replaceFragment(Fragment fragment) {
-		FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-		transaction.replace(R.id.class_aty_view, fragment);
-		// Commit the transaction
-		transaction.commit();
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.class_aty_view, fragment);
+        // Commit the transaction
+        transaction.commit();
 
-	}
+    }
 
-	private void bindAndListener(View view, int id) {
-		view = bindView(id);
-		view.setOnClickListener(this);
-	}
+    private void bindAndListener(View view, int id) {
+        view = bindView(id);
+        view.setOnClickListener(this);
+    }
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.class_emphasis_iv:
-			if (null == classEmphasisFragment) {
-				classEmphasisFragment = new ClassEmphasisFragment();
-            }
-			replaceFragment(classEmphasisFragment );
-			break;
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.class_emphasis_iv:
+                if (null == classEmphasisFragment) {
+                    classEmphasisFragment = new ClassEmphasisFragment();
+                }
+                replaceFragment(classEmphasisFragment);
+                break;
 
-		case R.id.class_example_iv:
-			if (null == classExampleFragment) {
-				classExampleFragment = new ClassExampleFragment();
-            }
-			replaceFragment(classExampleFragment );
-			break;
-		case R.id.class_exercise_iv:
-			if (null == classExerciseFragment) {
-				classExerciseFragment = new ClassExerciseFragment();
-            }
-			replaceFragment(classExerciseFragment );
-			break;
-		case R.id.class_review_iv:
-			if (null == classReviewFragment) {
-				classReviewFragment = new ClassFragment();
-            }
-			replaceFragment(classReviewFragment );
-			break;
-			case R.id.class_aty_back_iv:
-				finish();
+            case R.id.class_example_iv:
+                if (null == classExampleFragment) {
+                    classExampleFragment = new ClassExampleFragment();
+                }
+                replaceFragment(classExampleFragment);
+                break;
+            case R.id.class_exercise_iv:
+                if (null == classExerciseFragment) {
+                    classExerciseFragment = new ClassExerciseFragment();
+                }
+                replaceFragment(classExerciseFragment);
+                break;
+            case R.id.class_review_iv:
+                if (null == classReviewFragment) {
+                    classReviewFragment = new ClassFragment();
+                }
+                replaceFragment(classReviewFragment);
+                break;
+            case R.id.class_aty_back_iv:
+                finish();
+                break;
+            case R.id.class_aty_zhangjie_iv:
+                if (!chapterListDialog.isShowing()) {
+                    chapterListDialog.show();
+                }
+                break;
+        }
 
-			break;
-
-		}
-
-	}
+    }
 
 }
