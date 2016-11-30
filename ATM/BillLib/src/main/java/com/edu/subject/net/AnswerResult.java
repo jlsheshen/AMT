@@ -1,4 +1,4 @@
-package com.edu.subject.data;
+package com.edu.subject.net;
 
 import java.util.List;
 
@@ -73,45 +73,6 @@ public class AnswerResult {
 		this.blankResult = blankResult;
 	}
 
-	/**
-	 * 单据题填空的答题结果
-	 * 
-	 * @author lucher
-	 * 
-	 */
-	public class BlankResult {
-		// 填空对应的index
-		private int index;
-		// 用户答案
-		private String answer;
-		// 用户得分
-		private int score;
-
-		public int getIndex() {
-			return index;
-		}
-
-		public void setIndex(int index) {
-			this.index = index;
-		}
-
-		public String getAnswer() {
-			return answer;
-		}
-
-		public void setAnswer(String answer) {
-			this.answer = answer;
-		}
-
-		public int getScore() {
-			return score;
-		}
-
-		public void setScore(int score) {
-			this.score = score;
-		}
-
-	}
 
 	/**
 	 * 单据题印章的答题结果

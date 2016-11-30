@@ -4,6 +4,7 @@ import com.edu.library.data.BaseData;
 import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
+import com.edu.subject.net.AnswerResult;
 
 /**
  * 题目测试数据基类
@@ -45,6 +46,12 @@ public abstract class BaseTestData extends BaseData implements IbaseTestData {
      * 测试模式，与{@link TestMode}对应
      */
     protected int testMode;
+
+    /**
+     * 转换为结果对象
+     * @return
+     */
+    public abstract AnswerResult toResult();
     public String getuSigns() {
         return uSigns;
     }

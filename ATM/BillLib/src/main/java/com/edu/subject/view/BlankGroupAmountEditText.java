@@ -1,4 +1,4 @@
-package com.edu.subject.bill.view;
+package com.edu.subject.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -13,6 +13,7 @@ import android.text.InputFilter.LengthFilter;
 import android.util.Log;
 
 import com.edu.subject.SubjectState;
+import com.edu.subject.bill.view.BlankEditText;
 
 /**
  * 小写金额组合空

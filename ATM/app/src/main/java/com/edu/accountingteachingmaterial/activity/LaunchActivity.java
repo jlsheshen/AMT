@@ -128,7 +128,7 @@ public class LaunchActivity extends BaseActivity{
 
 
 		SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + user.getUserId());
+		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl +"6016");
 		sendJsonNetReqManager.sendRequest(netSendCodeEntity);
 		sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
 			@Override

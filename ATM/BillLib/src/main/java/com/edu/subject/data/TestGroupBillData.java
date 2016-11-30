@@ -1,6 +1,7 @@
 package com.edu.subject.data;
 
 
+import com.edu.subject.net.AnswerResult;
 
 import java.util.List;
 
@@ -44,5 +45,9 @@ public class TestGroupBillData extends BaseTestData {
 	@Override
 	public void setSubjectData(BaseSubjectData subjectData) {
 
+	}
+	@Override
+	public AnswerResult toResult() {
+		return null;
 	}
 }

@@ -153,6 +153,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 		return subjectDatas;
 	}
 
+
 	/**
 	 * 插入题目数据
 	 *
@@ -161,19 +162,19 @@ public class SubjectBillDataDao extends BaseDataDao {
 	 * @return 新增id
 	 */
 	public int insertData(SubjectData subject, SQLiteDatabase db) {
-//		String sql = "select count(*) from " + TABLE_NAME + " where flag = " + subject.getFlag();
-//		Cursor curs = db.rawQuery(sql, null);
+		String sql = "select count(*) from " + TABLE_NAME + " where flag = " + subject.getFlag();
+		Cursor curs = db.rawQuery(sql, null);
 		int id = 0;
 		try {
-//			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
+			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
 				String question = JSON.parseObject(subject.getQuestion()).getString("text");
 				ContentValues values = new ContentValues();
 				values.put("CHAPTER_ID", subject.getChapterId());
 				values.put("FLAG", subject.getFlag());
-//				values.put("TEMPLATE_ID", subject);
+				values.put("TEMPLATE_ID", subject.getTemplateId());
 				values.put("QUESTION", question);
 				values.put("PIC", subject.getPic());
-//				values.put("LABELS", subject);
+				values.put("LABELS", subject.getLabel());
 				values.put("BLANKS", subject.getAnswer());
 				values.put("SCORE", subject.getScore());
 				values.put("REMARK", subject.getRemark());
@@ -182,13 +183,13 @@ public class SubjectBillDataDao extends BaseDataDao {
 					ToastUtil.showToast(mContext, "题目格式出错：" + subject);
 				}
 				Log.d(TAG, "insert:" + id + "," + values);
-//			}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-//			if (curs != null) {
-//				curs.close();
-//			}
+			if (curs != null) {
+				curs.close();
+			}
 		}
 		return id;
 	}

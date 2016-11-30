@@ -1,21 +1,23 @@
 package com.edu.accountingteachingmaterial.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.net.AnswerResult;
-import com.edu.subject.net.SubjectData;
-import com.edu.testsubject.Constant;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -31,6 +33,7 @@ public class UploadResultsManager extends JsonNetReqManager {
 	// 需要上传答题结果的所有数据
 	private List<AnswerResult> mAnswerResults;
 	private static UploadResultsManager mSingleton;
+	int examId;
 
 	private UploadResultsManager(Context context) {
 		mContext = context;
@@ -71,11 +74,12 @@ public class UploadResultsManager extends JsonNetReqManager {
 	 * @param seconds
 	 */
 	public void uploadResult(int studentId, int examId, int seconds) {
+		this.examId = examId;
 		if (mAnswerResults == null || mAnswerResults.size() <= 0) {
 			ToastUtil.showToast(mContext, "发送结果为空");
 			return;
 		}
-		String url = Constant.SERVER_URL + "submitPracticeExamByStudentId/" + studentId + "-" + examId + "-" + seconds;
+		String url = NetUrlContstant.subjectSubmitUrl  + studentId + "-" + examId + "-" + seconds;
 		JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
 		sendRequest(entity, "正在拼命上传成绩");
 		Log.d(TAG, "uploadResult:" + JSON.toJSONString(mAnswerResults));
@@ -87,6 +91,9 @@ public class UploadResultsManager extends JsonNetReqManager {
 		String message = json.getString("message");
 		if (result) {
 			ToastUtil.showToast(mContext, "成绩上传成功");
+			ContentValues contentValues = new ContentValues();
+            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+             ExamListDao.getInstance(mContext).updateData("" + examId, contentValues);
 		} else {
 			ToastUtil.showToast(mContext, "成绩上传失败：" + message);
 			Log.e(TAG, "uploadResult:" + json);

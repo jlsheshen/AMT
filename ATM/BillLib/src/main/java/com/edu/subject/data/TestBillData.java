@@ -3,11 +3,18 @@ package com.edu.subject.data;
 import android.content.Context;
 
 import com.edu.subject.SubjectConstant;
+import com.edu.subject.bill.BillAnswerHandler;
+import com.edu.subject.bill.element.ElementType;
 import com.edu.subject.bill.element.info.BaseElementInfo;
 import com.edu.subject.bill.element.info.BlankInfo;
 import com.edu.subject.bill.template.BillTemplate;
+import com.edu.subject.bill.view.BlankGroupAmountEditText;
+import com.edu.subject.net.AnswerResult;
+import com.edu.subject.net.BlankResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -116,6 +123,113 @@ public class TestBillData extends BaseTestData {
 	@Override
 	public String toString() {
 		return String.format("subjectData:%s,template:%s,uBlanks:%s,score:%s", subjectData, template, uAnswer, uScore);
+	}
+
+	@Override
+	public AnswerResult toResult() {
+		AnswerResult result = new AnswerResult();
+		judgeAnswer(result);
+		result.setFlag(getSubjectData().getFlag());
+		result.setType(subjectType);
+		if (uAnswer == null) {
+			result.setAnswer("null");
+		} else {
+			result.setAnswer(uAnswer);
+		}
+		result.setScore(uScore);
+		return result;
+	}
+
+	/**
+	 * 判断答案
+	 *
+	 * @param result
+	 */
+	private void judgeAnswer(AnswerResult result) {
+		// 存放需要分组的空，key-分组id，value-对应组的组件
+		HashMap<Integer, List<BlankResult>> groups = new HashMap<Integer, List<BlankResult>>(1);
+
+		String answers[] = getSubjectData().getAnswer().split(SubjectConstant.SEPARATOR_ITEM);
+		String uAnswers[] = null;
+		if (uAnswer != null) {
+			uAnswers = uAnswer.split(SubjectConstant.SEPARATOR_ITEM);
+		}
+		List<BlankResult> blanks = new ArrayList<BlankResult>(answers.length);
+		int index = 0;// 所有空遍历index
+		int uIndex = 0;// 用户答案索引,用户答案的size等于正确答案的size-不需要用户填写空的size
+		for (BaseElementInfo element : template.getElementDatas()) {
+			if (element.getType() > SubjectConstant.ELEMENT_TYPE_BLANK_START && element.getType() < SubjectConstant.ELEMENT_TYPE_BLANK_END) {// 填空题
+				BlankResult blank = new BlankResult();
+				blank.setIndex(index + 1);
+				if (uAnswer == null) {
+					blank.setScore(0);
+					blank.setAnswer("null");
+				} else {
+					if (answers[index].startsWith(SubjectConstant.FLAG_PREFIX_DISABLED)) {// 不需要用户填写，直接显示答案
+						blank.setScore(0);
+						blank.setAnswer("null");
+					} else {
+						if (BillAnswerHandler.isGroupBlank(element.getType())) {// 一组空元素
+							String remark = element.getRemark();
+							int groupId = Integer.valueOf(remark);
+							if (groups.get(groupId) == null) {
+								List<BlankResult> list = new ArrayList<BlankResult>(3);
+								groups.put(groupId, list);
+								list.add(blank);
+							} else {
+								groups.get(groupId).add(blank);
+							}
+						}
+						// 答案判断
+						if (element.getType() == ElementType.TYPE_AMOUNT_LOWER_GROUP) {
+							blank.setAnswer(uAnswers[uIndex].replace(BlankGroupAmountEditText.ANSWER_FLAG, ""));
+							//去掉前后缀
+							String tmp = uAnswers[uIndex].substring(BlankGroupAmountEditText.ANSWER_FLAG.length());
+							tmp = tmp.substring(0, tmp.length() - BlankGroupAmountEditText.ANSWER_FLAG.length());
+							// 用户答案去掉前面空格后进行答案判断
+							tmp = (tmp + "*").trim();
+							tmp = tmp.substring(0, tmp.length() - 1);
+							if (answers[index].equals(tmp)) {
+								blank.setScore(element.getScore());
+								blank.setRight(true);
+							} else {
+								blank.setScore(0);
+								blank.setRight(false);
+							}
+						} else {
+							blank.setAnswer(uAnswers[uIndex]);
+							if (answers[index].equals(uAnswers[uIndex])) {
+								blank.setScore(element.getScore());
+								blank.setRight(true);
+							} else {
+								blank.setScore(0);
+								blank.setRight(false);
+							}
+						}
+						uIndex++;
+					}
+				}
+				blanks.add(blank);
+				index++;
+			}
+		}
+		// 计算分组类控件的分数
+		Iterator<Integer> iterator = groups.keySet().iterator();
+		while (iterator.hasNext()) {
+			List<BlankResult> group = groups.get(iterator.next());
+			boolean right = true;// 对应组是否答对，只要有一个空答错，则算错
+			for (BlankResult blank : group) {
+				if (right && !blank.isRight()) {
+					right = false;
+				}
+			}
+			if (!right) {
+				for (BlankResult blank : group) {
+					blank.setScore(0);
+				}
+			}
+		}
+		result.setBlankResult(blanks);
 	}
 
 }
