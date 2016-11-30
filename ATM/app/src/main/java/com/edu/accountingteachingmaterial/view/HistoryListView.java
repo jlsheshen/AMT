@@ -24,45 +24,52 @@ public class HistoryListView {
     private Context mContext;
     private View mView;
     private List<HistoryAdapter> historyAdapters;
+    private String[] strStem;
 
     public HistoryListView(Context context, List<HistoryData> historyData) {
         this.mContext = context;
         this.historyData = historyData;
         historyAdapters = new ArrayList<HistoryAdapter>();
+        strStem = mContext.getResources().getStringArray(R.array.data);
     }
 
     public View init() {
         mView = View.inflate(mContext, R.layout.view_history_list, null);
         LinearLayout llyout = (LinearLayout) mView.findViewById(R.id.llyout_card);
-
         List<HistoryData> dataClass = new ArrayList<HistoryData>();
-        for (int i = 0; i < historyData.size(); i++) {
+        for (int i = 1; i < strStem.length; i++) {// 1到5为题目类型
             View view = View.inflate(mContext, R.layout.llyout_history_item, null);
             llyout.addView(view);
             TextView tvTilte = (TextView) view.findViewById(R.id.tv_itcard_child_title);
-            if (isToday(historyData.get(i).getData())) {
+            if (i == 1) {
                 for (int j = 0; j < historyData.size(); j++) {
-                    dataClass.add(historyData.get(i));
-                    tvTilte.setText("今天");
+                    if (isToday(historyData.get(j).getData())) {
+                        dataClass.add(historyData.get(j));
+                        tvTilte.setText(strStem[i]);
+                    }
+
                 }
-            } else {
+            } else if (i == 2) {
                 for (int j = 0; j < historyData.size(); j++) {
-                    dataClass.add(historyData.get(i));
-                    tvTilte.setText("更早");
+                    if (!isToday(historyData.get(j).getData())) {
+                        dataClass.add(historyData.get(j));
+                        tvTilte.setText(strStem[i]);
+                    }
+
                 }
-            }
-            if (dataClass.size() == 0) {
-                // view = null;
-                llyout.removeView(view);// 移除对应的view，否则布局混乱
-                continue;
+                if (dataClass.size() == 0) {
+                    // view = null;
+                    llyout.removeView(view);// 移除对应的view，否则布局混乱
+                    continue;
+                }
             }
 
-            ListView gridView = (ListView) view.findViewById(R.id.list_child_choice);
+
+            ListView listView = (ListView) view.findViewById(R.id.list_child_choice);
             HistoryAdapter historyAdapter = new HistoryAdapter(mContext, dataClass);
-            gridView.setAdapter(historyAdapter);
+            listView.setAdapter(historyAdapter);
             historyAdapters.add(historyAdapter);
         }
-
         return mView;
     }
 
@@ -72,6 +79,7 @@ public class HistoryListView {
      * @param sdate
      * @return boolean
      */
+
     public static boolean isToday(String sdate) {
         boolean b = false;
         Date time = toDate(sdate);
