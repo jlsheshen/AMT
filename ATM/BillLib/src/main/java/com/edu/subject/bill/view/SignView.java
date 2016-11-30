@@ -5,14 +5,12 @@ import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.BounceInterpolator;
-import android.widget.ImageView;
 
 import com.edu.subject.SubjectState;
 import com.edu.subject.TestMode;
@@ -20,7 +18,7 @@ import com.edu.subject.bill.element.ElementLayoutParams;
 import com.edu.subject.bill.element.info.SignInfo;
 import com.edu.subject.bill.scale.IScaleable;
 import com.edu.subject.bill.scale.ScaleUtil;
-import com.edu.subject.util.BitmapParseUtil;
+import com.edu.subject.common.ProgressImageView;
 
 /**
  * 印章视图,支持缩放
@@ -28,7 +26,7 @@ import com.edu.subject.util.BitmapParseUtil;
  * @author lucher
  * 
  */
-public class SignView extends ImageView implements IScaleable {
+public class SignView extends ProgressImageView implements IScaleable {
 
 	private static final String TAG = "SignView";
 	// 印章对比允许的误差范围，xy周围35像素均可
@@ -42,8 +40,6 @@ public class SignView extends ImageView implements IScaleable {
 	private float mScale;
 	// 当前缩放倍数
 	private int mCurrentScaleTimes = 0;
-	// 对应的图片
-	private Bitmap mBitmap;
 
 	// 当前测试模式
 	private int mTestMode;
@@ -54,13 +50,10 @@ public class SignView extends ImageView implements IScaleable {
 		super(context);
 		mTestMode = testMode;
 		mState = state;
-		init();
 	}
 
-	/**
-	 * 初始化
-	 */
-	private void init() {
+	@Override
+	protected void init() {
 		setScaleType(ScaleType.FIT_XY);
 	}
 
@@ -91,7 +84,7 @@ public class SignView extends ImageView implements IScaleable {
 			showUAnswer(true);
 		}
 
-		return mBitmap != null;
+		return isBmLoaded();
 	}
 
 	/**
@@ -295,7 +288,7 @@ public class SignView extends ImageView implements IScaleable {
 	 * 判断用户答案
 	 */
 	public void judgeAnswer() {
-		if(mData.isUser() && !mData.isCorrect()) {
+		if (mData.isUser() && !mData.isCorrect()) {
 			setGrayMode();
 		}
 	}
@@ -312,7 +305,7 @@ public class SignView extends ImageView implements IScaleable {
 			int dx = (int) Math.abs(info.getX() - mData.getX());
 			int dy = (int) Math.abs(info.getY() - mData.getY());
 			boolean correct = (dx <= SIGN_XY_RANGE && dy <= SIGN_XY_RANGE);
-			if(correct) {
+			if (correct) {
 				mData.setCorrect(correct);
 				info.setCorrect(correct);
 			}
@@ -357,14 +350,13 @@ public class SignView extends ImageView implements IScaleable {
 	 * 加载bitmap
 	 */
 	public void loadBitmap(String bitmap) {
-		if (mBitmap == null) {// 如果已经加载过则不需要加载
-			mBitmap = BitmapParseUtil.parse(bitmap, getContext(), true);
+		if (!isBmLoaded()) {// 如果已经加载过则不需要加载
+			loadImage(bitmap);
 			if (mBitmap != null) {
 				if (mData != null) {
 					mData.setWidth(mBitmap.getWidth());
 					mData.setHeight(mBitmap.getHeight());
 				}
-				setImageBitmap(mBitmap);
 			}
 		}
 	}

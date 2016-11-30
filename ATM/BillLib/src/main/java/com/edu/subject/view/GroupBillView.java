@@ -213,7 +213,6 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 		return mData.getuScore();
 	}
 
-
 	/**
 	 * 判断答案等操作
 	 * 
@@ -314,6 +313,17 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 
 	@Override
 	public void onClick(View view) {
+		boolean loaded = true;
+		for(BillView billView : billViews) {
+			if(!billView.billView.loaded()) {
+				loaded = false;
+				break;
+			}
+		}
+		if(!loaded) {
+			ToastUtil.showToast(mContext, "当前还有底图未加载完，请请稍后重试");
+			return;
+		}
 		if (view.getId() == R.id.ibtnPic) {
 			slidingLayout.openMenu();
 		}

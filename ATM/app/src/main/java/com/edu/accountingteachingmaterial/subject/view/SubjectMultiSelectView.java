@@ -17,7 +17,7 @@ import com.edu.subject.ISubject;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
-import com.edu.subject.data.SubjectBasicData;
+import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
@@ -157,7 +157,7 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
 
         if (testMode == TEST_MODE_NORMAL) {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
-               showCorrectAnswer(state == SubjectState.STATE_CORRECT);
+//               showCorrectAnswer(state == SubjectState.STATE_CORRECT);
                 tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             } else {// 未完成或是尚未做

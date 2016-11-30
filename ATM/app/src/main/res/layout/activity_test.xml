@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:singleLine="true"
-            android:text="会计凭证单元测试"
+            android:text="会计基础"
             android:textColor="@android:color/white"
             android:textSize="32sp" />
 
@@ -102,23 +102,25 @@
         >
         </com.edu.accountingteachingmaterial.view.UnTouchableViewPager>
 
-        <Button
+        <ImageView
             android:id="@+id/btnLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:focusable="false"
             android:onClick="onClick"
+            android:src="@mipmap/btn_left"
             android:text="left" />
 
 
-        <Button
+        <ImageView
             android:id="@+id/btnRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:focusable="false"
+            android:src="@mipmap/btn_right"
             android:onClick="onClick"
             android:text="right" />
     </RelativeLayout>

@@ -16,10 +16,11 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.subject.TestMode;
 import com.edu.subject.common.SubjectCardAdapter.OnCardItemClickListener;
 import com.edu.subject.common.SubjectCardDialog;
-import com.edu.subject.common.UnTouchableViewPager;
 import com.edu.subject.dao.SignDataDao;
 import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
@@ -110,8 +111,10 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 		tvQuestion = (TextView) findViewById(R.id.tvQuestion);
 		btnReturn= (ImageView) findViewById(R.id.btnDone);
 		btnReturn.setImageResource(R.mipmap.icon_congzuo_n);
+		Bundle bundle = getIntent().getExtras();
+		ExamListData data = (ExamListData) bundle.get("ExamListData");
 
-		datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS);
+		datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
 
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
 		mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
@@ -129,6 +132,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 			break;
 			case R.id.btnDone:
 				mSubjectAdapter.reset();
+				finish();
 				break;
 
 		case R.id.btnLeft:

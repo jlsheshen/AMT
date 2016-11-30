@@ -1,4 +1,6 @@
-package com.edu.subject.data;
+package com.edu.accountingteachingmaterial.bean;
+
+import com.edu.subject.data.BaseSubjectData;
 
 /**
  * 基础题型（单多判）数据封装，每个字段的详细信息见doc/EduBasicAccounting_database.xls.xls
@@ -13,8 +15,7 @@ public class SubjectBasicData extends BaseSubjectData {
 	private int type;
 	// 题目
 	private String question;
-	// 选项
-	private String option;
+
 	// 正确答案
 	private String answer;
 
@@ -42,13 +43,7 @@ public class SubjectBasicData extends BaseSubjectData {
 		this.question = question;
 	}
 
-	public String getOption() {
-		return option;
-	}
 
-	public void setOption(String option) {
-		this.option = option;
-	}
 
 	public String getAnswer() {
 		return answer.trim();

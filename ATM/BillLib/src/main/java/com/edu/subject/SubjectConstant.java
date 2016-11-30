@@ -19,7 +19,7 @@ public class SubjectConstant {
 	 * 多个答案分割符-目前用于单据题中空可以有多个答案的情况
 	 */
 	public static final String SEPARATOR_MULTI_ANSWER = "&";
-	
+
 	/**
 	 * 空字符串标识符-目前主要用于单据题中空答案为空的情况
 	 */
@@ -41,4 +41,9 @@ public class SubjectConstant {
 	 * 单据元素类别为空的范围截止值
 	 */
 	public static final int ELEMENT_TYPE_BLANK_END = 30;
+
+	/**
+	 * 数据库名字，需要在具体项目中重新赋值
+	 */
+	public static String DATABASE_NAME = "EduBillView.db";
 }

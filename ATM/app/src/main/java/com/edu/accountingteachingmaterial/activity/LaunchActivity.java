@@ -12,12 +12,19 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.library.usercenter.UserCenterHelper;
+import com.edu.library.usercenter.UserData;
 import com.edu.library.util.DBCopyUtil;
 import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -33,56 +40,56 @@ public class LaunchActivity extends BaseActivity{
 
 	@Override
 	public void initView(Bundle savedInstanceState) {
-//		new Thread(new Runnable() {
-//			@Override
-//			public void run() {
-//
-//				String databaseFilename ="/sdcard/EduResources/AccCourse";
-//				File dir = new File(databaseFilename);
-//
-//				if (!dir.exists()){
-//					dir.mkdir();}
-//				File dir2 = new File("/sdcard/EduResources/AccCourse/video");
-//
-//				if (!dir2.exists()){
-//					dir2.mkdir();}
-//
-//				if (!(new File("/sdcard/EduResources/AccCourse/video/aaa.mp4")).exists())
-//				{
-//
-//					InputStream is = getResources().openRawResource(R.raw.aaa);
-//					FileOutputStream fos = null;
-//					try {
-//						fos = new FileOutputStream("/sdcard/EduResources/AccCourse/video/aaa.mp4");
-//					} catch (FileNotFoundException e) {
-//						e.printStackTrace();
-//					}
-//					byte[] buffer = new byte[8192];
-//					int count = 0;
-//
-//					try {
-//						while ((count = is.read(buffer)) > 0)
-//                        {
-//                            fos.write(buffer, 0, count);
-//                        }
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//					try {
-//						fos.close();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//					try {
-//						is.close();
-//					} catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//				}
-//			}
-//
-//
-//		}).start();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				String databaseFilename ="/sdcard/EduResources/AccCourse";
+				File dir = new File(databaseFilename);
+
+				if (!dir.exists()){
+					dir.mkdir();}
+				File dir2 = new File("/sdcard/EduResources/AccCourse/video");
+
+				if (!dir2.exists()){
+					dir2.mkdir();}
+
+				if (!(new File("/sdcard/EduResources/AccCourse/video/aaa.mp4")).exists())
+				{
+
+					InputStream is = getResources().openRawResource(R.raw.aaa);
+					FileOutputStream fos = null;
+					try {
+						fos = new FileOutputStream("/sdcard/EduResources/AccCourse/video/aaa.mp4");
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+					byte[] buffer = new byte[8192];
+					int count = 0;
+
+					try {
+						while ((count = is.read(buffer)) > 0)
+                        {
+                            fos.write(buffer, 0, count);
+                        }
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					try {
+						fos.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					try {
+						is.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+
+		}).start();
 //		// TODO Auto-generated method stub
 		timer = new CountDownTimer(3000,1000) {
 			@Override
@@ -117,8 +124,11 @@ public class LaunchActivity extends BaseActivity{
 	 * 根据用户id请求用户数据
 	 */
 	private void uploadHomepageInfo() {
+		UserData user = UserCenterHelper.getUserInfo(this);
+
+
 		SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + "5926");
+		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + user.getUserId());
 		sendJsonNetReqManager.sendRequest(netSendCodeEntity);
 		sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
 			@Override

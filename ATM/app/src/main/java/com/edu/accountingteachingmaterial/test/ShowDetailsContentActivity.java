@@ -103,8 +103,9 @@ public class ShowDetailsContentActivity extends FragmentActivity implements OnIt
 		viewPager = (ViewPager) findViewById(R.id.vp_content);
 		viewPager.setOnPageChangeListener(mPageChangeListener);
 		tvQuestion = (TextView) findViewById(R.id.tvQuestion);
-
-		List<BaseTestData> datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS);
+		Bundle bundle = getIntent().getExtras();
+		int dataId = (int) bundle.get("ExamListData");
+		List<BaseTestData> datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS,dataId);
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
 		viewPager.setAdapter(mSubjectAdapter);
 

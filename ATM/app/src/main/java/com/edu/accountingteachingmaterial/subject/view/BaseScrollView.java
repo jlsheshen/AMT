@@ -78,7 +78,7 @@ public abstract class BaseScrollView extends RelativeLayout {
 			contentValues.put(SubjectTestDataDao.USCORE,mData.getScore());
 			contentValues.put(SubjectTestDataDao.ERROR_COUNT,mTestData.getErrorCount());
 			contentValues.put(SubjectTestDataDao.REMARK,"0");
-			SubjectTestDataDao.getInstance(getContext()).updateData(mTestData.getSubjectId(),contentValues);
+			SubjectTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()),contentValues);
 		} else {
 			// 2是错误
 			mTestData.setState(SubjectState.STATE_WRONG);
@@ -89,7 +89,7 @@ public abstract class BaseScrollView extends RelativeLayout {
 			contentValues.put(SubjectTestDataDao.USCORE,0);
 			contentValues.put(SubjectTestDataDao.ERROR_COUNT,mTestData.getErrorCount());
 			contentValues.put(SubjectTestDataDao.REMARK,"0");
-			SubjectTestDataDao.getInstance(getContext()).updateData(mTestData.getSubjectId(),contentValues);
+			SubjectTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()),contentValues);
 		}
 	}
 
@@ -163,7 +163,7 @@ public abstract class BaseScrollView extends RelativeLayout {
 			mData.setRemark("1");
 		}
 		contentValues.put(SubjectTestDataDao.REMARK,mData.getRemark());
-		SubjectTestDataDao.getInstance(getContext()).updateData(mTestData.getSubjectId(),contentValues);
+		SubjectTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()),contentValues);
 	}
 
 	public void setSubjectListener(SubjectListener subjectListener) {

@@ -14,8 +14,7 @@ public class TestGroupBillData extends BaseTestData {
 
 	// 对应单据的数据
 	private List<TestBillData> testDatas;
-	// 用户印章
-	private String uSigns;
+
 	//该组单据的总分
 	private float score;
 
@@ -32,13 +31,7 @@ public class TestGroupBillData extends BaseTestData {
 		return testDatas.get(0).getSubjectData();
 	}
 
-	public String getuSigns() {
-		return uSigns;
-	}
 
-	public void setuSigns(String uSigns) {
-		this.uSigns = uSigns;
-	}
 
 	public float getScore() {
 		return score;

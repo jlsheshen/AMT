@@ -1,6 +1,7 @@
 package com.edu.subject.common;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.AttributeSet;
 import android.view.View;
@@ -13,7 +14,6 @@ import android.widget.RelativeLayout;
 
 import com.edu.R;
 import com.edu.library.picselect.HackyViewPager;
-import com.edu.subject.util.BitmapParseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 	// 存放引导圆点数组
 	private ImageView[] mIndicatorImgs;
 	private Context mContext;
-	//关闭按钮
+	// 关闭按钮
 	private ImageButton ibtnClose;
 	private CloseListener mListener;
 
@@ -51,6 +51,7 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 
 	/**
 	 * 设置图片资源
+	 * 
 	 * @param pics
 	 *            显示的图片资源
 	 */
@@ -84,10 +85,9 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 		List<View> list = new ArrayList<View>();
 
 		for (int i = 0; i < mPageCount; i++) {
-			ImageView ivPic = new ImageView(mContext);
-			ivPic.setImageBitmap(BitmapParseUtil.parse(mPicResIds[i], mContext, true));
-			new PhotoViewAttacher(ivPic, true);
-			list.add(ivPic);
+			BrowseImageView imageView = new BrowseImageView(mContext);
+			imageView.loadImage(mPicResIds[i]);
+			list.add(imageView);
 		}
 		// 创建适配器
 		mAdapter = new PicBrowseAdapter(list);
@@ -136,30 +136,58 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 
 	@Override
 	public void onClick(View v) {
-		if(v.getId() == R.id.ibtnClose) {
-			if(mListener != null) {
+		if (v.getId() == R.id.ibtnClose) {
+			if (mListener != null) {
 				mListener.onClose();
 			}
 		}
 	}
-	
+
 	/**
 	 * 设置关闭监听
+	 * 
 	 * @param listener
 	 */
 	public void setOnCloseListener(CloseListener listener) {
 		mListener = listener;
 	}
-	
+
 	/**
 	 * 关闭监听
+	 * 
 	 * @author lucher
-	 *
+	 * 
 	 */
 	public interface CloseListener {
 		/**
 		 * 关闭图片查看控件
 		 */
 		void onClose();
+	}
+	
+	/**
+	 * 支持缩放的进度imageview，直接使用imageview，网络图片加载后可能导致图片显示太小的问题，需要在图片加载后加入缩放才正常
+	 * @author lucher
+	 *
+	 */
+	public class BrowseImageView extends ProgressImageView {
+
+		public BrowseImageView(Context context) {
+			super(context);
+		}
+		
+		@Override
+		public void loadImage(String uri) {
+			super.loadImage(uri);
+			if(mBitmap != null) {
+				new PhotoViewAttacher(this, true);
+			}
+		}
+		
+		@Override
+		public void onLoadingComplete(String imageUri, View arg1, Bitmap loadedImage) {
+			super.onLoadingComplete(imageUri, arg1, loadedImage);
+			new PhotoViewAttacher(this, true);
+		}
 	}
 }

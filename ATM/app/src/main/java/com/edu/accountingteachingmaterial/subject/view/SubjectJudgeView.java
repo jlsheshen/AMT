@@ -15,7 +15,7 @@ import com.edu.subject.ISubject;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
-import com.edu.subject.data.SubjectBasicData;
+import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 

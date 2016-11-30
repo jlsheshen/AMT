@@ -1,38 +1,49 @@
 package com.edu.accountingteachingmaterial.activity;
 
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.common.SubjectCardAdapter;
 import com.edu.subject.common.SubjectCardDialog;
-import com.edu.subject.common.UnTouchableViewPager;
 import com.edu.subject.dao.SignDataDao;
+import com.edu.subject.data.AnswerResult;
 import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.SignData;
 import com.edu.testbill.Constant;
 import com.edu.testbill.dialog.SignChooseDialog;
+import com.lucher.net.req.RequestMethod;
+import com.lucher.net.req.impl.JsonReqEntity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -46,6 +57,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
     private SubjectViewPagerAdapter mSubjectAdapter;
+    int dataId;
 
     private int mCurrentIndex;
     private TextView tvQuestion;
@@ -97,10 +109,15 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE);
+
+        Bundle bundle = getIntent().getExtras();
+         dataId = (int) bundle.get("ExamListData");
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,dataId);
+        String s = JSONObject.toJSONString(datas);
+        Log.d("SubjectTestActivity", s);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
-        mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
+        mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_NORMAL);
 
         viewPager.setAdapter(mSubjectAdapter);
 
@@ -121,7 +138,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
             return;
         BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
 //         刷新题目数据
-        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
+//        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnSign.setVisibility(View.VISIBLE);
             btnFlash.setVisibility(View.VISIBLE);
@@ -145,6 +162,39 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
             case R.id.btnDone:
                 float score = mSubjectAdapter.submit();
+                List<AnswerResult> ans = new ArrayList<>();
+
+                for (BaseTestData data : datas) {
+                    AnswerResult a = new AnswerResult();
+                    a.setType(data.getSubjectType());
+                    a.setFlag(data.getSubjectData().getFlag());
+                    a.setAnswer(data.getuAnswer());
+                    a.setScore(data.getuScore());
+                    ans.add(a);
+                }
+                String a = JSON.toJSONString(ans);
+                Log.d("SubjectTestActivity", a);
+                JsonReqEntity entity = new JsonReqEntity(this, RequestMethod.POST, NetUrlContstant.subjectSubmitUrl + "6016-" + dataId+ "-2222", JSON.toJSONString(ans));
+                SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+                sendJsonNetReqManager.sendRequest(entity);
+                sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+                    @Override
+                    public void onSuccess(JSONObject jsonObject) {
+                        if (jsonObject.getString("success").equals("true")) {
+                            Log.d("SubjectTestActivity", jsonObject.getString("message"));
+                        }
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+                        ExamListDao.getInstance(SubjectTestActivity.this).updateData("" + dataId, contentValues);
+
+                    }
+
+                    @Override
+                    public void onFailure(String errorInfo) {
+                        ToastUtil.showToast(SubjectTestActivity.this, errorInfo);
+                    }
+                });
+
 
                 ToastUtil.showToast(this, "score:" + score);
                 finish();
@@ -253,8 +303,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showDone(String message) {
-
-        ToastUtil.showToast(this, "噶一首歌的原始股第一");
 
     }
 

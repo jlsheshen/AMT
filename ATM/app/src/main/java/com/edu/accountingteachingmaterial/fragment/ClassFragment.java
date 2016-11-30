@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -27,7 +28,6 @@ public class ClassFragment  extends BaseFragment{
 	ExpandableListView expandableListView;
 	List<ClassChapterData> datas;
 	ClassChapterExLvAdapter chapterExLvAdapter;
-//	List<ChapterData> chapterData;
 	@Override
 	protected int initLayout() {
 		// TODO Auto-generated method stub
@@ -50,9 +50,10 @@ public class ClassFragment  extends BaseFragment{
 		expandableListView.setOnChildClickListener(new OnChildClickListener() {
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-				String id1 = String.valueOf(datas.get(groupPosition).getSubChapters().get(childPosition).getId());
-				Log.e("www", id1);
-				startActivity(ClassDetailActivity.class);
+//				String id1 = String.valueOf(datas.get(groupPosition).getSubChapters().get(childPosition).getId());
+				Bundle bundle = new Bundle();
+				bundle.putSerializable("classData",datas.get(groupPosition).getSubChapters().get(childPosition));
+				startActivity(ClassDetailActivity.class,bundle);
 				// TODO Auto-generated method stub
 				return false;
 			}

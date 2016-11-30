@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
@@ -32,11 +31,11 @@ import com.edu.subject.bill.element.info.SignInfo;
 import com.edu.subject.bill.listener.BillZoomListener;
 import com.edu.subject.bill.listener.SignViewListener;
 import com.edu.subject.bill.template.BillTemplate;
+import com.edu.subject.bill.view.BackgroudView.ImageLoadListener;
 import com.edu.subject.bill.view.SignView.DragListener;
 import com.edu.subject.dao.TemplateDataDao;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.TestBillData;
-import com.edu.subject.util.BitmapParseUtil;
 
 /**
  * 支持缩放，自由滚动，智能滚动等功能的单据视图
@@ -45,7 +44,7 @@ import com.edu.subject.util.BitmapParseUtil;
  * 
  */
 @SuppressLint("ClickableViewAccessibility")
-public class ZoomableBillView extends ViewGroup implements OnTouchListener, DragListener {
+public class ZoomableBillView extends ViewGroup implements OnTouchListener, DragListener, ImageLoadListener {
 
 	private static final String TAG = ZoomableBillView.class.getSimpleName();
 
@@ -89,7 +88,6 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 
 	// 背景图
 	private BackgroudView mBackgroud;
-	private Bitmap mBitmap;
 	private Context mContext;
 
 	// 所有空对应的编辑框
@@ -124,6 +122,14 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 
 		init();
 	}
+	
+	/**
+	 * 底图是否加载完毕
+	 * @return
+	 */
+	public boolean loaded() {
+		return mBackgroud.isBmLoaded();
+	}
 
 	/**
 	 * 初始化
@@ -131,6 +137,7 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	private void init() {
 		mScroller = new Scroller(mContext);
 		mBackgroud = new BackgroudView(mContext);
+		mBackgroud.setImageLoadListener(this);
 		addView(mBackgroud);
 		// 创建手势检测器
 		mDetector = new GestureDetectorCompat(mContext, new BillScrollDetector());
@@ -155,14 +162,12 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	private void setBillTempate(BillTemplate template) {
 		mTemplate = template;
 		// 初始化底图
-		mBitmap = BitmapParseUtil.parse(mTemplate.getBitmap(), mContext, true);
-		if (mBitmap == null) {
-			Log.e(TAG, "底图为空，无法继续");
-			return;
+		mBackgroud.loadImage(mTemplate.getBitmap());
+		mBillWidth = mBackgroud.getBmWidth();
+		mBillHeight = mBackgroud.getBmHeight();
+		if (!mBackgroud.isBmLoaded()) {
+			Log.e(TAG, "底图为空或者在加载中，无法继续");
 		}
-		mBillWidth = mBitmap.getWidth();
-		mBillHeight = mBitmap.getHeight();
-		mBackgroud.setBitmap(mBitmap);
 		Log.i(TAG, String.format("init mBillWidth:%s,mBillHeight:%s", mBillWidth, mBillHeight));
 	}
 
@@ -170,6 +175,8 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	 * 初始化缩放比例，加入所有空等操作
 	 */
 	private void initContent() {
+		if (mBillWidth <= 0)
+			return;
 		mScale = mInitScale = (float) mWidth / mBillWidth;
 		refreshZoomState();
 		if (mZoomListener != null) {
@@ -233,7 +240,10 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	 * @return 返回是否可添加
 	 */
 	public boolean addSignView(SignInfo signData) {
-		if (mDraggingSignView != null) {
+		if(!mBackgroud.isBmLoaded()) {
+			dragHint("底图还在拼命加载中，请稍后重试");
+			return false;
+		} else if (mDraggingSignView != null) {
 			dragHint("先把当前印章盖完才能继续盖别的印章");
 			return false;
 		} else if (mTestData.getState() == SubjectState.STATE_CORRECT || mTestData.getState() == SubjectState.STATE_WRONG) {
@@ -254,7 +264,8 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 			addView(mDraggingSignView);
 			return true;
 		} else {
-			dragHint("印章图片为空，无法添加");
+			dragHint("印章图片还在加载中，暂时无法添加，请稍后重试");
+			cancelSign();
 			return false;
 		}
 	}
@@ -304,12 +315,13 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	 * 放大
 	 */
 	public void zoomIn() {
-		if (!mZoomInEnable || mDragState == DragState.WAITING) {
+		if(!mBackgroud.isBmLoaded()) {
+			dragHint("底图还在拼命加载中，请稍后重试");
+			return ;
+		} else if (!mZoomInEnable || mDragState == DragState.WAITING) {
 			if (mDragState == DragState.WAITING) {
 				dragHint("当前正在进行盖章操作，不能缩放");
 			}
-
-			Log.d(TAG, "can't zoomIn");
 			return;
 		}
 		mZoomFlag = true;
@@ -322,11 +334,13 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	 * 缩小
 	 */
 	public void zoomOut() {
-		if (!mZoomOutEnable || mDragState == DragState.WAITING) {
+		if(!mBackgroud.isBmLoaded()) {
+			dragHint("底图还在拼命加载中，请稍后重试");
+			return ;
+		} if (!mZoomOutEnable || mDragState == DragState.WAITING) {
 			if (mDragState == DragState.WAITING) {
 				dragHint("当前正在进行盖章操作，不能缩放");
 			}
-			Log.d(TAG, "can't zoomOut");
 			return;
 		}
 		mZoomFlag = false;
@@ -393,7 +407,13 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		mWidth = MeasureSpec.getSize(widthMeasureSpec);
-		mHeight = Math.round(Math.min(MeasureSpec.getSize(heightMeasureSpec), mBillHeight * mInitScale));
+		//如果底图加载成功，则用底图的高度作为控件高度，否则直接使用控件高度
+		if(mBackgroud.isBmLoaded()) {
+			mHeight = Math.round(Math.min(MeasureSpec.getSize(heightMeasureSpec), mBillHeight * mInitScale));
+		} else {
+			mHeight = Math.round(Math.max(MeasureSpec.getSize(heightMeasureSpec), mBillHeight * mInitScale));
+		}
+		
 		if (mInitScale == -1) {// 初始化初始缩放比例
 			initContent();
 		}
@@ -433,6 +453,10 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 				int bottom = params.getY() + params.getHeight();
 
 				child.layout(left, top, right, bottom);
+				
+				if(!mBackgroud.isBmLoaded()) {//底图没加载成功之前，让加载背景图铺满屏幕
+					child.layout(left, top, getWidth(), getHeight());
+				}
 				// Log.i(TAG,
 				// String.format("onLayout index:%s, left:%s,top:%s,right:%s,bottom:%s",
 				// i, left, top, right, bottom));
@@ -449,8 +473,9 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent event) {
-		// Log.d("lucher", "onInterceptTouchEvent:" + event.getAction() + "," +
-		// event.getX() + "," + event.getY());
+		if(!mBackgroud.isBmLoaded()) {
+			return false;
+		}
 		switch (event.getAction() & MotionEvent.ACTION_MASK) {
 		case MotionEvent.ACTION_DOWN:
 			oldX = event.getX();
@@ -462,6 +487,9 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
+		if(!mBackgroud.isBmLoaded()) {
+			return true;
+		}
 		if (mDragState == DragState.INITIAL || mDragState == DragState.DONE) {
 			mDetector.onTouchEvent(event);
 			int action = event.getAction() & MotionEvent.ACTION_MASK;
@@ -724,6 +752,9 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 
 		@Override
 		public boolean onSingleTapConfirmed(MotionEvent e) {
+			if(!mBackgroud.isBmLoaded()) {
+				return true;
+			}
 			mFocusHandler.handleSingleTab(e, getScrollBorder());
 			return true;
 		}
@@ -827,6 +858,9 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	 * @return
 	 */
 	public float submit() {
+		if (isSigning()) {
+			cancelSign();
+		}
 		mAnswerHandler.submit();
 		return mTestData.getuScore();
 	}
@@ -885,5 +919,17 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	 */
 	public void requestDefaultFocus() {
 		mFocusHandler.requestDefaultFocus();
+	}
+
+	@Override
+	public void onLoadStart() {
+
+	}
+
+	@Override
+	public void onLoadComplete() {
+		mBillWidth = mBackgroud.getBmWidth();
+		mBillHeight = mBackgroud.getBmHeight();
+		requestLayout();
 	}
 }

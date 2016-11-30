@@ -30,14 +30,45 @@ public abstract class BaseSubjectData extends BaseData {
 	 * 题目类别,与{@link SubjectType}对应
 	 */
 	protected int subjectType;
+
+	// 选项
+	protected String option;
+
+	//模板id
+	protected String templateId;
+
+	//标签
+	protected String label;
 	// 是否收藏，0-不收藏，1-收藏
 	protected int favorite;
 	// 问题显示id
-	private int subjectIndex;
-	private boolean isDone;
-	private String indexName;//题卡
+	protected int subjectIndex;
+	protected boolean isDone;
+	protected String indexName;//题卡
 
+	public String getOption() {
+		return option;
+	}
 
+	public void setOption(String option) {
+		this.option = option;
+	}
+
+	public String getTemplateId() {
+		return templateId;
+	}
+
+	public void setTemplateId(String templateId) {
+		this.templateId = templateId;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
 	public int getChapterId() {
 		return chapterId;

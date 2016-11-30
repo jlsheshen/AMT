@@ -201,7 +201,7 @@ public class BlankEditText extends EditText implements IScaleable {
 	 * 
 	 * @param text
 	 */
-	private void setTextChecked(String text) {
+	protected void setTextChecked(String text) {
 		if (text == null) {
 			super.setText(text);
 		} else if (mData.getType() == ElementType.TYPE_VERTICAL) {// 竖直空

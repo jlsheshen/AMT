@@ -1,12 +1,14 @@
 package com.edu.accountingteachingmaterial.entity;
 
+import com.edu.library.data.BaseData;
+
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/11/25.
  */
 
-public class ClassChapterData {
+public class ClassChapterData extends BaseData {
 
     /**
      * subChapters : [{"subChapters":[],"id":179,"title":"SASA","order":27},{"subChapters":[],"id":181,"title":"dasasd","order":59},{"subChapters":[],"id":202,"title":"asd","order":63},{"subChapters":[],"id":209,"title":"asdasd","order":57},{"subChapters":[],"id":211,"title":"asdasd","order":86},{"subChapters":[],"id":215,"title":"asdasd","order":92},{"subChapters":[],"id":238,"title":"asdsad","order":94},{"subChapters":[],"id":246,"title":"asdasd","order":84}]
@@ -52,7 +54,7 @@ public class ClassChapterData {
         this.subChapters = subChapters;
     }
 
-    public static class SubChaptersBean {
+    public static class SubChaptersBean extends BaseData{
         /**
          * subChapters : []
          * id : 179

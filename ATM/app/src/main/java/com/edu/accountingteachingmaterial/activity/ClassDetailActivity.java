@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
@@ -20,6 +22,8 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 	RadioButton classEmphasisButton, classExampleButton, classExerciseButton, classReviewButton;
 	Fragment classEmphasisFragment, classExampleFragment, classExerciseFragment, classReviewFragment;
 	ImageView backIv;
+	ClassChapterData.SubChaptersBean data;
+	TextView textView;
 
 	@Override
 	public int setLayout() {
@@ -34,6 +38,8 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 		bindAndListener(classExerciseButton, R.id.class_exercise_iv);
 		bindAndListener(classReviewButton, R.id.class_review_iv);
 		bindAndListener(backIv,R.id.class_aty_back_iv);
+		textView= bindView(R.id.class_id_title_tv);
+
 
 
 	}
@@ -44,6 +50,12 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 			classEmphasisFragment = new ClassEmphasisFragment();
         }
 		replaceFragment(classEmphasisFragment );
+
+		Bundle bundle = getIntent().getExtras();
+		data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
+		if (data != null){
+			textView.setText(data.getTitle());
+		}
 
 		// TODO Auto-generated method stub
 

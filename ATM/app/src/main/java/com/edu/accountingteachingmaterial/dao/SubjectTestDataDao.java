@@ -4,10 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 import com.edu.accountingteachingmaterial.bean.SubjectEntryDataDao;
+import com.edu.accountingteachingmaterial.bean.TestBasicData;
 import com.edu.accountingteachingmaterial.bean.TestEntryData;
+import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
 import com.edu.library.util.ToastUtil;
@@ -17,13 +21,10 @@ import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.bill.template.BillTemplate;
 import com.edu.subject.bill.template.BillTemplateFactory;
-import com.edu.subject.dao.SubjectBasicDataDao;
 import com.edu.subject.dao.SubjectBillDataDao;
 import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
-import com.edu.subject.data.SubjectBasicData;
 import com.edu.subject.data.SubjectBillData;
-import com.edu.subject.data.TestBasicData;
 import com.edu.subject.data.TestBillData;
 import com.edu.subject.data.TestGroupBillData;
 import com.edu.testbill.Constant;
@@ -43,6 +44,8 @@ public class SubjectTestDataDao extends BaseDataDao {
     //试卷类型
     public static final String FLAG = "FLAG";
 
+    //试卷id
+    public static final String CHAPTER_ID = "CHAPTER_ID";
 
     // 用户答案
     public static final String UANSWER = "UANSWER";
@@ -92,13 +95,13 @@ public class SubjectTestDataDao extends BaseDataDao {
      * @param testMode 测试模式，见{@link TestMode}
      * @return
      */
-    public List<BaseTestData> getSubjects(int testMode) {
+    public List<BaseTestData> getSubjects(int testMode,int chapter) {
         Cursor curs = null;
         List<BaseTestData> datas = null;
         try {
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
-            String sql = "SELECT * FROM " + TABLE_NAME;
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + CHAPTER_ID + " = " + chapter;
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null) {
@@ -122,6 +125,8 @@ public class SubjectTestDataDao extends BaseDataDao {
         }
         return datas;
     }
+
+
 
     /**
      * 初始化测试数据
@@ -159,7 +164,7 @@ public class SubjectTestDataDao extends BaseDataDao {
                     parseCursor(curs, testBill, i);
                     testBill.setSubjectData(subject);
                     // 初始化模板数据
-                    BillTemplate template = BillTemplateFactory.createTemplate(mDb, ((SubjectBillData) subject).getTemplateId(), mContext);
+                    BillTemplate template = BillTemplateFactory.createTemplate(mDb, Integer.parseInt(((SubjectBillData) subject).getTemplateId()), mContext);
                     testBill.setTemplate(template);
                     String result = testBill.loadTemplate(mContext);
                     if (result.equals("success")) {
@@ -180,7 +185,7 @@ public class SubjectTestDataDao extends BaseDataDao {
                 subjectData = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).getData(testData.getSubjectId(), mDb);
                 testData.setSubjectData(subjectData);
                 // 初始化模板数据
-                BillTemplate template = BillTemplateFactory.createTemplate(mDb, ((SubjectBillData) subjectData).getTemplateId(), mContext);
+                BillTemplate template = BillTemplateFactory.createTemplate(mDb, Integer.parseInt(((SubjectBillData) subjectData).getTemplateId()), mContext);
                 ((TestBillData) testData).setTemplate(template);
                 String result = ((TestBillData) testData).loadTemplate(mContext);
                 if (result.equals("success")) {
@@ -284,6 +289,36 @@ public class SubjectTestDataDao extends BaseDataDao {
                 ((TestBillData) data).setuSigns(curs.getString(curs.getColumnIndex(USIGNS)));
             }
         }
+    }
+    /**
+     * 根据chatperid获取对应数据
+     *
+     * @param id
+     * @return
+     */
+    public synchronized BaseData getDataByChatperId(int chatperid) {
+        BaseData data = null;
+        Cursor curs = null;
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE CHAPTER_ID = " + CHAPTER_ID;
+        try {
+            DBHelper helper = new DBHelper(mContext, dbName, null);
+            mDb = helper.getWritableDatabase();
+            curs = mDb.rawQuery(sql, null);
+            if (curs != null) {
+                if (curs.getCount() == 0)
+                    return null;
+                curs.moveToFirst();
+                data = parseCursor(curs);
+
+                Log.d(TAG, "data:" + data);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            closeDb(mDb, curs);
+        }
+
+        return data;
     }
 
     /**
@@ -391,6 +426,22 @@ public class SubjectTestDataDao extends BaseDataDao {
             mDb.endTransaction();
             closeDb(mDb);
         }
+    }
+    /**
+     * 插入test数据
+     * @param subjectType
+     * @param subjectId
+     * @param db
+     */
+    public void insertTest(int subjectType, int subjectId,int chapterid, SQLiteDatabase db) {
+        ContentValues values = new ContentValues();
+        values.put("FLAG", -1);
+        values.put("SUBJECT_TYPE", subjectType);
+        values.put("SUBJECT_ID", subjectId);
+        values.put(CHAPTER_ID,chapterid);
+        values.put("USCORE", 0);
+        values.put("STATE", 0);
+        db.replace(TABLE_NAME, null, values);
     }
 
 

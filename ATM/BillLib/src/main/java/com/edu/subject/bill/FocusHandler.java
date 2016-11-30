@@ -1,11 +1,8 @@
 package com.edu.subject.bill;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Rect;
+import android.provider.Settings;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -24,6 +21,10 @@ import com.edu.subject.SubjectListener;
 import com.edu.subject.bill.element.ElementType;
 import com.edu.subject.bill.view.BlankEditText;
 import com.edu.subject.bill.view.ZoomableBillView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 单据焦点事件处理类
@@ -54,6 +55,8 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 
 	// 初始化后是否获取焦点，用于获取焦点是控件还没初始化的情况
 	private boolean focusWhenInit;
+	// 记录按键触发时间，用于防止某些输入法响应多次问题
+	private long downTime = 0;
 
 	public FocusHandler(Context context, ZoomableBillView zoomableBillView) {
 		mContext = context;
@@ -130,10 +133,14 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 
 		boolean handleKeyEvent = (event.getAction() == KeyEvent.ACTION_UP);
 		// 是否跳转到下一个空
-		boolean next = keyCode == KeyEvent.KEYCODE_ENTER | keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER | keyCode == KeyEvent.KEYCODE_DPAD_RIGHT | keyCode == KeyEvent.KEYCODE_TAB
-				| keyCode == KeyEvent.KEYCODE_DPAD_DOWN;
+		boolean next = keyCode == KeyEvent.KEYCODE_ENTER | (keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER && !isSougou()) | keyCode == KeyEvent.KEYCODE_DPAD_RIGHT | keyCode == KeyEvent.KEYCODE_TAB
+		/* | keyCode == KeyEvent.KEYCODE_DPAD_DOWN 会影响某些输入法选择备选字的功能 */;
 		// 是否跳转到上一个空
-		boolean previous = keyCode == KeyEvent.KEYCODE_DPAD_LEFT | keyCode == KeyEvent.KEYCODE_DPAD_UP;
+		boolean previous = keyCode == KeyEvent.KEYCODE_DPAD_LEFT /*
+																 * | keyCode ==
+																 * KeyEvent.
+																 * KEYCODE_DPAD_UP会影响某些输入法选择备选字的功能
+																 */;
 		// 是否截返回键
 		boolean back = keyCode == KeyEvent.KEYCODE_BACK && mBillView.isSigning();
 
@@ -143,6 +150,7 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 		} else if (handleKeyEvent && previous) {
 			changeFocus(false);
 		} else if (handleKeyEvent && keyCode == KeyEvent.KEYCODE_DEL) {// 处理刪除按鍵
+			Log.d(TAG, "onkey delete," + keyCode);
 			handleDelete(v);
 		} else if (handleKeyEvent && back) {// 处理返回键
 			mBillView.cancelSign();
@@ -156,6 +164,18 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 	}
 
 	/**
+	 * 是否为搜狗输入法
+	 * 搜狗为：com.sohu.inputmethod.sogou/.SogouIME
+	 * 
+	 * @return
+	 */
+	private boolean isSougou() {
+		String method = Settings.Secure.getString(mContext.getContentResolver(), Settings.Secure.DEFAULT_INPUT_METHOD);
+		Log.d(TAG,"method"+method);
+		return method.contains("sogou");
+	}
+
+	/**
 	 * 处理删除事件
 	 * 
 	 * @param v
@@ -164,6 +184,12 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 		((BlankEditText) v).setSelection(((BlankEditText) v).getText().toString().length());
 		// 处理独立金额空删除自动跳转到前一个空的逻辑
 		if (((BlankEditText) v).getData().getType() == ElementType.TYPE_AMOUNT_LOWER_SEP) {
+			long gap = System.currentTimeMillis() - downTime;
+			downTime = System.currentTimeMillis();
+			if (Math.abs(gap) < 300) {
+				return;
+			}
+			Log.e(TAG, "handleDelete delete");
 			try {
 				String remark = ((BlankEditText) v).getData().getRemark();
 				int groupId = Integer.valueOf(remark);
@@ -401,22 +427,19 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 		}
 
 		@Override
-		public void afterTextChanged(Editable s) {
-			// Log.d("lucher", "afterTextChanged ：" + s);
-			// 内容替换
+		public void afterTextChanged(Editable s) {// 内容替换
 			if (s.length() > 1) {
 				mBlank.setText("");
 				Editable editable = mBlank.getText();
 				editable.append(s.subSequence(s.length() - 1, s.length()));
 			}
-			// 切换焦点
-			if (!s.toString().equals("")) {
-				View view = getNextFocusView(mGroupId, mBlank);
-				if (view != null) {
-					view.requestFocus();
-				}
-			}
-
+			// // 切换焦点
+			// if (!s.toString().equals("")) {
+			// View view = getNextFocusView(mGroupId, mBlank);
+			// if (view != null) {
+			// view.requestFocus();
+			// }
+			// }
 		}
 
 		@Override

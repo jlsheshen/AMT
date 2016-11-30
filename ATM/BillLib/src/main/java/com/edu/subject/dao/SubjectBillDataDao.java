@@ -1,16 +1,19 @@
 package com.edu.subject.dao;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.SubjectType;
 import com.edu.subject.data.SubjectBillData;
+import com.edu.subject.data.SubjectData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,12 +145,52 @@ public class SubjectBillDataDao extends BaseDataDao {
 
 			subjectData.setLabel(labels[i]);
 			subjectData.setAnswer(answers[i]);
-			subjectData.setTemplateId(Integer.parseInt(templateIds[i]));
+			subjectData.setTemplateId(templateIds[i]);
 
 			subjectDatas.add(subjectData);
 		}
 
 		return subjectDatas;
+	}
+
+	/**
+	 * 插入题目数据
+	 *
+	 * @param subject
+	 * @param db
+	 * @return 新增id
+	 */
+	public int insertData(SubjectData subject, SQLiteDatabase db) {
+//		String sql = "select count(*) from " + TABLE_NAME + " where flag = " + subject.getFlag();
+//		Cursor curs = db.rawQuery(sql, null);
+		int id = 0;
+		try {
+//			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
+				String question = JSON.parseObject(subject.getQuestion()).getString("text");
+				ContentValues values = new ContentValues();
+				values.put("CHAPTER_ID", subject.getChapterId());
+				values.put("FLAG", subject.getFlag());
+//				values.put("TEMPLATE_ID", subject);
+				values.put("QUESTION", question);
+				values.put("PIC", subject.getPic());
+//				values.put("LABELS", subject);
+				values.put("BLANKS", subject.getAnswer());
+				values.put("SCORE", subject.getScore());
+				values.put("REMARK", subject.getRemark());
+				id = (int) db.replace(TABLE_NAME, null, values);
+				if (id < 0) {
+					ToastUtil.showToast(mContext, "题目格式出错：" + subject);
+				}
+				Log.d(TAG, "insert:" + id + "," + values);
+//			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+//			if (curs != null) {
+//				curs.close();
+//			}
+		}
+		return id;
 	}
 
 	@Override
@@ -156,7 +199,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 		subjectData.setId(curs.getInt(0));
 		subjectData.setChapterId(curs.getInt(1));
 		subjectData.setFlag(curs.getInt(2));
-		subjectData.setTemplateId(curs.getInt(3));
+		subjectData.setTemplateId(curs.getString(3));
 		subjectData.setQuestion(curs.getString(4));
 		subjectData.setPic(curs.getString(5));
 		subjectData.setLabel(curs.getString(6));

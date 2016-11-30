@@ -29,6 +29,11 @@ public abstract class BaseTestData extends BaseData implements IbaseTestData {
     protected String uAnswer;
     // 用户得分
     protected float uScore;
+    //用户印章
+    protected String uSigns;
+
+
+
     /**
      * 作答状态，与{@link SubjectState}对应
      */
@@ -40,6 +45,13 @@ public abstract class BaseTestData extends BaseData implements IbaseTestData {
      * 测试模式，与{@link TestMode}对应
      */
     protected int testMode;
+    public String getuSigns() {
+        return uSigns;
+    }
+
+    public void setuSigns(String uSigns) {
+        this.uSigns = uSigns;
+    }
 
     public int getChapterId() {
         return chapterId;

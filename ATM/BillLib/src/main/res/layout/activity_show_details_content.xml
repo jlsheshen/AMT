@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2F1F0"
-    tools:context="com.edu.testbill.MainActivity" >
+    tools:context="com.edu.testsubject.MainActivity" >
 
     <RelativeLayout
         android:id="@+id/title"

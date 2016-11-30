@@ -81,7 +81,7 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 		TextView titlyTv = (TextView) convertView.findViewById(R.id.item_classchapter_tv);
 		titlyTv.setText(datas.get(groupPosition).getTitle());
 		TextView titleNum = (TextView) convertView.findViewById(R.id.item_classchapter_num_tv);
-		titleNum.setText("第" + groupPosition + "章");
+//		titleNum.setText("第" + groupPosition + "章");
 		ImageView imageView = (ImageView) convertView.findViewById(R.id.item_classchapter_iv);
 		//箭头随着子列的展开而变化
 		if (isExpanded){
@@ -98,7 +98,7 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 		TextView textView = (TextView) convertView.findViewById(R.id.item_classnode_tv);
 		textView.setText(datas.get(groupPosition).getSubChapters().get(childPosition).getTitle());
 		TextView num = (TextView) convertView.findViewById(R.id.item_classnode_num_tv);
-		num.setText("第" + groupPosition + "节");
+//		num.setText("第" + groupPosition + "节");
 		return convertView;
 	}
 

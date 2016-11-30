@@ -118,8 +118,9 @@ public class ExamContentActivity extends FragmentActivity implements OnItemClick
 		tvQuestion = (TextView) findViewById(R.id.tvQuestion);
 		btnSign = (Button) findViewById(R.id.btnSign);
 		btnFlash = (Button) findViewById(R.id.btnFlash);
-
-		List<BaseTestData> datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM);
+		Bundle bundle = getIntent().getExtras();
+		int dataId = (int) bundle.get("ExamListData");
+		List<BaseTestData> datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM,dataId);
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
 		viewPager.setAdapter(mSubjectAdapter);
 

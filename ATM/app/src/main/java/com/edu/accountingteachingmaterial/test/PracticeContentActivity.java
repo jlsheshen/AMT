@@ -100,8 +100,9 @@ public class PracticeContentActivity extends FragmentActivity implements OnItemC
 		btnDone = (Button) findViewById(R.id.btnDone);
 		btnSign = (Button) findViewById(R.id.btnSign);
 		btnFlash = (Button) findViewById(R.id.btnFlash);
-
-		List<BaseTestData> datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE);
+		Bundle bundle = getIntent().getExtras();
+		int dataId = (int) bundle.get("ExamListData");
+		List<BaseTestData> datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,dataId);
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
 		viewPager.setAdapter(mSubjectAdapter);
 

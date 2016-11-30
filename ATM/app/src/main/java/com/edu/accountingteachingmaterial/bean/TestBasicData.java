@@ -1,5 +1,8 @@
-package com.edu.subject.data;
+package com.edu.accountingteachingmaterial.bean;
 
+
+import com.edu.subject.data.BaseSubjectData;
+import com.edu.subject.data.BaseTestData;
 
 /**
  * 基础题型测试数据：：单多判

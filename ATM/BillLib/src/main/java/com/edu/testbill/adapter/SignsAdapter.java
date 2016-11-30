@@ -5,12 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.R;
+import com.edu.subject.common.ProgressImageView;
 import com.edu.subject.data.SignData;
-import com.edu.subject.util.BitmapParseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,23 +34,17 @@ public class SignsAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-
 		return mList.size();
-
 	}
 
 	@Override
 	public Object getItem(int position) {
-
 		return mList.get(position);
-
 	}
 
 	@Override
 	public long getItemId(int position) {
-
 		return position;
-
 	}
 
 	@Override
@@ -63,8 +56,10 @@ public class SignsAdapter extends BaseAdapter {
 			view = convertView;
 		}
 
-		ImageView sign = (ImageView) view.findViewById(R.id.ivSign);
-		sign.setImageBitmap(BitmapParseUtil.parse(mList.get(position).getPic(), mContext, true));
+		//加载印章图片
+		ProgressImageView sign = (ProgressImageView) view.findViewById(R.id.ivSign);
+		sign.loadImage(mList.get(position).getPic());
+		
 		TextView signContent = (TextView) view.findViewById(R.id.tvName);
 		signContent.setText(mList.get(position).getName());
 		view.setTag(mList.get(position));

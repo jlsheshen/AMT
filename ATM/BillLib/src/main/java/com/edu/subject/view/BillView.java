@@ -7,7 +7,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.edu.R;
 import com.edu.library.util.ToastUtil;
@@ -28,7 +27,7 @@ import com.edu.subject.common.SlidingDragLayout.DragListener;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.SignData;
 import com.edu.subject.data.TestBillData;
-import com.edu.testbill.util.SoundPoolUtil;
+import com.edu.subject.util.SoundPoolUtil;
 
 /**
  * 单据题型视图
@@ -42,10 +41,9 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 	private ImageButton btnZoomIn, btnZoomOut;
 	private View switchAnswer;
 	private Button btnShowUser, btnShowRight;
-	private TextView tvErrorCount;
 
 	private Context mContext;
-	private ZoomableBillView billView;
+	public ZoomableBillView billView;
 	// 显示图片的小角标
 	private ImageButton ibtnPic;
 	// 滑动菜单控件
@@ -96,7 +94,6 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 		billView.setSignListener(this);
 		ibtnPic = (ImageButton) findViewById(R.id.ibtnPic);
 
-		tvErrorCount = (TextView) findViewById(R.id.tvErrorCount);
 		btnShowUser = (Button) findViewById(R.id.btnShowUser);
 		btnShowRight = (Button) findViewById(R.id.btnShowRight);
 		switchAnswer = findViewById(R.id.switchView);
@@ -133,13 +130,10 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 	 */
 	private void showSwitch(boolean show) {
 		if (show) {
-			tvErrorCount.setVisibility(View.VISIBLE);
 			switchAnswer.setVisibility(View.VISIBLE);
-			tvErrorCount.setText("错误" + mData.getSubjectData().getErrorCount() + "次");
 			btnShowUser.setBackgroundResource(R.drawable.btn_switch_green);
 			btnShowRight.setBackgroundResource(R.drawable.btn_transparent);
 		} else {
-			tvErrorCount.setVisibility(View.GONE);
 			switchAnswer.setVisibility(View.GONE);
 		}
 	}
@@ -174,15 +168,27 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 		} else if (view.getId() == R.id.ibtnZoomOut) {
 			billView.zoomOut();
 		} else if (view.getId() == R.id.ibtnPic) {
-			slidingLayout.openMenu();
+			if (billView.loaded()) {
+				slidingLayout.openMenu();
+			} else {
+				ToastUtil.showToast(mContext, "底图加载完成后才能打开菜单，请稍后重试");
+			}
 		} else if (view.getId() == R.id.btnShowRight) {
-			showDetails();
-			btnShowUser.setBackgroundResource(R.drawable.btn_transparent);
-			btnShowRight.setBackgroundResource(R.drawable.btn_switch_green);
+			if (billView.loaded()) {
+				showDetails();
+				btnShowUser.setBackgroundResource(R.drawable.btn_transparent);
+				btnShowRight.setBackgroundResource(R.drawable.btn_switch_green);
+			} else {
+				ToastUtil.showToast(mContext, "底图加载完成后才能打开菜单，请稍后重试");
+			}
 		} else if (view.getId() == R.id.btnShowUser) {
-			showUserAnswer();
-			btnShowUser.setBackgroundResource(R.drawable.btn_switch_green);
-			btnShowRight.setBackgroundResource(R.drawable.btn_transparent);
+			if (billView.loaded()) {
+				showUserAnswer();
+				btnShowUser.setBackgroundResource(R.drawable.btn_switch_green);
+				btnShowRight.setBackgroundResource(R.drawable.btn_transparent);
+			} else {
+				ToastUtil.showToast(mContext, "底图加载完成后才能打开菜单，请稍后重试");
+			}
 		}
 	}
 
@@ -313,12 +319,12 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 
 	@Override
 	public void onDragStart(SignView view) {
-		ToastUtil.showToast(mContext, "开始盖章了");
+		// ToastUtil.showToast(mContext, "开始盖章了");
 	}
 
 	@Override
 	public void onDragEnd(SignView view) {
-		ToastUtil.showToast(mContext, "盖章结束了");
+		// ToastUtil.showToast(mContext, "盖章结束了");
 		SoundPoolUtil.getInstance().play((Activity) mContext, SoundPoolUtil.SOUND_SEAL_SUCCESS_ID);
 	}
 

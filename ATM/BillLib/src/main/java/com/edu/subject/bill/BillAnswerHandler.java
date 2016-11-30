@@ -1,10 +1,5 @@
 package com.edu.subject.bill;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import android.util.Log;
 
 import com.edu.library.util.ToastUtil;
@@ -16,6 +11,11 @@ import com.edu.subject.bill.element.info.SignInfo;
 import com.edu.subject.bill.view.BlankEditText;
 import com.edu.subject.bill.view.SignView;
 import com.edu.subject.data.TestBillData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 单据题答案处理类
@@ -134,7 +134,7 @@ public class BillAnswerHandler {
 	 */
 	private void judgeAnswer(boolean submit) {
 		// 算分方法：对每个空进行答案判断，如果答错，从总分里减去答错空的分值，直到总分小于或等于0
-		float totalScore = mTestData.getSubjectData().getScore();
+		float totalScore = (float) mTestData.getSubjectData().getScore();
 		totalScore -= judgeBlanks(submit);
 		totalScore -= judgeSigns(submit);
 		Log.d(TAG, mTestData.getSubjectIndex() + ",totalScore:" + totalScore);

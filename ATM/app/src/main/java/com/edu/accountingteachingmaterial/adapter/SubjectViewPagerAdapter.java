@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.edu.accountingteachingmaterial.entity.Answer;
 import com.edu.accountingteachingmaterial.fragment.SubjectViewPagerFragment;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
@@ -169,12 +170,15 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 	 */
 	public float submit() {
 		float totalScore = 0;
+		List<Answer> answers = new ArrayList<>();
+
 		for (int i = 0; i < mPagerList.size(); i++) {
 			submitSubject(i);
 			totalScore += mSubjectList.get(i).getuScore();
 //			mSubjectList.get(i).setuAnswer("");
 //			mSubjectList.get(i).setState(SubjectState.STATE_INIT);
 //			mSubjectList.get(i).setuScore(0);
+
 		}
 		Log.d(TAG, "totalScore:" + totalScore);
 //		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList);
@@ -195,6 +199,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 		// 判断正误，在此之前需要把对应的题得分设置到data中
 		if (mSubjectList.get(index).getSubjectData().getScore() == mSubjectList.get(index).getuScore()) {
 			mSubjectList.get(index).setState(SubjectState.STATE_CORRECT);
+
 		} else {
 			mSubjectList.get(index).setState(SubjectState.STATE_WRONG);
 		}
