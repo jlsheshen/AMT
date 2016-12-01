@@ -66,7 +66,6 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 				return false;
 			}
 		});
-
 		expandableListView.setOnGroupExpandListener(new OnGroupExpandListener() {
 
             @Override

@@ -12,7 +12,7 @@ public class NetUrlContstant {
     //课程章节列表
     public static final String chapterUrl = BASE_URL + "interface/course/findChaptersByCourseId/";
     //试卷列表
-    public static final String chapterTypeUrl = BASE_URL + "interface/exam/findAllPracticeByChapterIdnType/307-0";
+    public static final String chapterTypeUrl = BASE_URL + "interface/exam/findAllPracticeByChapterIdnType/";
     //试题列表
     public static final String subjectListUrl = BASE_URL + "interface/exam/findExamPaperTopicById/";
     //上传答案

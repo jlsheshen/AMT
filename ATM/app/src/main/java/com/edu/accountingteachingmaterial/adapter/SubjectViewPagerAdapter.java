@@ -181,7 +181,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 
 		}
 		Log.d(TAG, "totalScore:" + totalScore);
-//		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList);
+		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList);
 
 		return totalScore;
 	}

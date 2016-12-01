@@ -19,6 +19,8 @@ import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
+import com.edu.library.usercenter.UserCenterHelper;
+import com.edu.library.usercenter.UserData;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectType;
@@ -63,6 +65,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
     List<BaseTestData> datas;
+    ExamListData data;
 
     // 页面相关状态的监听
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -104,7 +107,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
 
         Bundle bundle = getIntent().getExtras();
-        ExamListData data = (ExamListData) bundle.get("ExamListData");
+        data = (ExamListData) bundle.get("ExamListData");
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
@@ -113,11 +116,8 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_NORMAL);
 
         viewPager.setAdapter(mSubjectAdapter);
-
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
-
     }
-
     @Override
     public void initData() {
 
@@ -142,7 +142,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         }
     }
 
-
     public void onClick(View view) throws IOException {
         switch (view.getId()) {
             case R.id.btnSign:
@@ -156,7 +155,11 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
             case R.id.btnDone:
                 float score = mSubjectAdapter.submit();
                 UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
-                UploadResultsManager.getSingleton(this).uploadResult(6015, 1131, 10000);
+                UserData user = UserCenterHelper.getUserInfo(this);
+
+                UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), data.getId(), 10000);
+                EventBus.getDefault().post(user.getUserId());
+
 //                List<com.edu.subject.net.AnswerResult.AnswerResult> ans = new ArrayList<>();
 //
 //                for (BaseTestData data : datas) {

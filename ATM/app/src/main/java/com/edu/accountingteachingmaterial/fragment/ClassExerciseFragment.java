@@ -17,6 +17,7 @@ import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.entity.SubjectTestData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -24,6 +25,10 @@ import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.util.SubjectsDownloadManager;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -37,6 +42,7 @@ public class ClassExerciseFragment extends BaseFragment {
     ImageView stateIv;
     ExamListData data1;
     Bundle b = new Bundle();
+    ClassChapterData.SubChaptersBean data;
 
     int item;
 
@@ -48,11 +54,19 @@ public class ClassExerciseFragment extends BaseFragment {
     @Override
     protected void initView(View view) {
         expandableListView = bindView(R.id.exercise_exlv);
+        EventBus.getDefault().register(this);
+    }
 
+    public ClassExerciseFragment(ClassChapterData.SubChaptersBean data) {
+        this.data = data;
+    }
+
+    public ClassExerciseFragment() {
     }
 
     @Override
     protected void initData() {
+
 //        loadDatas();
         adapter = new ExerciseExLvAdapter(context);
         uploadChapterList();
@@ -91,6 +105,16 @@ public class ClassExerciseFragment extends BaseFragment {
                 return false;
             }
         });
+    }
+    //线程类型
+    @Subscribe(threadMode= ThreadMode.MAIN)
+    public void getData(List<ExamListData> datas){
+        if (datas== null){
+
+
+        }
+
+
     }
 
     @Override
@@ -131,7 +155,7 @@ public class ClassExerciseFragment extends BaseFragment {
     }
 
     private void uploadChapterList() {
-        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl);
+        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl + data.getId() + "-0");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -170,6 +194,7 @@ public class ClassExerciseFragment extends BaseFragment {
 
     @Override
     public void onDestroy() {
+        EventBus.getDefault().unregister(this);
 
         super.onDestroy();
     }

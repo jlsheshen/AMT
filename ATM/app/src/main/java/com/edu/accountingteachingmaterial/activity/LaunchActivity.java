@@ -125,10 +125,11 @@ public class LaunchActivity extends BaseActivity{
 	 */
 	private void uploadHomepageInfo() {
 		UserData user = UserCenterHelper.getUserInfo(this);
+//		user.setUserId(6013);
 
 
 		SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl +"6016");
+		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl +user.getUserId());
 		sendJsonNetReqManager.sendRequest(netSendCodeEntity);
 		sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
 			@Override
