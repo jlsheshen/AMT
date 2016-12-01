@@ -6,7 +6,7 @@ package com.edu.accountingteachingmaterial.constant;
 
 public class NetUrlContstant {
 
-    public static final String BASE_URL = "http://192.168.1.159/";
+    public static final String BASE_URL = "http://192.168.1.142/";
     //首页课程信息
     public static final String homeInfoUrl = BASE_URL + "interface/course/findCoursesByUserId/";
     //课程章节列表

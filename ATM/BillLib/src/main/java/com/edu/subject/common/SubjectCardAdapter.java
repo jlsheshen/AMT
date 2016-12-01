@@ -17,134 +17,132 @@ import java.util.List;
 
 /**
  * 通用答题卡对话框
- * 
+ *
  * @author lucher
- * 
  */
 public class SubjectCardAdapter extends BaseAdapter implements OnClickListener {
 
-	private static final String TAG = "SubjectCardAdapter";
-	private Context mContext;
-	// 对应的数据
-	private List<BaseTestData> mDatas;
+    private static final String TAG = "SubjectCardAdapter";
+    private Context mContext;
+    // 对应的数据
+    private List<BaseTestData> mDatas;
 
-	/**
-	 * item点击监听
-	 */
-	private OnCardItemClickListener mListener;
-	// 当前题id
-	private int mCurrentId;
+    /**
+     * item点击监听
+     */
+    private OnCardItemClickListener mListener;
+    // 当前题id
+    private int mCurrentId;
 
-	public SubjectCardAdapter(Context context, List<BaseTestData> datas, int currentId) {
-		mContext = context;
-		mDatas = datas;
-		mCurrentId = currentId;
-	}
+    public SubjectCardAdapter(Context context, List<BaseTestData> datas, int currentId) {
+        mContext = context;
+        mDatas = datas;
+        mCurrentId = currentId;
+    }
 
-	@Override
-	public int getCount() {
-		return mDatas.size();
-	}
+    @Override
+    public int getCount() {
+        return mDatas.size();
+    }
 
-	@Override
-	public Object getItem(int position) {
-		return mDatas.get(position);
-	}
+    @Override
+    public Object getItem(int position) {
+        return mDatas.get(position);
+    }
 
-	@Override
-	public long getItemId(int position) {
-		return 0;
-	}
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		TextView view = (TextView) View.inflate(mContext, R.layout.item_grid, null);
-		view.setTag(mDatas.get(position));
-		view.setOnClickListener(this);
-		refreshState(position, view);
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        TextView view = (TextView) View.inflate(mContext, R.layout.item_grid, null);
+        view.setTag(mDatas.get(position));
+        view.setOnClickListener(this);
+        refreshState(position, view);
 
-		return view;
-	}
+        return view;
+    }
 
-	/**
-	 * 刷新题卡状态
-	 * 
-	 * @param position
-	 * @param view
-	 */
-	private void refreshState(int position, TextView view) {
-		BaseTestData testData = mDatas.get(position);
-		view.setText(String.valueOf(testData.getSubjectIndex()));
-		// 设置不同状态不同模式下item的背景色
-		int backgroud = color.gray;
+    /**
+     * 刷新题卡状态
+     *
+     * @param position
+     * @param view
+     */
+    private void refreshState(int position, TextView view) {
+        BaseTestData testData = mDatas.get(position);
+        view.setText(String.valueOf(testData.getSubjectIndex()));
+        // 设置不同状态不同模式下item的背景色
+        int backgroud = R.mipmap.normal;
 
-		if (mCurrentId == testData.getId()) {// 当前题
-			backgroud = color.purple;
-		} else {
-			if (testData.getState() == SubjectState.STATE_INIT) {
-				if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
-					backgroud = color.red;
-				} else {
-					backgroud = color.gray;
-				}
-			} else if (testData.getState() == SubjectState.STATE_UNFINISH) {
-				if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
-					backgroud = color.red;
-				} else {
-					backgroud = color.yellow;
-				}
-			} else if (testData.getState() == SubjectState.STATE_CORRECT) {
-				if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
-					backgroud = color.yellow;
-				} else {
-					backgroud = color.blue;
-				}
-			} else if (testData.getState() == SubjectState.STATE_WRONG) {
-				if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
-					backgroud = color.yellow;
-				} else {
-					backgroud = color.red;
-				}
-			}
-		}
-		view.setBackgroundResource(backgroud);
-	}
+        if (mCurrentId == testData.getId()) {// 当前题
+            backgroud = R.mipmap.normal;
+        } else {
+            if (testData.getState() == SubjectState.STATE_INIT) {
+                if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
+                    backgroud = R.mipmap.normal;
+                } else {
+                    backgroud = R.mipmap.normal;
+                }
+            } else if (testData.getState() == SubjectState.STATE_UNFINISH) {
+                if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
+                    backgroud = R.mipmap.zuoguo;
+                } else {
+                    backgroud = R.mipmap.zuoguo;
+                }
+            } else if (testData.getState() == SubjectState.STATE_CORRECT) {
+                if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
+                    backgroud = R.mipmap.zhengque;
+                } else {
+                    backgroud = R.mipmap.zhengque;
+                }
+            } else if (testData.getState() == SubjectState.STATE_WRONG) {
+                if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
+                    backgroud = R.mipmap.cuowu;
+                } else {
+                    backgroud = R.mipmap.cuowu;
+                }
+            }
+        }
+        view.setBackgroundResource(backgroud);
+    }
 
-	@Override
-	public void onClick(View v) {
-		if (mListener != null) {
-			mCurrentId = mListener.onItemClicked((BaseTestData) v.getTag());
-			notifyDataSetChanged();
-		}
-	}
+    @Override
+    public void onClick(View v) {
+        if (mListener != null) {
+            mCurrentId = mListener.onItemClicked((BaseTestData) v.getTag());
+            notifyDataSetChanged();
+        }
+    }
 
-	/**
-	 * 设置答题卡的item点击事件
-	 * 
-	 * @param listener
-	 */
-	public void setCardItemClickListener(OnCardItemClickListener listener) {
-		mListener = listener;
-	}
+    /**
+     * 设置答题卡的item点击事件
+     *
+     * @param listener
+     */
+    public void setCardItemClickListener(OnCardItemClickListener listener) {
+        mListener = listener;
+    }
 
-	/**
-	 * item点击事件
-	 * 
-	 * @author lucher
-	 * 
-	 */
-	public interface OnCardItemClickListener {
-		/**
-		 * item被点击
-		 * 
-		 * @param data
-		 * @return 当前题目的题号
-		 */
-		int onItemClicked(BaseTestData data);
+    /**
+     * item点击事件
+     *
+     * @author lucher
+     */
+    public interface OnCardItemClickListener {
+        /**
+         * item被点击
+         *
+         * @param data
+         * @return 当前题目的题号
+         */
+        int onItemClicked(BaseTestData data);
 
-		/**
-		 * 全部重做按钮点击
-		 */
-		void onRedoClicked();
-	}
+        /**
+         * 全部重做按钮点击
+         */
+        void onRedoClicked();
+    }
 }

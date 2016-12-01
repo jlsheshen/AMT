@@ -2,29 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="500dp"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnReDo"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="全部重做"
-        android:visibility="gone" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnReDo"
+            android:layout_width="26px"
+            android:layout_height="26px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            android:background="@drawable/selector_card_close" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20sp"
+            android:text="题卡列表"
+            android:textColor="@color/colorTestInfo"
+            android:textSize="32sp" />
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp" >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/cardContent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
-        </LinearLayout>
+            android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
 </LinearLayout>
