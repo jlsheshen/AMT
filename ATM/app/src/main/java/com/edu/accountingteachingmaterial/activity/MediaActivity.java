@@ -54,6 +54,9 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
 
         // 为VideoView指定MediaController
         videoView.setMediaController(mController);
+
+        videoView.start();
+
         // 为MediaController指定控制的VideoView
         mController.setMediaPlayer(videoView);
         // 增加监听上一个和下一个的切换事件，默认这两个按钮是不显示的

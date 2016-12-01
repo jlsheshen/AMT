@@ -103,6 +103,7 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 //        exampleBeans.add(exampleBean1);
         }
         exampleGVAdapter.setBeans(exampleBeans);
+        exampleGVAdapter.notifyDataSetChanged();
 
     }
 

@@ -325,7 +325,7 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 	@Override
 	public void onDragEnd(SignView view) {
 		// ToastUtil.showToast(mContext, "盖章结束了");
-		SoundPoolUtil.getInstance().play((Activity) mContext, SoundPoolUtil.SOUND_SEAL_SUCCESS_ID);
+//		SoundPoolUtil.getInstance().play((Activity) mContext, SoundPoolUtil.SOUND_SEAL_SUCCESS_ID);
 	}
 
 	@Override
