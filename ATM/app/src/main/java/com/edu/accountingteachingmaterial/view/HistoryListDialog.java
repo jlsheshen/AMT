@@ -36,15 +36,18 @@ public class HistoryListDialog extends Dialog {
         getWindow().setWindowAnimations(com.edu.R.style.TranAnimation);
         // 设置对话框的位置
         getWindow().setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        setCanceledOnTouchOutside(true);//设置点击Dialog外部任意区域关闭Dialog
         RelativeLayout rlyoutLayout = (RelativeLayout) findViewById(R.id.rlyout_content);
         historyData = new ArrayList<HistoryData>();
         for (int i = 0; i < 5; i++) {
             HistoryData data = new HistoryData();
             data.setChapterName("测试" + i);
-            data.setData("2016-11-30");
-            if (i == 4) {
+            if (i == 0 || i == 3) {
                 data.setData("2016-11-28");
+            } else {
+                data.setData("2016-11-30");
             }
+
             historyData.add(data);
         }
         HistoryListView historyListView = new HistoryListView(mContext, historyData);

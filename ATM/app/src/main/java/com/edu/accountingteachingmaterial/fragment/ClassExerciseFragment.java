@@ -108,11 +108,7 @@ public class ClassExerciseFragment extends BaseFragment {
     }
     //线程类型
     @Subscribe(threadMode= ThreadMode.MAIN)
-    public void getData(List<ExamListData> datas){
-        if (datas== null){
-
-
-        }
+    public void getData(String string){
 
 
     }

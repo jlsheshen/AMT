@@ -36,8 +36,8 @@ public class HistoryListView {
     public View init() {
         mView = View.inflate(mContext, R.layout.view_history_list, null);
         LinearLayout llyout = (LinearLayout) mView.findViewById(R.id.llyout_card);
-        List<HistoryData> dataClass = new ArrayList<HistoryData>();
         for (int i = 1; i < strStem.length; i++) {// 1到5为题目类型
+            List<HistoryData> dataClass = new ArrayList<HistoryData>();
             View view = View.inflate(mContext, R.layout.llyout_history_item, null);
             llyout.addView(view);
             TextView tvTilte = (TextView) view.findViewById(R.id.tv_itcard_child_title);
@@ -47,7 +47,6 @@ public class HistoryListView {
                         dataClass.add(historyData.get(j));
                         tvTilte.setText(strStem[i]);
                     }
-
                 }
             } else if (i == 2) {
                 for (int j = 0; j < historyData.size(); j++) {
@@ -55,15 +54,13 @@ public class HistoryListView {
                         dataClass.add(historyData.get(j));
                         tvTilte.setText(strStem[i]);
                     }
-
-                }
-                if (dataClass.size() == 0) {
-                    // view = null;
-                    llyout.removeView(view);// 移除对应的view，否则布局混乱
-                    continue;
                 }
             }
-
+            if (dataClass.size() == 0) {
+                // view = null;
+                llyout.removeView(view);// 移除对应的view，否则布局混乱
+                continue;
+            }
 
             ListView listView = (ListView) view.findViewById(R.id.list_child_choice);
             HistoryAdapter historyAdapter = new HistoryAdapter(mContext, dataClass);

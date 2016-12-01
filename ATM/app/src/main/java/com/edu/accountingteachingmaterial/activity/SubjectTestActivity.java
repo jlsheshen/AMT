@@ -109,6 +109,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         Bundle bundle = getIntent().getExtras();
         data = (ExamListData) bundle.get("ExamListData");
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
+
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
@@ -192,6 +193,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 //                        ToastUtil.showToast(SubjectTestActivity.this, errorInfo);
 //                    }
 //                });
+
 
 
                 ToastUtil.showToast(this, "score:" + score);
