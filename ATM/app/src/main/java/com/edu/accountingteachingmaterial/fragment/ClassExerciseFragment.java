@@ -79,37 +79,50 @@ public class ClassExerciseFragment extends BaseFragment {
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(),datas.get(i).getId());
+                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId());
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
-                    ExamListDao.getInstance(context).updateData("" +datas.get(i).getId(), contentValues);
+                    ExamListDao.getInstance(context).updateData("" + datas.get(i).getId(), contentValues);
                     datas.get(i).setState(ClassContstant.EXAM_UNDONE);
-                    item=i;
+                    item = i;
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
                     stateIv.setImageResource(R.drawable.selector_exam_undown_type);
                     stateIv.setVisibility(View.VISIBLE);
 
-                //    downloadChildExercise(view, i);
-                } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE){
-                    if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_BEFORE_CLASS || datas.get(i).getLesson_type() == ClassContstant.EXERCISE_AFTER_CLASS) {
-                       b.putSerializable("ExamListData",datas.get(i));
-                        startActivity(SubjectTestActivity.class, b);
+                    //    downloadChildExercise(view, i);
+                } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE) {
+                    b.putSerializable("ExamListData", datas.get(i));
+                    startActivity(SubjectTestActivity.class, b);
+//                    if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_BEFORE_CLASS || datas.get(i).getLesson_type() == ClassContstant.EXERCISE_AFTER_CLASS) {
+//                        b.putSerializable("ExamListData", datas.get(i));
+//                        startActivity(SubjectTestActivity.class, b);
+//
+//                    } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
+//
+//                    }
+                }else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT) {
+                    b.putSerializable("ExamListData", datas.get(i));
+                    startActivity(SubjectDetailsContentActivity.class, b);
+                }else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
 
-                    } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
 
-                    }
-                }else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT){
-                    b.putSerializable("ExamListData",datas.get(i));
-                    startActivity(SubjectDetailsContentActivity.class,b);
                 }
                 return false;
             }
         });
     }
-    //线程类型
-    @Subscribe(threadMode= ThreadMode.MAIN)
-    public void getData(String string){
 
+    //线程类型
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getData(int state) {
+        if (datas != null) {
+            datas.get(item).setState(state);
+            adapter.setDatas(datas);
+        } else {
+//            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
+
+
+        }
 
     }
 
@@ -150,6 +163,7 @@ public class ClassExerciseFragment extends BaseFragment {
         });
     }
 
+
     private void uploadChapterList() {
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl + data.getId() + "-0");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
@@ -168,6 +182,7 @@ public class ClassExerciseFragment extends BaseFragment {
                             contentValues.put(ExamListDao.ID, data.getId());
                             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
                             contentValues.put(ExamListDao.TYPE, data.getExam_type());
+                            contentValues.put(ExamListDao.CHAPTER_ID, data.getChapter_id());
                             ExamListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
                         }

@@ -67,7 +67,6 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.class_aty_view, fragment);
-        // Commit the transaction
         transaction.commit();
 
     }

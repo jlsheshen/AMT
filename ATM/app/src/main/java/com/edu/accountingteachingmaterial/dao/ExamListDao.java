@@ -2,11 +2,19 @@ package com.edu.accountingteachingmaterial.dao;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.util.Log;
 
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
+import com.edu.library.data.DBHelper;
+import com.edu.subject.TestMode;
+import com.edu.subject.data.BaseTestData;
 import com.edu.testbill.Constant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/11/28.
@@ -16,6 +24,9 @@ public class ExamListDao extends BaseDataDao {
     public static final String TYPE = "TYPE";
     public static final String STATE = "STATE";
     private static ExamListDao instance = null;
+    public static final String CHAPTER_ID = "CHAPTER_ID";
+
+
 
     public static ExamListDao getInstance(Context context) {
         if (instance == null)
@@ -26,12 +37,48 @@ public class ExamListDao extends BaseDataDao {
 
     private ExamListDao(Context context, String dbName) {
         super(context, dbName);
+    }
+    /**
+     * 获取所有题目
+     *
+     * @param testMode 测试模式，见{@link TestMode}
+     * @return
+     */
+    public List<BaseTestData> getSubjects(int chapter) {
+        Cursor curs = null;
+        List<BaseTestData> datas = null;
+        try {
+            DBHelper helper = new DBHelper(mContext, dbName, null);
+            mDb = helper.getWritableDatabase();
+            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + CHAPTER_ID + " = " + chapter;
+            Log.d(TAG, "sql:" + sql);
+            curs = mDb.rawQuery(sql, null);
+            if (curs != null) {
+                datas = new ArrayList<BaseTestData>(curs.getCount());
+                int index = 1;
 
+                while (curs.moveToNext()) {
+                    // 初始化测试数据
+//                    BaseTestData testData = initTestData(curs);
+//                    testData.setSubjectIndex(String.valueOf(index++));
+//                    Log.d(TAG, "testData.getState():" + testData.getState() + "---" + testData.getuAnswer() + "---" + testData.getRemark());
+//                    datas.add(testData);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(mDb, curs);
+        }
+        return datas;
     }
     @Override
     public void setTableName() {
         TABLE_NAME = "TB_EXAM";
     }
+
 
     @Override
     public BaseData parseCursor(Cursor curs) {
@@ -40,8 +87,7 @@ public class ExamListDao extends BaseDataDao {
         examListData.setId(curs.getInt(curs.getColumnIndex(ID)));
         examListData.setExam_type(curs.getInt(curs.getColumnIndex(TYPE)));
         examListData.setState(curs.getInt(curs.getColumnIndex(STATE)));
-
-
+        examListData.setChapter_id(curs.getInt(curs.getColumnIndex(CHAPTER_ID)));
         return examListData;
     }
 }
