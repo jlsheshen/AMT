@@ -113,12 +113,12 @@ public class ClassExerciseFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        uploadChapterList();
-
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        uploadChapterList();
+//
+//    }
 
     /**
      * 点击下载按钮触发事件,开始下载,下载时显示progroessbar,下载完成则显示未提交
@@ -151,6 +151,7 @@ public class ClassExerciseFragment extends BaseFragment {
     }
 
     private void uploadChapterList() {
+        Log.d("ClassExerciseFragment", "崩溃之前");
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl + data.getId() + "-0");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
