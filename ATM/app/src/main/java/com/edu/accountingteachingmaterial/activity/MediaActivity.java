@@ -10,21 +10,15 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
+import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.constant.UriConstant;
-import com.edu.accountingteachingmaterial.entity.ClassicCase;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyPresenter;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyView;
-import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
-import com.lucher.net.req.RequestMethod;
 
 import java.io.File;
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/11/8.
@@ -35,8 +29,9 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
     SeekBar seekBar;
     MediaController mController;
     private boolean isPlaying;
-    private ClassicCase classicCase;
-    private String url = NetUrlContstant.BASE_URL + "interface/filedown/down/439";
+    //    private ClassicCase classicCase;
+    private String url = NetUrlContstant.BASE_URL + "interface/filedown/down/";
+    ExampleBean exampleBeans;
 
     @Override
     public int setLayout() {
@@ -45,14 +40,17 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        upload();
+//        upload();
+        Bundle bundle = getIntent().getExtras();
+        exampleBeans = (ExampleBean) bundle.getSerializable("exampleBeans");
+        String mUrl = url + exampleBeans.getUrl();
         videoView = bindView(R.id.media_vv);
         mController = new MediaController(this);
         // presenter.start();
         // 设置播放视频源的路径
         //videoView.setVideoPath(UriConstant.VIDEO_PATH + "aaa.mp4");
         //videoView.setVideoURI(Uri.parse("http://192.168.1.159/interface/filedown/down/439"));
-        videoView.setVideoURI(Uri.parse(url));
+        videoView.setVideoURI(Uri.parse(mUrl));
 
         // 为VideoView指定MediaController
         videoView.setMediaController(mController);
@@ -220,29 +218,29 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
         return new MediaAtyPresenter();
     }
 
-
-    /**
-     * 根据用户id请求用户数据
-     */
-    private void upload() {
-        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.classicCaseUrl + "291-2");
-        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
-        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-                if (jsonObject.getString("success").equals("true")) {
-                    List<ClassicCase> hData = JSON.parseArray(jsonObject.getString("message"), ClassicCase.class);
-                    classicCase = hData.get(0);
-                    Log.d(TAG, "classicCase" + "2016lkkkkkkkkkk");
-                }
-            }
-
-            @Override
-            public void onFailure(String errorInfo) {
-                Log.d("LaunchActivity", errorInfo);
-
-            }
-        });
-    }
+//
+//    /**
+//     * 根据用户id请求用户数据
+//     */
+//    private void upload() {
+//        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+//        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.classicCaseUrl + "291-2");
+//        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+//        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+//            @Override
+//            public void onSuccess(JSONObject jsonObject) {
+//                if (jsonObject.getString("success").equals("true")) {
+//                    List<ClassicCase> hData = JSON.parseArray(jsonObject.getString("message"), ClassicCase.class);
+//                    classicCase = hData.get(0);
+//                    Log.d(TAG, "classicCase" + "2016lkkkkkkkkkk");
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String errorInfo) {
+//                Log.d("LaunchActivity", errorInfo);
+//
+//            }
+//        });
+//    }
 }

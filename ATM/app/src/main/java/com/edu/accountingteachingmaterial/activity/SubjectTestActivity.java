@@ -111,8 +111,8 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
 
         Bundle bundle = getIntent().getExtras();
-         dataId = (int) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,dataId);
+        dataId = (int) bundle.get("ExamListData");
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, dataId);
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
@@ -174,7 +174,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 }
                 String a = JSON.toJSONString(ans);
                 Log.d("SubjectTestActivity", a);
-                JsonReqEntity entity = new JsonReqEntity(this, RequestMethod.POST, NetUrlContstant.subjectSubmitUrl + "6016-" + dataId+ "-2222", JSON.toJSONString(ans));
+                JsonReqEntity entity = new JsonReqEntity(this, RequestMethod.POST, NetUrlContstant.subjectSubmitUrl + "6016-" + dataId + "-2222", JSON.toJSONString(ans));
                 SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
                 sendJsonNetReqManager.sendRequest(entity);
                 sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {

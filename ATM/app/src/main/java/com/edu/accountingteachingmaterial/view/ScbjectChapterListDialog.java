@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ExpandableListView;
 
 import com.alibaba.fastjson.JSON;
@@ -42,11 +43,12 @@ public class ScbjectChapterListDialog extends Dialog {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_chapter_list);
         // 窗口全屏显示
-        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 设置窗口弹出动画
         getWindow().setWindowAnimations(com.edu.R.style.TranAnimation);
         // 设置对话框的位置
         getWindow().setGravity(Gravity.BOTTOM | Gravity.RIGHT);
+        setCanceledOnTouchOutside(true);
         expandableListView = (ExpandableListView) this.findViewById(R.id.class_classchapter_exlv);
         chapterExLvAdapter = new ClassChapterDialogAdapter(mContext);
         uploadChapter();
