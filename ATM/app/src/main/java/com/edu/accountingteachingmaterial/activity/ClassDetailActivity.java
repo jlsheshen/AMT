@@ -89,7 +89,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 
             case R.id.class_example_iv:
                 if (null == classExampleFragment) {
-                    classExampleFragment = new ClassExampleFragment();
+                    classExampleFragment = new ClassExampleFragment(data);
                 }
                 replaceFragment(classExampleFragment);
                 break;

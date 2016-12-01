@@ -17,6 +17,7 @@ import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ClassicCase;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
@@ -35,9 +36,18 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     ExampleGVAdapter exampleGVAdapter;
     List<ExampleBean> exampleBeans;
     List<ClassicCase> cData;
+    ClassChapterData.SubChaptersBean data;
 //    private String mUrl = NetUrlContstant.BASE_URL + "interface/filedown/down/401-1";
 //    private FinalHttp fHttp = new FinalHttp();
 //    private HttpHandler<File> mHandler;
+
+
+    public ClassExampleFragment(ClassChapterData.SubChaptersBean data) {
+        this.data = data;
+    }
+
+    public ClassExampleFragment() {
+    }
 
     @Override
     protected int initLayout() {
@@ -59,7 +69,6 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 
         uploadInfo();
         exampleGVAdapter = new ExampleGVAdapter(context);
-        exampleGVAdapter.setBeans(exampleBeans);
         gridView.setAdapter(exampleGVAdapter);
         gridView.setOnItemClickListener(this);
 
@@ -93,6 +102,8 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 //        exampleBean1.setType(ClassContstant.PDF_TYPE);
 //        exampleBeans.add(exampleBean1);
         }
+        exampleGVAdapter.setBeans(exampleBeans);
+
     }
 
     @Override
@@ -123,7 +134,7 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 
     private void uploadInfo() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.classicCaseUrl + "291-2");
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.classicCaseUrl + data.getId() + "-2");
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
