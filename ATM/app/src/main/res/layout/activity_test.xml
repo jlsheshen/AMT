@@ -17,7 +17,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="25px"
-            android:src="@mipmap/icon_fanhui_n" />
+            android:src="@mipmap/icon_fanhui_n"
+            android:onClick="onClick"
+            />
 
         <TextView
             android:id="@+id/tvQuestion"
@@ -94,8 +96,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title">
+        <TextView
+            android:id="@+id/tv_bill_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25px"
+            android:singleLine="false"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="@dimen/content_text_size"
+            android:visibility="gone"
+            />
 
         <com.edu.accountingteachingmaterial.view.UnTouchableViewPager
+            android:layout_below="@id/tv_bill_question"
             android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

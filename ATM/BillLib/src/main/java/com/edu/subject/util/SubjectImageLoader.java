@@ -98,7 +98,8 @@ public class SubjectImageLoader {
 		}
 
 		for (String url : urls) {
-			preDownloadPic(url);
+			Log.d("查看图片log11111",  url);
+			preDownloadPic( url);
 		}
 	}
 

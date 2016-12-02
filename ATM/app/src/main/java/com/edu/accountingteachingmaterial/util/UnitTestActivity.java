@@ -14,7 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ChapterData;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;

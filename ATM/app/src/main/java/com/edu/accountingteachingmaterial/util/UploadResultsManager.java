@@ -7,7 +7,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;

@@ -4,9 +4,12 @@ package com.edu.accountingteachingmaterial.util;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
@@ -32,6 +35,7 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 
 	private Context mContext;
 	private int chatperId;
+	View view;
 
 	public SubjectsDownloadManager(Context context) {
 		mContext = context;
@@ -52,8 +56,9 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	 *
 	 * @param url
 	 */
-	public void getSubjects(String url,int chatperId ) {
+	public void getSubjects(String url, int chatperId , View view) {
 		this.chatperId = chatperId;
+		this.view = view;
 		UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
 		sendRequest(entity, "正在拼命下载题目数据");
 	}
@@ -61,7 +66,11 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	@Override
 	public void onConnectionSuccess(JSONObject json, Header[] arg1) {
 		Log.d(TAG, "onConnectionSuccess:" + json);
+		ImageView stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
 		parseSubjectJson(json);
+		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
+		stateIv.setImageResource(R.drawable.selector_exam_undown_type);
+		stateIv.setVisibility(View.VISIBLE);
 	}
 
 	@Override

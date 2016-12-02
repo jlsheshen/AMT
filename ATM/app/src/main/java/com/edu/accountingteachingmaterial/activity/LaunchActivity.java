@@ -8,9 +8,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.library.usercenter.UserCenterHelper;
 import com.edu.library.usercenter.UserData;
@@ -31,6 +32,7 @@ import java.util.List;
 public class LaunchActivity extends BaseActivity{
 	CountDownTimer timer;
 	HomepageInformationData data;
+	boolean isShow = true;
 
 	@Override
 	public int setLayout() {
@@ -126,7 +128,13 @@ public class LaunchActivity extends BaseActivity{
 	private void uploadHomepageInfo() {
 		UserData user = UserCenterHelper.getUserInfo(this);
 //		user.setUserId(6013);
-
+		Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + user.getUserId());
+		String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
+		if ("".equals(s)){
+			Log.d("LaunchActivity", "--------------" + s);
+		}else {
+			NetUrlContstant.BASE_URL = s;
+		}
 
 		SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
 		NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl +user.getUserId());
@@ -140,7 +148,8 @@ public class LaunchActivity extends BaseActivity{
 					Log.d("LaunchActivity", "线程启动获取成功");
 
 					EventBus.getDefault().post(data);
-					finish();
+					if (!isShow){
+					finish();}
 				}
 			}
 
@@ -158,7 +167,9 @@ public class LaunchActivity extends BaseActivity{
 		
 	}
 
-
-
-	
+	@Override
+	protected void onStop() {
+		isShow = false;
+		super.onStop();
+	}
 }

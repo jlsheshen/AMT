@@ -9,8 +9,6 @@ import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
-import com.edu.subject.TestMode;
-import com.edu.subject.data.BaseTestData;
 import com.edu.testbill.Constant;
 
 import java.util.ArrayList;
@@ -41,12 +39,11 @@ public class ExamListDao extends BaseDataDao {
     /**
      * 获取所有题目
      *
-     * @param testMode 测试模式，见{@link TestMode}
-     * @return
+     * @param
      */
-    public List<BaseTestData> getSubjects(int chapter) {
+    public List<ExamListData> getDataByChatper(int chapter) {
         Cursor curs = null;
-        List<BaseTestData> datas = null;
+        List<ExamListData> datas = null;
         try {
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
@@ -54,10 +51,11 @@ public class ExamListDao extends BaseDataDao {
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null) {
-                datas = new ArrayList<BaseTestData>(curs.getCount());
+                datas = new ArrayList<ExamListData>(curs.getCount());
                 int index = 1;
-
                 while (curs.moveToNext()) {
+
+                    datas.add((ExamListData) parseCursor(curs));
                     // 初始化测试数据
 //                    BaseTestData testData = initTestData(curs);
 //                    testData.setSubjectIndex(String.valueOf(index++));

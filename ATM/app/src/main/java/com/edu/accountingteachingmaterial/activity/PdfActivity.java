@@ -6,7 +6,7 @@ import android.util.Log;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.NetUrlContstant;
 import com.edu.library.util.SdcardPathUtil;
 import com.github.barteksc.pdfviewer.PDFView;
 
@@ -50,7 +50,7 @@ public class PdfActivity extends BaseActivity {
         File file = new File(url);
         pdfView.fromFile(file)
                 // pdfView.fromAsset(String)
-                .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
+//                .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
                 .enableSwipe(true)
                 .swipeHorizontal(false)
                 .enableDoubletap(true)

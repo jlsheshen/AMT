@@ -55,12 +55,12 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     int dataId;
 
     private int mCurrentIndex;
-    private TextView tvQuestion;
+    private TextView tvBillQuestion;
 
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 印章，闪电符按钮
-    private ImageView btnSign, btnFlash;
+    private ImageView btnSign, btnFlash,backIv;
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
@@ -102,9 +102,12 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
-        tvQuestion = (TextView) findViewById(R.id.tvQuestion);
+        tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
+        backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
+
+
 
         Bundle bundle = getIntent().getExtras();
         data = (ExamListData) bundle.get("ExamListData");
@@ -136,10 +139,15 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnSign.setVisibility(View.VISIBLE);
             btnFlash.setVisibility(View.VISIBLE);
+            tvBillQuestion.setText(subject.getQuestion());
+            tvBillQuestion.setVisibility(View.VISIBLE);
+
 
         } else {
             btnSign.setVisibility(View.GONE);
             btnFlash.setVisibility(View.GONE);
+            tvBillQuestion.setVisibility(View.GONE);
+
         }
     }
 
@@ -160,6 +168,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
                 UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), data.getId(), 10000);
                 EventBus.getDefault().post(user.getUserId());
+
 
 //                List<com.edu.subject.net.AnswerResult.AnswerResult> ans = new ArrayList<>();
 //
@@ -213,6 +222,9 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
             case R.id.btnRight:
                 scrollToRight();
+                break;
+            case R.id.class_aty_back_iv:
+                finish();
                 break;
 
             default:

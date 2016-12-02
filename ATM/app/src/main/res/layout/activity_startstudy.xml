@@ -23,5 +23,12 @@
         android:layout_marginBottom="50px"
         android:visibility="gone"
         />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/jump_up_tv"
+        android:text="跳过"
+        android:textSize="@dimen/item_title_text_size"
+        />
 
 </RelativeLayout>

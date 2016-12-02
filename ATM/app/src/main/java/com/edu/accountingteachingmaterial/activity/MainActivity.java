@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.DrawerLayout.DrawerListener;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,13 +16,26 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.fragment.ClassFragment;
 import com.edu.accountingteachingmaterial.fragment.ExamFragment;
 import com.edu.accountingteachingmaterial.fragment.MyFragment;
+import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.library.usercenter.UserCenterHelper;
+import com.edu.library.usercenter.UserData;
+import com.lucher.net.req.RequestMethod;
+
+import java.util.List;
+
+import static com.edu.NetUrlContstant.BASE_URL;
 
 public class MainActivity extends BaseActivity implements OnClickListener, DrawerListener {
 
@@ -112,7 +126,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                     public void onClick(View view) {
                         EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                         String s = editText.getText().toString();
-                        Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
+                        showIp(s);
                     }
                 });
 
@@ -132,6 +147,34 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
         // TODO Auto-generated method stub
 
     }
+
+    private void showIp(String s) {
+        UserData user = UserCenterHelper.getUserInfo(this);
+BASE_URL = "http://" + s;
+
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl +user.getUserId());
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
+                    PreferenceHelper.getInstance(MainActivity.this).setStringValue(NetUrlContstant.URL_NAME,BASE_URL);
+
+                    Log.d("LaunchActivity", "线程启动获取成功");
+
+                }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("LaunchActivity", "线程启动获取失败");
+
+            }
+        });
+    }
+
 
 
     private void replaceFragment(Fragment fragment) {

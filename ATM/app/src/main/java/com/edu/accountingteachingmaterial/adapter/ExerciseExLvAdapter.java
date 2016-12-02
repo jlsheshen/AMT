@@ -83,24 +83,23 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
         } else {
             groupViewHolder = (GroupViewHolder) view.getTag(R.id.tag_group);
         }
-
         ExamListData exerciseBean = datas.get(i);
-        groupViewHolder.titleTv.setText("" + exerciseBean.getExam_name());
+//        groupViewHolder.titleTv.setText("" + exerciseBean.getExam_name());
         groupViewHolder.testNumTv.setText("" + exerciseBean.getTopic_num());
         groupViewHolder.textimeTv.setText("");
 
         switch (exerciseBean.getLesson_type()) {
             case ClassContstant.EXERCISE_BEFORE_CLASS:
                 groupViewHolder.headIv.setImageResource(R.mipmap.touxiang_keqian);
-              //  groupViewHolder.titleTv.setText(exerciseBean.getTitle() + "课前预习");
+                groupViewHolder.titleTv.setText(exerciseBean.getExam_name());
                 break;
             case ClassContstant.EXERCISE_IN_CLASS:
                 groupViewHolder.headIv.setImageResource(R.mipmap.touxiang_suitang);
-             //   groupViewHolder.titleTv.setText(exerciseBean.getTitle() + "随堂测验");
+                groupViewHolder.titleTv.setText("随堂测验:" + exerciseBean.getExam_name());
                 break;
             case ClassContstant.EXERCISE_AFTER_CLASS:
                 groupViewHolder.headIv.setImageResource(R.mipmap.touxiang_kehou);
-           //     groupViewHolder.titleTv.setText(exerciseBean.getTitle() + "课后作业");
+                groupViewHolder.titleTv.setText("课后作业:" + exerciseBean.getExam_name());
                 break;
         }
         switch (exerciseBean.getState()) {
@@ -109,7 +108,7 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
 
                 break;
             case ClassContstant.EXAM_NOT:
-
+                groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_download_type);
                 break;
             case ClassContstant.EXAM_READ:
                 groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_read_type);

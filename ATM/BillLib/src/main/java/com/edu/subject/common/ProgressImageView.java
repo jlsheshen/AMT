@@ -175,6 +175,7 @@ public class ProgressImageView extends ImageView implements ImageLoadingListener
 	 */
 	public void loadImage(String uri) {
 		try {
+			Log.d("查看图片log2222",  uri);
 			mBitmap = BitmapParseUtil.parse(uri, mContext, true, this);
 			setImageBitmap(mBitmap);
 			if (mBitmap == null) {

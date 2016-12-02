@@ -13,7 +13,7 @@ import android.widget.VideoView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.constant.UriConstant;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyPresenter;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyView;

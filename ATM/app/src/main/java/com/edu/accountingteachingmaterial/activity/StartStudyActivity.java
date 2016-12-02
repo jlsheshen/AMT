@@ -48,6 +48,13 @@ public class StartStudyActivity extends BaseActivity {
             findViewById(R.id.startstudy_aty_pb).setVisibility(View.GONE);
             imageView.setVisibility(View.VISIBLE);
         }
+        findViewById(R.id.jump_up_tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(MainActivity.class);
+                finish();
+            }
+        });
     }
     //线程类型
     @Subscribe(threadMode= ThreadMode.MAIN)

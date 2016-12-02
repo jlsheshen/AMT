@@ -18,6 +18,7 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
+import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.common.SubjectCardAdapter.OnCardItemClickListener;
 import com.edu.subject.common.SubjectCardDialog;
@@ -45,8 +46,8 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 	private SubjectViewPagerAdapter mSubjectAdapter;
 	List<BaseTestData> datas;
 	private int mCurrentIndex;
-	private ImageView btnReturn;
-	private TextView tvQuestion;
+	private ImageView btnReturn,backIv;
+	private TextView tvBillQuestion;
 
 	// 印章选择对话框
 	private SignChooseDialog signDialog;
@@ -94,7 +95,13 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 			return;
 		BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
 		// 刷新题目数据
-		tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
+		//tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
+		if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
+			tvBillQuestion.setText(subject.getQuestion());
+			tvBillQuestion.setVisibility(View.VISIBLE);
+		} else {
+			tvBillQuestion.setVisibility(View.GONE);
+		}
 	}
 
 	/**
@@ -108,8 +115,9 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 
 		viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
 		viewPager.setOnPageChangeListener(mPageChangeListener);
-		tvQuestion = (TextView) findViewById(R.id.tvQuestion);
+		tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
 		btnReturn= (ImageView) findViewById(R.id.btnDone);
+		backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 		btnReturn.setImageResource(R.mipmap.icon_congzuo_n);
 		Bundle bundle = getIntent().getExtras();
 		ExamListData data = (ExamListData) bundle.get("ExamListData");
@@ -131,6 +139,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 			}
 			break;
 			case R.id.btnDone:
+
 				mSubjectAdapter.reset();
 				finish();
 				break;
@@ -148,6 +157,9 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 				viewPager.setCurrentItem(mCurrentIndex, true);
 			}
 			break;
+			case R.id.class_aty_back_iv:
+				finish();
+				break;
 
 		default:
 			break;

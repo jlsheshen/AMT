@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.edu.NetUrlContstant;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectConstant;
@@ -173,7 +174,11 @@ public class SubjectBillDataDao extends BaseDataDao {
 				values.put("FLAG", subject.getFlag());
 				values.put("TEMPLATE_ID", subject.getTemplateId());
 				values.put("QUESTION", question);
-				values.put("PIC", subject.getPic());
+				if (subject.getPic() == null){
+					values.put("PIC", subject.getPic());
+				}else {
+				values.put("PIC", NetUrlContstant.BASE_URL + subject.getPic());
+				}
 				values.put("LABELS", subject.getLabel());
 				values.put("BLANKS", subject.getAnswer());
 				values.put("SCORE", subject.getScore());
