@@ -204,9 +204,11 @@ if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING){
                             contentValues.put(ExamListDao.TYPE, data.getExam_type());
                             contentValues.put(ExamListDao.CHAPTER_ID, data.getChapter_id());
                             ExamListDao.getInstance(context).insertData(contentValues);
-//                            data1.setState(ClassContstant.EXAM_NOT);
+                            data.setState(ClassContstant.EXAM_NOT);
+
+                        }else {
+                            data.setState(data1.getState());
                         }
-                        data.setState(ClassContstant.EXAM_NOT);
                     }
                     adapter.setDatas(datas);
                 }
