@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.util;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -11,6 +12,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.subject.data.SubjectData;
@@ -20,6 +22,8 @@ import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -68,9 +72,15 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 		Log.d(TAG, "onConnectionSuccess:" + json);
 		ImageView stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
 		parseSubjectJson(json);
+		ContentValues contentValues = new ContentValues();
+		contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
+		ExamListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
+
 		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
 		stateIv.setImageResource(R.drawable.selector_exam_undown_type);
 		stateIv.setVisibility(View.VISIBLE);
+		EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
+
 	}
 
 	@Override

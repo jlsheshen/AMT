@@ -87,10 +87,8 @@ if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING){
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId(), view);
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
-                    ExamListDao.getInstance(context).updateData("" + datas.get(i).getId(), contentValues);
-                    datas.get(i).setState(ClassContstant.EXAM_UNDONE);
+
+                  //  datas.get(i).setState(ClassContstant.EXAM_UNDONE);
                     item = i;
                     //    downloadChildExercise(view, i);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE) {
@@ -130,16 +128,18 @@ if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING){
         }
     }
 
-    //线程类型
+    /**
+     * 根据发来的状态,来刷新列表
+     * @param state
+     */
+
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getData(int state) {
+    public void getData(Integer state) {
         if (datas != null) {
             datas.get(item).setState(state);
             adapter.setDatas(datas);
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
-
-
         }
 
     }

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.edu.NetUrlContstant;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.util.ToastUtil;
@@ -167,6 +168,13 @@ public class SubjectBillDataDao extends BaseDataDao {
 		Cursor curs = db.rawQuery(sql, null);
 		int id = 0;
 		try {
+			boolean a = (curs != null);
+			boolean b = (curs.moveToNext());
+			int iddd = curs.getInt(0);
+			String sub  = JSONObject.toJSONString(subject);
+			boolean c = (curs.getInt(0) > 0);
+			Log.d(TAG, ("--" + a + "--" + b + "--" + c + "----" + sub));
+
 			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
 				String question = JSON.parseObject(subject.getQuestion()).getString("text");
 				ContentValues values = new ContentValues();
