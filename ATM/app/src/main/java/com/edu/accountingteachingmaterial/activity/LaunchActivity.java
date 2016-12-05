@@ -87,6 +87,7 @@ public class LaunchActivity extends BaseActivity {
 //
 //
 //		}).start();
+
 //		// TODO Auto-generated method stub
         timer = new CountDownTimer(3000, 1000) {
             @Override
@@ -112,6 +113,7 @@ public class LaunchActivity extends BaseActivity {
 		uploadHomepageInfo();
 
 
+
     }
 
     /**
@@ -127,6 +129,7 @@ public class LaunchActivity extends BaseActivity {
         } else {
             NetUrlContstant.BASE_URL = s;
         }
+
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + user.getUserId());
@@ -144,6 +147,7 @@ public class LaunchActivity extends BaseActivity {
                         finish();
                     }
                     isShow = false;
+
 
                 }
             }
@@ -167,4 +171,5 @@ public class LaunchActivity extends BaseActivity {
         isShow = false;
         super.onStop();
     }
+
 }

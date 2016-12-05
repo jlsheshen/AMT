@@ -8,6 +8,7 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.NetUrlContstant;
 import com.edu.library.util.SdcardPathUtil;
+import com.edu.library.util.ToastUtil;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import net.tsz.afinal.FinalHttp;
@@ -50,7 +51,8 @@ public class PdfActivity extends BaseActivity {
         File file = new File(url);
         pdfView.fromFile(file)
                 // pdfView.fromAsset(String)
-//                .pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
+
+                //.pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
                 .enableSwipe(true)
                 .swipeHorizontal(false)
                 .enableDoubletap(true)
@@ -83,7 +85,7 @@ public class PdfActivity extends BaseActivity {
             public void onSuccess(File f) {
                 Log.d("", f == null ? "null" : f.getAbsoluteFile().toString());
                 show();
-//                ToastUtil.showToast(this, "下载成功：" + f.getAbsoluteFile().toString());
+                ToastUtil.showToast(PdfActivity.this, "下载成功");
             }
 
             public void onFailure(Throwable t, int errorNo, String strMsg) {
@@ -91,9 +93,9 @@ public class PdfActivity extends BaseActivity {
                 Log.e("", "failure:" + strMsg + ",errorNo:" + errorNo);
                 if (errorNo == 0) {
                 } else if (errorNo == 416) {
-//                    ToastUtil.showToast(context, "文件已存在");
+                    ToastUtil.showToast(PdfActivity.this , "文件已存在");
                 } else {
-//                    ToastUtil.showToast(context, "下载失败：" + strMsg);
+                    ToastUtil.showToast(PdfActivity.this , "下载失败：" + strMsg);
                 }
 
             }

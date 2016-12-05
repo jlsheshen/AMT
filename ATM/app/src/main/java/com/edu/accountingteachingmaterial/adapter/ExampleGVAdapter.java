@@ -71,6 +71,7 @@ public class ExampleGVAdapter extends BaseAdapter {
                 viewHolder.typeIv.setImageResource(R.mipmap.icon_shipin_n);
                 break;
             case ClassContstant.PDF_TYPE:
+
                 viewHolder.cardIv.setImageResource(R.mipmap.capture);
                 viewHolder.typeIv.setImageResource(R.mipmap.icon_word_n);
                 break;
