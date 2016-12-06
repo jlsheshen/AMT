@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.activity.SubjectTestActivity;
+import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExamBean;
@@ -57,9 +57,9 @@ public class ExamFragment extends BaseFragment {
         listView.setAdapter(examAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView,  final View view, final int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
                 if (datas.get(i).getExmaStatus() == ClassContstant.EXAM_NOT) {
-                     final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
+                    final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
                     imageView.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
                     datas.get(i).setExmaStatus(ClassContstant.EXAM_DOWNLOADING);
@@ -78,8 +78,15 @@ public class ExamFragment extends BaseFragment {
                     }.start();
 
 
-                }else {
-                    startActivity(SubjectTestActivity.class);
+                } else {
+                    //ExamListData考试数据（测试）
+//                    Bundle bundle = new Bundle();
+//                    ExamListData datas = new ExamListData();
+//                    datas.setChapter_id(11);
+//                    datas.setId(1);
+//                    bundle.putSerializable("ExamListData", datas);
+//                    startActivity(SubjectTestActivity.class, bundle);
+                    startActivity(UnitTestActivity.class);
 
                 }
             }

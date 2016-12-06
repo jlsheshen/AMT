@@ -18,6 +18,7 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
+import com.edu.accountingteachingmaterial.view.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.usercenter.UserCenterHelper;
 import com.edu.library.usercenter.UserData;
@@ -60,13 +61,14 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 印章，闪电符按钮
-    private ImageView btnSign, btnFlash,backIv;
+    private ImageView btnSign, btnFlash, backIv;
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
     List<BaseTestData> datas;
-    ExamListData data;
-
+    //c测试数据
+    ExamListData examListData;
+    ExitDialog exitDialog;// 退出提示框
     // 页面相关状态的监听
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
 
@@ -107,11 +109,9 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 
-
-
         Bundle bundle = getIntent().getExtras();
-        data = (ExamListData) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
+        examListData = (ExamListData) bundle.get("ExamListData");
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
@@ -122,6 +122,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         viewPager.setAdapter(mSubjectAdapter);
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
     }
+
     @Override
     public void initData() {
 
@@ -166,7 +167,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
                 UserData user = UserCenterHelper.getUserInfo(this);
 
-                UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), data.getId(), 10000);
+                UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), examListData.getId(), 10000);
                 EventBus.getDefault().post(user.getUserId());
 
 
@@ -204,7 +205,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 //                });
 
 
-
                 ToastUtil.showToast(this, "score:" + score);
                 finish();
 
@@ -224,7 +224,24 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 scrollToRight();
                 break;
             case R.id.class_aty_back_iv:
-                finish();
+                exitDialog = new ExitDialog(this);
+                if (!exitDialog.isShowing()) {
+                    exitDialog.show();
+                }
+                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
+                    @Override
+                    public void onOkClicked() {
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelClicked() {
+                        if (exitDialog.isShowing()) {
+                            exitDialog.dismiss();
+                        }
+                    }
+                });
+
                 break;
 
             default:

@@ -2,13 +2,14 @@ package com.edu.accountingteachingmaterial.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.view.View.OnClickListener;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.entity.ExamListData;
 
 /**
  * Created by Administrator on 2016/11/18.
@@ -18,7 +19,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     ImageView imgBack, imgShow;
     TextView testTitle, tvPublisher, tvReleaseTime, tvScore, tvSubmittingTime,
             tvAnswerTime, tvStartTime, tvEndtime, tvChallengTime,
-            tvSingle, tvMultiple, tvJudge, tvFillIn, tvShort, tvComprehensive;
+            tvSingle, tvMultiple, tvJudge, tvFillIn, tvShort, tvComprehensive, tvTotal;
     Button btnStart;
 
     @Override
@@ -45,6 +46,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         bindAndListener(tvFillIn, R.id.fill_in_tv);
         bindAndListener(tvShort, R.id.short_tv);
         bindAndListener(tvComprehensive, R.id.comprehensive_tv);
+        bindAndListener(tvTotal, R.id.total_tv);
         bindAndListener(btnStart, R.id.btn_start);
 
 
@@ -66,11 +68,17 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
         switch (v.getId()) {
             case R.id.class_aty_back_iv:
-
+                this.finish();
                 break;
 
             case R.id.btn_start:
-
+                //ExamListData考试数据（测试）
+                Bundle bundle = new Bundle();
+                ExamListData datas = new ExamListData();
+                datas.setChapter_id(11);
+                datas.setId(1);
+                bundle.putSerializable("ExamListData", datas);
+                startActivity(SubjectTestActivity.class, bundle);
                 break;
 
 
