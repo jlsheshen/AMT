@@ -121,8 +121,9 @@ public class LaunchActivity extends BaseActivity {
      */
     private void uploadHomepageInfo() {
         UserData user = UserCenterHelper.getUserInfo(this);
-//		user.setUserId(6013);
+		user.setUserId(35605);
         Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + user.getUserId());
+
         String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
         if ("".equals(s)) {
             Log.d("LaunchActivity", "--------------" + s);

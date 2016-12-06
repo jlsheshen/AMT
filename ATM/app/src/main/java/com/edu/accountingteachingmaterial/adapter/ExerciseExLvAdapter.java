@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.subject.SubjectState;
+import com.edu.subject.data.BaseTestData;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
@@ -35,6 +37,7 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
     }
 
 
+
     @Override
     public int getGroupCount() {
         return datas == null ? 0 : datas.size();
@@ -42,8 +45,8 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-//        return datas.get(i).getExerciseBeanList() == null ? 0 : datas.get(i).getExerciseBeanList().size();
-        return 0;
+        return datas.get(i).getTestList() == null ? 0 : datas.get(i).getTestList().size();
+//        return 0;
     }
 
     @Override
@@ -90,8 +93,9 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
 
         switch (exerciseBean.getLesson_type()) {
             case ClassContstant.EXERCISE_BEFORE_CLASS:
+
                 groupViewHolder.headIv.setImageResource(R.mipmap.touxiang_keqian);
-                groupViewHolder.titleTv.setText(exerciseBean.getExam_name());
+                groupViewHolder.titleTv.setText("课前预习:" + exerciseBean.getExam_name());
                 break;
             case ClassContstant.EXERCISE_IN_CLASS:
                 groupViewHolder.headIv.setImageResource(R.mipmap.touxiang_suitang);
@@ -104,18 +108,23 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
         }
         switch (exerciseBean.getState()) {
             case ClassContstant.EXAM_COMMIT:
-                groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_commit_type);
+                if (exerciseBean.getLesson_type() != ClassContstant.EXERCISE_IN_CLASS){
+                groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_commit_type);}
 
                 break;
             case ClassContstant.EXAM_NOT:
                 groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_download_type);
                 break;
             case ClassContstant.EXAM_READ:
-                groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_read_type);
+                if (exerciseBean.getLesson_type() != ClassContstant.EXERCISE_IN_CLASS){
+                groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_read_type);}
 
                 break;
             case ClassContstant.EXAM_UNDONE:
-                groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_undown_type);
+                groupViewHolder.progressBar.setVisibility(View.GONE);
+                if (exerciseBean.getLesson_type() != ClassContstant.EXERCISE_IN_CLASS){
+                    groupViewHolder.stautsIv.setVisibility(View.VISIBLE);
+                groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_undown_type);}
 
                 break;
         }
@@ -125,60 +134,61 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         ChildViewHolder childViewHolder = null;
-//        if (view == null || view.getTag(R.id.tag_child) == null) {
-//            view = LayoutInflater.from(context).inflate(R.layout.item_exercise_practice_exlv, viewGroup, false);
-//            AutoUtils.autoSize(view);
-//
-//            childViewHolder = new ChildViewHolder(view);
-//            view.setTag(R.id.tag_child, childViewHolder);
-//        } else {
-//            childViewHolder = (ChildViewHolder) view.getTag(R.id.tag_child);
-//        }
-//        ExercisePracticeBean exercisePracticeBean = datas.get(i).getExerciseBeanList().get(i1);
-//        childViewHolder.contentTv.setText(exercisePracticeBean.getContent());
-//        String s = null;
-//        switch (exercisePracticeBean.getQuestionType()) {
-//            case ClassContstant.SUBJECT_SINGLE_CHOSE:
-//                s = ClassContstant.SUBJECT_SINGLE_CHOSE_STRING;
-//                break;
-//            case ClassContstant.SUBJECT_MULITI_CHOSE:
-//                s = ClassContstant.SUBJECT_MULITI_CHOSE_STRING;
-//                break;
-//            case ClassContstant.SUBJECT_JUDGE:
-//                s = ClassContstant.SUBJECT_JUDGE_STRING;
-//                break;
-//            case ClassContstant.SUBJECT_PRACTIAL:
-//                s = ClassContstant.SUBJECT_PRACTIAL_STRING;
-//                break;
-//            case ClassContstant.SUBJECT_ENTRY:
-//                s = ClassContstant.SUBJECT_ENTRY_STRING;
-//                break;
-//            case ClassContstant.SUBJECT_BILL:
-//                s = ClassContstant.SUBJECT_BILL_STRING;
-//                break;
-//            case ClassContstant.SUBJECT_GROUP_BILL:
-//                s = ClassContstant.SUBJECT_GROUP_BILL_STRING;
-//                break;
-//        }
-//        childViewHolder.numTv.setText(exercisePracticeBean.getPracticeNum() + " " + s);
-//        switch (exercisePracticeBean.isRight()) {
-//            case ClassContstant.ANSWER_RIGHT:
-//                childViewHolder.isRightIv.setImageResource(R.mipmap.icon_dui_n);
-//                childViewHolder.isRightIv.setVisibility(View.VISIBLE);
-//                break;
-//            case ClassContstant.ANSWER_ERROR:
-//                childViewHolder.isRightIv.setImageResource(R.mipmap.icon_cuo_n);
-//                childViewHolder.isRightIv.setVisibility(View.VISIBLE);
-//
-//                break;
-//            default:
-//                break;
-//        }
+        if (view == null || view.getTag(R.id.tag_child) == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_exercise_practice_exlv, viewGroup, false);
+            AutoUtils.autoSize(view);
+
+            childViewHolder = new ChildViewHolder(view);
+            view.setTag(R.id.tag_child, childViewHolder);
+        } else {
+            childViewHolder = (ChildViewHolder) view.getTag(R.id.tag_child);
+        }
+
+        BaseTestData exercisePracticeBean = datas.get(i).getTestList().get(i1);
+        childViewHolder.contentTv.setText(exercisePracticeBean.getSubjectData().getQuestion());
+        String s = null;
+        switch (exercisePracticeBean.getSubjectType()) {
+            case ClassContstant.SUBJECT_SINGLE_CHOSE:
+                s = ClassContstant.SUBJECT_SINGLE_CHOSE_STRING;
+                break;
+            case ClassContstant.SUBJECT_MULITI_CHOSE:
+                s = ClassContstant.SUBJECT_MULITI_CHOSE_STRING;
+                break;
+            case ClassContstant.SUBJECT_JUDGE:
+                s = ClassContstant.SUBJECT_JUDGE_STRING;
+                break;
+            case ClassContstant.SUBJECT_PRACTIAL:
+                s = ClassContstant.SUBJECT_PRACTIAL_STRING;
+                break;
+            case ClassContstant.SUBJECT_ENTRY:
+                s = ClassContstant.SUBJECT_ENTRY_STRING;
+                break;
+            case ClassContstant.SUBJECT_BILL:
+                s = ClassContstant.SUBJECT_BILL_STRING;
+                break;
+            case ClassContstant.SUBJECT_GROUP_BILL:
+                s = ClassContstant.SUBJECT_GROUP_BILL_STRING;
+                break;
+        }
+        childViewHolder.numTv.setText(exercisePracticeBean.getSubjectIndex() + " " + s);
+        switch (exercisePracticeBean.getState()) {
+            case SubjectState.STATE_CORRECT:
+                childViewHolder.isRightIv.setImageResource(R.mipmap.icon_dui_n);
+                childViewHolder.isRightIv.setVisibility(View.VISIBLE);
+                break;
+            case SubjectState.STATE_WRONG:
+                childViewHolder.isRightIv.setImageResource(R.mipmap.icon_cuo_n);
+                childViewHolder.isRightIv.setVisibility(View.VISIBLE);
+
+                break;
+            default:
+                break;
+        }
         return view;
     }
     @Override
     public boolean isChildSelectable(int i, int i1) {
-        return false;
+        return true;
     }
 
 

@@ -18,6 +18,7 @@ import com.edu.subject.data.BaseTestData;
 import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
 
 /**
  * 判断题 视图
@@ -114,10 +115,16 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
                 tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
-        } else {
+        } else if(testMode == TEST_MODE_TEST){
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
             tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
+        }else {
+            if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
+                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
+                tvSubjectType.setVisibility(View.GONE);
+                disableOption();
+            }
         }
 
         // 设置指定答案的按钮为选中状态

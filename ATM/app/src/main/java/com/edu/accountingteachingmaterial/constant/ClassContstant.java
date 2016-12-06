@@ -22,6 +22,10 @@ public final class ClassContstant {
      * 查看答案模式
      */
     public static final int TEST_MODE_TEST = 2;
+    /**
+     * 随堂练习模式
+     */
+    public static final int TEST_MODE_INCLASS = 3;
 
     //试卷当前状态
     //试卷已提交

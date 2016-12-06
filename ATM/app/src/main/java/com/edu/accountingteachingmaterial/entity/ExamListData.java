@@ -1,6 +1,9 @@
 package com.edu.accountingteachingmaterial.entity;
 
 import com.edu.library.data.BaseData;
+import com.edu.subject.data.BaseTestData;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/11/21.
@@ -57,6 +60,10 @@ public class ExamListData extends BaseData {
     private Object start_time;
     private int status;
     private int topic_num;
+
+    private List<BaseTestData> testList;
+
+
 
     public int getState() {
         return State;
@@ -217,5 +224,13 @@ public class ExamListData extends BaseData {
 
     public void setTopic_num(int topic_num) {
         this.topic_num = topic_num;
+    }
+
+    public List<BaseTestData> getTestList() {
+        return testList;
+    }
+
+    public void setTestList(List<BaseTestData> testList) {
+        this.testList = testList;
     }
 }

@@ -12,12 +12,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.SubjectDetailsContentActivity;
+import com.edu.accountingteachingmaterial.activity.SubjectPracticeActivity;
 import com.edu.accountingteachingmaterial.activity.SubjectTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExerciseExLvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -25,6 +27,8 @@ import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.util.SubjectsDownloadManager;
 import com.edu.library.util.ToastUtil;
+import com.edu.subject.TestMode;
+import com.edu.subject.data.BaseTestData;
 import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,22 +80,22 @@ public class ClassExerciseFragment extends BaseFragment {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                Log.d("ClassExerciseFragment", "点击确认");
                 Log.d("ClassExerciseFragment", NetUrlContstant.subjectListUrl + datas.get(i).getId());
-if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING){
-    return true;
+                item = i;
+                if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
+                    return false;
 
-}
-                if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
+                }else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId(), view);
 
-                  //  datas.get(i).setState(ClassContstant.EXAM_UNDONE);
-                    item = i;
+                    //  datas.get(i).setState(ClassContstant.EXAM_UNDONE);
+
                     //    downloadChildExercise(view, i);
-                } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE) {
+                } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE&&datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
+                    b.putInt("EXERCISE_TYPE",ClassContstant.EXERCISE_IN_CLASS);
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectTestActivity.class, b);
 //                    if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_BEFORE_CLASS || datas.get(i).getLesson_type() == ClassContstant.EXERCISE_AFTER_CLASS) {
@@ -99,87 +103,54 @@ if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING){
 //                        startActivity(SubjectTestActivity.class, b);
 //
 //                    } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
-//
 //                    }
-                } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT) {
+                } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT&&datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectDetailsContentActivity.class, b);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
+
+                }else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS){
+                    return false;
                 }
+                return false;
+            }
+        });
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
+//                datas.get(i).getTestList().clear();
+                b.putInt("ExamListDataItem",i1);
+                b.putSerializable("ExamListData",  datas.get(i));
+                startActivity(SubjectPracticeActivity.class, b);
+
                 return false;
             }
         });
     }
 
-    private void reView() {
-
-//        ExamListDao.getInstance(context).getDataByChatper(data.getId());
-//        adapter.setDatas(datas);
-        if (datas != null) {
-            for (ExamListData examListData : datas) {
-                if (examListData != null) {
-                    data1 = (ExamListData) ExamListDao.getInstance(context).getDataById(PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID));
-                    if (data1 != null) {
-                        examListData.setState(data1.getState());
-                    }
-                }
-            }
-            adapter.setDatas(datas);
-        }
-    }
-
     /**
      * 根据发来的状态,来刷新列表
+     *
      * @param state
      */
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
+        Log.d("ClassExerciseFragment", "走过了EventBus");
+
         if (datas != null) {
             datas.get(item).setState(state);
+            if (datas.get(item).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS&&state != ClassContstant.EXAM_NOT){
+                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE,datas.get(item).getId()));
+            }
             adapter.setDatas(datas);
+            adapter.notifyDataSetChanged();
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
         }
 
     }
-
-    @Override
-    public void onStart() {
-        reView();
-        super.onStart();
-    }
-
-//
-//    /**
-//     * 点击下载按钮触发事件,开始下载,下载时显示progroessbar,下载完成则显示未提交
-//     */
-//    private void downloadChildExercise(final View view, final int i) {
-//        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl + "151" + "-" + "4");
-//        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-//        sendJsonNetReqManager.sendRequest(entity);
-//        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-//            @Override
-//            public void onSuccess(JSONObject jsonObject) {
-//                if (jsonObject.getString("success").equals("true")) {
-//                    List<SubjectTestData> daa = JSON.parseArray(jsonObject.getString("message"), SubjectTestData.class);
-//                    ContentValues contentValues = new ContentValues();
-//                    contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
-//                    ExamListDao.getInstance(context).updateData(String.valueOf(datas.get(i).getId()), contentValues);
-//                    datas.get(i).setState(ClassContstant.EXAM_UNDONE);
-//                    view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
-//                    stateIv.setImageResource(R.drawable.selector_exam_undown_type);
-//                    stateIv.setVisibility(View.VISIBLE);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(String errorInfo) {
-//                ToastUtil.showToast(context, errorInfo);
-//            }
-//        });
-//    }
 
 
     private void uploadChapterList() {
@@ -205,9 +176,13 @@ if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING){
                             contentValues.put(ExamListDao.CHAPTER_ID, data.getChapter_id());
                             ExamListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
-
-                        }else {
+                        } else {
                             data.setState(data1.getState());
+                        }
+                        if (data.getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && data.getState() != ClassContstant.EXAM_NOT){
+                            List<BaseTestData> tests = SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE,data.getId());
+                            data.setTestList(tests);
+                            Log.d("ClassExerciseFragment", "看看怎么样" + data);
                         }
                     }
                     adapter.setDatas(datas);

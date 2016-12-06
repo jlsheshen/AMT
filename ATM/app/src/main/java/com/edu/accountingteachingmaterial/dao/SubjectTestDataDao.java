@@ -107,7 +107,7 @@ public class SubjectTestDataDao extends BaseDataDao {
             if (curs != null) {
                 datas = new ArrayList<BaseTestData>(curs.getCount());
                 int index = 1;
-
+                Log.d(TAG, "curs.moveToNext()返回" + curs.moveToNext());
                 while (curs.moveToNext()) {
                     // 初始化测试数据
                     BaseTestData testData = initTestData(curs, testMode);
@@ -139,11 +139,6 @@ public class SubjectTestDataDao extends BaseDataDao {
         BaseTestData testData = null;
         BaseSubjectData subjectData = null;
         int subjectType = curs.getInt(curs.getColumnIndex(SUBJECT_TYPE));
-        Log.d(TAG, "subjectType:" + subjectType);
-
-        if (subjectType == 9) {
-            Log.d(TAG, "subjectType:" + subjectType);
-        }
 
         switch (subjectType) {
             case SubjectType.SUBJECT_GROUP_BILL:

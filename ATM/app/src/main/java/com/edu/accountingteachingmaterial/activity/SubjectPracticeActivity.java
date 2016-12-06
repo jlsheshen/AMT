@@ -12,7 +12,10 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
@@ -43,7 +46,7 @@ import java.util.List;
 public class SubjectPracticeActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener {
 
     // 显示题目的viewpager控件
-    private ViewPager viewPager;
+    private UnTouchableViewPager viewPager;
     private SubjectViewPagerAdapter mSubjectAdapter;
 
     private int mCurrentIndex;
@@ -90,17 +93,19 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
 
-        viewPager = (ViewPager) findViewById(R.id.vp_content);
+        viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         btnDone = (ImageView) findViewById(R.id.btnFlash);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         Bundle bundle = getIntent().getExtras();
-        int dataId = (int) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, dataId);
-
+        ExamListData data = (ExamListData) bundle.get("ExamListData");
+        int item = bundle.getInt("ExamListDataItem",0);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
+        mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
         viewPager.setAdapter(mSubjectAdapter);
+        viewPager.setCurrentItem(item);
 
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
         mCardDialog.showRedo();
@@ -183,11 +188,12 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
             float score = mSubjectAdapter.submit(mCurrentIndex);
             ToastUtil.showToast(this, "score:" + score);
-            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
-        } else {
-            mSubjectAdapter.reset(mCurrentIndex);
-            btnDone.setImageResource(R.mipmap.icon_fasong_n);
+//            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         }
+//        else {
+//            mSubjectAdapter.reset(mCurrentIndex);
+//            btnDone.setImageResource(R.mipmap.icon_fasong_n);
+//        }
     }
 
     /**

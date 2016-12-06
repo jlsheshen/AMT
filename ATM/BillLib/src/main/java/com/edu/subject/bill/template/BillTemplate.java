@@ -1,8 +1,9 @@
 package com.edu.subject.bill.template;
 
-import java.util.List;
-
+import com.edu.library.data.BaseData;
 import com.edu.subject.bill.element.info.BaseElementInfo;
+
+import java.util.List;
 
 /**
  * 单据模板,注：模板中使用的图片不能存放在drawable下，否则可能会引起界面混乱
@@ -10,7 +11,7 @@ import com.edu.subject.bill.element.info.BaseElementInfo;
  * @author lucher
  * 
  */
-public class BillTemplate {
+public class BillTemplate extends BaseData {
 
 	// 模板id
 	private int id;

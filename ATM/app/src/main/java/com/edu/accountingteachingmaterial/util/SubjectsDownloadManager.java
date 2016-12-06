@@ -15,9 +15,9 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
-import com.edu.subject.data.SubjectData;
 import com.edu.library.data.DBHelper;
 import com.edu.subject.dao.SubjectBillDataDao;
+import com.edu.subject.data.SubjectData;
 import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
@@ -64,7 +64,7 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 		this.chatperId = chatperId;
 		this.view = view;
 		UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
-		sendRequest(entity, "正在拼命下载题目数据");
+		sendRequest(entity);
 	}
 
 	@Override
@@ -75,12 +75,11 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
 		ExamListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
-
-		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
-		stateIv.setImageResource(R.drawable.selector_exam_undown_type);
-		stateIv.setVisibility(View.VISIBLE);
+//
+//		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
+//		stateIv.setImageResource(R.drawable.selector_exam_undown_type);
+//		stateIv.setVisibility(View.VISIBLE);
 		EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
-
 	}
 
 	@Override

@@ -51,7 +51,6 @@
             android:layout_marginRight="25px"
             android:focusable="false"
             android:onClick="onClick"
-
             android:src="@mipmap/icon_fasong_n" />
 
         <ImageView

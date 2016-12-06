@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                     public void onClick(View view) {
                         EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                         String s = editText.getText().toString();
-                      //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
+                        //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
                         showIp(s);
                     }
                 });
@@ -140,7 +140,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 alertDialog.show();
 
 
-
                 break;
 
         }
@@ -150,39 +149,33 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
 
     private void showIp(String s) {
         UserData user = UserCenterHelper.getUserInfo(this);
-BASE_URL = "http://" + s;
+        BASE_URL = "http://" + s;
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl +user.getUserId());
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + user.getUserId());
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
-                    PreferenceHelper.getInstance(MainActivity.this).setStringValue(NetUrlContstant.URL_NAME,BASE_URL);
-
+                    PreferenceHelper.getInstance(MainActivity.this).setStringValue(NetUrlContstant.URL_NAME, BASE_URL);
                     Log.d("LaunchActivity", "线程启动获取成功");
-
                 }
             }
 
             @Override
             public void onFailure(String errorInfo) {
                 Log.d("LaunchActivity", "线程启动获取失败");
-
             }
         });
     }
-
-
 
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.main_aty_view, fragment);
         // Commit the transaction
         transaction.commit();
-
     }
 
     private void bindAndListener(View view, int id) {
@@ -193,7 +186,6 @@ BASE_URL = "http://" + s;
     @Override
     public void onDrawerClosed(View arg0) {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
     }
 
     @Override

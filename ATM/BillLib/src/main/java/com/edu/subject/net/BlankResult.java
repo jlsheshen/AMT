@@ -1,12 +1,14 @@
 package com.edu.subject.net;
 
+import com.edu.library.data.BaseData;
+
 /**
  * 单据题填空的答题结果
  *
  * @author lucher
  *
  */
-public class BlankResult {
+public class BlankResult extends BaseData {
     // 填空对应的index
     private int index;
     // 用户答案

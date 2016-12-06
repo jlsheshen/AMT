@@ -125,7 +125,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 		datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
 
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
-		mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
+		mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
 		viewPager.setAdapter(mSubjectAdapter);
 
 		mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());

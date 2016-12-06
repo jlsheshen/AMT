@@ -1,5 +1,7 @@
 package com.edu.subject.net;
 
+import com.edu.library.data.BaseData;
+
 import java.util.List;
 
 /**
@@ -8,7 +10,7 @@ import java.util.List;
  * @author lucher
  * 
  */
-public class AnswerResult {
+public class AnswerResult extends BaseData{
 
 	// 服务器端题目id
 	private int flag;
@@ -80,7 +82,7 @@ public class AnswerResult {
 	 * @author lucher
 	 * 
 	 */
-	public class SignResult {
+	public class SignResult  extends BaseData{
 		// 待实现
 	}
 }
