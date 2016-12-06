@@ -10,16 +10,15 @@ import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
 import com.edu.accountingteachingmaterial.adapter.ClassChapterExLvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
-import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
-import com.edu.accountingteachingmaterial.view.HistoryListDialog;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 
@@ -27,17 +26,17 @@ import java.util.List;
 
 public class ClassFragment extends BaseFragment implements View.OnClickListener {
 
-	ExpandableListView expandableListView;
-	List<ClassChapterData> datas;
-	ClassChapterExLvAdapter chapterExLvAdapter;
-	@Override
-	protected int initLayout() {
-		// TODO Auto-generated method stub
-		return R.layout.fragment_class;
-	}
+    ExpandableListView expandableListView;
+    List<ClassChapterData> datas;
+    ClassChapterExLvAdapter chapterExLvAdapter;
+
+    @Override
+    protected int initLayout() {
+        // TODO Auto-generated method stub
+        return R.layout.fragment_class;
+    }
 
     ImageView imgHistory;
-    HistoryListDialog historyListDialog;
 
 
     @Override
@@ -45,28 +44,27 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         expandableListView = (ExpandableListView) bindView(R.id.class_classchapter_exlv);
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
-        historyListDialog = new HistoryListDialog(context);
     }
 
     @Override
     protected void initData() {
 
 //		loadData();
-		chapterExLvAdapter = new ClassChapterExLvAdapter(context);
-		uploadChapter();
-		expandableListView.setAdapter(chapterExLvAdapter);
-		expandableListView.setOnChildClickListener(new OnChildClickListener() {
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+        chapterExLvAdapter = new ClassChapterExLvAdapter(context);
+        uploadChapter();
+        expandableListView.setAdapter(chapterExLvAdapter);
+        expandableListView.setOnChildClickListener(new OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 //				String id1 = String.valueOf(datas.get(groupPosition).getSubChapters().get(childPosition).getId());
-				Bundle bundle = new Bundle();
-				bundle.putSerializable("classData",datas.get(groupPosition).getSubChapters().get(childPosition));
-				startActivity(ClassDetailActivity.class,bundle);
-				// TODO Auto-generated method stub
-				return false;
-			}
-		});
-		expandableListView.setOnGroupExpandListener(new OnGroupExpandListener() {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
+                startActivity(ClassDetailActivity.class, bundle);
+                // TODO Auto-generated method stub
+                return false;
+            }
+        });
+        expandableListView.setOnGroupExpandListener(new OnGroupExpandListener() {
 
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -130,9 +128,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_study_history_iv:
-                if (!historyListDialog.isShowing()) {
-                    historyListDialog.show();
-                }
+
                 break;
         }
     }

@@ -160,6 +160,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 if (jsonObject.getString("success").equals("true")) {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
                     PreferenceHelper.getInstance(MainActivity.this).setStringValue(NetUrlContstant.URL_NAME, BASE_URL);
+
                     Log.d("LaunchActivity", "线程启动获取成功");
                 }
             }
@@ -170,6 +171,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
             }
         });
     }
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

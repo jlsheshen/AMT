@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="25px"
             android:src="@mipmap/icon_history_n"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <View style="@style/HorizontalLine" />

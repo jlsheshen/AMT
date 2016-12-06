@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_content"
+    android:layout_width="350px"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_exit_dialog">
+
+        <TextView
+            android:id="@+id/tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="160px"
+            android:text="还有试题尚未作答"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10px"
+            android:text="确定提交？"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="150px"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10px"
+            android:text="交卷"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="24sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/btn_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="50px"
+        android:src="@mipmap/btn_cancel" />
+
+</RelativeLayout>
