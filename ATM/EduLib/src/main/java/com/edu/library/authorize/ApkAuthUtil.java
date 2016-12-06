@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.library.common.PreferenceHelper;
 import com.edu.library.usercenter.UserCenterHelper;
 import com.edu.library.usercenter.UserData;
-import com.edu.library.util.MacAddressUtil;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
@@ -26,9 +25,9 @@ import cz.msebera.android.httpclient.Header;
 
 /**
  * apk授权工具
- * 
+ *
  * @author lucher
- * 
+ *
  */
 public class ApkAuthUtil {
 
@@ -42,7 +41,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 检测授权
-	 * 
+	 *
 	 * @param context
 	 * @return
 	 */
@@ -87,7 +86,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 获取用户中心共享的包名是否包含当前应用
-	 * 
+	 *
 	 * @param context
 	 * @param locationCode
 	 * @return
@@ -117,7 +116,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 申请授权
-	 * 
+	 *
 	 * @param context
 	 * @param code
 	 */
@@ -171,7 +170,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 获取当前系统版本号
-	 * 
+	 *
 	 * @param context
 	 * @return
 	 */

@@ -2,6 +2,8 @@ package com.edu.accountingteachingmaterial.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -11,9 +13,10 @@ import android.widget.ExpandableListView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.adapter.ClassChapterDialogAdapter;
 import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
+import com.edu.accountingteachingmaterial.adapter.ClassChapterDialogAdapter;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
@@ -56,9 +59,15 @@ public class ScbjectChapterListDialog extends Dialog {
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                String id1 = String.valueOf(datas.get(groupPosition).getSubChapters().get(childPosition).getId());
-                Log.e("www", id1);
-//                startActivity(ClassDetailActivity.class);
+                Intent intent = new Intent(mContext, ClassDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
+                intent.putExtras(bundle);
+                mContext.startActivity(intent);
+                dismiss();
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("classData",datas.get(groupPosition).getSubChapters().get(childPosition));
+//                startActivity(ClassDetailActivity.class,bundle);
                 // TODO Auto-generated method stub
                 return false;
             }

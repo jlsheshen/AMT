@@ -3,20 +3,28 @@ package com.edu.accountingteachingmaterial.fragment;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExamBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.entity.TestListData;
+import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.library.util.DBCopyUtil;
 import com.edu.testbill.Constant;
 import com.edu.testbill.util.SoundPoolUtil;
+import com.lucher.net.req.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +35,7 @@ public class ExamFragment extends BaseFragment {
     List<ExamBean> datas;
     ExamAdapter examAdapter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
+    List<TestListData> testListDatas;
 
     @Override
     protected int initLayout() {
@@ -89,6 +98,55 @@ public class ExamFragment extends BaseFragment {
                     startActivity(UnitTestActivity.class);
 
                 }
+            }
+        });
+
+    }
+
+    /***
+     * 更新试题
+     */
+
+    private void uploadTest() {
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.BASE_URL);
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+
+                }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("ExamFragment", errorInfo);
+            }
+        });
+    }
+
+    /**
+     * 获取试卷列表
+     */
+
+    private void uploadTestList() {
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        Log.d("ExamFragment", "");
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.classicCaseUrl + "-2");
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    testListDatas = JSON.parseArray(jsonObject.getString("message"), TestListData.class);
+                }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("ExamFragment", errorInfo);
+
             }
         });
 

@@ -81,7 +81,7 @@
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_zhangjieliebiao_n"
             android:layout_marginRight="25px"
-            android:visibility="gone" />
+            android:visibility="visible" />
     </RelativeLayout>
 
     <View
