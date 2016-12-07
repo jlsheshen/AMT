@@ -26,6 +26,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     ImageView backIv, imgZhangjie;
     TextView textView;
     ClassChapterData.SubChaptersBean data;
+    View vLine;
 
     @Override
     public int setLayout() {
@@ -43,6 +44,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         bindAndListener(imgZhangjie, R.id.class_aty_zhangjie_iv);
         textView = bindView(R.id.class_id_title_tv);
         imgZhangjie = (ImageView) findViewById(R.id.class_aty_zhangjie_iv);
+        vLine = (View) findViewById(R.id.view);
 
     }
 
@@ -109,7 +111,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                 break;
             case R.id.class_aty_zhangjie_iv:
                 ChapterPopupWindow popWindow = new ChapterPopupWindow(ClassDetailActivity.this);
-                popWindow.showPopupWindow(imgZhangjie);
+                popWindow.showPopupWindow(vLine);
 
                 break;
         }

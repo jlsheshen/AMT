@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -50,7 +51,7 @@ public class ChapterPopupWindow extends PopupWindow {
         // 设置PopupWindow弹出窗体的宽
         this.setWidth(windowManager.getDefaultDisplay().getWidth() / 3);
         // 设置PopupWindow弹出窗体的高
-        this.setHeight(windowManager.getDefaultDisplay().getHeight() - 60);
+        this.setHeight(windowManager.getDefaultDisplay().getHeight() - 65);
         // 设置PopupWindow弹出窗体可点击
         this.setFocusable(true);
         this.setOutsideTouchable(true);
@@ -102,8 +103,8 @@ public class ChapterPopupWindow extends PopupWindow {
     public void showPopupWindow(View parent) {
         if (!this.isShowing()) {
             // 以下拉方式显示popupwindow
-            this.showAsDropDown(parent, 20, 10);
-            // this.showAtLocation(parent, Gravity.RIGHT, -20, 20);
+//            this.showAsDropDown(parent, 40, 10);
+             this.showAtLocation(parent, Gravity.RIGHT|Gravity.BOTTOM, 15, 0);
         } else {
             this.dismiss();
         }
