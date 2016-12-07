@@ -3,7 +3,6 @@ package com.edu.accountingteachingmaterial.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -59,10 +58,8 @@ public class ChapterPopupWindow extends PopupWindow {
         // 刷新状态
         this.update();
         // 实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(0x00000000);
-        // 点back键和其他地方使其消失,设置了这个才能触发OnDism
-        // isslistener ，设置其他控件变化等操作
-        this.setBackgroundDrawable(dw);
+        //ColorDrawable dw = new ColorDrawable(0x00000000);
+        this.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.shape_chapter_list));
         backgroundAlpha(context, 0.5f);//0.0-1.0
         //this.setAnimationStyle(R.style.AnimationPreview);
         expandableListView = (ExpandableListView) conentView.findViewById(R.id.class_classchapter_exlv);
@@ -115,7 +112,7 @@ public class ChapterPopupWindow extends PopupWindow {
     public void showPopupWindow(View parent) {
         if (!this.isShowing()) {
             // 以下拉方式显示popupwindow
-            //this.showAsDropDown(parent, 40, 10);
+            //this.showAsDropDown(parent, 40, 0);
             this.showAtLocation(parent, Gravity.RIGHT | Gravity.BOTTOM, 15, 0);
         } else {
             this.dismiss();
@@ -141,7 +138,7 @@ public class ChapterPopupWindow extends PopupWindow {
 
             @Override
             public void onFailure(String errorInfo) {
-                ToastUtil.showToast(mContext, errorInfo + "请联网哟");
+                ToastUtil.showToast(mContext, errorInfo);
             }
         });
     }

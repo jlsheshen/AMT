@@ -78,9 +78,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         //开始比赛
 //            btnStart.setBackgroundResource(R.drawable.selector_start);
 //        } else if () {
-
-//        btnStart.setBackgroundResource(R.drawable.selector_answer);
         //查看作答
+//        btnStart.setBackgroundResource(R.drawable.selector_answer);
 //        } else if () {
         //查看答案
 //            btnStart.setBackgroundResource(R.drawable.selector_check_answer;
