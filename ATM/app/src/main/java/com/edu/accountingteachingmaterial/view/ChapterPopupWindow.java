@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -39,7 +40,7 @@ public class ChapterPopupWindow extends PopupWindow {
     private Context mContext;
     private View conentView;
 
-    public ChapterPopupWindow(Context context) {
+    public ChapterPopupWindow(final Activity context) {
         super(context);
         this.mContext = context;
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -58,11 +59,12 @@ public class ChapterPopupWindow extends PopupWindow {
         // 刷新状态
         this.update();
         // 实例化一个ColorDrawable颜色为半透明
-        ColorDrawable dw = new ColorDrawable(0000000000);
+        ColorDrawable dw = new ColorDrawable(0x00000000);
         // 点back键和其他地方使其消失,设置了这个才能触发OnDism
         // isslistener ，设置其他控件变化等操作
         this.setBackgroundDrawable(dw);
-        this.setAnimationStyle(R.style.AnimationPreview);
+        backgroundAlpha(context, 0.5f);//0.0-1.0
+        //this.setAnimationStyle(R.style.AnimationPreview);
         expandableListView = (ExpandableListView) conentView.findViewById(R.id.class_classchapter_exlv);
         chapterExLvAdapter = new ClassChapterDialogAdapter(mContext);
         uploadChapter();
@@ -76,6 +78,7 @@ public class ChapterPopupWindow extends PopupWindow {
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
                 ChapterPopupWindow.this.dismiss();
+                backgroundAlpha(context, 1f);
                 // TODO Auto-generated method stub
                 return false;
             }
@@ -92,6 +95,15 @@ public class ChapterPopupWindow extends PopupWindow {
                 }
             }
         });
+
+        this.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                // TODO Auto-generated method stub
+                backgroundAlpha(context, 1f);
+            }
+        });
+
     }
 
     /**
@@ -103,8 +115,8 @@ public class ChapterPopupWindow extends PopupWindow {
     public void showPopupWindow(View parent) {
         if (!this.isShowing()) {
             // 以下拉方式显示popupwindow
-//            this.showAsDropDown(parent, 40, 10);
-             this.showAtLocation(parent, Gravity.RIGHT|Gravity.BOTTOM, 15, 0);
+            //this.showAsDropDown(parent, 40, 10);
+            this.showAtLocation(parent, Gravity.RIGHT | Gravity.BOTTOM, 15, 0);
         } else {
             this.dismiss();
         }
@@ -133,5 +145,18 @@ public class ChapterPopupWindow extends PopupWindow {
             }
         });
     }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(Activity context, float bgAlpha) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        context.getWindow().setAttributes(lp);
+    }
+
 
 }
