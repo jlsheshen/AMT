@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
     <style name="SizeBarStyle">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">wrap_content</item>
@@ -40,6 +41,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorBlueContent</item>
     </style>
+
     <style name="VerticalLine">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">1dp</item>
@@ -47,11 +49,12 @@
         <item name="android:layout_marginLeft">15px</item>
         <item name="android:layout_marginRight">15px</item>
     </style>
-    
-    <style name = "SettingItem">
+
+    <style name="SettingItem">
         <item name="android:layout_height">60px</item>
         <item name="android:layout_width">match_parent</item>
     </style>
+
     <style name="ExpandableLvStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -61,10 +64,12 @@
         <item name="android:layout_margin">@dimen/little_interval</item>
         <item name="android:childDivider">@color/colorBlueContent</item>
     </style>
+
     <style name="FragmentPadding">
         <item name="android:paddingLeft">10px</item>
         <item name="android:paddingRight">10px</item>
     </style>
+
     <style name="ItemPadding">
         <item name="android:paddingTop">10px</item>
         <item name="android:paddingBottom">10px</item>
@@ -72,7 +77,7 @@
     <!-- 选项多项按钮样式 -->
     <style name="cb_option_style">
         <item name="android:paddingBottom">10px</item>
-         <item name="android:textColor">@drawable/rb_selector_subject_text_color</item>
+        <item name="android:textColor">@drawable/rb_selector_subject_text_color</item>
         <item name="android:paddingTop">10px</item>
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/txt_size_half_medium</item>
@@ -82,4 +87,8 @@
     </style>
 
 
+    <style name="AnimationPreview">
+        <item name="android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="android:windowExitAnimation">@anim/fade_out</item>
+    </style>
 </resources>

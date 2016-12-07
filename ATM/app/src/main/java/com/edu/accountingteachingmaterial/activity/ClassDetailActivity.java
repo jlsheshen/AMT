@@ -16,7 +16,7 @@ import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassFragment;
-import com.edu.accountingteachingmaterial.view.ScbjectChapterListDialog;
+import com.edu.accountingteachingmaterial.view.ChapterPopupWindow;
 
 public class ClassDetailActivity extends BaseActivity implements OnClickListener {
 
@@ -24,7 +24,6 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     RadioButton classEmphasisButton, classExampleButton, classExerciseButton, classReviewButton;
     Fragment classEmphasisFragment, classExampleFragment, classExerciseFragment, classReviewFragment;
     ImageView backIv, imgZhangjie;
-    ScbjectChapterListDialog chapterListDialog;
     TextView textView;
     ClassChapterData.SubChaptersBean data;
 
@@ -42,10 +41,9 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         bindAndListener(classReviewButton, R.id.class_review_iv);
         bindAndListener(backIv, R.id.class_aty_back_iv);
         bindAndListener(imgZhangjie, R.id.class_aty_zhangjie_iv);
-        textView= bindView(R.id.class_id_title_tv);
+        textView = bindView(R.id.class_id_title_tv);
+        imgZhangjie = (ImageView) findViewById(R.id.class_aty_zhangjie_iv);
 
-
-        chapterListDialog = new ScbjectChapterListDialog(this);
     }
 
     @Override
@@ -56,7 +54,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         replaceFragment(classEmphasisFragment);
         Bundle bundle = getIntent().getExtras();
         data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
-        if (data != null){
+        if (data != null) {
             textView.setText(data.getTitle());
         }
 
@@ -89,14 +87,14 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
             case R.id.class_example_iv:
                 if (null == classExampleFragment) {
                     classExampleFragment = new ClassExampleFragment();
-                    ((ClassExampleFragment)classExampleFragment).setData(data);
+                    ((ClassExampleFragment) classExampleFragment).setData(data);
                 }
                 replaceFragment(classExampleFragment);
                 break;
             case R.id.class_exercise_iv:
                 if (null == classExerciseFragment) {
                     classExerciseFragment = new ClassExerciseFragment();
-                    ((ClassExerciseFragment)classExerciseFragment).setData(data);
+                    ((ClassExerciseFragment) classExerciseFragment).setData(data);
                 }
                 replaceFragment(classExerciseFragment);
                 break;
@@ -110,12 +108,13 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                 finish();
                 break;
             case R.id.class_aty_zhangjie_iv:
-                if (!chapterListDialog.isShowing()) {
-                    chapterListDialog.show();
-                }
+                ChapterPopupWindow popWindow = new ChapterPopupWindow(ClassDetailActivity.this);
+                popWindow.showPopupWindow(imgZhangjie);
+
                 break;
         }
 
     }
+
 
 }

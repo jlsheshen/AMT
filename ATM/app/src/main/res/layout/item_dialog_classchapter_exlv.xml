@@ -25,6 +25,8 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/middle_interval"
         android:layout_weight="1"
+        android:ems="9"
+        android:singleLine="true"
         android:text="@string/class_name"
         android:textColor="@color/colorBlueBackground"
         android:textSize="@dimen/item_title_text_size"
@@ -35,6 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
+        android:layout_marginRight="5px"
         android:src="@drawable/secector_main_chapter_fold" />
 
 
