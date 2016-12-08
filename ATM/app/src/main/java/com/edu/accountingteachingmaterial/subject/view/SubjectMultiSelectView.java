@@ -256,6 +256,7 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
 
     @Override
     public float submit() {
+
         return 0;
     }
 

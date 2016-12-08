@@ -169,42 +169,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
                 UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), examListData.getId(), 10000);
                 EventBus.getDefault().post(user.getUserId());
-
-
-//                List<com.edu.subject.net.AnswerResult.AnswerResult> ans = new ArrayList<>();
-//
-//                for (BaseTestData data : datas) {
-//                    com.edu.subject.net.AnswerResult.AnswerResult a = new com.edu.subject.net.AnswerResult.AnswerResult();
-//                    a.setType(data.getSubjectType());
-//                    a.setFlag(data.getSubjectData().getFlag());
-//                    a.setAnswer(data.getuAnswer());
-//                    a.setScore(data.getuScore());
-//                    ans.add(a);
-//                }
-//                String a = JSON.toJSONString(ans);
-//                Log.d("SubjectTestActivity", a);
-//                JsonReqEntity entity = new JsonReqEntity(this, RequestMethod.POST, NetUrlContstant.subjectSubmitUrl + "6016-" + dataId+ "-2222", JSON.toJSONString(ans));
-//                SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-//                sendJsonNetReqManager.sendRequest(entity);
-//                sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-//                    @Override
-//                    public void onSuccess(JSONObject jsonObject) {
-//                        if (jsonObject.getString("success").equals("true")) {
-//                            Log.d("SubjectTestActivity", jsonObject.getString("message"));
-//                        }
-//                        ContentValues contentValues = new ContentValues();
-//                        contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-//                        ExamListDao.getInstance(SubjectTestActivity.this).updateData("" + dataId, contentValues);
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(String errorInfo) {
-//                        ToastUtil.showToast(SubjectTestActivity.this, errorInfo);
-//                    }
-//                });
-
-
                 ToastUtil.showToast(this, "score:" + score);
                 finish();
 

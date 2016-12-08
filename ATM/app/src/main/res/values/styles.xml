@@ -81,5 +81,17 @@
         <item name="android:paddingLeft">25px</item>
     </style>
 
+    <!-- ppw的item样式 -->
+    <style name="ppw_title_item_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">55px</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingLeft">10px</item>
+        <item name="android:textColor">@color/colorBlueBackground</item>
+        <item name="android:textSize">@dimen/item_title_text_size</item>
+        <item name="android:background">#8823c8be</item>
+        <item name="android:layout_marginTop">1px</item>
+    </style>
+
 
 </resources>

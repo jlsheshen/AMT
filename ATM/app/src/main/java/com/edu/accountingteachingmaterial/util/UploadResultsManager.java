@@ -16,6 +16,8 @@ import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +69,19 @@ public class UploadResultsManager extends JsonNetReqManager {
 	}
 
 	/**
+	 * 设置单独提交答题结果数据
+	 *
+	 * @param data
+	 */
+	public void setSingleResults(BaseTestData data) {
+		if (data != null) {
+			mAnswerResults = new ArrayList<>();
+			mAnswerResults.add(data.toResult());
+
+		}
+	}
+
+	/**
 	 * 上传答题结果
 	 * 
 	 * @param studentId
@@ -84,6 +99,24 @@ public class UploadResultsManager extends JsonNetReqManager {
 		sendRequest(entity, "正在拼命上传成绩");
 		Log.d(TAG, "uploadResult:" + JSON.toJSONString(mAnswerResults));
 	}
+	/**
+	 * 上传单道答题结果
+	 *
+	 * @param studentId
+	 * @param examId
+	 */
+	public void uploadResult(int studentId, int examId) {
+		this.examId = examId;
+		if (mAnswerResults == null || mAnswerResults.size() <= 0) {
+			ToastUtil.showToast(mContext, "发送结果为空");
+			return;
+		}
+		String url = NetUrlContstant.subjectSingleSubmitUrl  + studentId + "-" + examId;
+		Log.d("UploadResultsManager", "mAnswerResults.get(0):" + mAnswerResults.get(0) + "--" + url);
+		JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
+		sendRequest(entity, "正在拼命上传成绩");
+		Log.d(TAG, "uploadResult:" + JSON.toJSONString(mAnswerResults));
+	}
 
 	@Override
 	public void onConnectionSuccess(JSONObject json, Header[] arg1) {
@@ -93,7 +126,8 @@ public class UploadResultsManager extends JsonNetReqManager {
 			ToastUtil.showToast(mContext, "成绩上传成功");
 			ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-             ExamListDao.getInstance(mContext).updateData("" + examId, contentValues);
+			ExamListDao.getInstance(mContext).updateData("" + examId, contentValues);
+			EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
 		} else {
 			ToastUtil.showToast(mContext, "成绩上传失败：" + message);
 			Log.e(TAG, "uploadResult:" + json);

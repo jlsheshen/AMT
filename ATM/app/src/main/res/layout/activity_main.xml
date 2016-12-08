@@ -19,6 +19,7 @@
             android:layout_height="match_parent">
 
         </FrameLayout>
+
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -30,6 +31,7 @@
 
         <RadioGroup
             style="@style/SizeBarStyle"
+            
             >
             <RadioButton
                 android:id="@+id/main_class_iv"

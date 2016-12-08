@@ -140,12 +140,14 @@ public class ClassExerciseFragment extends BaseFragment {
         Log.d("ClassExerciseFragment", "走过了EventBus");
 
         if (datas != null) {
-            datas.get(item).setState(state);
+
             if (datas.get(item).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS&&state != ClassContstant.EXAM_NOT){
                 datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE,datas.get(item).getId()));
+
+            }else {
+                datas.get(item).setState(state);
             }
             adapter.setDatas(datas);
-            adapter.notifyDataSetChanged();
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
         }

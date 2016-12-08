@@ -22,7 +22,7 @@ import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MO
  * @author lucher
  * 
  */
-public abstract class BaseScrollView extends RelativeLayout {
+public abstract class BaseScrollView extends RelativeLayout  {
 
 	/**
 	 * 题目数据保存
@@ -36,7 +36,6 @@ public abstract class BaseScrollView extends RelativeLayout {
 	// preference的帮助类
 	protected PreferenceHelper preHelper;
 
-	protected String sendExamIdStr;
 	ContentValues contentValues ;
 
 	/**
@@ -111,12 +110,10 @@ public abstract class BaseScrollView extends RelativeLayout {
 		}else if (testMode == TEST_MODE_INCLASS){
 			// 更新数据库答题状态
 			updateState(answer);
-		showCorrectAnswer(answer.equals(mData.getAnswer()));
-			disableOption();
+//		showCorrectAnswer(answer.equals(mData.getAnswer()));
+//			disableOption();
 			gradeAnswer(answer);
-
 		}
-
 	};
 
 	/**

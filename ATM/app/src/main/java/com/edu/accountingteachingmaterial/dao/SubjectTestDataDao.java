@@ -107,7 +107,6 @@ public class SubjectTestDataDao extends BaseDataDao {
             if (curs != null) {
                 datas = new ArrayList<BaseTestData>(curs.getCount());
                 int index = 1;
-                Log.d(TAG, "curs.moveToNext()返回" + curs.moveToNext());
                 while (curs.moveToNext()) {
                     // 初始化测试数据
                     BaseTestData testData = initTestData(curs, testMode);

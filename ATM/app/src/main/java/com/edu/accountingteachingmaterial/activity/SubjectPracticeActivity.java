@@ -15,7 +15,10 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
+import com.edu.library.usercenter.UserCenterHelper;
+import com.edu.library.usercenter.UserData;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
@@ -60,6 +63,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
     List<BaseTestData> datas;
+    ExamListData examListData;
 
     // 页面相关状态的监听
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -69,6 +73,8 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         public void onPageSelected(int item) {
             mCurrentIndex = item;
             refreshToolBar();
+            viewPager.setType(datas.get(item).getSubjectType());
+
         }
 
         @Override
@@ -92,16 +98,15 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
-
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
         tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         btnDone = (ImageView) findViewById(R.id.btnFlash);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         Bundle bundle = getIntent().getExtras();
-        ExamListData data = (ExamListData) bundle.get("ExamListData");
+         examListData = (ExamListData) bundle.get("ExamListData");
         int item = bundle.getInt("ExamListDataItem",0);
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,data.getId());
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData .getId());
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
         viewPager.setAdapter(mSubjectAdapter);
@@ -160,6 +165,9 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
             case R.id.btnDone:
                 handleDoneClicked();
+                UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
+                UserData user = UserCenterHelper.getUserInfo(this);
+                UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), examListData.getId());
 
                 break;
 

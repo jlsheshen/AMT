@@ -61,6 +61,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
         drawerLayout = bindView(R.id.main_aty_seeting);
         bindAndListener(changeIpLy, R.id.change_ip_ly);
         // TODO Auto-generated method stub
+        findViewById(R.id.main_my_iv).bringToFront();
     }
 
     @Override
@@ -95,18 +96,12 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                     myFragment = new MyFragment();
                 }
                 replaceFragment(myFragment);
-
                 break;
             case R.id.main_setting_iv:
-
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
                 drawerLayout.setDrawerListener(this);
                 //从左侧划出
                 drawerLayout.openDrawer(Gravity.LEFT);
-
-                //设置背景颜色
-                //       drawerLayout.setScrimColor(Color.TRANSPARENT);
 
                 break;
             case R.id.change_ip_ly:
@@ -119,7 +114,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 // 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
                 window.setContentView(R.layout.dialog_changeip);
                 alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-
 
                 window.findViewById(R.id.ip_save_iv).setOnClickListener(new OnClickListener() {
                     @Override
@@ -138,7 +132,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                     }
                 });
                 alertDialog.show();
-
 
                 break;
 

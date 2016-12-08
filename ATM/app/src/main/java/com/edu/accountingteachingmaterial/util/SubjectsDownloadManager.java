@@ -6,11 +6,9 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
@@ -70,7 +68,6 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	@Override
 	public void onConnectionSuccess(JSONObject json, Header[] arg1) {
 		Log.d(TAG, "onConnectionSuccess:" + json);
-		ImageView stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
 		parseSubjectJson(json);
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
