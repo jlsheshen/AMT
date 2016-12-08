@@ -85,6 +85,7 @@
     </RelativeLayout>
 
     <View
+        android:id="@+id/view"
         style="@style/HorizontalLine"
         android:layout_marginLeft="100px"
         android:layout_marginRight="10px"

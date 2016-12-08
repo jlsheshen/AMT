@@ -1,16 +1,10 @@
 <resources>
     <string name="app_name">《会计基础》立体化教材</string>
     <string name="hello_world">Hello world!</string>
-    <string name = "class_name">课程</string>
-    <string name = "login">点击登陆</string>
+    <string name="class_name">课程</string>
+    <string name="login">点击登陆</string>
     <string name="setting">设置</string>
     <string name="exam">试卷</string>
     <string name="my_errors">我的错题</string>
     <string name="test_number">试题数:</string>
-
-    <string-array name="data">
-        <item></item>
-        <item>今天</item>
-        <item>更早</item>
-    </string-array>
 </resources>

@@ -251,7 +251,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30px"
-                android:text="简答题："
+                android:text="填空题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
 
@@ -278,7 +278,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="判断题："
+                android:text="简答题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
 

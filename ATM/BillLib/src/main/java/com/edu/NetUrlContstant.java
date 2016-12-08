@@ -24,5 +24,13 @@ public class NetUrlContstant {
 
     //{studentId}-{examId}-{seconds}
     //经典示例
-    public static final String classicCaseUrl =  BASE_URL +"interface/course/findContentsByTypenChapterId/";
+    public static final String classicCaseUrl = BASE_URL + "interface/course/findContentsByTypenChapterId/";
+    //在线考试信息列表
+    public static final String examInfoUrl = BASE_URL + "interface/exam/findExamPaperBriefById/";
+    //{examId}
+    //获取每道题目信息
+    public static final String simpleTopicUrl = BASE_URL + "interface/exam/findSimpleTopicById/";
+    //{topicId}-{paperId}
+    {
+    }
 }

@@ -1,15 +1,16 @@
 package com.edu.accountingteachingmaterial.view;
 
-import android.app.Dialog;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ExpandableListView;
+import android.widget.PopupWindow;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -27,32 +28,41 @@ import com.lucher.net.req.RequestMethod;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/11/29.
+ * Created by Administrator on 2016/12/6.
  */
 
-public class ScbjectChapterListDialog extends Dialog {
+public class ChapterPopupWindow extends PopupWindow {
+
     ExpandableListView expandableListView;
     List<ClassChapterData> datas;
     ClassChapterDialogAdapter chapterExLvAdapter;
     private Context mContext;
+    private View conentView;
 
-    public ScbjectChapterListDialog(Context context) {
+    public ChapterPopupWindow(final Activity context) {
         super(context);
         this.mContext = context;
-        init();
-    }
-
-    private void init() {
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_chapter_list);
-        // 窗口全屏显示
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        // 设置窗口弹出动画
-        getWindow().setWindowAnimations(com.edu.R.style.TranAnimation);
-        // 设置对话框的位置
-        getWindow().setGravity(Gravity.BOTTOM | Gravity.RIGHT);
-        setCanceledOnTouchOutside(true);
-        expandableListView = (ExpandableListView) this.findViewById(R.id.class_classchapter_exlv);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        conentView = inflater.inflate(R.layout.dialog_chapter_list, null);
+        // 设置SPopupWindow的View
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        // 显示的位置为:屏幕的宽度的一半-PopupWindow的高度的一半
+        this.setContentView(conentView);
+        // 设置PopupWindow弹出窗体的宽
+        this.setWidth(windowManager.getDefaultDisplay().getWidth() / 3);
+        // 设置PopupWindow弹出窗体的高
+        this.setHeight(windowManager.getDefaultDisplay().getHeight() - 65);
+        // 设置PopupWindow弹出窗体可点击
+        this.setFocusable(true);
+        this.setOutsideTouchable(true);
+        // 刷新状态
+        this.update();
+        // 实例化一个ColorDrawable颜色为半透明
+        //ColorDrawable dw = new ColorDrawable(0x00000000);
+        this.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.shape_chapter_list));
+        backgroundAlpha(context, 0.5f);//0.0-1.0
+        //this.setAnimationStyle(R.style.AnimationPreview);
+        expandableListView = (ExpandableListView) conentView.findViewById(R.id.class_classchapter_exlv);
         chapterExLvAdapter = new ClassChapterDialogAdapter(mContext);
         uploadChapter();
         expandableListView.setAdapter(chapterExLvAdapter);
@@ -64,10 +74,8 @@ public class ScbjectChapterListDialog extends Dialog {
                 bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
-                dismiss();
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("classData",datas.get(groupPosition).getSubChapters().get(childPosition));
-//                startActivity(ClassDetailActivity.class,bundle);
+                ChapterPopupWindow.this.dismiss();
+                backgroundAlpha(context, 1f);
                 // TODO Auto-generated method stub
                 return false;
             }
@@ -84,28 +92,68 @@ public class ScbjectChapterListDialog extends Dialog {
                 }
             }
         });
+
+        this.setOnDismissListener(new OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                // TODO Auto-generated method stub
+                backgroundAlpha(context, 1f);
+            }
+        });
+
+    }
+
+    /**
+     * 显示popupWindow
+     * .     *
+     *
+     * @param parent
+     */
+    public void showPopupWindow(View parent) {
+        if (!this.isShowing()) {
+            // 以下拉方式显示popupwindow
+            //this.showAsDropDown(parent, 40, 0);
+            this.showAtLocation(parent, Gravity.RIGHT | Gravity.BOTTOM, 15, 0);
+        } else {
+            this.dismiss();
+        }
     }
 
     private void uploadChapter() {
-        int courseId = PreferenceHelper.getInstance(this.getContext()).getIntValue(PreferenceHelper.COURSE_ID);
+        int courseId = PreferenceHelper.getInstance(mContext).getIntValue(PreferenceHelper.COURSE_ID);
+        Log.d("ChapterPopupWindow", "courseId" + "courseId" + courseId);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
 
-        NetSendCodeEntity entity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.chapterUrl + courseId);
+        NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, NetUrlContstant.chapterUrl + courseId);
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
-                    Log.d("UnitTestActivity", "uploadChapter" + "success" + datas);
+                    Log.d("ChapterPopupWindow", "uploadChapter" + "success" + datas);
                     chapterExLvAdapter.setDatas(datas);
                 }
             }
 
             @Override
             public void onFailure(String errorInfo) {
-                ToastUtil.showToast(mContext, errorInfo + "请联网哟");
+                ToastUtil.showToast(mContext, errorInfo);
             }
         });
     }
+
+    /**
+     * 设置添加屏幕的背景透明度
+     *
+     * @param bgAlpha
+     */
+    public void backgroundAlpha(Activity context, float bgAlpha) {
+        WindowManager.LayoutParams lp = context.getWindow().getAttributes();
+        lp.alpha = bgAlpha;
+        context.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+        context.getWindow().setAttributes(lp);
+    }
+
+
 }

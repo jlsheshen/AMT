@@ -67,12 +67,12 @@ public class ExampleGVAdapter extends BaseAdapter {
 
 //			bitmap = ThumbnailUtils.extractThumbnail(bitmap, 100, 60, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 //			viewHolder.cardIv.setImageBitmap(bitmap);
-                viewHolder.cardIv.setImageResource(R.mipmap.capture);
+                viewHolder.cardIv.setImageResource(R.mipmap.video);
                 viewHolder.typeIv.setImageResource(R.mipmap.icon_shipin_n);
                 break;
             case ClassContstant.PDF_TYPE:
 
-                viewHolder.cardIv.setImageResource(R.mipmap.capture);
+                viewHolder.cardIv.setImageResource(R.mipmap.ppt);
                 viewHolder.typeIv.setImageResource(R.mipmap.icon_word_n);
                 break;
 
