@@ -169,7 +169,6 @@ public class SubjectTestDataDao extends BaseDataDao {
                     }
                 }
                 break;
-
             case SubjectType.SUBJECT_BILL:
                 // 初始化测试数据
                 testData = new TestBillData();

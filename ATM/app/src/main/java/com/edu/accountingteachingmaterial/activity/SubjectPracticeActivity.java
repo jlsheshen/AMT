@@ -164,6 +164,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
                 break;
 
             case R.id.btnDone:
+
                 handleDoneClicked();
                 UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
                 UserData user = UserCenterHelper.getUserInfo(this);
@@ -193,9 +194,10 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      * 处理完成/重做按钮点击事件
      */
     private void handleDoneClicked() {
+        float score = mSubjectAdapter.submit(mCurrentIndex);
+        ToastUtil.showToast(this, "score:" + score);
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
-            float score = mSubjectAdapter.submit(mCurrentIndex);
-            ToastUtil.showToast(this, "score:" + score);
+
 //            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         }
 //        else {

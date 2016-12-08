@@ -183,7 +183,6 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
         } else {
             tvAnswer.setTextColor(Color.parseColor("#cc0000"));
         }
-
     }
 
     @Override
@@ -225,6 +224,8 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
 
     @Override
     public float submit() {
+        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
+    	disableOption();
         // TODO Auto-generated method stub
         return 0;
     }

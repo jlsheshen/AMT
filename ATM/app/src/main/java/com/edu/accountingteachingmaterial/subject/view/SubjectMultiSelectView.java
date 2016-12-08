@@ -256,7 +256,8 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
 
     @Override
     public float submit() {
-
+        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
+        disableOption();
         return 0;
     }
 

@@ -148,11 +148,12 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
     @Override
     public void saveAnswer() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public float submit() {
+        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
+        disableOption();
         // TODO Auto-generated method stub
         return 0;
     }
@@ -160,7 +161,6 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
     @Override
     public void showDetails() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
