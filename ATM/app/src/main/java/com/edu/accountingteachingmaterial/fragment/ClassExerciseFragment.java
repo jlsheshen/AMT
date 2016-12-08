@@ -140,10 +140,8 @@ public class ClassExerciseFragment extends BaseFragment {
         Log.d("ClassExerciseFragment", "走过了EventBus");
 
         if (datas != null) {
-
             if (datas.get(item).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS&&state != ClassContstant.EXAM_NOT){
                 datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE,datas.get(item).getId()));
-
             }else {
                 datas.get(item).setState(state);
             }
@@ -154,9 +152,7 @@ public class ClassExerciseFragment extends BaseFragment {
 
     }
 
-
     private void uploadChapterList() {
-
         Log.d("ClassExerciseFragment", NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID));
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
