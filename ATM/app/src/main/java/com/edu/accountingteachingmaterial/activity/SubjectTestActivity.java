@@ -224,23 +224,23 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 scrollToRight();
                 break;
             case R.id.class_aty_back_iv:
-                exitDialog = new ExitDialog(this);
-                if (!exitDialog.isShowing()) {
-                    exitDialog.show();
-                }
-                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
-                    @Override
-                    public void onOkClicked() {
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelClicked() {
-                        if (exitDialog.isShowing()) {
-                            exitDialog.dismiss();
-                        }
-                    }
-                });
+//                exitDialog = new ExitDialog(this);
+//                if (!exitDialog.isShowing()) {
+//                    exitDialog.show();
+//                }
+//                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
+//                    @Override
+//                    public void onOkClicked() {
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onCancelClicked() {
+//                        if (exitDialog.isShowing()) {
+//                            exitDialog.dismiss();
+//                        }
+//                    }
+//                });
 
                 break;
 

@@ -13,11 +13,17 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.bean.ExamBean;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
-import com.edu.accountingteachingmaterial.entity.TestInfoData;
+import com.edu.accountingteachingmaterial.entity.TestPaperListData;
+import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.lucher.net.req.RequestMethod;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/11/18.
@@ -29,8 +35,10 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             tvAnswerTime, tvStartTime, tvEndTime, tvChallengeTime,
             tvSingle, tvMultiple, tvJudge, tvFillIn, tvShort, tvComprehensive, tvTotal;
     Button btnStart;
-    TestInfoData infoData;
+    ExamBean examBean;
     LinearLayout rlScore, rlSubmitting, rlAnswerData;
+    TestPaperListData testPaperListData;
+    List<TopicsBean> topicsBeen;
 
     @Override
     public int setLayout() {
@@ -40,73 +48,65 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     @Override
     public void initView(Bundle savedInstanceState) {
         bindAndListener(imgBack, R.id.class_aty_back_iv);
-        bindAndListener(imgShow, R.id.img_show);
-        bindAndListener(testTitle, R.id.class_id_title_tv);
-        bindAndListener(tvPublisher, R.id.publisher_tv);
-        bindAndListener(tvReleaseTime, R.id.release_time_tv);
-        bindAndListener(tvScore, R.id.score_tv);
-        bindAndListener(tvSubmittingTime, R.id.submitting_time_tv);
-        bindAndListener(tvAnswerTime, R.id.answer_time_tv);
-        bindAndListener(tvStartTime, R.id.start_time_tv);
-        bindAndListener(tvEndTime, R.id.end_time_tv);
-        bindAndListener(tvChallengeTime, R.id.challeng_time_tv);
-        bindAndListener(tvSingle, R.id.single_tv);
-        bindAndListener(tvMultiple, R.id.multiple_tv);
-        bindAndListener(tvJudge, R.id.judge_tv);
-        bindAndListener(tvFillIn, R.id.fill_in_tv);
-        bindAndListener(tvShort, R.id.short_tv);
-        bindAndListener(tvComprehensive, R.id.comprehensive_tv);
-        bindAndListener(tvTotal, R.id.total_tv);
         bindAndListener(btnStart, R.id.btn_start);
+        bindAndListener(imgShow, R.id.img_show);
+        testTitle = bindView(R.id.class_id_title_tv);
+        tvPublisher = bindView(R.id.publisher_tv);
+        tvReleaseTime = bindView(R.id.release_time_tv);
+        tvScore = bindView(R.id.score_tv);
+        tvSubmittingTime = bindView(R.id.submitting_time_tv);
+        tvAnswerTime = bindView(R.id.answer_time_tv);
+        tvStartTime = bindView(R.id.start_time_tv);
+        tvEndTime = bindView(R.id.end_time_tv);
+        tvChallengeTime = bindView(R.id.challeng_time_tv);
+        tvSingle = bindView(R.id.single_tv);
+        tvMultiple = bindView(R.id.multiple_tv);
+        tvJudge = bindView(R.id.judge_tv);
+        tvFillIn = bindView(R.id.fill_in_tv);
+        tvShort = bindView(R.id.short_tv);
+        tvComprehensive = bindView(R.id.comprehensive_tv);
+        tvTotal = bindView(R.id.total_tv);
 
 
     }
 
+
     @Override
     public void initData() {
+        uploadTestInfo();
 //        Bundle bundle = getIntent().getExtras();
-//        infoData = (TestInfoData) bundle.getSerializable("TestInfoData");
-//
-//        if (ClassContstant.EXAM_COMMIT) {
-//        } else if (ClassContstant.EXAM_UNDONE) {
-//        } else if (ClassContstant.EXAM_READ) {
-//        } else if (ClassContstant.EXAM_NOT) {
-//        } else if (ClassContstant.EXAM_DOWNLOADING) {
-//        }
-//
-//        if (TEST_MODE_NORMAL) {
-        //开始比赛
+//        examBean = (ExamBean) bundle.getSerializable("examBean");
+
+
+//        //未提交
+//        if (testPaperListData.getStatus() == ClassContstant.EXAM_UNDONE) {
+//            imgShow.setBackgroundResource(R.mipmap.weitijao);
+//            rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
+//            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
+//            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
+//            //开始比赛
 //            btnStart.setBackgroundResource(R.drawable.selector_start);
-//        } else if () {
-        //查看作答
-//        btnStart.setBackgroundResource(R.drawable.selector_answer);
-//        } else if () {
-        //查看答案
+//        } else if (testPaperListData.getStatus() == ClassContstant.EXAM_COMMIT) {
+//            //已提交
+//            imgShow.setBackgroundResource(R.mipmap.yitijiao);
+//            rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
+//            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
+//            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
+//            //查看作答
+//            btnStart.setBackgroundResource(R.drawable.selector_answer);
+//        } else if (testPaperListData.getStatus() == ClassContstant.EXAM_READ) {
+//            //已批阅
+//            imgShow.setBackgroundResource(R.mipmap.yipiyue);
+//            rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
+//            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
+//            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.VISIBLE);
+//            //查看答案
 //            btnStart.setBackgroundResource(R.drawable.selector_check_answer;
 //        }
 
 
-        //未提交
-//        imgShow.setBackgroundResource(R.mipmap.weitijao);
-//        rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
-//        rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
-//        rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
-//        } else if () {
-        //已提交
-//        imgShow.setBackgroundResource(R.mipmap.yitijiao);
-//        rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
-//        rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
-//        rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
-//        } else if () {
-        //已批阅
-//        imgShow.setBackgroundResource(R.mipmap.yipiyue);
-//        rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
-//        rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
-//        rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.VISIBLE);
-//        }
-
-
     }
+
 
     private void bindAndListener(View view, int id) {
         view = bindView(id);
@@ -142,16 +142,23 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     private void uploadTestInfo() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        Log.d("UnitTestActivity", "");
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.classicCaseUrl + "-2");
+        Log.d("UnitTestActivity", "uploadTestInfo");
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.examInfoUrl + "1179");
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
-                    //infoData = JSON.parseArray(jsonObject.getString("message"), TestListData.class);
-                    infoData = jsonObject.getObject(jsonObject.getString("message"), TestInfoData.class);
+                    testPaperListData = JSONObject.parseObject(jsonObject.getString("message"), TestPaperListData.class);
+                    Log.d("UnitTestActivity", "uploadTestInfo" + testPaperListData.getExam_name());
+                    if (testPaperListData != null && testPaperListData.getTopics().size() > 0) {
+                        topicsBeen = new ArrayList<TopicsBean>();
+                        topicsBeen = testPaperListData.getTopics();
+                        Log.d("UnitTestActivity", "uploadTestInfo" + topicsBeen.size());
+                    }
+                    setView();
                 }
+
             }
 
             @Override
@@ -161,4 +168,35 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             }
         });
     }
+
+    private void setView() {
+        int single = 0, multiple = 0, judge = 0, fillin, shortin, comprehensive;
+        for (int i = 0; i < topicsBeen.size(); i++) {
+            if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_SINGLE_CHOSE) {
+                single += 1;
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_MULITI_CHOSE) {
+                multiple += 1;
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_JUDGE) {
+                judge += 1;
+            }
+        }
+        testTitle.setText(testPaperListData.getExam_name());
+        tvPublisher.setText(testPaperListData.getCreator_name());
+        tvReleaseTime.setText(testPaperListData.getCreate_date());
+//        tvScore.setText(testPaperListData.getScore()+"");
+//        tvSubmittingTime.setText("");
+//        tvAnswerTime.setText("");
+//        tvStartTime.setText(testPaperListData.getStart_time()+"");
+//        tvEndTime.setText(testPaperListData.getEnd_time()+"");
+//        tvChallengeTime.setText("");
+        tvSingle.setText(single + "道");
+        tvMultiple.setText(multiple + "道");
+        tvJudge.setText(judge + "道");
+//        tvFillIn.setText("道");
+//        tvShort.setText("道");
+//        tvComprehensive.setText("道");
+        tvTotal.setText(topicsBeen.size() + "道");
+    }
+
+
 }

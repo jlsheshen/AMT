@@ -8,9 +8,9 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:padding="10px"
         android:text="章节列表"
-        android:gravity="center"
         android:textColor="@color/colorGray"
         android:textSize="@dimen/title_text_size" />
 
