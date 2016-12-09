@@ -75,7 +75,7 @@ public class ExamAdapter extends BaseAdapter {
                 viewHolder.progressBar.setVisibility(View.VISIBLE);
                 break;
             case ClassContstant.EXAM_NOT:
-
+                viewHolder.imageView.setImageResource(R.drawable.selector_exam_download_type);
                 break;
             case ClassContstant.EXAM_READ:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_yipiyue_n);

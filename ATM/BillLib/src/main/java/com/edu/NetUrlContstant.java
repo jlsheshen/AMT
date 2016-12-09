@@ -31,6 +31,7 @@ public class NetUrlContstant {
     //获取每道题目信息
     public static final String simpleTopicUrl = BASE_URL + "interface/exam/findSimpleTopicById/";
     //{topicId}-{paperId}
-    {
-    }
+    //获取在线考试列表
+    public static final String getExamInfoUrl = BASE_URL + "interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
+
 }

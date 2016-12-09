@@ -46,6 +46,7 @@ public final class ClassContstant {
     public static final int EXERCISE_IN_CLASS = 4;
     //课后复习
     public static final int EXERCISE_AFTER_CLASS = 5;
+    //
 
     //练习题对错状态
     //正确
