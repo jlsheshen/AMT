@@ -39,6 +39,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     LinearLayout rlScore, rlSubmitting, rlAnswerData;
     TestPaperListData testPaperListData;
     List<TopicsBean> topicsBeen;
+    int examId;
+    ExamListData examListData;
 
     @Override
     public int setLayout() {
@@ -73,11 +75,13 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     @Override
     public void initData() {
-        uploadTestInfo();
+
 //        Bundle bundle = getIntent().getExtras();
 //        examBean = (ExamBean) bundle.getSerializable("examBean");
-
-
+        Bundle bundle = getIntent().getExtras();
+        examId = bundle.getInt("examId");
+        examListData = (ExamListData) bundle.getSerializable("ExamListData");
+        uploadTestInfo();
 //        //未提交
 //        if (testPaperListData.getStatus() == ClassContstant.EXAM_UNDONE) {
 //            imgShow.setBackgroundResource(R.mipmap.weitijao);
@@ -125,11 +129,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_start:
                 //ExamListData考试数据（测试）
                 Bundle bundle = new Bundle();
-                ExamListData data = new ExamListData();
-                data.setChapter_id(11);
-                data.setId(1);
-                bundle.putSerializable("ExamListData", data);
-                startActivity(SubjectTestActivity.class, bundle);
+                bundle.putSerializable("ExamListData", examListData);
+                startActivity(SubjectExamActivity.class, bundle);
                 break;
 
 
@@ -143,7 +144,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     private void uploadTestInfo() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         Log.d("UnitTestActivity", "uploadTestInfo");
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.examInfoUrl + "1179");
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.examInfoUrl + examId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
@@ -156,7 +157,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                         topicsBeen = testPaperListData.getTopics();
                         Log.d("UnitTestActivity", "uploadTestInfo" + topicsBeen.size());
                     }
-                    setView();
+                    refreshView();
                 }
 
             }
@@ -169,8 +170,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         });
     }
 
-    private void setView() {
-        int single = 0, multiple = 0, judge = 0, fillin, shortin, comprehensive;
+    private void refreshView() {
+        int single = 0, multiple = 0, judge = 0, fillin = 0, shortin = 0, comprehensive = 0;
         for (int i = 0; i < topicsBeen.size(); i++) {
             if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_SINGLE_CHOSE) {
                 single += 1;
@@ -183,7 +184,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         testTitle.setText(testPaperListData.getExam_name());
         tvPublisher.setText(testPaperListData.getCreator_name());
         tvReleaseTime.setText(testPaperListData.getCreate_date());
-//        tvScore.setText(testPaperListData.getScore()+"");
+//        tvScore.setText(testPaperListData.getScore()+"分");
 //        tvSubmittingTime.setText("");
 //        tvAnswerTime.setText("");
 //        tvStartTime.setText(testPaperListData.getStart_time()+"");
