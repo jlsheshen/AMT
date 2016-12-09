@@ -1,12 +1,14 @@
 package com.edu.accountingteachingmaterial.entity;
 
+import com.edu.library.data.BaseData;
+
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/12/8.
  */
 
-public class TestPaperListData {
+public class TestPaperListData extends BaseData {
 
 
     /**
@@ -212,5 +214,6 @@ public class TestPaperListData {
     public void setTopics(List<TopicsBean> topics) {
         this.topics = topics;
     }
+
 
 }

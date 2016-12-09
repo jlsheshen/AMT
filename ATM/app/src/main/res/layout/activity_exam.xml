@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/navibar_top"
+        android:padding="3dp">
+
+        <ImageView
+            android:id="@+id/class_aty_back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25px"
+            android:onClick="onClick"
+            android:src="@mipmap/icon_fanhui_n" />
+
+        <TextView
+            android:id="@+id/tvQuestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="会计基础"
+            android:textColor="@android:color/white"
+            android:textSize="32sp" />
+
+        <TextView
+            android:id="@+id/c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btnCard"
+            android:singleLine="true"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/btnDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25px"
+            android:focusable="false"
+            android:onClick="onClick"
+            android:src="@mipmap/icon_fasong_n" />
+
+        <ImageView
+            android:id="@+id/btnCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25px"
+            android:layout_toLeftOf="@+id/btnDone"
+            android:background="@mipmap/icon_tika_n"
+            android:focusable="false"
+            android:onClick="onClick" />
+
+        <ImageView
+            android:id="@+id/btnSign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25px"
+            android:layout_toLeftOf="@+id/btnCard"
+            android:background="@mipmap/icon_yinzhang_n"
+            android:focusable="false"
+            android:onClick="onClick"
+            android:text="印章"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/btnFlash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25px"
+            android:layout_toLeftOf="@+id/btnSign"
+            android:background="@mipmap/icon_fuhao_n"
+            android:focusable="false"
+            android:onClick="onClick"
+            android:text="闪电符"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title">
+
+        <TextView
+            android:id="@+id/tv_bill_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25px"
+            android:singleLine="false"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="@dimen/content_text_size"
+            android:visibility="gone" />
+
+        <com.edu.accountingteachingmaterial.view.UnTouchableViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_bill_question"></com.edu.accountingteachingmaterial.view.UnTouchableViewPager>
+
+        <ImageView
+            android:id="@+id/btnLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:onClick="onClick"
+            android:src="@mipmap/btn_left"
+            android:text="left" />
+
+
+        <ImageView
+            android:id="@+id/btnRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:onClick="onClick"
+            android:src="@mipmap/btn_right"
+            android:text="right" />
+
+        <LinearLayout
+            android:id="@+id/ly_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25px"
+            android:layout_marginTop="10px"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10px"
+                android:focusable="false"
+                android:onClick="onClick"
+                android:src="@mipmap/icon_ciock" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="10"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -50,6 +50,7 @@ public class ExamFragment extends BaseFragment {
     List<ExamListData> examListDatas;
     int item;
     ExamData examData;
+
     @Override
     protected int initLayout() {
         // TODO Auto-generated method stub
@@ -70,8 +71,10 @@ public class ExamFragment extends BaseFragment {
         fileCopyUtil.checkDBVersion(Constant.DATABASE_NAME);
         SoundPoolUtil.getInstance().init(context);
 
-        uploadExamList();
+//        uploadExamList();
+        loadData();
         examAdapter = new ExamAdapter(context);
+        examAdapter.setDatas(datas);
 
         listView.setAdapter(examAdapter);
 
@@ -88,7 +91,6 @@ public class ExamFragment extends BaseFragment {
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId(), view);
                 } else {
                     Bundle b = new Bundle();
-                    b.putSerializable("ExamListData", examListDatas.get(i));
                     b.putInt("examId", 1179);
                     startActivity(UnitTestActivity.class, b);
                 }
@@ -164,20 +166,38 @@ public class ExamFragment extends BaseFragment {
         super.onDestroy();
     }
 
+    //    private void loadData() {
+//        datas = new ArrayList<>();
+//        for (int i = 1; i < examListDatas.size(); i++) {
+//            ExamBean examBean = new ExamBean();
+//            examBean.setId(examListDatas.get(i).getId());
+//            examBean.setExmaStatus(examListDatas.get(i).getState());
+//            examBean.setTitle(examListDatas.get(i).getExam_name());
+//            examBean.setTime(examListDatas.get(i).getCreate_date());
+//            examBean.setPublisher("李有才");
+//            examBean.setItemNumber((long) examListDatas.get(i).getTopic_num());
+//            examBean.setStartTime(examListDatas.get(i).getStart_time() + "");
+//            examBean.setDuration(60);
+//            datas.add(examBean);
+//        }
+//        examAdapter.setDatas(datas);
+//    }
     private void loadData() {
+
         datas = new ArrayList<>();
-        for (int i = 1; i < examListDatas.size(); i++) {
+        for (int i = 1; i < 6; i++) {
             ExamBean examBean = new ExamBean();
-            examBean.setId(examListDatas.get(i).getId());
-            examBean.setExmaStatus(examListDatas.get(i).getState());
-            examBean.setTitle(examListDatas.get(i).getExam_name());
-            examBean.setTime(examListDatas.get(i).getCreate_date());
-            examBean.setPublisher("李有才");
-            examBean.setItemNumber((long) examListDatas.get(i).getTopic_num());
-            examBean.setStartTime(examListDatas.get(i).getStart_time() + "");
+
+            examBean.setExmaStatus(i);
+            examBean.setTitle("会计立体化教材");
+            examBean.setTime("20161111");
+            examBean.setPublisher("赵铁柱");
+            examBean.setItemNumber((long) 130);
+            examBean.setStartTime("2016-11-11 10:30");
             examBean.setDuration(60);
             datas.add(examBean);
         }
-        examAdapter.setDatas(datas);
+        // TODO Auto-generated method stub
+
     }
 }

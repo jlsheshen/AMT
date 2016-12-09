@@ -13,9 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
-import com.edu.accountingteachingmaterial.bean.ExamBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -32,15 +30,14 @@ import java.util.List;
 public class UnitTestActivity extends BaseActivity implements OnClickListener {
     ImageView imgBack, imgShow;
     TextView testTitle, tvPublisher, tvReleaseTime, tvScore, tvSubmittingTime,
-            tvAnswerTime, tvStartTime, tvEndTime, tvChallengeTime,
+            tvUsedTime, tvStartTime, tvEndTime, tvChallengeTime,
             tvSingle, tvMultiple, tvJudge, tvFillIn, tvShort, tvComprehensive, tvTotal;
     Button btnStart;
-    ExamBean examBean;
     LinearLayout rlScore, rlSubmitting, rlAnswerData;
     TestPaperListData testPaperListData;
     List<TopicsBean> topicsBeen;
     int examId;
-    ExamListData examListData;
+    int textMode;
 
     @Override
     public int setLayout() {
@@ -51,13 +48,14 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     public void initView(Bundle savedInstanceState) {
         bindAndListener(imgBack, R.id.class_aty_back_iv);
         bindAndListener(btnStart, R.id.btn_start);
-        bindAndListener(imgShow, R.id.img_show);
+        btnStart = bindView(R.id.btn_start);
+        imgShow = bindView(R.id.img_show);
         testTitle = bindView(R.id.class_id_title_tv);
         tvPublisher = bindView(R.id.publisher_tv);
         tvReleaseTime = bindView(R.id.release_time_tv);
         tvScore = bindView(R.id.score_tv);
         tvSubmittingTime = bindView(R.id.submitting_time_tv);
-        tvAnswerTime = bindView(R.id.answer_time_tv);
+        tvUsedTime = bindView(R.id.used_time_tv);
         tvStartTime = bindView(R.id.start_time_tv);
         tvEndTime = bindView(R.id.end_time_tv);
         tvChallengeTime = bindView(R.id.challeng_time_tv);
@@ -68,46 +66,19 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         tvShort = bindView(R.id.short_tv);
         tvComprehensive = bindView(R.id.comprehensive_tv);
         tvTotal = bindView(R.id.total_tv);
-
-
+        rlScore = bindView(R.id.ly_score);
+        rlSubmitting = bindView(R.id.item_submitting_ly);
+        rlAnswerData = bindView(R.id.item_answer_ly);
     }
 
 
     @Override
     public void initData() {
 
-//        Bundle bundle = getIntent().getExtras();
-//        examBean = (ExamBean) bundle.getSerializable("examBean");
         Bundle bundle = getIntent().getExtras();
         examId = bundle.getInt("examId");
-        examListData = (ExamListData) bundle.getSerializable("ExamListData");
         uploadTestInfo();
-//        //未提交
-//        if (testPaperListData.getStatus() == ClassContstant.EXAM_UNDONE) {
-//            imgShow.setBackgroundResource(R.mipmap.weitijao);
-//            rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
-//            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
-//            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
-//            //开始比赛
-//            btnStart.setBackgroundResource(R.drawable.selector_start);
-//        } else if (testPaperListData.getStatus() == ClassContstant.EXAM_COMMIT) {
-//            //已提交
-//            imgShow.setBackgroundResource(R.mipmap.yitijiao);
-//            rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
-//            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
-//            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
-//            //查看作答
-//            btnStart.setBackgroundResource(R.drawable.selector_answer);
-//        } else if (testPaperListData.getStatus() == ClassContstant.EXAM_READ) {
-//            //已批阅
-//            imgShow.setBackgroundResource(R.mipmap.yipiyue);
-//            rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
-//            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
-//            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.VISIBLE);
-//            //查看答案
-//            btnStart.setBackgroundResource(R.drawable.selector_check_answer;
-//        }
-
+        refreshState();
 
     }
 
@@ -129,7 +100,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_start:
                 //ExamListData考试数据（测试）
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("ExamListData", examListData);
+                bundle.putInt("examId", 1);
+                bundle.putInt("textMode", textMode);
                 startActivity(SubjectExamActivity.class, bundle);
                 break;
 
@@ -170,6 +142,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         });
     }
 
+    //设置显示测验信息，试题信息
     private void refreshView() {
         int single = 0, multiple = 0, judge = 0, fillin = 0, shortin = 0, comprehensive = 0;
         for (int i = 0; i < topicsBeen.size(); i++) {
@@ -184,20 +157,58 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         testTitle.setText(testPaperListData.getExam_name());
         tvPublisher.setText(testPaperListData.getCreator_name());
         tvReleaseTime.setText(testPaperListData.getCreate_date());
-//        tvScore.setText(testPaperListData.getScore()+"分");
-//        tvSubmittingTime.setText("");
-//        tvAnswerTime.setText("");
 //        tvStartTime.setText(testPaperListData.getStart_time()+"");
 //        tvEndTime.setText(testPaperListData.getEnd_time()+"");
-//        tvChallengeTime.setText("");
+//        tvChallengeTime.setText(testPaperListData.getLast_time() + "分钟");
         tvSingle.setText(single + "道");
         tvMultiple.setText(multiple + "道");
         tvJudge.setText(judge + "道");
-//        tvFillIn.setText("道");
-//        tvShort.setText("道");
-//        tvComprehensive.setText("道");
+        tvFillIn.setText(fillin + "道");
+        tvShort.setText(shortin + "道");
+        tvComprehensive.setText(comprehensive + "道");
         tvTotal.setText(topicsBeen.size() + "道");
     }
 
+    //刷新提交,未提交，批阅，分数等相关状态
+    private void refreshState() {
+//        int state = ExamListDao.getInstance(this).getState(examId);
+        int state = 1;
+        //未提交
+        if (state == ClassContstant.EXAM_UNDONE) {
+            imgShow.setBackgroundResource(R.mipmap.weitijao);
+            rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
+            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
+            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
+            //开始比赛
+            btnStart.setBackgroundResource(R.drawable.selector_start);
+            textMode = ClassContstant.TEST_MODE_NORMAL;
+        } else if (state == ClassContstant.EXAM_COMMIT) {
+            //已提交
+            imgShow.setBackgroundResource(R.mipmap.yitijiao);
+            rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
+            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
+            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
+            //查看作答
+            btnStart.setBackgroundResource(R.drawable.selector_answer);
+            textMode = ClassContstant.TEST_MODE_LOOK;
+        } else if (state == ClassContstant.EXAM_READ) {
+            //已批阅
+            imgShow.setBackgroundResource(R.mipmap.yipiyue);
+            rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
+            rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
+            rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.VISIBLE);
+//            tvScore.setText(testPaperListData.getScore() + "");
+//            tvSubmittingTime.setText(testPaperListData.getEnd_time() + "");
+//            tvUsedTime.setText("");
+            //查看答案
+            btnStart.setBackgroundResource(R.drawable.selector_check_answer);
+            textMode = ClassContstant.TEST_MODE_TEST;
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshState();
+    }
 }

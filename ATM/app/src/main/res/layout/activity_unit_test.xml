@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25px"
                 android:layout_marginTop="10px"
-                android:text="会计凭证随堂练习"
+                android:text=""
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/title_text_size" />
 
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5px"
-                    android:text="李有才"
+                    android:text=""
                     android:textColor="@color/colorBlueBackground"
                     android:textSize="@dimen/content_text_size" />
 
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5px"
-                    android:text="2016-11-11 11:11"
+                    android:text=""
                     android:textColor="@color/colorBlueBackground"
                     android:textSize="@dimen/content_text_size" />
             </LinearLayout>
@@ -157,7 +157,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5px"
-                        android:text="2016-11-11 11:11"
+                        android:text=""
                         android:textColor="@color/colorBlueBackground"
                         android:textSize="@dimen/content_text_size" />
 
@@ -176,16 +176,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15px"
-                        android:text="答题时间："
+                        android:text="答题时长："
                         android:textColor="@color/colorGray"
                         android:textSize="@dimen/content_text_size" />
 
                     <TextView
-                        android:id="@+id/answer_time_tv"
+                        android:id="@+id/used_time_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5px"
-                        android:text="1:28:06"
+                        android:text=""
                         android:textColor="@color/colorBlueBackground"
                         android:textSize="@dimen/content_text_size" />
                 </LinearLayout>

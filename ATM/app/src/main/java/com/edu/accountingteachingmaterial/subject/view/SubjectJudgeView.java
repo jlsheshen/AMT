@@ -17,6 +17,7 @@ import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
 import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_LOOK;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
 
@@ -117,6 +118,9 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
             }
         } else if(testMode == TEST_MODE_TEST){
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
+            tvSubjectType.setVisibility(View.VISIBLE);
+            disableOption();
+        } else if (testMode == TEST_MODE_LOOK) {
             tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         }else {

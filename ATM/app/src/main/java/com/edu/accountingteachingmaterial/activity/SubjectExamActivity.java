@@ -19,7 +19,7 @@ import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
-import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.util.CountryTestTimer;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
@@ -46,17 +46,11 @@ import java.io.IOException;
 import java.util.List;
 
 
-/**
- * 页面内无重做功能
- * Created by Administrator on 2016/11/18.
- */
-
-public class SubjectExamActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener {
+public class SubjectExamActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, CountryTestTimer.OnTimeOutListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
     private SubjectViewPagerAdapter mSubjectAdapter;
-    int dataId;
 
     private int mCurrentIndex;
     private TextView tvBillQuestion;
@@ -69,10 +63,13 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
     List<BaseTestData> datas;
-    //c测试数据
-    ExamListData examListData;
+    int examId;//试卷ID
+    int textMode;//测试模式
     ExitDialog exitDialog;// 退出提示框
     // 页面相关状态的监听
+    private CountryTestTimer timer;
+    int totalTime = 60;
+    private TextView tvTime;
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         // 页面切换后调用
@@ -95,13 +92,12 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
     @Override
     public int setLayout() {
-        return R.layout.activity_test;
+        return R.layout.activity_exam;
     }
 
     @Override
     public void initView(Bundle savedInstanceState) {
         EventBus.getDefault().register(this);
-
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
 
@@ -111,19 +107,29 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         btnSign = (ImageView) findViewById(R.id.btnSign);
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
-
+        tvTime = (TextView) findViewById(R.id.tv_time);
         Bundle bundle = getIntent().getExtras();
-        examListData = (ExamListData) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
+        examId = bundle.getInt("examId");
+        textMode = bundle.getInt("textMode");
+
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
-        mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_NORMAL);
+        mSubjectAdapter.setTestMode(textMode);
 
         viewPager.setAdapter(mSubjectAdapter);
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
+
+        if (textMode == ClassContstant.TEST_MODE_NORMAL) {
+            setTime();
+        } else {
+            findViewById(R.id.ly_time).setVisibility(View.GONE);
+            findViewById(R.id.btnDone).setVisibility(View.INVISIBLE);
+        }
+
     }
 
     @Override
@@ -140,7 +146,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
 //         刷新题目数据
 //        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
-        if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
+        if (subject.getSubjectType() == SubjectType.SUBJECT_BILL && textMode == ClassContstant.TEST_MODE_NORMAL) {
             btnSign.setVisibility(View.VISIBLE);
             btnFlash.setVisibility(View.VISIBLE);
             tvBillQuestion.setText(subject.getQuestion());
@@ -166,14 +172,23 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
                 break;
 
             case R.id.btnDone:
-                float score = mSubjectAdapter.submit();
-                UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
-                UserData user = UserCenterHelper.getUserInfo(this);
+                exitDialog = new ExitDialog(this);
+                if (!exitDialog.isShowing() && timer != null) {
+                    exitDialog.show();
+                }
+                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
+                    @Override
+                    public void onOkClicked() {
+                        sendScore();
+                    }
 
-                UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), examListData.getId(), 10000);
-                EventBus.getDefault().post(user.getUserId());
-                ToastUtil.showToast(this, "score:" + score);
-                finish();
+                    @Override
+                    public void onCancelClicked() {
+                        if (exitDialog.isShowing()) {
+                            exitDialog.dismiss();
+                        }
+                    }
+                });
 
                 break;
 
@@ -185,29 +200,15 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
             case R.id.btnLeft:
                 scrollToLeft();
+
                 break;
 
             case R.id.btnRight:
                 scrollToRight();
+
                 break;
             case R.id.class_aty_back_iv:
-//                exitDialog = new ExitDialog(this);
-//                if (!exitDialog.isShowing()) {
-//                    exitDialog.show();
-//                }
-//                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
-//                    @Override
-//                    public void onOkClicked() {
-//                        finish();
-//                    }
-//
-//                    @Override
-//                    public void onCancelClicked() {
-//                        if (exitDialog.isShowing()) {
-//                            exitDialog.dismiss();
-//                        }
-//                    }
-//                });
+                finish();
 
                 break;
 
@@ -216,6 +217,16 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         }
     }
 
+    private void sendScore() {
+        float score = mSubjectAdapter.submit();
+        UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+        UserData user = UserCenterHelper.getUserInfo(this);
+
+        UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), examId, 10000);
+        EventBus.getDefault().post(user.getUserId());
+        ToastUtil.showToast(this, "score:" + score);
+        finish();
+    }
 
     /**
      * 显示印章选择对话框
@@ -313,5 +324,24 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         mSubjectAdapter.saveAnswer(mCurrentIndex);
         super.onBackPressed();
     }
+
+
+    //开始倒计时
+    private void setTime() {
+        // 倒计时时间设置
+        timer = new CountryTestTimer(tvTime, 1000, totalTime * 60 * 1000, SubjectExamActivity.this);
+        timer.setOnTimeOutListener(this);
+        if (timer != null && !timer.isRunning()) {
+            timer.start();
+        }
+    }
+
+    @Override
+    public void onTimeOut() {
+        //倒计时结束发送成绩
+        sendScore();
+    }
 }
+
+
 

@@ -1,11 +1,13 @@
 package com.edu.accountingteachingmaterial.entity;
 
+import com.edu.library.data.BaseData;
+
 /**
  * Created by Administrator on 2016/12/8.
  */
 
 
-public class TopicsBean {
+public class TopicsBean extends BaseData{
     /**
      * id : 14159
      * oid : 14420
