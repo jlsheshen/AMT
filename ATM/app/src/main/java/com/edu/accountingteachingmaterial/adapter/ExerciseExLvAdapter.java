@@ -46,7 +46,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int i) {
         return datas.get(i).getTestList() == null ? 0 : datas.get(i).getTestList().size();
-//        return 0;
     }
 
     @Override
@@ -61,17 +60,17 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getGroupId(int i) {
-        return 0;
+        return datas.get(i).getId();
     }
 
     @Override
     public long getChildId(int i, int i1) {
-        return 0;
+        return Long.parseLong(datas.get(i).getTestList().get(i1).getSubjectId());
     }
 
     @Override
     public boolean hasStableIds() {
-        return false;
+        return true;
     }
 
     @Override
@@ -110,6 +109,9 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
             case ClassContstant.EXAM_COMMIT:
                 if (exerciseBean.getLesson_type() != ClassContstant.EXERCISE_IN_CLASS){
                 groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_commit_type);}
+                else {
+                    groupViewHolder.stautsIv.setVisibility(View.INVISIBLE);
+                }
 
                 break;
             case ClassContstant.EXAM_NOT:
@@ -118,6 +120,9 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
             case ClassContstant.EXAM_READ:
                 if (exerciseBean.getLesson_type() != ClassContstant.EXERCISE_IN_CLASS){
                 groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_read_type);}
+                else {
+                    groupViewHolder.stautsIv.setVisibility(View.INVISIBLE);
+                }
 
                 break;
             case ClassContstant.EXAM_UNDONE:
@@ -125,8 +130,14 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
                 if (exerciseBean.getLesson_type() != ClassContstant.EXERCISE_IN_CLASS){
                     groupViewHolder.stautsIv.setVisibility(View.VISIBLE);
                 groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_undown_type);}
+                else {
+                    groupViewHolder.stautsIv.setVisibility(View.INVISIBLE);
+                }
 
                 break;
+            default:
+                groupViewHolder.stautsIv.setVisibility(View.INVISIBLE);
+        break;
         }
         return view;
     }
@@ -182,6 +193,8 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
 
                 break;
             default:
+                childViewHolder.isRightIv.setVisibility(View.INVISIBLE);
+
                 break;
         }
         return view;

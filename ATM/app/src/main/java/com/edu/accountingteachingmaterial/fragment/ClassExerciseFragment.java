@@ -80,12 +80,13 @@ public class ClassExerciseFragment extends BaseFragment {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                adapter.notifyDataSetChanged();
                 Log.d("ClassExerciseFragment", NetUrlContstant.subjectListUrl + datas.get(i).getId());
                 item = i;
                 if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
                     return false;
 
-                }else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
+                } else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
@@ -94,8 +95,8 @@ public class ClassExerciseFragment extends BaseFragment {
                     //  datas.get(i).setState(ClassContstant.EXAM_UNDONE);
 
                     //    downloadChildExercise(view, i);
-                } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE&&datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt("EXERCISE_TYPE",ClassContstant.EXERCISE_IN_CLASS);
+                } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
+                    b.putInt("EXERCISE_TYPE", ClassContstant.EXERCISE_IN_CLASS);
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectTestActivity.class, b);
 //                    if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_BEFORE_CLASS || datas.get(i).getLesson_type() == ClassContstant.EXERCISE_AFTER_CLASS) {
@@ -104,12 +105,12 @@ public class ClassExerciseFragment extends BaseFragment {
 //
 //                    } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
 //                    }
-                } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT&&datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
+                } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectDetailsContentActivity.class, b);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
 
-                }else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS){
+                } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
                     return false;
                 }
                 return false;
@@ -120,8 +121,8 @@ public class ClassExerciseFragment extends BaseFragment {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
 //                datas.get(i).getTestList().clear();
-                b.putInt("ExamListDataItem",i1);
-                b.putSerializable("ExamListData",  datas.get(i));
+                b.putInt("ExamListDataItem", i1);
+                b.putSerializable("ExamListData", datas.get(i));
                 startActivity(SubjectPracticeActivity.class, b);
 
                 return false;
@@ -141,11 +142,11 @@ public class ClassExerciseFragment extends BaseFragment {
 
         if (datas != null) {
             datas.get(item).setState(state);
-            if (datas.get(item).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS&&state != ClassContstant.EXAM_NOT){
-                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE,datas.get(item).getId()));
-            }else {
+            if (datas.get(item).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && state != ClassContstant.EXAM_NOT) {
+                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
             }
             adapter.setDatas(datas);
+
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
         }
@@ -177,8 +178,8 @@ public class ClassExerciseFragment extends BaseFragment {
                         } else {
                             data.setState(data1.getState());
                         }
-                        if (data.getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && data.getState() != ClassContstant.EXAM_NOT){
-                            List<BaseTestData> tests = SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE,data.getId());
+                        if (data.getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && data.getState() != ClassContstant.EXAM_NOT) {
+                            List<BaseTestData> tests = SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, data.getId());
                             data.setTestList(tests);
                             Log.d("ClassExerciseFragment", "看看怎么样" + data);
                         }
