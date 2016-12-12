@@ -19,6 +19,7 @@ import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
 import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_LOOK;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
 
@@ -146,11 +147,14 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
                 tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
-        } else if(testMode == TEST_MODE_TEST){
+        } else if (testMode == TEST_MODE_TEST) {
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
             tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
-        }else {
+        } else if (testMode == TEST_MODE_LOOK) {
+            tvSubjectType.setVisibility(View.VISIBLE);
+            disableOption();
+        } else {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
                 showCorrectAnswer(state == SubjectState.STATE_CORRECT);
                 tvSubjectType.setVisibility(View.GONE);
@@ -203,7 +207,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
                 try {
                     String answer = v.getTag().toString();
                     handleOnClick(answer);
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
                 break;
@@ -225,7 +229,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
     @Override
     public float submit() {
         showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
-    	disableOption();
+        disableOption();
         // TODO Auto-generated method stub
         return 0;
     }

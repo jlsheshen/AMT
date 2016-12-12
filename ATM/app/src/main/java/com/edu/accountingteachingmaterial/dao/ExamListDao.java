@@ -90,4 +90,28 @@ public class ExamListDao extends BaseDataDao {
 
         return examListData;
     }
+
+    public int  getState(int chapter) {
+        Cursor curs = null;
+       int state = 0;
+        try {
+            DBHelper helper = new DBHelper(mContext, dbName, null);
+            mDb = helper.getWritableDatabase();
+            String sql = "SELECT STATE FROM " + TABLE_NAME + " WHERE " + CHAPTER_ID + " = " + chapter;
+            Log.d(TAG, "sql:" + sql);
+            curs = mDb.rawQuery(sql, null);
+            if (curs != null&& curs.getCount() !=0) {
+                while (curs.moveToNext()) {
+                    state = curs.getInt(0);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(mDb, curs);
+        }
+        return state;
+    }
 }

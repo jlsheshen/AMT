@@ -64,7 +64,9 @@
         <activity
             android:name=".activity.UnitTestActivity"
             android:screenOrientation="landscape"></activity>
-
+        <activity
+            android:name=".activity.SubjectExamActivity"
+            android:screenOrientation="landscape"></activity>
 
         <meta-data
             android:name="design_width"

@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="2016-11-11 11:11"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
 
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="2016-11-11 11:11"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
 
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="90分钟"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
         </LinearLayout>
@@ -131,7 +131,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="测验时长："
+                android:text=""
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
 
@@ -199,7 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="5道"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
 
@@ -216,7 +216,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="5道"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
         </LinearLayout>
@@ -243,7 +243,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="5道"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
 
@@ -260,7 +260,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="5道"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
         </LinearLayout>
@@ -287,7 +287,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="5道"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
 
@@ -304,7 +304,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="5道"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
         </LinearLayout>
@@ -330,7 +330,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15px"
-                android:text="30道"
+                android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
 

@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.fragment;
 
 import android.content.ContentValues;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -44,6 +45,7 @@ public class ExamFragment extends BaseFragment {
     private Handler mHandler = new Handler(Looper.getMainLooper());
     int item;
     OnLineExamData onLineExamData;
+
     @Override
     protected int initLayout() {
         // TODO Auto-generated method stub
@@ -60,8 +62,10 @@ public class ExamFragment extends BaseFragment {
     protected void initData() {
 
 
-        uploadExamList();
+//        uploadExamList();
+        loadData();
         examAdapter = new ExamAdapter(context);
+        examAdapter.setDatas(datas);
 
         listView.setAdapter(examAdapter);
 
@@ -77,10 +81,10 @@ public class ExamFragment extends BaseFragment {
                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
                     OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getExam_id(), datas.get(i).getExam_id());
                 } else {
-//                    Bundle b = new Bundle();
-//                    b.putSerializable("ExamListData", examListDatas.get(i));
-//                    b.putInt("examId", 1179);
-                    startActivity(UnitTestActivity.class);
+
+                    Bundle b = new Bundle();
+                    b.putInt("examId", 1179);
+                    startActivity(UnitTestActivity.class, b);
                 }
             }
         });
@@ -154,6 +158,22 @@ public class ExamFragment extends BaseFragment {
         super.onDestroy();
     }
 
+    //    private void loadData() {
+//        datas = new ArrayList<>();
+//        for (int i = 1; i < examListDatas.size(); i++) {
+//            ExamBean examBean = new ExamBean();
+//            examBean.setId(examListDatas.get(i).getId());
+//            examBean.setExmaStatus(examListDatas.get(i).getState());
+//            examBean.setTitle(examListDatas.get(i).getExam_name());
+//            examBean.setTime(examListDatas.get(i).getCreate_date());
+//            examBean.setPublisher("李有才");
+//            examBean.setItemNumber((long) examListDatas.get(i).getTopic_num());
+//            examBean.setStartTime(examListDatas.get(i).getStart_time() + "");
+//            examBean.setDuration(60);
+//            datas.add(examBean);
+//        }
+//        examAdapter.setDatas(datas);
+//    }
     private void loadData() {
 //        datas = new ArrayList<>();
 //        for (int i = 1; i < datas.size(); i++) {
@@ -169,5 +189,6 @@ public class ExamFragment extends BaseFragment {
 //            datas.add(examBean);
 //        }
 //        examAdapter.setDatas(datas);
+
     }
 }
