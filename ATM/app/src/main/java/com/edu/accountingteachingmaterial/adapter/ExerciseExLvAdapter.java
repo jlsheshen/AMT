@@ -112,7 +112,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
                 else {
                     groupViewHolder.stautsIv.setVisibility(View.INVISIBLE);
                 }
-
                 break;
             case ClassContstant.EXAM_NOT:
                 groupViewHolder.stautsIv.setImageResource(R.drawable.selector_exam_download_type);
@@ -123,7 +122,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
                 else {
                     groupViewHolder.stautsIv.setVisibility(View.INVISIBLE);
                 }
-
                 break;
             case ClassContstant.EXAM_UNDONE:
                 groupViewHolder.progressBar.setVisibility(View.GONE);

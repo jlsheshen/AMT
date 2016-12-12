@@ -19,6 +19,8 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ClassicCase;
+import com.edu.accountingteachingmaterial.entity.StudyHistoryVO;
+import com.edu.accountingteachingmaterial.util.HistoryClickManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.lucher.net.req.RequestMethod;
@@ -53,11 +55,9 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 
     @Override
     protected void initView(View view) {
-
         gridView = bindView(R.id.exmaple_gv);
-
         // TODO Auto-generated method stub
-//        start();
+        // start();
     }
 
     @Override
@@ -105,6 +105,10 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        List<StudyHistoryVO> historyVOs = new ArrayList<>();
+        historyVOs.add(cData.get(i).getUpLoadingData());
+        HistoryClickManager.getHisInstance(context).setStudyHistoryVOList(historyVOs).sendHistory();
+
         switch (exampleBeans.get(i).getType()) {
             case ClassContstant.MEADIA_TYPE:
                 Bundle bundle = new Bundle();

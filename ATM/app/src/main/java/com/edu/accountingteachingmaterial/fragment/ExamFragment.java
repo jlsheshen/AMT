@@ -1,7 +1,6 @@
 package com.edu.accountingteachingmaterial.fragment;
 
 import android.content.ContentValues;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -17,26 +16,22 @@ import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
-import com.edu.accountingteachingmaterial.bean.ExamBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ExamListDao;
-import com.edu.accountingteachingmaterial.entity.ExamData;
+import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.entity.OnLineExamData;
+import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.OnLineExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
-import com.edu.accountingteachingmaterial.util.SubjectsDownloadManager;
-import com.edu.library.util.DBCopyUtil;
 import com.edu.library.util.ToastUtil;
-import com.edu.testbill.Constant;
-import com.edu.testbill.util.SoundPoolUtil;
 import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment.EXAM_ID;
@@ -44,12 +39,11 @@ import static com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment.
 public class ExamFragment extends BaseFragment {
 
     ListView listView;
-    List<ExamBean> datas;
+    List<OnLineExamListData> datas;
     ExamAdapter examAdapter;
     private Handler mHandler = new Handler(Looper.getMainLooper());
-    List<ExamListData> examListDatas;
     int item;
-    ExamData examData;
+    OnLineExamData onLineExamData;
     @Override
     protected int initLayout() {
         // TODO Auto-generated method stub
@@ -65,10 +59,6 @@ public class ExamFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        // 检测数据库是否已拷贝
-        DBCopyUtil fileCopyUtil = new DBCopyUtil(context);
-        fileCopyUtil.checkDBVersion(Constant.DATABASE_NAME);
-        SoundPoolUtil.getInstance().init(context);
 
         uploadExamList();
         examAdapter = new ExamAdapter(context);
@@ -79,18 +69,18 @@ public class ExamFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
                 item = i;
-                if (datas.get(i).getExmaStatus() == ClassContstant.EXAM_DOWNLOADING) {
+                if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
                     return;
-                } else if (datas.get(i).getExmaStatus() == ClassContstant.EXAM_NOT) {
+                } else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
                     final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
                     imageView.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
-                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId(), view);
+                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getExam_id(), datas.get(i).getExam_id());
                 } else {
-                    Bundle b = new Bundle();
-                    b.putSerializable("ExamListData", examListDatas.get(i));
-                    b.putInt("examId", 1179);
-                    startActivity(UnitTestActivity.class, b);
+//                    Bundle b = new Bundle();
+//                    b.putSerializable("ExamListData", examListDatas.get(i));
+//                    b.putInt("examId", 1179);
+                    startActivity(UnitTestActivity.class);
                 }
             }
         });
@@ -107,19 +97,18 @@ public class ExamFragment extends BaseFragment {
     public void getData(Integer state) {
         Log.d("ClassExerciseFragment", "走过了EventBus");
 
-        if (examListDatas != null) {
-            if (state != ClassContstant.EXAM_NOT) {
-                datas.get(item).setExmaStatus(state);
-            } else {
-                datas.get(item).setExmaStatus(state);
-            }
+        if (datas != null) {
+            datas.get(item).setState(state);
             examAdapter.setDatas(datas);
+        } else {
+//            datas= ExamOnLineListDao.getInstance(context).getAllDatasByChapter();
         }
 
     }
 
     private void uploadExamList() {
         Log.d("ClassExerciseFragment", NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID));
+
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getExamInfoUrl + "5926");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
@@ -127,25 +116,26 @@ public class ExamFragment extends BaseFragment {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
-                    examData = JSONObject.parseObject(jsonObject.getString("message"), ExamData.class);
-
-                    ToastUtil.showToast(context, "" + examListDatas.get(0).getExam_name());
+                    onLineExamData = JSONObject.parseObject(jsonObject.getString("message"), OnLineExamData.class);
+                datas = onLineExamData.getList();
+                    ToastUtil.showToast(context, "" + onLineExamData.getList().get(0).getExam_name());
                     Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
-                    for (ExamData.ListBean data : examData.getList()) {
-                        ExamListData data1 = (ExamListData) ExamListDao.getInstance(context).getDataById(data.getId());
+                    for (OnLineExamListData data : datas) {
+                        ExamListData data1 = (ExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getU_id());
                         if (data1 == null) {
                             ContentValues contentValues = new ContentValues();
-                            contentValues.put(ExamListDao.ID, data.getId());
-                            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
-                            contentValues.put(ExamListDao.TYPE, data.getExam_type());
-                            contentValues.put(ExamListDao.CHAPTER_ID, data.getExam_id());
-                            ExamListDao.getInstance(context).insertData(contentValues);
+                            contentValues.put(ExamOnLineListDao.ID, data.getId());
+                            contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_NOT);
+                            contentValues.put(ExamOnLineListDao.TYPE, data.getExam_type());
+                            contentValues.put(ExamOnLineListDao.USER_ID, data.getU_id());
+                            ExamOnLineListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
                         } else {
                             data.setState(data1.getState());
                         }
                     }
-                    loadData();
+                    examAdapter.setDatas(datas);
+//                    loadData();
                 }
             }
 
@@ -165,19 +155,19 @@ public class ExamFragment extends BaseFragment {
     }
 
     private void loadData() {
-        datas = new ArrayList<>();
-        for (int i = 1; i < examListDatas.size(); i++) {
-            ExamBean examBean = new ExamBean();
-            examBean.setId(examListDatas.get(i).getId());
-            examBean.setExmaStatus(examListDatas.get(i).getState());
-            examBean.setTitle(examListDatas.get(i).getExam_name());
-            examBean.setTime(examListDatas.get(i).getCreate_date());
-            examBean.setPublisher("李有才");
-            examBean.setItemNumber((long) examListDatas.get(i).getTopic_num());
-            examBean.setStartTime(examListDatas.get(i).getStart_time() + "");
-            examBean.setDuration(60);
-            datas.add(examBean);
-        }
-        examAdapter.setDatas(datas);
+//        datas = new ArrayList<>();
+//        for (int i = 1; i < datas.size(); i++) {
+//            ExamBean examBean = new ExamBean();
+//            examBean.setId(examListDatas.get(i).getId());
+//            examBean.setExmaStatus(examListDatas.get(i).getState());
+//            examBean.setTitle(examListDatas.get(i).getExam_name());
+//            examBean.setTime(examListDatas.get(i).getCreate_date());
+//            examBean.setPublisher("李有才");
+//            examBean.setItemNumber((long) examListDatas.get(i).getTopic_num());
+//            examBean.setStartTime(examListDatas.get(i).getStart_time() + "");
+//            examBean.setDuration(60);
+//            datas.add(examBean);
+//        }
+//        examAdapter.setDatas(datas);
     }
 }

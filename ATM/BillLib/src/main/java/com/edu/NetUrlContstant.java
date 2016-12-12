@@ -33,5 +33,12 @@ public class NetUrlContstant {
     //{topicId}-{paperId}
     //获取在线考试列表
     public static final String getExamInfoUrl = BASE_URL + "interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
+   //拉取历史信息
+    public static final String findHisUrl = BASE_URL + "interface/exam/findUserStudyHistoryByUserId/";
+    //{userId}
+    //上传历史信息
+    public static final String upLoadingHisUrl = BASE_URL + "interface/exam/saveUserStudyHistories";
+
+
 
 }

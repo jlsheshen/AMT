@@ -57,7 +57,7 @@ public class ExamListData extends BaseData {
     private int paper_id;
     private Object score;
     private int show_answer;
-    private Object start_time;
+    private String start_time;
     private int status;
     private int topic_num;
 
@@ -202,11 +202,11 @@ public class ExamListData extends BaseData {
         this.show_answer = show_answer;
     }
 
-    public Object getStart_time() {
+    public String getStart_time() {
         return start_time;
     }
 
-    public void setStart_time(Object start_time) {
+    public void setStart_time(String start_time) {
         this.start_time = start_time;
     }
 

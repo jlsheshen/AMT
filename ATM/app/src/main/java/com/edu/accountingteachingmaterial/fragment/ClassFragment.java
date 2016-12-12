@@ -19,8 +19,10 @@ import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
 import com.edu.accountingteachingmaterial.adapter.ClassChapterExLvAdapter;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
+import com.edu.accountingteachingmaterial.entity.HistoryListData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
@@ -153,7 +155,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 if (popupWindow.isShowing()) {
 //                    popupWindow.dismiss();
                 } else {
-                    popupWindow.showAsDropDown(imgHistory,10,0);
+                    popupWindow.showAsDropDown(imgHistory,-50,50);
 //                     expandableListView.setEnabled(false);
 //                    expandableListView.setAlpha(0.5f);
                 }
@@ -166,6 +168,12 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(context).inflate(
                 R.layout.ppw_history, null);
+         loadHistoryDatas();
+
+
+
+
+
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.alpha = bgAlpha; //0.0-1.0
 //        getWindow().setAttributes(lp);
@@ -189,6 +197,33 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         });
 
     }
+
+    private void loadHistoryDatas() {
+
+            Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
+
+            SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+            NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
+            sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+            sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+                @Override
+                public void onSuccess(JSONObject jsonObject) {
+                    if (jsonObject.getString("success").equals("true")) {
+                        List<HistoryListData> hData = JSON.parseArray(jsonObject.getString("message"), HistoryListData.class);
+
+                        Log.d("LaunchActivity", "线程启动获取成功");
+
+                    }
+                }
+
+                @Override
+                public void onFailure(String errorInfo) {
+                    Log.d("LaunchActivity", "线程启动获取失败");
+
+                }
+            });
+        }
+
 }
 
 

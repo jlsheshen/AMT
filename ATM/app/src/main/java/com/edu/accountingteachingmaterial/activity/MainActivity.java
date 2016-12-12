@@ -102,11 +102,9 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 drawerLayout.setDrawerListener(this);
                 //从左侧划出
                 drawerLayout.openDrawer(Gravity.LEFT);
-
                 break;
             case R.id.change_ip_ly:
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
                 final AlertDialog alertDialog = builder.create();
                 alertDialog.show();
                 final Window window = alertDialog.getWindow();
@@ -145,7 +143,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
         BASE_URL = "http://" + s;
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + user.getUserId());
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

@@ -122,7 +122,8 @@ public class LaunchActivity extends BaseActivity {
     private void uploadHomepageInfo() {
         UserData user = UserCenterHelper.getUserInfo(this);
 		user.setUserId(35605);
-        Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + user.getUserId());
+        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID,35605);
+        Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
 
         String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
         if ("".equals(s)) {
@@ -133,7 +134,7 @@ public class LaunchActivity extends BaseActivity {
 
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + user.getUserId());
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

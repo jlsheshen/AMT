@@ -10,8 +10,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.bean.ExamBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
 import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
@@ -21,13 +21,13 @@ import java.util.List;
  */
 public class ExamAdapter extends BaseAdapter {
     private Context context;
-    private List<ExamBean> datas;
+    private List<OnLineExamListData> datas;
 
     public ExamAdapter(Context context) {
         this.context = context;
     }
 
-    public void setDatas(List<ExamBean> datas) {
+    public void setDatas(List<OnLineExamListData> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
@@ -58,14 +58,14 @@ public class ExamAdapter extends BaseAdapter {
         }else {
             viewHolder = (ViewHolder) view.getTag();
         }
-        ExamBean examBean = datas.get(i);
-       setContent(viewHolder.titleTv,examBean.getTitle());
-        setContent(viewHolder.timeTv,examBean.getTime());
-        setContent(viewHolder.publisherTv,examBean.getPublisher());
-        setContent(viewHolder.itemNumTv, examBean.getItemNumber() + "道");
-        setContent(viewHolder.startTimeTv,examBean.getStartTime());
-        setContent(viewHolder.durationTv, examBean.getDuration() + "分钟");
-        switch (examBean.getExmaStatus()){
+        OnLineExamListData examBean = datas.get(i);
+       setContent(viewHolder.titleTv,examBean.getExam_name());
+     setContent(viewHolder.timeTv, String.valueOf(examBean.getLast_time()));
+//        setContent(viewHolder.publisherTv,examBean.getCreator_name());
+      setContent(viewHolder.itemNumTv, examBean.getTopic_count() + "道");
+        setContent(viewHolder.startTimeTv, String.valueOf(examBean.getStart_time()));
+        setContent(viewHolder.durationTv, String.valueOf(examBean.getLast_time()) + "分钟");
+        switch (examBean.getState()){
             case ClassContstant.EXAM_COMMIT:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_yituijiao_n);
 

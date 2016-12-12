@@ -80,7 +80,6 @@ public class ClassExerciseFragment extends BaseFragment {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                adapter.notifyDataSetChanged();
                 Log.d("ClassExerciseFragment", NetUrlContstant.subjectListUrl + datas.get(i).getId());
                 item = i;
                 if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
@@ -90,7 +89,7 @@ public class ClassExerciseFragment extends BaseFragment {
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId(), view);
+                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId());
 
                     //  datas.get(i).setState(ClassContstant.EXAM_UNDONE);
 

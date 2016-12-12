@@ -9,7 +9,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.library.data.DBHelper;
@@ -32,12 +32,12 @@ import cz.msebera.android.httpclient.Header;
  * @author lucher
  *
  */
-public class SubjectsDownloadManager extends JsonNetReqManager {
+public class OnLineExamDownloadManager extends JsonNetReqManager {
 
 	private Context mContext;
 	private int chatperId;
 
-	public SubjectsDownloadManager(Context context) {
+	public OnLineExamDownloadManager(Context context) {
 		mContext = context;
 	}
 
@@ -47,8 +47,8 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	 * @param context
 	 * @return
 	 */
-	public static SubjectsDownloadManager newInstance(Context context) {
-		return new SubjectsDownloadManager(context);
+	public static OnLineExamDownloadManager newInstance(Context context) {
+		return new OnLineExamDownloadManager(context);
 	}
 
 	/**
@@ -67,8 +67,8 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 		Log.d(TAG, "onConnectionSuccess:" + json);
 		parseSubjectJson(json);
 		ContentValues contentValues = new ContentValues();
-		contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
-		ExamListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
+		contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_UNDONE);
+		ExamOnLineListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
 //
 //		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
 //		stateIv.setImageResource(R.drawable.selector_exam_undown_type);

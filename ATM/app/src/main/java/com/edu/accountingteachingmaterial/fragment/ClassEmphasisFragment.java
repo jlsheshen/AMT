@@ -20,7 +20,6 @@ public class ClassEmphasisFragment  extends BaseFragment{
 	protected void initView(View view) {
 
 		 wView = bindView(R.id.emphasis_wv);
-		//启用支持javascript
 	 wView.loadUrl(UriConstant.ASSETS_PATH+ "index.html");
 	}
 

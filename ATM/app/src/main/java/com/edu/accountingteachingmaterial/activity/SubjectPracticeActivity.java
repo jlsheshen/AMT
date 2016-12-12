@@ -15,6 +15,7 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.usercenter.UserCenterHelper;
@@ -168,7 +169,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
                 handleDoneClicked();
                 UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
                 UserData user = UserCenterHelper.getUserInfo(this);
-                UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), examListData.getId());
+                UploadResultsManager.getSingleton(this).uploadResult(PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID), examListData.getId());
 
                 break;
 

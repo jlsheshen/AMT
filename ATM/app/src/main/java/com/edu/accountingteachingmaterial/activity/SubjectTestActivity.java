@@ -17,11 +17,10 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
-import com.edu.library.usercenter.UserCenterHelper;
-import com.edu.library.usercenter.UserData;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectType;
@@ -165,10 +164,10 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
             case R.id.btnDone:
                 float score = mSubjectAdapter.submit();
                 UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
-                UserData user = UserCenterHelper.getUserInfo(this);
+                int user =  PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
 
-                UploadResultsManager.getSingleton(this).uploadResult(user.getUserId(), examListData.getId(), 10000);
-                EventBus.getDefault().post(user.getUserId());
+                UploadResultsManager.getSingleton(this).uploadResult(user, examListData.getId(), 10000);
+                EventBus.getDefault().post(user);
                 ToastUtil.showToast(this, "score:" + score);
                 finish();
 

@@ -8,7 +8,8 @@ import java.util.List;
  * Created by Administrator on 2016/12/9.
  */
 
-public class ExamData extends BaseData {
+public class OnLineExamData extends BaseData {
+
 
 
     /**
@@ -18,7 +19,7 @@ public class ExamData extends BaseData {
      * lastPage : true
      * totalPage : 1
      * pageSize : 10000
-     * list : [{"creator":5929,"creator_name":"李兴","end_time":"2017-02-03 18:51:00","exam_id":1189,"exam_name":"表格题作答","exam_paper_id":478,"exam_type":3,"is_read":0,"last_time":86868,"publish_time":"2016-12-05 11:02:37","sendscore":1,"show_answer":0,"start_time":"2016-12-05 11:03:00","sub_status":0,"u_id":5926},{"creator":5929,"creator_name":"李兴","end_time":"2017-01-20 17:30:00","exam_id":1188,"exam_name":"会计测验 20161205","exam_paper_id":451,"exam_type":3,"is_read":0,"last_time":66666,"publish_time":"2016-12-05 10:23:45","sendscore":0,"show_answer":0,"start_time":"2016-12-05 10:24:00","sub_status":0,"u_id":5926},{"creator":219,"creator_name":"通用","end_time":"2017-01-25 04:44:00","exam_id":1094,"exam_name":"会计测验 20161124","exam_paper_id":436,"exam_type":3,"is_read":0,"last_time":88888,"publish_time":"2016-11-24 11:15:16","sendscore":0,"show_answer":1,"start_time":"2016-11-24 11:16:00","sub_status":0,"u_id":5926}]
+     * list : [{"creator":5929,"creator_name":"李兴","end_time":"2017-02-03 18:51:00","exam_id":1189,"exam_name":"表格题作答","exam_paper_id":478,"exam_type":3,"is_read":0,"last_time":86868,"publish_time":"2016-12-05 11:02:37","sendscore":1,"show_answer":0,"start_time":"2016-12-05 11:03:00","sub_status":0,"topic_count":12,"u_id":5926},{"creator":5929,"creator_name":"李兴","end_time":"2017-01-20 17:30:00","exam_id":1188,"exam_name":"会计测验 20161205","exam_paper_id":451,"exam_type":3,"is_read":0,"last_time":66666,"publish_time":"2016-12-05 10:23:45","sendscore":0,"show_answer":0,"start_time":"2016-12-05 10:24:00","sub_status":0,"topic_count":12,"u_id":5926},{"creator":219,"creator_name":"通用","end_time":"2017-01-25 04:44:00","exam_id":1094,"exam_name":"会计测验 20161124","exam_paper_id":436,"exam_type":3,"is_read":0,"last_time":88888,"publish_time":"2016-11-24 11:15:16","sendscore":0,"show_answer":1,"start_time":"2016-11-24 11:16:00","sub_status":0,"topic_count":12,"u_id":5926}]
      */
 
     private int totalRow;
@@ -27,8 +28,17 @@ public class ExamData extends BaseData {
     private boolean lastPage;
     private int totalPage;
     private int pageSize;
-    private List<ListBean> list;
+    private List<OnLineExamListData> list;
 
+
+
+    public List<OnLineExamListData> getList() {
+        return list;
+    }
+
+    public void setList(List<OnLineExamListData> list) {
+        this.list = list;
+    }
 
     public int getTotalRow() {
         return totalRow;
@@ -78,20 +88,7 @@ public class ExamData extends BaseData {
         this.pageSize = pageSize;
     }
 
-    public List<ListBean> getList() {
-        return list;
-    }
-
-    public void setList(List<ListBean> list) {
-        this.list = list;
-    }
-
-    public class ListBean extends BaseData {
-        /**
-         * 另外添加 答题状态
-         * @return
-         */
-        private int State;
+    public static class ListBean {
         /**
          * creator : 5929
          * creator_name : 李兴
@@ -107,6 +104,7 @@ public class ExamData extends BaseData {
          * show_answer : 0
          * start_time : 2016-12-05 11:03:00
          * sub_status : 0
+         * topic_count : 12
          * u_id : 5926
          */
 
@@ -124,15 +122,8 @@ public class ExamData extends BaseData {
         private int show_answer;
         private String start_time;
         private int sub_status;
+        private int topic_count;
         private int u_id;
-
-        public int getState() {
-            return State;
-        }
-
-        public void setState(int state) {
-            State = state;
-        }
 
         public int getCreator() {
             return creator;
@@ -246,6 +237,14 @@ public class ExamData extends BaseData {
             this.sub_status = sub_status;
         }
 
+        public int getTopic_count() {
+            return topic_count;
+        }
+
+        public void setTopic_count(int topic_count) {
+            this.topic_count = topic_count;
+        }
+
         public int getU_id() {
             return u_id;
         }
@@ -254,6 +253,4 @@ public class ExamData extends BaseData {
             this.u_id = u_id;
         }
     }
-
-
 }
