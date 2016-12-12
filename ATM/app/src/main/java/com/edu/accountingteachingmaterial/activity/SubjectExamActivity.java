@@ -108,6 +108,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
         tvTime = (TextView) findViewById(R.id.tv_time);
+
         Bundle bundle = getIntent().getExtras();
         examId = bundle.getInt("examId");
         textMode = bundle.getInt("textMode");

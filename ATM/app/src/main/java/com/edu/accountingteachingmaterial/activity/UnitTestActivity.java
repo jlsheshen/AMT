@@ -14,6 +14,7 @@ import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -169,11 +170,11 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         tvTotal.setText(topicsBeen.size() + "道");
     }
 
-    //刷新提交,未提交，批阅，分数等相关状态
+    //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
     private void refreshState() {
-//        int state = ExamListDao.getInstance(this).getState(examId);
-        int state = 1;
-        //未提交
+        int state = ExamListDao.getInstance(this).getState(examId);
+        //int state = 2;
+        //未提交 state:2
         if (state == ClassContstant.EXAM_UNDONE) {
             imgShow.setBackgroundResource(R.mipmap.weitijao);
             rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
@@ -183,7 +184,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             btnStart.setBackgroundResource(R.drawable.selector_start);
             textMode = ClassContstant.TEST_MODE_NORMAL;
         } else if (state == ClassContstant.EXAM_COMMIT) {
-            //已提交
+            //已提交 state:1
             imgShow.setBackgroundResource(R.mipmap.yitijiao);
             rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
@@ -192,7 +193,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             btnStart.setBackgroundResource(R.drawable.selector_answer);
             textMode = ClassContstant.TEST_MODE_LOOK;
         } else if (state == ClassContstant.EXAM_READ) {
-            //已批阅
+            //已批阅 state:3
             imgShow.setBackgroundResource(R.mipmap.yipiyue);
             rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
