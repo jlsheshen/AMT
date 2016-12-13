@@ -70,10 +70,9 @@ public class SoundPoolUtil implements SoundPool.OnLoadCompleteListener {
 	 * 
 	 * @param id
 	 */
-	public void play(Activity activity, int id) {
-		updateVolume(activity);
+	public void play(int id) {
 		// 1、Map中取值 2、当前音量 3、最大音量 4、优先级 5、重播次数 6、播放速度
-//		soundPool.play(soundMap.get(id), volume, volume, 1, 0, 1);
+		soundPool.play(soundMap.get(id), volume, volume, 1, 0, 1);
 	}
 
 	/**

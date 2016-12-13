@@ -43,6 +43,9 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 	private ImageButton ibtnClose;
 	private CloseListener mListener;
 
+	// 对应的问题
+	private String mQuestion;
+
 	public PicBrowseView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		View.inflate(context, R.layout.layout_picture_browse, this);
@@ -52,13 +55,23 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 	/**
 	 * 设置图片资源
 	 * 
+	 * @param question
+	 *            对应的问题
 	 * @param pics
 	 *            显示的图片资源
+	 * @return 是否需要显示
 	 */
-	public void setResources(String[] pics) {
-		mPicResIds = pics;
-		mPageCount = pics.length;
+	public boolean setResources(String question, String[] pics) {
+		if (question != null && !question.equals("")) {
+			mPageCount++;
+			mQuestion = question;
+		}
+		if (pics != null && pics.length > 0) {
+			mPageCount += pics.length;
+			mPicResIds = pics;
+		}
 		init();
+		return mPageCount > 0;
 	}
 
 	/**
@@ -83,11 +96,20 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 	 */
 	private void initPages() {
 		List<View> list = new ArrayList<View>();
-
-		for (int i = 0; i < mPageCount; i++) {
-			BrowseImageView imageView = new BrowseImageView(mContext);
-			imageView.loadImage(mPicResIds[i]);
-			list.add(imageView);
+		
+		int count = mPageCount;
+		if(mQuestion != null && !mQuestion.equals("")) {
+			AutoSplitTextView textView = (AutoSplitTextView) View.inflate(mContext, R.layout.view_bill_question, null);
+//			textView.setMovementMethod(ScrollingMovementMethod.getInstance());
+			textView.setText(mQuestion);
+			list.add(textView);
+			count--;
+		}
+		for (int i = 0; i < count; i++) {
+			 BrowseImageView imageView = new BrowseImageView(mContext);
+			 imageView.loadImage(mPicResIds[i]);
+			 list.add(imageView);
+		
 		}
 		// 创建适配器
 		mAdapter = new PicBrowseAdapter(list);
@@ -164,26 +186,27 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 		 */
 		void onClose();
 	}
-	
+
 	/**
 	 * 支持缩放的进度imageview，直接使用imageview，网络图片加载后可能导致图片显示太小的问题，需要在图片加载后加入缩放才正常
+	 * 
 	 * @author lucher
-	 *
+	 * 
 	 */
 	public class BrowseImageView extends ProgressImageView {
 
 		public BrowseImageView(Context context) {
 			super(context);
 		}
-		
+
 		@Override
 		public void loadImage(String uri) {
 			super.loadImage(uri);
-			if(mBitmap != null) {
+			if (mBitmap != null) {
 				new PhotoViewAttacher(this, true);
 			}
 		}
-		
+
 		@Override
 		public void onLoadingComplete(String imageUri, View arg1, Bitmap loadedImage) {
 			super.onLoadingComplete(imageUri, arg1, loadedImage);

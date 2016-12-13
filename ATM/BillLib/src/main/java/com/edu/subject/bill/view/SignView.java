@@ -246,7 +246,7 @@ public class SignView extends ProgressImageView implements IScaleable {
 			@Override
 			public void onAnimationEnd(Animator animation) {
 				if (mListener != null) {
-					mListener.onDragEnd();
+//					mListener.onDragEnd();
 				}
 			}
 

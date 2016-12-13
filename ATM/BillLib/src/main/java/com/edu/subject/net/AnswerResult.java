@@ -10,7 +10,7 @@ import java.util.List;
  * @author lucher
  * 
  */
-public class AnswerResult extends BaseData{
+public class AnswerResult extends BaseData {
 
 	// 服务器端题目id
 	private int flag;
@@ -82,7 +82,7 @@ public class AnswerResult extends BaseData{
 	 * @author lucher
 	 * 
 	 */
-	public class SignResult  extends BaseData{
+	public class SignResult {
 		// 待实现
 	}
 }

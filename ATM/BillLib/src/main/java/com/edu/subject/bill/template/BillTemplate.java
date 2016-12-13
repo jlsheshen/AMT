@@ -13,8 +13,6 @@ import java.util.List;
  */
 public class BillTemplate extends BaseData {
 
-	// 模板id
-	private int id;
 	// 底图图片
 	private String bitmap;
 	// 模板名称
@@ -23,18 +21,6 @@ public class BillTemplate extends BaseData {
 	private int flag;
 	// 对应的所有空
 	private List<BaseElementInfo> elementDatas;
-
-	public BillTemplate() {
-
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;

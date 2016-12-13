@@ -129,7 +129,11 @@ public class BlankGroupAmountEditText extends BlankEditText {
 			//去除前后缀后显示
 			text = text.substring(ANSWER_FLAG.length());
 			text = text.substring(0, text.length() - ANSWER_FLAG.length());
-			super.setText(text);
+			if(text.trim().equals("")) {//防止未做答保存后，默认用空字符串填充的问题
+				super.setText("");
+			} else {
+				super.setText(text);
+			}
 		} else {
 			super.setText(text);
 		}

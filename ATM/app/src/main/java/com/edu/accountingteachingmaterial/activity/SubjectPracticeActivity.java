@@ -7,7 +7,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
@@ -54,7 +53,6 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
     private SubjectViewPagerAdapter mSubjectAdapter;
 
     private int mCurrentIndex;
-    private TextView tvQuestion;
 
     // 印章选择对话框
     private SignChooseDialog signDialog;
@@ -101,7 +99,6 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         signDialog = new SignChooseDialog(this, signs, this);
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
-        tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         btnDone = (ImageView) findViewById(R.id.btnFlash);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         Bundle bundle = getIntent().getExtras();
@@ -132,7 +129,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
         ;
         // 刷新题目数据
-        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
+//        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnDone.setVisibility(View.VISIBLE);
             btnSign.setVisibility(View.VISIBLE);
@@ -141,6 +138,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         } else {
             btnDone.setVisibility(View.GONE);
             btnSign.setVisibility(View.GONE);
+
         }
     }
     /**

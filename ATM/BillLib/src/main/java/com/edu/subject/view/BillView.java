@@ -1,6 +1,5 @@
 package com.edu.subject.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -231,18 +230,19 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 		if (isGroup) {
 			ibtnPic.setVisibility(View.GONE);
 		} else {
-			if (mData.getSubjectData().getPic() == null || mData.getSubjectData().getPic().equals("")) {// 是否显示图片的小角标
-				ibtnPic.setVisibility(View.GONE);
-			} else {
-				ibtnPic.setVisibility(View.VISIBLE);
-			}
 			ibtnPic.setOnClickListener(this);
 			picBrowseView = (PicBrowseView) findViewById(R.id.picBrowseView);
 			picBrowseView.setOnCloseListener(this);
+			//附件初始化
 			String pic = mData.getSubjectData().getPic();
+			String[] pics = null;
 			if (pic != null) {
-				String[] pics = pic.split(SubjectConstant.SEPARATOR_ITEM);
-				picBrowseView.setResources(pics);
+				pics = pic.split(SubjectConstant.SEPARATOR_ITEM);
+			}
+			if (picBrowseView.setResources(mData.getSubjectData().getQuestion(), pics)) {// 是否显示图片的小角标
+				ibtnPic.setVisibility(View.VISIBLE);
+			} else {
+				ibtnPic.setVisibility(View.GONE);
 			}
 		}
 	}
@@ -325,7 +325,7 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 	@Override
 	public void onDragEnd(SignView view) {
 		// ToastUtil.showToast(mContext, "盖章结束了");
-//		SoundPoolUtil.getInstance().play((Activity) mContext, SoundPoolUtil.SOUND_SEAL_SUCCESS_ID);
+		SoundPoolUtil.getInstance().play(SoundPoolUtil.SOUND_SEAL_SUCCESS_ID);
 	}
 
 	@Override

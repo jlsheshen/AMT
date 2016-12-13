@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class GroupBillView extends RelativeLayout implements ISubject, OnCheckedChangeListener, OnClickListener, CloseListener {
 
+
 	// 缩放按钮
 	private Context mContext;
 	private List<BillView> billViews;
@@ -124,7 +125,7 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 	private void initContent() {
 		for (int i = 0; i < mData.getTestDatas().size(); i++) {
 			// 初始化标签
-			RadioButton radio = (RadioButton) View.inflate(mContext, R.layout.radio_label, null);
+			RadioButton radio = (RadioButton) View.inflate(mContext, R.layout.bill_radio_label, null);
 			TestBillData data = mData.getTestDatas().get(i);
 			radio.setId(i);
 			radio.setText(data.getSubjectData().getLabel());
@@ -154,7 +155,7 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 
 	/**
 	 * 盖章操作
-	 * 
+	 *
 	 * @param signData
 	 */
 	public void sign(SignData signData) {
@@ -181,19 +182,20 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 
 	@Override
 	public void applyData(BaseTestData data) {
-		if (mData.getSubjectData().getPic() == null || mData.getSubjectData().getPic().equals("")) {// 是否显示图片的小角标
-			ibtnPic.setVisibility(View.GONE);
-		} else {
-			ibtnPic.setVisibility(View.VISIBLE);
-		}
 		ibtnPic.setOnClickListener(this);
 		picBrowseView = (PicBrowseView) findViewById(R.id.picBrowseView);
 		picBrowseView = (PicBrowseView) findViewById(R.id.picBrowseView);
 		picBrowseView.setOnCloseListener(this);
+		//附件初始化
 		String pic = mData.getSubjectData().getPic();
+		String[] pics = null;
 		if (pic != null) {
-			String[] pics = pic.split(SubjectConstant.SEPARATOR_ITEM);
-			picBrowseView.setResources(pics);
+			pics = pic.split(SubjectConstant.SEPARATOR_ITEM);
+		}
+		if (picBrowseView.setResources(mData.getSubjectData().getQuestion(), pics)) {// 是否显示图片的小角标
+			ibtnPic.setVisibility(View.VISIBLE);
+		} else {
+			ibtnPic.setVisibility(View.GONE);
 		}
 	}
 
@@ -215,7 +217,7 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 
 	/**
 	 * 判断答案等操作
-	 * 
+	 *
 	 * @param submit
 	 *            是否提交
 	 */
@@ -314,13 +316,13 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 	@Override
 	public void onClick(View view) {
 		boolean loaded = true;
-		for(BillView billView : billViews) {
-			if(!billView.billView.loaded()) {
+		for (BillView billView : billViews) {
+			if (!billView.billView.loaded()) {
 				loaded = false;
 				break;
 			}
 		}
-		if(!loaded) {
+		if (!loaded) {
 			ToastUtil.showToast(mContext, "当前还有底图未加载完，请请稍后重试");
 			return;
 		}

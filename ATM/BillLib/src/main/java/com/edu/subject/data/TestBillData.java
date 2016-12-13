@@ -154,7 +154,7 @@ public class TestBillData extends BaseTestData {
 		if (uAnswer != null) {
 			uAnswers = uAnswer.split(SubjectConstant.SEPARATOR_ITEM);
 		}
-		List<BlankResult> blanks = new ArrayList<BlankResult>(answers.length);
+		List<BlankResult> blanks = new ArrayList<>(answers.length);
 		int index = 0;// 所有空遍历index
 		int uIndex = 0;// 用户答案索引,用户答案的size等于正确答案的size-不需要用户填写空的size
 		for (BaseElementInfo element : template.getElementDatas()) {

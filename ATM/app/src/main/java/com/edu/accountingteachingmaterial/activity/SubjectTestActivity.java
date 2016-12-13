@@ -8,7 +8,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
@@ -55,7 +54,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     int dataId;
 
     private int mCurrentIndex;
-    private TextView tvBillQuestion;
 
     // 印章选择对话框
     private SignChooseDialog signDialog;
@@ -103,7 +101,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
-        tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
@@ -139,14 +136,10 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnSign.setVisibility(View.VISIBLE);
             btnFlash.setVisibility(View.VISIBLE);
-            tvBillQuestion.setText(subject.getQuestion());
-            tvBillQuestion.setVisibility(View.VISIBLE);
-
 
         } else {
             btnSign.setVisibility(View.GONE);
             btnFlash.setVisibility(View.GONE);
-            tvBillQuestion.setVisibility(View.GONE);
 
         }
     }
