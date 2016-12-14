@@ -41,7 +41,7 @@ public class NetUrlContstant {
     //上传本币模板数据
     public static final String localTemplates = BASE_URL + "interface/exam/findBillTemplatesByIds";
     //图片url前缀
-    public static final String background = BASE_URL + ":80/resources/files/background/";
+    public static final String background = "http://192.168.1.142:80/resources/files/background/";
     //视频播放地址、pdf下载地址
     public static final String mediaorPdfUrl = BASE_URL + "interface/filedown/down/";
 

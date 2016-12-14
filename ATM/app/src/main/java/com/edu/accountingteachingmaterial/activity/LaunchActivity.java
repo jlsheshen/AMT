@@ -18,7 +18,6 @@ import com.edu.library.usercenter.UserCenterHelper;
 import com.edu.library.usercenter.UserData;
 import com.edu.library.util.DBCopyUtil;
 import com.edu.subject.util.SoundPoolUtil;
-import com.edu.subject.util.SubjectImageLoader;
 import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
 
@@ -101,7 +100,7 @@ public class LaunchActivity extends BaseActivity {
                 DBCopyUtil fileCopyUtil = new DBCopyUtil(LaunchActivity.this);
                 fileCopyUtil.checkDBVersion(Constant.DATABASE_NAME);
                 // 预加载网络图片
-                SubjectImageLoader.getInstance(LaunchActivity.this).preloadAllPics();
+//                SubjectImageLoader.getInstance(LaunchActivity.this).preloadAllPics();
 
                 // 初始化声音播放工具，如果不初始化，盖章没声
                 SoundPoolUtil.getInstance().init(LaunchActivity.this);

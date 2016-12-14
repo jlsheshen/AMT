@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.URLUtil;
 
+import com.edu.NetUrlContstant;
 import com.edu.library.data.DBHelper;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.common.ProgressImageView;
@@ -142,7 +143,7 @@ public class SubjectImageLoader {
         allUrl = s;
         for (String url : allUrl) {
             Log.d("查看图片log11111", url);
-            preDownloadPic(url);
+            preDownloadPic(NetUrlContstant.background + url);
         }
     }
 

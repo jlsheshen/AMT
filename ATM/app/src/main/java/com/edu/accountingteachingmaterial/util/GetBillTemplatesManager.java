@@ -161,11 +161,10 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(ID, billTemplate.getId());
             contentValues.put(TIME, billTemplate.getTimeStamp());
             contentValues.put(NAME, billTemplate.getName());
-            contentValues.put(BACKGROUND, billTemplate.getBitmap());
-            //String[] s = billTemplate.getBitmap().split("background/");
-            String s = billTemplate.getBitmap();
-            Log.d("billTemplate", "s:" + s);
-            urls.add(s);
+            String[] s = billTemplate.getBitmap().split("background/");
+            Log.d("billTemplate", "s:" + s[1]);
+            urls.add(s[1]);
+            contentValues.put(BACKGROUND, s[1]);
             contentValues.put(FLAG, billTemplate.getFlag());
             contentValues.put(REMARK, billTemplate.getRemark());
             updateTemplateInfo(contentValues, billTemplate);

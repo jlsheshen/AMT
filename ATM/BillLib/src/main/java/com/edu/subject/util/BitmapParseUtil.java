@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.webkit.URLUtil;
 
+import com.edu.NetUrlContstant;
 import com.edu.library.util.FileUtil;
 import com.edu.subject.common.ProgressImageView;
 
@@ -136,12 +137,13 @@ public class BitmapParseUtil {
      * @return 是否成功
      */
     public static boolean saveBitmap(Context context, String uri, Bitmap bm) {
+        Log.d(TAG, NetUrlContstant.background + uri);
         CACHE.put(uri, new SoftReference<Bitmap>(bm));
+        String[] s = uri.split("background/");
         boolean success = true;
-        String[] picName = uri.split("background/");
         try {
             //File file = new File(getCacheDir(context) + uri.hashCode());
-            File file = new File(getCacheDir(context) + picName[1]);
+            File file = new File(getCacheDir(context) + s[1]);
             FileUtil.createFile(file);
             FileOutputStream fOut = null;
             fOut = new FileOutputStream(file);
@@ -169,7 +171,9 @@ public class BitmapParseUtil {
             exist = true;
         } else {
             if (URLUtil.isNetworkUrl(uri)) {
-                File file = new File(getCacheDir(context) + uri.hashCode());
+                String[] s = uri.split("background/");
+//                File file = new File(getCacheDir(context) + uri.hashCode());
+                File file = new File(getCacheDir(context) + s[1]);
                 if (file.exists()) {
                     Log.v(TAG, "disk cache found:" + uri);
                     exist = true;
