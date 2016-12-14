@@ -3,6 +3,7 @@ package com.edu.accountingteachingmaterial.util;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.widget.Toast;
@@ -33,6 +34,9 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class GetBillTemplatesManager extends JsonNetReqManager {
+
+    private static final String TB_NAME = "TB_BILL_TEMPLATE";
+
     private static final String ID = "ID";
     private static final String TIME = "TIME";
     private static final String NAME = "NAME";
@@ -52,7 +56,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     private static final String SCORE = "SCORE";
 
 
-
+    SQLiteDatabase mDb = null;
     private Context context;
     private static GetBillTemplatesManager instance;
 
@@ -75,7 +79,8 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     public void sendLocalTemplates(){
 
-        List<BillTemplateListBean> datas = new ArrayList<>();
+
+        List<BillTemplateListBean> datas = getTemplates();
 
         String url = NetUrlContstant.localTemplates;
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
@@ -83,6 +88,36 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         Log.d(TAG, "uploadResult:" + JSON.toJSONString(datas));
 
     }
+
+    private List<BillTemplateListBean>  getTemplates() {
+        List<BillTemplateListBean> datas = null;
+        Cursor curs = null;
+        try {
+            DBHelper helper = new DBHelper(context, Constant.DATABASE_NAME, null);
+            mDb = helper.getWritableDatabase();
+            String sql = "SELECT * FROM " + TB_NAME;
+            Log.d(TAG, "sql:" + sql);
+            curs = mDb.rawQuery(sql, null);
+            if (curs != null) {
+                datas = new ArrayList<BillTemplateListBean>(curs.getCount());
+                while (curs.moveToNext()) {
+                    BillTemplateListBean data = new BillTemplateListBean();
+                    data.setId(curs.getInt(curs.getColumnIndex(ID)));
+                    data.setTimestamp(curs.getString(curs.getColumnIndex(TIME)));
+                    datas.add(data);
+                }
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (curs !=null)
+            { curs.close();}
+        }
+        return datas;
+    }
+
 
     @Override
     public void onConnectionSuccess(JSONObject json, Header[] arg1) {
@@ -140,8 +175,8 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     }
     public void updateTemplateInfo(ContentValues values,TemplateData billTemplate) {
         Cursor curs = null;
-        String sql = "SELECT * FROM TB_BILL_TEMPLATE WHERE ID = " + values.get(ID);
-        SQLiteDatabase mDb = null;
+        String sql = "SELECT * FROM "+TB_NAME+" WHERE ID = " + values.get(ID);
+
         try {
             DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
             mDb = helper.getWritableDatabase();

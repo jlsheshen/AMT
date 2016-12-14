@@ -7,7 +7,6 @@ import android.widget.ImageView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
-import com.edu.accountingteachingmaterial.util.GetBillTemplatesManager;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,9 +51,8 @@ public class StartStudyActivity extends BaseActivity {
         findViewById(R.id.jump_up_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(MainActivity.class);
-//                finish();
-                GetBillTemplatesManager.newInstance(StartStudyActivity.this).sendLocalTemplates();
+                startActivity(MainActivity.class);
+                finish();
 
             }
         });

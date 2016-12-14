@@ -2,15 +2,13 @@ package com.edu.accountingteachingmaterial.entity;
 
 import com.edu.library.data.BaseData;
 
-import java.sql.Timestamp;
-
 /**
  * Created by Administrator on 2016/12/13.
  */
 
 public class BillTemplateListBean extends BaseData{
     int id;
-    Timestamp timestamp;
+    String timestamp;
 
     @Override
     public int getId() {
@@ -22,11 +20,11 @@ public class BillTemplateListBean extends BaseData{
         this.id = id;
     }
 
-    public Timestamp getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(String timestamp) {
         this.timestamp = timestamp;
     }
 }
