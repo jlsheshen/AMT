@@ -15,6 +15,7 @@ import com.edu.accountingteachingmaterial.dao.TemplateElementsDao;
 import com.edu.accountingteachingmaterial.entity.BillTemplateListBean;
 import com.edu.library.data.DBHelper;
 import com.edu.subject.data.TemplateData;
+import com.edu.subject.util.SubjectImageLoader;
 import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
@@ -155,15 +156,14 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(TIME, billTemplate.getTimeStamp());
             contentValues.put(NAME, billTemplate.getName());
             String[] s = billTemplate.getBitmap().split("background/");
-//            String s = billTemplate.getBitmap();
-//            Log.d("billTemplate", "s:" + s[1]);
+            Log.d("billTemplate", "s:" + s[1]);
             urls.add(s[1]);
-            contentValues.put(BACKGROUND,billTemplate.getBitmap());
+            contentValues.put(BACKGROUND, s[1]);
             contentValues.put(FLAG, billTemplate.getFlag());
             contentValues.put(REMARK, billTemplate.getRemark());
             updateTemplateInfo(contentValues, billTemplate);
         }
-//        SubjectImageLoader.getInstance(context).preDownloadAllPic(urls);
+        SubjectImageLoader.getInstance(context).preDownloadAllPic(urls);
 
     }
 

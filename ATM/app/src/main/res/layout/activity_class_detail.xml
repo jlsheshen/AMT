@@ -42,9 +42,7 @@
                 android:id="@+id/class_review_iv"
                 style="@style/SizeBarButtonStyle"
                 android:clickable="false"
-                android:drawableTop="@drawable/selector_class_detail_review"
-                android:enabled="false"
-                android:onClick="stopvideo" />
+                android:drawableTop="@drawable/selector_class_detail_review" />
         </RadioGroup>
     </FrameLayout>
 
@@ -74,13 +72,23 @@
             android:textSize="@dimen/title_text_size" />
 
         <ImageView
+            android:id="@+id/class_review_hy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/class_aty_zhangjie_iv"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25px"
+            android:src="@mipmap/icon_zhangjieliebiao_n"
+            android:visibility="gone" />
+
+        <ImageView
             android:id="@+id/class_aty_zhangjie_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon_zhangjieliebiao_n"
             android:layout_marginRight="25px"
+            android:src="@mipmap/icon_zhangjieliebiao_n"
             android:visibility="visible" />
     </RelativeLayout>
 
