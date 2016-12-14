@@ -15,15 +15,16 @@ import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
-import com.edu.accountingteachingmaterial.fragment.ClassFragment;
+import com.edu.accountingteachingmaterial.fragment.ClassReviewFragment;
 import com.edu.accountingteachingmaterial.view.ChapterPopupWindow;
+import com.edu.library.util.ToastUtil;
 
 public class ClassDetailActivity extends BaseActivity implements OnClickListener {
 
     // 重点难点,经典实例,精选练习,自我检测
     RadioButton classEmphasisButton, classExampleButton, classExerciseButton, classReviewButton;
     Fragment classEmphasisFragment, classExampleFragment, classExerciseFragment, classReviewFragment;
-    ImageView backIv, imgZhangjie;
+    ImageView backIv, imgZhangjie, imgReviewHy;
     TextView textView;
     ClassChapterData.SubChaptersBean data;
     View vLine;
@@ -42,8 +43,10 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         bindAndListener(classReviewButton, R.id.class_review_iv);
         bindAndListener(backIv, R.id.class_aty_back_iv);
         bindAndListener(imgZhangjie, R.id.class_aty_zhangjie_iv);
+        bindAndListener(imgReviewHy, R.id.class_review_hy);
         textView = bindView(R.id.class_id_title_tv);
         imgZhangjie = (ImageView) findViewById(R.id.class_aty_zhangjie_iv);
+        imgReviewHy = (ImageView) findViewById(R.id.class_review_hy);
         vLine = (View) findViewById(R.id.view);
     }
 
@@ -61,15 +64,18 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         // TODO Auto-generated method stub
 
     }
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.class_aty_view, fragment);
         transaction.commit();
     }
+
     private void bindAndListener(View view, int id) {
         view = bindView(id);
         view.setOnClickListener(this);
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -78,6 +84,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                     classEmphasisFragment = new ClassEmphasisFragment();
                 }
                 replaceFragment(classEmphasisFragment);
+                imgReviewHy.setVisibility(View.GONE);
                 break;
 
             case R.id.class_example_iv:
@@ -86,6 +93,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                     ((ClassExampleFragment) classExampleFragment).setData(data);
                 }
                 replaceFragment(classExampleFragment);
+                imgReviewHy.setVisibility(View.GONE);
                 break;
             case R.id.class_exercise_iv:
                 if (null == classExerciseFragment) {
@@ -93,12 +101,14 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                     ((ClassExerciseFragment) classExerciseFragment).setData(data);
                 }
                 replaceFragment(classExerciseFragment);
+                imgReviewHy.setVisibility(View.GONE);
                 break;
             case R.id.class_review_iv:
                 if (null == classReviewFragment) {
-                    classReviewFragment = new ClassFragment();
+                    classReviewFragment = new ClassReviewFragment();
                 }
                 replaceFragment(classReviewFragment);
+                imgReviewHy.setVisibility(View.VISIBLE);
                 break;
             case R.id.class_aty_back_iv:
                 finish();
@@ -106,7 +116,10 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
             case R.id.class_aty_zhangjie_iv:
                 ChapterPopupWindow popWindow = new ChapterPopupWindow(ClassDetailActivity.this);
                 popWindow.showPopupWindow(vLine);
+                break;
 
+            case R.id.class_review_hy:
+                ToastUtil.showToast(this, "自测历史");
                 break;
         }
 

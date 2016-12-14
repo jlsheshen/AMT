@@ -7,4 +7,19 @@
     <string name="exam">试卷</string>
     <string name="my_errors">我的错题</string>
     <string name="test_number">试题数:</string>
+
+
+    <string-array name="question1">
+        <item>单选题</item>
+        <item>多选题</item>
+        <item>判断题</item>
+        <item>填空题</item>
+    </string-array>
+
+    <string-array name="question2">
+        <item>简答题</item>
+        <item>综合题</item>
+        <item>表格题</item>
+    </string-array>
+
 </resources>

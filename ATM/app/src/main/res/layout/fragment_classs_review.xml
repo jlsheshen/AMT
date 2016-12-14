@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    style="@style/FragmentPadding"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="100px">
+
+    <LinearLayout
+        android:id="@+id/ly_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="20px"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_checkbox_p" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:text="设置测验难度"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
+
+        <CheckBox
+            android:id="@+id/cb_easy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:button="@null"
+            android:checked="false"
+            android:drawableLeft="@drawable/bg_selector_checkbox"
+            android:drawablePadding="10px"
+            android:text="容易"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
+
+        <CheckBox
+            android:id="@+id/cb_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:button="@null"
+            android:checked="true"
+            android:drawableLeft="@drawable/bg_selector_checkbox"
+            android:drawablePadding="10px"
+            android:text="普通"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
+
+        <CheckBox
+            android:id="@+id/cb_hard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:button="@null"
+            android:checked="false"
+            android:drawableLeft="@drawable/bg_selector_checkbox"
+            android:drawablePadding="10px"
+            android:text="困难"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_start"
+        android:layout_below="@+id/ly_top"
+        android:layout_marginBottom="20px"
+        android:layout_marginLeft="10px"
+        android:layout_marginTop="20px"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bg_checkbox_p" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:text="设置测验难度"
+            android:textColor="@color/colorWhite"
+            android:textSize="24sp" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20px"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40px"
+        android:text="智能出题" />
+</RelativeLayout>
