@@ -19,6 +19,7 @@ public class BillTemplate extends BaseData {
 	private String name;
 	// 预置标识，-1：预置，其他：非预置
 	private int flag;
+
 	// 对应的所有空
 	private List<BaseElementInfo> elementDatas;
 

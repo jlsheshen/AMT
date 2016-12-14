@@ -1,8 +1,5 @@
 package com.edu.subject.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,6 +14,9 @@ import com.edu.subject.bill.element.info.FlashInfo;
 import com.edu.subject.bill.element.info.SignInfo;
 import com.edu.subject.bill.template.BillTemplate;
 import com.edu.testbill.Constant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 单据模板数据库操作类

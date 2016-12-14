@@ -45,7 +45,6 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         textView = bindView(R.id.class_id_title_tv);
         imgZhangjie = (ImageView) findViewById(R.id.class_aty_zhangjie_iv);
         vLine = (View) findViewById(R.id.view);
-
     }
 
     @Override
@@ -59,23 +58,18 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         if (data != null) {
             textView.setText(data.getTitle());
         }
-
         // TODO Auto-generated method stub
 
     }
-
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.class_aty_view, fragment);
         transaction.commit();
-
     }
-
     private void bindAndListener(View view, int id) {
         view = bindView(id);
         view.setOnClickListener(this);
     }
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

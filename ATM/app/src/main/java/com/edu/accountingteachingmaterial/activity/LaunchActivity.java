@@ -16,6 +16,8 @@ import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.library.usercenter.UserCenterHelper;
 import com.edu.library.usercenter.UserData;
 import com.edu.library.util.DBCopyUtil;
+import com.edu.subject.util.SoundPoolUtil;
+import com.edu.subject.util.SubjectImageLoader;
 import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
 
@@ -96,6 +98,11 @@ public class LaunchActivity extends BaseActivity {
                 // 检测数据库是否已拷贝
                 DBCopyUtil fileCopyUtil = new DBCopyUtil(LaunchActivity.this);
                 fileCopyUtil.checkDBVersion(Constant.DATABASE_NAME);
+                // 预加载网络图片
+                SubjectImageLoader.getInstance(LaunchActivity.this).preloadAllPics();
+
+                // 初始化声音播放工具，如果不初始化，盖章没声
+                SoundPoolUtil.getInstance().init(LaunchActivity.this);
 
             }
 
@@ -103,6 +110,7 @@ public class LaunchActivity extends BaseActivity {
             public void onFinish() {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("HomepageInformationData", data);
+
 
                     startActivity(StartStudyActivity.class, bundle);
                 if (!isShow) {

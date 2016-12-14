@@ -38,6 +38,10 @@ public class NetUrlContstant {
     //{userId}
     //上传历史信息
     public static final String upLoadingHisUrl = BASE_URL + "interface/exam/saveUserStudyHistories";
+    //上传本币模板数据
+    public static final String localTemplates = BASE_URL + "interface/exam/findBillTemplatesByIds";
+    //图片url前缀
+    public static final String background = BASE_URL + ":80/resources/files/background/";
 
 
 

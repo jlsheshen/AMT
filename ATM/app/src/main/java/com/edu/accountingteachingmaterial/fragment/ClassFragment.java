@@ -155,13 +155,12 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 if (popupWindow.isShowing()) {
 //                    popupWindow.dismiss();
                 } else {
-                    popupWindow.showAsDropDown(imgHistory,-50,50);
+                    popupWindow.showAsDropDown(imgHistory,50,50);
 //                     expandableListView.setEnabled(false);
 //                    expandableListView.setAlpha(0.5f);
                 }
                 break;
         }
-
     }
     private void showPopupWindow(View view) {
 
@@ -182,7 +181,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
         popupWindow.setContentView(contentView);
         popupWindow.setTouchable(true);
-      popupWindow.setOutsideTouchable(true);
+         popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_ppw));
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override

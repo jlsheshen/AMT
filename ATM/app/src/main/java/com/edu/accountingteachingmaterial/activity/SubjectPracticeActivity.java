@@ -184,6 +184,9 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
             case R.id.btnRight:
                 scrollToRight();
                 break;
+            case R.id.class_aty_back_iv:
+                finish();
+                break;
 
             default:
                 break;

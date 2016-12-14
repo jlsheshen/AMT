@@ -187,7 +187,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 //                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
 //                    @Override
 //                    public void onOkClicked() {
-//                        finish();
+                        finish();
 //                    }
 //
 //                    @Override
