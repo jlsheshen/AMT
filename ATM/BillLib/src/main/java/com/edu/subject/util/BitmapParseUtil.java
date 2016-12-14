@@ -138,8 +138,10 @@ public class BitmapParseUtil {
     public static boolean saveBitmap(Context context, String uri, Bitmap bm) {
         CACHE.put(uri, new SoftReference<Bitmap>(bm));
         boolean success = true;
+        String[] picName = uri.split("background/");
         try {
-            File file = new File(getCacheDir(context) + uri.hashCode());
+            //File file = new File(getCacheDir(context) + uri.hashCode());
+            File file = new File(getCacheDir(context) + picName[1]);
             FileUtil.createFile(file);
             FileOutputStream fOut = null;
             fOut = new FileOutputStream(file);

@@ -45,7 +45,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     private static final String REMARK = "REMARK";
 
 
-
     private static final String CONTENT = "CONTENT";
     private static final String TEMPLATE_ID = "TEMPLATE_ID";
     private static final String TYPE = "TYPE";
@@ -77,7 +76,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         return instance;
     }
 
-    public void sendLocalTemplates(){
+    public void sendLocalTemplates() {
 
 
         List<BillTemplateListBean> datas = getTemplates();
@@ -152,28 +151,30 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
      * @param billTemplates 获取的模板数据
      */
     private void saveTemplates(List<TemplateData> billTemplates) {
-        if (billTemplates == null){
+        if (billTemplates == null) {
             Toast.makeText(mContext, "无需更新模板", Toast.LENGTH_SHORT).show();
             return;
         }
         List<String> urls = new ArrayList<>();
         for (TemplateData billTemplate : billTemplates) {
-            ContentValues contentValues  = new ContentValues();
-            contentValues.put(ID,billTemplate.getId());
-            contentValues.put(TIME,billTemplate.getTimeStamp());
-            contentValues.put(NAME,billTemplate.getName());
-            contentValues.put(BACKGROUND,billTemplate.getBitmap());
-            String[] s = billTemplate.getBitmap().split("background/");
-            Log.d("billTemplate", "s:" + s[1]);
-            urls.add(s[1]);
-            contentValues.put(FLAG,billTemplate.getFlag());
-            contentValues.put(REMARK,billTemplate.getRemark());
-            updateTemplateInfo(contentValues,billTemplate);
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(ID, billTemplate.getId());
+            contentValues.put(TIME, billTemplate.getTimeStamp());
+            contentValues.put(NAME, billTemplate.getName());
+            contentValues.put(BACKGROUND, billTemplate.getBitmap());
+            //String[] s = billTemplate.getBitmap().split("background/");
+            String s = billTemplate.getBitmap();
+            Log.d("billTemplate", "s:" + s);
+            urls.add(s);
+            contentValues.put(FLAG, billTemplate.getFlag());
+            contentValues.put(REMARK, billTemplate.getRemark());
+            updateTemplateInfo(contentValues, billTemplate);
         }
         SubjectImageLoader.getInstance(context).preDownloadAllPic(urls);
 
     }
-    public void updateTemplateInfo(ContentValues values,TemplateData billTemplate) {
+
+    public void updateTemplateInfo(ContentValues values, TemplateData billTemplate) {
         Cursor curs = null;
         String sql = "SELECT * FROM "+TB_NAME+" WHERE ID = " + values.get(ID);
 
@@ -184,10 +185,10 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
             if (curs != null) {
                 if (curs.getCount() == 0) {
-                    mDb.insert("TB_BILL_TEMPLATE",null,values);
+                    mDb.insert("TB_BILL_TEMPLATE", null, values);
                     insertData(billTemplate);
                 } else {
-                    mDb.update("TB_BILL_TEMPLATE",values,ID + " =?",new String[] { String.valueOf(values.get(ID))});
+                    mDb.update("TB_BILL_TEMPLATE", values, ID + " =?", new String[]{String.valueOf(values.get(ID))});
                     curs.moveToLast();
                     updateData(billTemplate);
                 }
@@ -198,20 +199,21 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             }
         }
     }
-    private void  insertData(TemplateData billTemplate){
+
+    private void insertData(TemplateData billTemplate) {
 
         for (TemplateData.BlanksDatasBean blanksDatasBean : billTemplate.getBlanksDatas()) {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(ID,blanksDatasBean.getId());
-            contentValues.put(TEMPLATE_ID,billTemplate.getId());
-            contentValues.put(TYPE,blanksDatasBean.getType());
-            contentValues.put(X,blanksDatasBean.getX());
-            contentValues.put(Y,blanksDatasBean.getY());
-            contentValues.put(WIDTH,blanksDatasBean.getWidth());
-            contentValues.put(HEIGHT,blanksDatasBean.getHeight());
-            contentValues.put(SCORE,blanksDatasBean.getScore());
-            contentValues.put(REMARK,blanksDatasBean.getRemark());
-            contentValues.put(CONTENT,blanksDatasBean.getContent());
+            contentValues.put(ID, blanksDatasBean.getId());
+            contentValues.put(TEMPLATE_ID, billTemplate.getId());
+            contentValues.put(TYPE, blanksDatasBean.getType());
+            contentValues.put(X, blanksDatasBean.getX());
+            contentValues.put(Y, blanksDatasBean.getY());
+            contentValues.put(WIDTH, blanksDatasBean.getWidth());
+            contentValues.put(HEIGHT, blanksDatasBean.getHeight());
+            contentValues.put(SCORE, blanksDatasBean.getScore());
+            contentValues.put(REMARK, blanksDatasBean.getRemark());
+            contentValues.put(CONTENT, blanksDatasBean.getContent());
             TemplateElementsDao.getInstance(context).insertData(contentValues);
         }
     }
@@ -221,22 +223,21 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
         for (TemplateData.BlanksDatasBean blanksDatasBean : billTemplate.getBlanksDatas()) {
             ContentValues contentValues = new ContentValues();
-            contentValues.put(ID,blanksDatasBean.getId());
-            contentValues.put(TEMPLATE_ID,billTemplate.getId());
-            contentValues.put(TYPE,blanksDatasBean.getType());
-            contentValues.put(X,blanksDatasBean.getX());
-            contentValues.put(Y,blanksDatasBean.getY());
-            contentValues.put(WIDTH,blanksDatasBean.getWidth());
-            contentValues.put(HEIGHT,blanksDatasBean.getHeight());
-            contentValues.put(SCORE,blanksDatasBean.getScore());
-            contentValues.put(REMARK,blanksDatasBean.getRemark());
-            contentValues.put(CONTENT,blanksDatasBean.getContent());
+            contentValues.put(ID, blanksDatasBean.getId());
+            contentValues.put(TEMPLATE_ID, billTemplate.getId());
+            contentValues.put(TYPE, blanksDatasBean.getType());
+            contentValues.put(X, blanksDatasBean.getX());
+            contentValues.put(Y, blanksDatasBean.getY());
+            contentValues.put(WIDTH, blanksDatasBean.getWidth());
+            contentValues.put(HEIGHT, blanksDatasBean.getHeight());
+            contentValues.put(SCORE, blanksDatasBean.getScore());
+            contentValues.put(REMARK, blanksDatasBean.getRemark());
+            contentValues.put(CONTENT, blanksDatasBean.getContent());
             TemplateElementsDao.getInstance(context).insertData(contentValues);
         }
 
 
     }
-
 
 
 }
