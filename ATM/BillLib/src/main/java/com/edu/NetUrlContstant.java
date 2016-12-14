@@ -7,7 +7,7 @@ package com.edu;
 public class NetUrlContstant {
     public static final String URL_NAME = "URL_NAME";
 
-    public static String BASE_URL = "http://192.168.1.159/";
+    public static String BASE_URL = "http://192.168.1.142/";
     //首页课程信息
     public static final String homeInfoUrl = BASE_URL + "interface/course/findCoursesByUserId/";
     //课程章节列表
@@ -33,12 +33,12 @@ public class NetUrlContstant {
     //{topicId}-{paperId}
     //获取在线考试列表
     public static final String getExamInfoUrl = BASE_URL + "interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
-   //拉取历史信息
+    //拉取历史信息
     public static final String findHisUrl = BASE_URL + "interface/exam/findUserStudyHistoryByUserId/";
     //{userId}
     //上传历史信息
     public static final String upLoadingHisUrl = BASE_URL + "interface/exam/saveUserStudyHistories";
-
-
+    //视频播放地址、pdf下载地址
+    public static final String mediaorPdfUrl = BASE_URL + "interface/filedown/down/";
 
 }

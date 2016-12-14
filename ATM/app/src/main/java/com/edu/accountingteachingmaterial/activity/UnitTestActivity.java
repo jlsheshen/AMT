@@ -101,7 +101,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_start:
                 //ExamListData考试数据（测试）
                 Bundle bundle = new Bundle();
-                bundle.putInt("examId", 1);
+                bundle.putInt("examId", examId);
                 bundle.putInt("textMode", textMode);
                 startActivity(SubjectExamActivity.class, bundle);
                 break;

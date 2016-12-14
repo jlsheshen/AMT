@@ -60,7 +60,8 @@ public class ChapterPopupWindow extends PopupWindow {
         // 实例化一个ColorDrawable颜色为半透明
         //ColorDrawable dw = new ColorDrawable(0x00000000);
         this.setBackgroundDrawable(mContext.getResources().getDrawable(R.drawable.shape_chapter_list));
-        backgroundAlpha(context, 0.5f);//0.0-1.0
+        //设置透明度
+        // backgroundAlpha(context, 0.5f);//0.0-1.0
         //this.setAnimationStyle(R.style.AnimationPreview);
         expandableListView = (ExpandableListView) conentView.findViewById(R.id.class_classchapter_exlv);
         chapterExLvAdapter = new ClassChapterDialogAdapter(mContext);
