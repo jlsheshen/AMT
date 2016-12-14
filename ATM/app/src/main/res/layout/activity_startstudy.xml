@@ -1,34 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/startstudy_bg"
-    >
+    android:background="@color/colorBlueBackground">
 
     <ProgressBar
         android:id="@+id/startstudy_aty_pb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
+        />
 
+    <TextView
+        android:id="@+id/startstudy_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="欢迎登陆会计基础"
+        android:textColor="@color/white"
+        android:textSize="@dimen/title_text_size"
+        android:layout_marginTop="50px"
+        />
+
+
+    <ImageView
+        android:id="@+id/startstudy_bg_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/startstudy_title_tv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10px"
+        android:src="@mipmap/login_look_bg" />
+
+    <TextView
+        android:id="@+id/startstudy_setting_ip_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/startstudy_bg_iv"
+        android:layout_alignRight="@id/startstudy_bg_iv"
+        android:layout_marginBottom="10px"
+        android:layout_marginRight="35px"
+        android:text="服务器IP设置"
+        android:textColor="@color/colorBlueBackground"
+        android:textSize="@dimen/content_text_size" />
+    <EditText
+        android:id="@+id/startstudy_pw_et"
+        android:layout_width="290px"
+        android:layout_height="50px"
+        android:layout_above="@id/startstudy_setting_ip_iv"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10px"
+        android:background="@drawable/selector_login_pw"
+        android:textSize="@dimen/item_text_size"
+        android:textColor="@color/colorTextBlack"
+        android:gravity="center"
+        android:inputType="textPassword"
+        android:paddingTop="5px"
+        />
+
+    <EditText
+        android:id="@+id/startstudy_num_et"
+        android:layout_width="290px"
+        android:layout_height="50px"
+        android:layout_above="@id/startstudy_pw_et"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25px"
+        android:background="@drawable/selector_login_num"
+        android:textSize="@dimen/item_text_size"
+        android:textColor="@color/colorTextBlack"
+        android:inputType="number"
+        android:paddingTop="5px"
+        android:gravity="center"
         />
 
     <ImageView
         android:id="@+id/activity_startstudy_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/selector_startstudy"
+        android:layout_below="@id/startstudy_bg_iv"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50px"
+        android:layout_marginTop="35px"
+        android:src="@drawable/selector_startstudy"
         android:visibility="gone"
         />
+
     <TextView
+        android:id="@+id/jump_up_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/jump_up_tv"
         android:text="跳过"
-        android:textSize="@dimen/item_title_text_size"
-        />
+        android:textSize="@dimen/item_title_text_size" />
 
 </RelativeLayout>

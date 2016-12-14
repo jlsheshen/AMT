@@ -11,18 +11,14 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.NetUrlContstant;
-import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.TemplateElementsDao;
 import com.edu.accountingteachingmaterial.entity.BillTemplateListBean;
 import com.edu.library.data.DBHelper;
 import com.edu.subject.data.TemplateData;
-import com.edu.subject.util.SubjectImageLoader;
 import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,10 +73,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     }
 
     public void sendLocalTemplates() {
-
-
         List<BillTemplateListBean> datas = getTemplates();
-
         String url = NetUrlContstant.localTemplates;
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity);
@@ -98,7 +91,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null) {
-                datas = new ArrayList<BillTemplateListBean>(curs.getCount());
+                datas = new ArrayList<>(curs.getCount());
                 while (curs.moveToNext()) {
                     BillTemplateListBean data = new BillTemplateListBean();
                     data.setId(curs.getInt(curs.getColumnIndex(ID)));
@@ -131,7 +124,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         } else {
 
         }
-        EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
     }
 
     @Override
@@ -151,6 +143,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
      * @param billTemplates 获取的模板数据
      */
     private void saveTemplates(List<TemplateData> billTemplates) {
+
         if (billTemplates == null) {
             Toast.makeText(mContext, "无需更新模板", Toast.LENGTH_SHORT).show();
             return;
@@ -161,16 +154,16 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(ID, billTemplate.getId());
             contentValues.put(TIME, billTemplate.getTimeStamp());
             contentValues.put(NAME, billTemplate.getName());
-            contentValues.put(BACKGROUND, billTemplate.getBitmap());
-            //String[] s = billTemplate.getBitmap().split("background/");
-            String s = billTemplate.getBitmap();
-            Log.d("billTemplate", "s:" + s);
-            urls.add(s);
+            String[] s = billTemplate.getBitmap().split("background/");
+//            String s = billTemplate.getBitmap();
+//            Log.d("billTemplate", "s:" + s[1]);
+            urls.add(s[1]);
+            contentValues.put(BACKGROUND,billTemplate.getBitmap());
             contentValues.put(FLAG, billTemplate.getFlag());
             contentValues.put(REMARK, billTemplate.getRemark());
             updateTemplateInfo(contentValues, billTemplate);
         }
-        SubjectImageLoader.getInstance(context).preDownloadAllPic(urls);
+//        SubjectImageLoader.getInstance(context).preDownloadAllPic(urls);
 
     }
 

@@ -384,6 +384,7 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 		float x = e.getX();
 		float y = e.getY();
 		Log.d("lucher", "x:" + x + ",y" + y);
+		if (mViews != null){
 		for (View view : mViews) {
 			int left = view.getLeft() - border[0];
 			int top = view.getTop() - border[1];
@@ -395,6 +396,7 @@ public class FocusHandler implements OnKeyListener, OnFocusChangeListener, OnEdi
 				requestFocus(view);
 				break;
 			}
+		}
 		}
 	}
 

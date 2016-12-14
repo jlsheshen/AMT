@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -122,7 +123,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                         showIp(s);
                     }
                 });
-
                 window.findViewById(R.id.ip_close_iv).setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -151,14 +151,15 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 if (jsonObject.getString("success").equals("true")) {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
                     PreferenceHelper.getInstance(MainActivity.this).setStringValue(NetUrlContstant.URL_NAME, BASE_URL);
-
-                    Log.d("LaunchActivity", "线程启动获取成功");
+                    Toast.makeText(MainActivity.this, "Ip设置成功", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(String errorInfo) {
-                Log.d("LaunchActivity", "线程启动获取失败");
+                Log.d("LaunchActivity", "Ip设置失败");
+                Toast.makeText(MainActivity.this, "Ip设置失败", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

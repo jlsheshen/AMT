@@ -131,16 +131,16 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         if (mCurrentIndex < 0 || mCurrentIndex > mSubjectAdapter.getCount() - 1)
             return;
         BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
+
 //         刷新题目数据
 //        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
+
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnSign.setVisibility(View.VISIBLE);
             btnFlash.setVisibility(View.VISIBLE);
-
         } else {
             btnSign.setVisibility(View.GONE);
             btnFlash.setVisibility(View.GONE);
-
         }
     }
 
@@ -158,7 +158,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 float score = mSubjectAdapter.submit();
                 UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
                 int user =  PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
-
                 UploadResultsManager.getSingleton(this).uploadResult(user, examListData.getId(), 10000);
                 EventBus.getDefault().post(user);
                 ToastUtil.showToast(this, "score:" + score);
@@ -199,7 +198,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 //                });
 
                 break;
-
             default:
                 break;
         }
@@ -288,7 +286,6 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void showDone(String message) {
-
     }
 
     @Override
