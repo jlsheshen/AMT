@@ -143,7 +143,7 @@ public class SubjectImageLoader {
         allUrl = s;
         for (String url : allUrl) {
             Log.d("查看图片log11111", url);
-            preDownloadPic(NetUrlContstant.background + url);
+            preDownloadPic(url);
         }
     }
 

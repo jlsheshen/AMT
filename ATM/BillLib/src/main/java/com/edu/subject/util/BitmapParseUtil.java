@@ -139,11 +139,11 @@ public class BitmapParseUtil {
     public static boolean saveBitmap(Context context, String uri, Bitmap bm) {
         Log.d(TAG, NetUrlContstant.background + uri);
         CACHE.put(uri, new SoftReference<Bitmap>(bm));
-        String[] s = uri.split("background/");
+        //String[] s = uri.split("background/");
         boolean success = true;
         try {
-            //File file = new File(getCacheDir(context) + uri.hashCode());
-            File file = new File(getCacheDir(context) + s[1]);
+            File file = new File(getCacheDir(context) + uri.hashCode());
+//            File file = new File(getCacheDir(context) + uri);
             FileUtil.createFile(file);
             FileOutputStream fOut = null;
             fOut = new FileOutputStream(file);
@@ -171,9 +171,9 @@ public class BitmapParseUtil {
             exist = true;
         } else {
             if (URLUtil.isNetworkUrl(uri)) {
-                String[] s = uri.split("background/");
-//                File file = new File(getCacheDir(context) + uri.hashCode());
-                File file = new File(getCacheDir(context) + s[1]);
+//                String[] s = uri.split("background/");
+                File file = new File(getCacheDir(context) + uri.hashCode());
+//                File file = new File(getCacheDir(context) + s[1]);
                 if (file.exists()) {
                     Log.v(TAG, "disk cache found:" + uri);
                     exist = true;

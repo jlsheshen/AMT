@@ -82,7 +82,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     }
 
-    private List<BillTemplateListBean>  getTemplates() {
+    private List<BillTemplateListBean> getTemplates() {
         List<BillTemplateListBean> datas = null;
         Cursor curs = null;
         try {
@@ -105,8 +105,9 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (curs !=null)
-            { curs.close();}
+            if (curs != null) {
+                curs.close();
+            }
         }
         return datas;
     }
@@ -155,10 +156,9 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(ID, billTemplate.getId());
             contentValues.put(TIME, billTemplate.getTimeStamp());
             contentValues.put(NAME, billTemplate.getName());
-            String[] s = billTemplate.getBitmap().split("background/");
-            Log.d("billTemplate", "s:" + s[1]);
-            urls.add(s[1]);
-            contentValues.put(BACKGROUND, s[1]);
+            String s = billTemplate.getBitmap();
+            urls.add(s);
+            contentValues.put(BACKGROUND, s);
             contentValues.put(FLAG, billTemplate.getFlag());
             contentValues.put(REMARK, billTemplate.getRemark());
             updateTemplateInfo(contentValues, billTemplate);
@@ -169,7 +169,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     public void updateTemplateInfo(ContentValues values, TemplateData billTemplate) {
         Cursor curs = null;
-        String sql = "SELECT * FROM "+TB_NAME+" WHERE ID = " + values.get(ID);
+        String sql = "SELECT * FROM " + TB_NAME + " WHERE ID = " + values.get(ID);
 
         try {
             DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);

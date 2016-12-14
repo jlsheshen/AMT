@@ -43,8 +43,8 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         strStem1 = context.getResources().getStringArray(R.array.question1);
         strStem2 = context.getResources().getStringArray(R.array.question2);
 
-        layout1.removeAllViews();
-        layout2.removeAllViews();
+//        layout1.removeAllViews();
+//        layout2.removeAllViews();
         AddAndSubTestView addAndSubTestView = null;
         for (int i = 1; i < strStem1.length; i++) {
             addAndSubTestView = new AddAndSubTestView(context, 20, strStem1[i]);
