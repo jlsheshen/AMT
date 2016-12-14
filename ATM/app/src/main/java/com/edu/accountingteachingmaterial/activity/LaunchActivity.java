@@ -113,13 +113,13 @@ public class LaunchActivity extends BaseActivity {
 
 
                     startActivity(StartStudyActivity.class, bundle);
+
                 if (!isShow) {
                     finish();
                 }
             }
         }.start();
-		uploadHomepageInfo();
-
+        uploadHomepageInfo();
 
 
     }
@@ -129,8 +129,8 @@ public class LaunchActivity extends BaseActivity {
      */
     private void uploadHomepageInfo() {
         UserData user = UserCenterHelper.getUserInfo(this);
-		user.setUserId(35605);
-        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID,35605);
+        user.setUserId(35605);
+        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID, 35605);
         Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
 
         String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);

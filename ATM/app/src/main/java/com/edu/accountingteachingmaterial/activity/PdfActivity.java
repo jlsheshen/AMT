@@ -3,10 +3,10 @@ package com.edu.accountingteachingmaterial.activity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
-import com.edu.NetUrlContstant;
 import com.edu.library.util.SdcardPathUtil;
 import com.edu.library.util.ToastUtil;
 import com.github.barteksc.pdfviewer.PDFView;
@@ -27,6 +27,7 @@ public class PdfActivity extends BaseActivity {
     private FinalHttp fHttp = new FinalHttp();
     private HttpHandler<File> mHandler;
     private String mUrl = NetUrlContstant.BASE_URL + "interface/filedown/down/";
+    //private String mUrl = NetUrlContstant.mediaorPdfUrl;
 
     @Override
     public int setLayout() {
@@ -48,10 +49,10 @@ public class PdfActivity extends BaseActivity {
 
     private void show() {
         String url = "/sdcard/EduResources/AccCourse/pdf/" + exampleBeans.getUrl();
+        //String url = UriConstant.PDF_PATH + exampleBeans.getUrl();
         File file = new File(url);
         pdfView.fromFile(file)
                 // pdfView.fromAsset(String)
-
                 //.pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
                 .enableSwipe(true)
                 .swipeHorizontal(false)
@@ -69,6 +70,7 @@ public class PdfActivity extends BaseActivity {
     public void start() {
         String downUrl = mUrl + exampleBeans.getUrl();
         String path = SdcardPathUtil.getExternalSdCardPath() + "/EduResources/AccCourse/pdf/";
+        //String path = UriConstant.PDF_PATH;
         String[] tmp = downUrl.split("/");
         String target = path + tmp[tmp.length - 1];
         checkPath(path);
@@ -93,9 +95,9 @@ public class PdfActivity extends BaseActivity {
                 Log.e("", "failure:" + strMsg + ",errorNo:" + errorNo);
                 if (errorNo == 0) {
                 } else if (errorNo == 416) {
-                    ToastUtil.showToast(PdfActivity.this , "文件已存在");
+                    ToastUtil.showToast(PdfActivity.this, "文件已存在");
                 } else {
-                    ToastUtil.showToast(PdfActivity.this , "下载失败：" + strMsg);
+                    ToastUtil.showToast(PdfActivity.this, "下载失败：" + strMsg);
                 }
 
             }

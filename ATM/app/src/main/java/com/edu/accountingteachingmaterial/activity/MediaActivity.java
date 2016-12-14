@@ -29,8 +29,10 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
     SeekBar seekBar;
     MediaController mController;
     private boolean isPlaying;
-    //    private ClassicCase classicCase;
+    // private ClassicCase classicCase;
     private String url = NetUrlContstant.BASE_URL + "interface/filedown/down/";
+    //视频播放地址
+    //private String url = NetUrlContstant.mediaorPdfUrl;
     ExampleBean exampleBeans;
 
     @Override
@@ -40,7 +42,6 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
 
     @Override
     public void initView(Bundle savedInstanceState) {
-//        upload();
         Bundle bundle = getIntent().getExtras();
         exampleBeans = (ExampleBean) bundle.getSerializable("exampleBeans");
         String mUrl = url + exampleBeans.getUrl();
@@ -221,29 +222,4 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
         return new MediaAtyPresenter();
     }
 
-//
-//    /**
-//     * 根据用户id请求用户数据
-//     */
-//    private void upload() {
-//        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-//        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.classicCaseUrl + "291-2");
-//        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
-//        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-//            @Override
-//            public void onSuccess(JSONObject jsonObject) {
-//                if (jsonObject.getString("success").equals("true")) {
-//                    List<ClassicCase> hData = JSON.parseArray(jsonObject.getString("message"), ClassicCase.class);
-//                    classicCase = hData.get(0);
-//                    Log.d(TAG, "classicCase" + "2016lkkkkkkkkkk");
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(String errorInfo) {
-//                Log.d("LaunchActivity", errorInfo);
-//
-//            }
-//        });
-//    }
 }

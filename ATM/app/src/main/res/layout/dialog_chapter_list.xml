@@ -21,5 +21,6 @@
         android:childDivider="@color/colorBlueBar"
         android:divider="@color/colorWhite"
         android:dividerHeight="1dp"
+        android:scrollbars="none"
         android:groupIndicator="@null"></ExpandableListView>
 </LinearLayout>

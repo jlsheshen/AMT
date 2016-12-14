@@ -33,7 +33,7 @@ public class NetUrlContstant {
     //{topicId}-{paperId}
     //获取在线考试列表
     public static final String getExamInfoUrl = BASE_URL + "interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
-   //拉取历史信息
+    //拉取历史信息
     public static final String findHisUrl = BASE_URL + "interface/exam/findUserStudyHistoryByUserId/";
     //{userId}
     //上传历史信息
@@ -42,7 +42,7 @@ public class NetUrlContstant {
     public static final String localTemplates = BASE_URL + "interface/exam/findBillTemplatesByIds";
     //图片url前缀
     public static final String background = BASE_URL + ":80/resources/files/background/";
-
-
+    //视频播放地址、pdf下载地址
+    public static final String mediaorPdfUrl = BASE_URL + "interface/filedown/down/";
 
 }

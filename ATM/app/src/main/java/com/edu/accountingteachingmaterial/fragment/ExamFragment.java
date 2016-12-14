@@ -61,7 +61,6 @@ public class ExamFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-
 //        uploadExamList();
         loadData();
         examAdapter = new ExamAdapter(context);
@@ -83,7 +82,7 @@ public class ExamFragment extends BaseFragment {
                 } else {
 
                     Bundle b = new Bundle();
-                    b.putInt("examId", 1179);
+                    b.putInt("examId", datas.get(i).getExam_id());
                     startActivity(UnitTestActivity.class, b);
                 }
             }
@@ -121,7 +120,7 @@ public class ExamFragment extends BaseFragment {
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     onLineExamData = JSONObject.parseObject(jsonObject.getString("message"), OnLineExamData.class);
-                datas = onLineExamData.getList();
+                    datas = onLineExamData.getList();
                     ToastUtil.showToast(context, "" + onLineExamData.getList().get(0).getExam_name());
                     Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
                     for (OnLineExamListData data : datas) {
