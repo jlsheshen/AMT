@@ -122,6 +122,9 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         mSubjectAdapter.setTestMode(textMode);
 
         viewPager.setAdapter(mSubjectAdapter);
+
+        mSubjectAdapter.reset();
+
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
 
         if (textMode == ClassContstant.TEST_MODE_NORMAL) {
