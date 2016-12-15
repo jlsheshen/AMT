@@ -38,9 +38,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     List<ClassChapterData> datas;
     ClassChapterExLvAdapter chapterExLvAdapter;
     PopupWindow popupWindow;
-    NoScrollListView todayLv,yesterdayLv,agoLv;
-    TextView todayTv,yesterdayTv,agoTv;
-
+    NoScrollListView todayLv, yesterdayLv, agoLv;
+    TextView todayTv, yesterdayTv, agoTv;
+    boolean ppwShowing = false;
 
 
     @Override
@@ -146,42 +146,41 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         });
     }
 
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_study_history_iv:
 
-                if (popupWindow.isShowing()) {
-//                    popupWindow.dismiss();
+                if (ppwShowing) {
+                    popupWindow.dismiss();
+                    ppwShowing = false;
                 } else {
-                    popupWindow.showAsDropDown(imgHistory,50,50);
+                    popupWindow.showAsDropDown(imgHistory, 50, 50);
+                    ppwShowing = true;
 //                     expandableListView.setEnabled(false);
 //                    expandableListView.setAlpha(0.5f);
                 }
                 break;
         }
     }
+
     private void showPopupWindow(View view) {
 
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(context).inflate(
                 R.layout.ppw_history, null);
-         loadHistoryDatas();
-
-
-
+        loadHistoryDatas();
 
 
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.alpha = bgAlpha; //0.0-1.0
 //        getWindow().setAttributes(lp);
 //         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT,view.getLayoutParams().height);
+        popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, view.getLayoutParams().height);
 
         popupWindow.setContentView(contentView);
         popupWindow.setTouchable(true);
-         popupWindow.setOutsideTouchable(true);
+        popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_ppw));
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
@@ -199,29 +198,29 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     private void loadHistoryDatas() {
 
-            Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
+        Log.d("LaunchActivity", NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
 
-            SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-            NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
-            sendJsonNetReqManager.sendRequest(netSendCodeEntity);
-            sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-                @Override
-                public void onSuccess(JSONObject jsonObject) {
-                    if (jsonObject.getString("success").equals("true")) {
-                        List<HistoryListData> hData = JSON.parseArray(jsonObject.getString("message"), HistoryListData.class);
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    List<HistoryListData> hData = JSON.parseArray(jsonObject.getString("message"), HistoryListData.class);
+                    Log.d("LaunchActivity", "线程启动获取成功");
 
-                        Log.d("LaunchActivity", "线程启动获取成功");
-
-                    }
-                }
-
-                @Override
-                public void onFailure(String errorInfo) {
-                    Log.d("LaunchActivity", "线程启动获取失败");
 
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("LaunchActivity", "线程启动获取失败");
+
+            }
+        });
+    }
 
 }
 

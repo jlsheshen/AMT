@@ -17,6 +17,7 @@ import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
+import com.edu.accountingteachingmaterial.util.GetBillTemplatesManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
@@ -49,6 +50,8 @@ public class StartStudyActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        GetBillTemplatesManager.newInstance(StartStudyActivity.this).sendLocalTemplates();
+
         EventBus.getDefault().register(this);
         numEt = bindView(R.id.startstudy_num_et);
         bgIv = bindView(R.id.startstudy_bg_iv);

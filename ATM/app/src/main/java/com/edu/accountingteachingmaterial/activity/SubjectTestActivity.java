@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.activity;
 
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -8,12 +9,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
@@ -108,6 +111,17 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         Bundle bundle = getIntent().getExtras();
         examListData = (ExamListData) bundle.get("ExamListData");
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
+        if (datas == null || datas.size() == 0){
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(ExamListDao.ID, examListData.getId());
+            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
+            contentValues.put(ExamListDao.TYPE, examListData.getExam_type());
+            contentValues.put(ExamListDao.CHAPTER_ID, examListData.getChapter_id());
+            ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()),contentValues);
+            Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);

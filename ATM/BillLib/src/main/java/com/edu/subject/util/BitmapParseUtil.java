@@ -210,7 +210,7 @@ public class BitmapParseUtil {
      * @return
      */
     private static String getCacheDir(Context context) {
-//		return Environment.getExternalStorageDirectory().getPath() + "/Android/data/" + context.getPackageName() + "/cache/pic/";
-        return Environment.getExternalStorageDirectory().getPath() + "/EduResources/AccCourse/pic/";
+		return Environment.getExternalStorageDirectory().getPath() + "/Android/data/" + context.getPackageName() + "/cache/pic/";
+//        return Environment.getExternalStorageDirectory().getPath() + "/EduResources/AccCourse/pic/";
     }
 }

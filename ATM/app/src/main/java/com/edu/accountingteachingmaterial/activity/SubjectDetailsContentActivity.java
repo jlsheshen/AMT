@@ -119,6 +119,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 		btnReturn= (ImageView) findViewById(R.id.btnDone);
 		backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 		btnReturn.setImageResource(R.mipmap.icon_congzuo_n);
+		btnReturn.setVisibility(View.GONE);
 		Bundle bundle = getIntent().getExtras();
 		ExamListData data = (ExamListData) bundle.get("ExamListData");
 

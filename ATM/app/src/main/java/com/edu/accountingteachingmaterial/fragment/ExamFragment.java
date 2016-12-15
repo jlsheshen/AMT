@@ -98,7 +98,6 @@ public class ExamFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
-        Log.d("ClassExerciseFragment", "走过了EventBus");
 
         if (datas != null) {
             datas.get(item).setState(state);
