@@ -106,8 +106,8 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 
         Bundle bundle = getIntent().getExtras();
-        examListData = (ExamListData) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
+//        examListData = (ExamListData) bundle.get("ExamListData");
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);

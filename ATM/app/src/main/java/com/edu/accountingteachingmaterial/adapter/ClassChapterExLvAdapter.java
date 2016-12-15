@@ -30,21 +30,21 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public int getGroupCount() {
-	
+
 		return	datas == null?0:datas.size();
 	}
 
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		
-		
+
+
 		// TODO Auto-generated method stub
 		return datas.get(groupPosition).getSubChapters() == null? 0 : datas.get(groupPosition).getSubChapters().size();
 	}
 
 	@Override
 	public Object getGroup(int groupPosition) {
-		
+
 		// TODO Auto-generated method stub
 		return datas.get(groupPosition).getTitle();
 	}
@@ -75,7 +75,7 @@ public class ClassChapterExLvAdapter extends BaseExpandableListAdapter {
 
 	@Override
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
-		
+
 		convertView = LayoutInflater.from(context).inflate(R.layout.item_main_classchapter_exlv, parent,false);
 		AutoUtils.autoSize(convertView);
 		TextView titlyTv = (TextView) convertView.findViewById(R.id.item_classchapter_tv);

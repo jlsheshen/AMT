@@ -102,13 +102,13 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         btnDone = (ImageView) findViewById(R.id.btnFlash);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         Bundle bundle = getIntent().getExtras();
-         examListData = (ExamListData) bundle.get("ExamListData");
-        int item = bundle.getInt("ExamListDataItem",0);
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData .getId());
+//         examListData = (ExamListData) bundle.get("ExamListData");
+//        int item = bundle.getInt("ExamListDataItem",0);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1);
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
         viewPager.setAdapter(mSubjectAdapter);
-        viewPager.setCurrentItem(item);
+        viewPager.setCurrentItem(0);
 
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
         mCardDialog.showRedo();

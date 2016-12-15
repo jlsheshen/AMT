@@ -76,11 +76,11 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     @Override
     public void initData() {
 
-        Bundle bundle = getIntent().getExtras();
-        examId = bundle.getInt("examId");
-        uploadTestInfo();
-        refreshState();
-
+//        Bundle bundle = getIntent().getExtras();
+//        examId = bundle.getInt("examId");
+//        uploadTestInfo();
+//        refreshState();
+        rView();
     }
 
 
@@ -101,7 +101,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_start:
                 //ExamListData考试数据（测试）
                 Bundle bundle = new Bundle();
-                bundle.putInt("examId", examId);
+                bundle.putInt("examId", 1);
                 bundle.putInt("textMode", textMode);
                 startActivity(SubjectExamActivity.class, bundle);
                 break;
@@ -211,5 +211,28 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     protected void onResume() {
         super.onResume();
         refreshState();
+    }
+
+    private void rView() {
+        imgShow.setBackgroundResource(R.mipmap.weitijao);
+        rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
+        rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
+        rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
+        //开始比赛
+        btnStart.setBackgroundResource(R.drawable.selector_start);
+        textMode = ClassContstant.TEST_MODE_NORMAL;
+        testTitle.setText("会计立体化教材");
+        tvPublisher.setText("赵铁柱");
+        tvReleaseTime.setText("2016-11-11 10:30");
+        tvStartTime.setText("2016-11-11 10:30");
+        tvEndTime.setText("2016-12-11 10:30");
+        tvChallengeTime.setText("60分钟");
+        tvSingle.setText("10道");
+        tvMultiple.setText("10道");
+        tvJudge.setText("10道");
+        tvFillIn.setText("10道");
+        tvShort.setText("10道");
+        tvComprehensive.setText("10道");
+        tvTotal.setText("60道");
     }
 }

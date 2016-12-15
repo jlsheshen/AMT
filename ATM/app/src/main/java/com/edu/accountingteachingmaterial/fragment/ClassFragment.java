@@ -23,6 +23,7 @@ import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.HistoryListData;
+import com.edu.accountingteachingmaterial.entity.SubChaptersBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
@@ -30,6 +31,7 @@ import com.edu.accountingteachingmaterial.view.NoScrollListView;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClassFragment extends BaseFragment implements View.OnClickListener {
@@ -38,9 +40,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     List<ClassChapterData> datas;
     ClassChapterExLvAdapter chapterExLvAdapter;
     PopupWindow popupWindow;
-    NoScrollListView todayLv,yesterdayLv,agoLv;
-    TextView todayTv,yesterdayTv,agoTv;
-
+    NoScrollListView todayLv, yesterdayLv, agoLv;
+    TextView todayTv, yesterdayTv, agoTv;
 
 
     @Override
@@ -70,9 +71,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     @Override
     protected void initData() {
 
-//		loadData();
+        loadData();
         chapterExLvAdapter = new ClassChapterExLvAdapter(context);
-        uploadChapter();
+//        uploadChapter();
+        chapterExLvAdapter.setDatas(datas);
         expandableListView.setAdapter(chapterExLvAdapter);
 
         expandableListView.setOnChildClickListener(new OnChildClickListener() {
@@ -101,29 +103,26 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         showPopupWindow(expandableListView);
     }
 
-    //	private void loadData() {
-//		uploadChapter();
-//		datas = new ArrayList<>();
-//		for (int i = 0; i < 10; i++) {
-//			ClassChapterBean chapterBean = new ClassChapterBean();
-//			List<NodeBean> nodes = new ArrayList<>();
-//			chapterBean.setChapterId(i);
-//			chapterBean.setChapterNum("第" + i + "章");
-//			chapterBean.setTitle("章节标题" + i);
-//			for (int j = 0; j < 10; j++) {
-//				NodeBean node = new NodeBean();
-//				node.setNodeNum("第" + j + "节");
-//				node.setNodeId(i + "--" + j);
-//				node.setTitle("小节编号" + node.getNodeId());
-//				nodes.add(node);
-//
-//			}
-//			chapterBean.setNodes(nodes);
-//			datas.add(chapterBean);
-//
-//		}
-//
-//	}
+    private void loadData() {
+        datas = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            ClassChapterData chapterBean = new ClassChapterData();
+            List<SubChaptersBean> nodes = new ArrayList<>();
+            chapterBean.setTitle("会计立体化" + i);
+            for (int j = 1; j < 10; j++) {
+                SubChaptersBean node = new SubChaptersBean();
+                node.setTitle("基础知识" + j);
+                nodes.add(node);
+
+            }
+            chapterBean.setSubChapters(nodes);
+            datas.add(chapterBean);
+
+        }
+
+    }
+
+
     private void uploadChapter() {
         int courseId = PreferenceHelper.getInstance(context).getIntValue(PreferenceHelper.COURSE_ID);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
@@ -133,9 +132,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
-                    datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
+//                    datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
                     Log.d("UnitTestActivity", "uploadChapter" + "success" + datas);
-                    chapterExLvAdapter.setDatas(datas);
+//                    chapterExLvAdapter.setDatas(datas);
                 }
             }
 
@@ -155,33 +154,31 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 if (popupWindow.isShowing()) {
 //                    popupWindow.dismiss();
                 } else {
-                    popupWindow.showAsDropDown(imgHistory,50,50);
+                    popupWindow.showAsDropDown(imgHistory, 50, 50);
 //                     expandableListView.setEnabled(false);
 //                    expandableListView.setAlpha(0.5f);
                 }
                 break;
         }
     }
+
     private void showPopupWindow(View view) {
 
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(context).inflate(
                 R.layout.ppw_history, null);
-         loadHistoryDatas();
-
-
-
+        loadHistoryDatas();
 
 
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.alpha = bgAlpha; //0.0-1.0
 //        getWindow().setAttributes(lp);
 //         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT,view.getLayoutParams().height);
+        popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, view.getLayoutParams().height);
 
         popupWindow.setContentView(contentView);
         popupWindow.setTouchable(true);
-         popupWindow.setOutsideTouchable(true);
+        popupWindow.setOutsideTouchable(true);
         popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_ppw));
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
@@ -199,29 +196,29 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     private void loadHistoryDatas() {
 
-            Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
+        Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
 
-            SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-            NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
-            sendJsonNetReqManager.sendRequest(netSendCodeEntity);
-            sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-                @Override
-                public void onSuccess(JSONObject jsonObject) {
-                    if (jsonObject.getString("success").equals("true")) {
-                        List<HistoryListData> hData = JSON.parseArray(jsonObject.getString("message"), HistoryListData.class);
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    List<HistoryListData> hData = JSON.parseArray(jsonObject.getString("message"), HistoryListData.class);
 
-                        Log.d("LaunchActivity", "线程启动获取成功");
-
-                    }
-                }
-
-                @Override
-                public void onFailure(String errorInfo) {
-                    Log.d("LaunchActivity", "线程启动获取失败");
+                    Log.d("LaunchActivity", "线程启动获取成功");
 
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("LaunchActivity", "线程启动获取失败");
+
+            }
+        });
+    }
 
 }
 

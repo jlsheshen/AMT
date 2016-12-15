@@ -11,11 +11,10 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
-import com.edu.accountingteachingmaterial.entity.ClassChapterData;
+import com.edu.accountingteachingmaterial.entity.SubChaptersBean;
 import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
-import com.edu.accountingteachingmaterial.fragment.ClassReviewFragment;
 import com.edu.accountingteachingmaterial.view.ChapterPopupWindow;
 import com.edu.library.util.ToastUtil;
 
@@ -26,7 +25,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     Fragment classEmphasisFragment, classExampleFragment, classExerciseFragment, classReviewFragment;
     ImageView backIv, imgZhangjie, imgReviewHy;
     TextView textView;
-    ClassChapterData.SubChaptersBean data;
+    SubChaptersBean data;
     View vLine;
 
     @Override
@@ -57,7 +56,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         }
         replaceFragment(classEmphasisFragment);
         Bundle bundle = getIntent().getExtras();
-        data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
+        data = (SubChaptersBean) bundle.getSerializable("classData");
         if (data != null) {
             textView.setText(data.getTitle());
         }
@@ -90,7 +89,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
             case R.id.class_example_iv:
                 if (null == classExampleFragment) {
                     classExampleFragment = new ClassExampleFragment();
-                    ((ClassExampleFragment) classExampleFragment).setData(data);
+//                    ((ClassExampleFragment) classExampleFragment).setData(data);
                 }
                 replaceFragment(classExampleFragment);
                 imgReviewHy.setVisibility(View.GONE);
@@ -98,17 +97,17 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
             case R.id.class_exercise_iv:
                 if (null == classExerciseFragment) {
                     classExerciseFragment = new ClassExerciseFragment();
-                    ((ClassExerciseFragment) classExerciseFragment).setData(data);
+//                    ((ClassExerciseFragment) classExerciseFragment).setData(data);
                 }
                 replaceFragment(classExerciseFragment);
                 imgReviewHy.setVisibility(View.GONE);
                 break;
             case R.id.class_review_iv:
-                if (null == classReviewFragment) {
-                    classReviewFragment = new ClassReviewFragment();
-                }
-                replaceFragment(classReviewFragment);
-                imgReviewHy.setVisibility(View.VISIBLE);
+//                if (null == classReviewFragment) {
+//                    classReviewFragment = new ClassReviewFragment();
+//                }
+//                replaceFragment(classReviewFragment);
+//                imgReviewHy.setVisibility(View.VISIBLE);
                 break;
             case R.id.class_aty_back_iv:
                 finish();

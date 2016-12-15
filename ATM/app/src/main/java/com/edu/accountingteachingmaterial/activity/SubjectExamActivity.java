@@ -113,7 +113,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         examId = bundle.getInt("examId");
         textMode = bundle.getInt("textMode");
 
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);

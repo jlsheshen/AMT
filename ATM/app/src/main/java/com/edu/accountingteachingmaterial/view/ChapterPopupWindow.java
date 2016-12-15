@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +11,13 @@ import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.PopupWindow;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
 import com.edu.accountingteachingmaterial.adapter.ClassChapterDialogAdapter;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
-import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
-import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
-import com.edu.library.util.ToastUtil;
-import com.lucher.net.req.RequestMethod;
+import com.edu.accountingteachingmaterial.entity.SubChaptersBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -42,6 +35,7 @@ public class ChapterPopupWindow extends PopupWindow {
     public ChapterPopupWindow(final Activity context) {
         super(context);
         this.mContext = context;
+        loadData();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         conentView = inflater.inflate(R.layout.dialog_chapter_list, null);
         // 设置SPopupWindow的View
@@ -65,7 +59,8 @@ public class ChapterPopupWindow extends PopupWindow {
         //this.setAnimationStyle(R.style.AnimationPreview);
         expandableListView = (ExpandableListView) conentView.findViewById(R.id.class_classchapter_exlv);
         chapterExLvAdapter = new ClassChapterDialogAdapter(mContext);
-        uploadChapter();
+//        uploadChapter();
+        chapterExLvAdapter.setDatas(datas);
         expandableListView.setAdapter(chapterExLvAdapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -120,29 +115,48 @@ public class ChapterPopupWindow extends PopupWindow {
         }
     }
 
-    private void uploadChapter() {
-        int courseId = PreferenceHelper.getInstance(mContext).getIntValue(PreferenceHelper.COURSE_ID);
-        Log.d("ChapterPopupWindow", "courseId" + "courseId" + courseId);
-        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+    //    private void uploadChapter() {
+//        int courseId = PreferenceHelper.getInstance(mContext).getIntValue(PreferenceHelper.COURSE_ID);
+//        Log.d("ChapterPopupWindow", "courseId" + "courseId" + courseId);
+//        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+//
+//        NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, NetUrlContstant.chapterUrl + courseId);
+//        sendJsonNetReqManager.sendRequest(entity);
+//        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+//            @Override
+//            public void onSuccess(JSONObject jsonObject) {
+//                if (jsonObject.getString("success").equals("true")) {
+//                    datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
+//                    Log.d("ChapterPopupWindow", "uploadChapter" + "success" + datas);
+//                    chapterExLvAdapter.setDatas(datas);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String errorInfo) {
+//                ToastUtil.showToast(mContext, errorInfo);
+//            }
+//        });
+//    }
+    private void loadData() {
+        datas = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            ClassChapterData chapterBean = new ClassChapterData();
+            List<SubChaptersBean> nodes = new ArrayList<>();
+            chapterBean.setTitle("第" + i + "章");
+            for (int j = 1; j < 10; j++) {
+                SubChaptersBean node = new SubChaptersBean();
+                node.setTitle("第" + j + "节");
+                nodes.add(node);
 
-        NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, NetUrlContstant.chapterUrl + courseId);
-        sendJsonNetReqManager.sendRequest(entity);
-        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-                if (jsonObject.getString("success").equals("true")) {
-                    datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
-                    Log.d("ChapterPopupWindow", "uploadChapter" + "success" + datas);
-                    chapterExLvAdapter.setDatas(datas);
-                }
             }
+            chapterBean.setSubChapters(nodes);
+            datas.add(chapterBean);
 
-            @Override
-            public void onFailure(String errorInfo) {
-                ToastUtil.showToast(mContext, errorInfo);
-            }
-        });
+        }
+
     }
+
 
     /**
      * 设置添加屏幕的背景透明度
