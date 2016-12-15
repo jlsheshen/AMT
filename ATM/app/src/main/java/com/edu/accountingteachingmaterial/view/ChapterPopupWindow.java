@@ -143,10 +143,10 @@ public class ChapterPopupWindow extends PopupWindow {
         for (int i = 1; i < 10; i++) {
             ClassChapterData chapterBean = new ClassChapterData();
             List<SubChaptersBean> nodes = new ArrayList<>();
-            chapterBean.setTitle("第" + i + "章");
+            chapterBean.setTitle("会计立体化" + i);
             for (int j = 1; j < 10; j++) {
                 SubChaptersBean node = new SubChaptersBean();
-                node.setTitle("第" + j + "节");
+                node.setTitle("基础知识" + j);
                 nodes.add(node);
 
             }
@@ -154,9 +154,7 @@ public class ChapterPopupWindow extends PopupWindow {
             datas.add(chapterBean);
 
         }
-
     }
-
 
     /**
      * 设置添加屏幕的背景透明度

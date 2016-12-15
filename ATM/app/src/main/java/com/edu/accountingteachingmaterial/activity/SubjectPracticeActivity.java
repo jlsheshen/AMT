@@ -104,7 +104,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         Bundle bundle = getIntent().getExtras();
 //         examListData = (ExamListData) bundle.get("ExamListData");
 //        int item = bundle.getInt("ExamListDataItem",0);
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1179);
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
         viewPager.setAdapter(mSubjectAdapter);
@@ -167,7 +167,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
                 handleDoneClicked();
                 UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
                 UserData user = UserCenterHelper.getUserInfo(this);
-                UploadResultsManager.getSingleton(this).uploadResult(PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID), examListData.getId());
+                UploadResultsManager.getSingleton(this).uploadResult(PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID), 1179);
 
                 break;
 

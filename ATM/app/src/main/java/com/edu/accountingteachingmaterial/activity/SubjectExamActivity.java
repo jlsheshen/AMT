@@ -113,7 +113,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         examId = bundle.getInt("examId");
         textMode = bundle.getInt("textMode");
 
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1179);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
@@ -223,7 +223,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         float score = mSubjectAdapter.submit();
         UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
         int userId = PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
-        UploadResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
+        UploadResultsManager.getSingleton(this).uploadResult(userId, 1179, 10000);
         EventBus.getDefault().post(userId);
         ToastUtil.showToast(this, "score:" + score);
         finish();

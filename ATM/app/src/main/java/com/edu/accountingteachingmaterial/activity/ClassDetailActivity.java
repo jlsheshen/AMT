@@ -39,7 +39,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         bindAndListener(classEmphasisButton, R.id.class_emphasis_iv);
         bindAndListener(classExampleButton, R.id.class_example_iv);
         bindAndListener(classExerciseButton, R.id.class_exercise_iv);
-        bindAndListener(classReviewButton, R.id.class_review_iv);
+        //bindAndListener(classReviewButton, R.id.class_review_iv);
         bindAndListener(backIv, R.id.class_aty_back_iv);
         bindAndListener(imgZhangjie, R.id.class_aty_zhangjie_iv);
         bindAndListener(imgReviewHy, R.id.class_review_hy);
