@@ -25,6 +25,16 @@ import java.util.List;
  * 
  */
 public class TemplateDataDao {
+	private static final String CONTENT = "CONTENT";
+	private static final String TEMPLATE_ID = "TEMPLATE_ID";
+	private static final String TYPE = "TYPE";
+	private static final String X = "X";
+	private static final String Y = "Y";
+	private static final String WIDTH = "WIDTH";
+	private static final String HEIGHT = "HEIGHT";
+	private static final String SCORE = "SCORE";
+	private static final String ID = "ID";
+	private static final String REMARK = "REMARK";
 
 	private static final String TAG = "BillTestDataDao";
 
@@ -116,14 +126,14 @@ public class TemplateDataDao {
 	 * @param curs
 	 */
 	private void initElement(BaseElementInfo element, Cursor curs) {
-		element.setId(curs.getInt(5));
-		element.setType(curs.getInt(7));
-		element.setX(curs.getInt(8));
-		element.setY(curs.getInt(9));
-		element.setWidth(curs.getInt(10));
-		element.setHeight(curs.getInt(11));
-		element.setScore(curs.getFloat(13));
-		element.setRemark(curs.getString(14));
+		element.setId(curs.getInt(curs.getColumnIndex(ID)));
+		element.setType(curs.getInt(curs.getColumnIndex(TYPE)));
+		element.setX(curs.getInt(curs.getColumnIndex(X)));
+		element.setY(curs.getInt(curs.getColumnIndex(Y)));
+		element.setWidth(curs.getInt(curs.getColumnIndex(WIDTH)));
+		element.setHeight(curs.getInt(curs.getColumnIndex(HEIGHT)));
+		element.setScore(curs.getFloat(curs.getColumnIndex(SCORE)));
+		element.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
 	}
 
 	/**

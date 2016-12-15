@@ -77,9 +77,10 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     public void sendLocalTemplates() {
         List<BillTemplateListBean> datas = getTemplates();
         String url = NetUrlContstant.localTemplates;
+        Log.d("GetBillTemplatesManager", url);
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity);
-        Log.d(TAG, "uploadResult:" + JSON.toJSONString(datas));
+        Log.d("GetBillTemplatesManager", "uploadResult:" + JSON.toJSONString(datas));
 
     }
 
@@ -116,7 +117,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     @Override
     public void onConnectionSuccess(JSONObject json, Header[] arg1) {
-        Log.d(TAG, "onConnectionSuccess:" + json);
+        Log.d("GetBillTemplatesManager", "onConnectionSuccess:" + json);
 
         boolean result = json.getBoolean("result");
         String message = json.getString("message");
@@ -188,8 +189,8 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                 }
             }
         } finally {
-            if (curs != null) {
-                curs.close();
+            if (mDb != null) {
+                mDb.close();
             }
         }
     }
