@@ -10,7 +10,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
@@ -47,7 +46,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 	List<BaseTestData> datas;
 	private int mCurrentIndex;
 	private ImageView btnReturn,backIv;
-	private TextView tvBillQuestion;
+//	private TextView tvBillQuestion;
 
 	// 印章选择对话框
 	private SignChooseDialog signDialog;
@@ -97,10 +96,10 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 		// 刷新题目数据
 		//tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
 		if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
-			tvBillQuestion.setText(subject.getQuestion());
-			tvBillQuestion.setVisibility(View.VISIBLE);
+//			tvBillQuestion.setText(subject.getQuestion());
+//			tvBillQuestion.setVisibility(View.VISIBLE);
 		} else {
-			tvBillQuestion.setVisibility(View.GONE);
+//			tvBillQuestion.setVisibility(View.GONE);
 		}
 	}
 
@@ -115,7 +114,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 
 		viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
 		viewPager.setOnPageChangeListener(mPageChangeListener);
-		tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
+//		tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
 		btnReturn= (ImageView) findViewById(R.id.btnDone);
 		backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 		btnReturn.setImageResource(R.mipmap.icon_congzuo_n);

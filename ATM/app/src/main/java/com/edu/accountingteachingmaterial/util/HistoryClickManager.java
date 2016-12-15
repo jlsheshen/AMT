@@ -13,11 +13,11 @@ import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
 
+import org.apache.http.Header;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 
 /**
  * 历史记录点击类,用于上传历史记录,以后可能增加保存本地功能

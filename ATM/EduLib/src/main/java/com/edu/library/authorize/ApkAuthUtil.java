@@ -21,7 +21,8 @@ import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
 import com.lucher.net.util.NetworkUtil;
 
-import cz.msebera.android.httpclient.Header;
+import org.apache.http.Header;
+
 
 /**
  * apk授权工具

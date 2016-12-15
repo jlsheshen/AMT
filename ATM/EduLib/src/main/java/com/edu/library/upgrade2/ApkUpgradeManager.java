@@ -5,6 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import org.apache.http.Header;
+
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.library.usercenter.UserCenterHelper;
@@ -17,7 +19,6 @@ import com.lucher.net.req.impl.JsonReqEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 
 /**
  * apk版本升级管理类，如果检测到新版本，弹出对话框，然后可进行下载操作,下载完毕后弹出安装确认界面,用于http类型

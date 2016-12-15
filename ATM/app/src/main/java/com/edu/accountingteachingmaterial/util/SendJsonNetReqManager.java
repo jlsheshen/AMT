@@ -3,7 +3,8 @@ package com.edu.accountingteachingmaterial.util;
 import com.alibaba.fastjson.JSONObject;
 import com.lucher.net.req.impl.JsonNetReqManager;
 
-import cz.msebera.android.httpclient.Header;
+import org.apache.http.Header;
+
 
 /**
  * SendJsonNetReqManager网络访问管理类

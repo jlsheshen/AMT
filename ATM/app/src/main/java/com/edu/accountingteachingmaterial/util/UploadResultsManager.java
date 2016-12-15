@@ -6,8 +6,8 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;
@@ -16,12 +16,12 @@ import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
 
+import org.apache.http.Header;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 
 /**
  * 发送答题结果到服务器管理类

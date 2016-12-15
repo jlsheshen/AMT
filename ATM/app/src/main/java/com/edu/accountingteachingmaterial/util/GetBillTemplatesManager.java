@@ -21,10 +21,11 @@ import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
 
+import org.apache.http.Header;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 
 /**
  * Created by Administrator on 2016/12/13.

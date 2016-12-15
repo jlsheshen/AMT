@@ -20,11 +20,11 @@ import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
 
+import org.apache.http.Header;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
 
 /**
  * 题目下载管理类
