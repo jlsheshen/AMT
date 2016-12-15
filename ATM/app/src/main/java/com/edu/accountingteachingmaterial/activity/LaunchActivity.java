@@ -10,11 +10,10 @@ import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
+import com.edu.accountingteachingmaterial.util.GetBillTemplatesManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
-import com.edu.library.usercenter.UserCenterHelper;
-import com.edu.library.usercenter.UserData;
 import com.edu.library.util.DBCopyUtil;
 import com.edu.subject.util.SoundPoolUtil;
 import com.edu.testbill.Constant;
@@ -88,6 +87,7 @@ public class LaunchActivity extends BaseActivity {
 //
 //
 //		}).start();
+        GetBillTemplatesManager.newInstance(LaunchActivity.this).sendLocalTemplates();
 
 //		// TODO Auto-generated method stub
         timer = new CountDownTimer(3000, 1000) {
@@ -103,15 +103,17 @@ public class LaunchActivity extends BaseActivity {
                 // 初始化声音播放工具，如果不初始化，盖章没声
                 SoundPoolUtil.getInstance().init(LaunchActivity.this);
 
+
             }
 
             @Override
             public void onFinish() {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("HomepageInformationData", data);
-
-
-                    startActivity(StartStudyActivity.class, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("HomepageInformationData", data);
+//
+//
+//                    startActivity(StartStudyActivity.class, bundle);
+                startActivity(StartStudyActivity.class);
 
                 if (!isShow) {
                     finish();
@@ -127,9 +129,10 @@ public class LaunchActivity extends BaseActivity {
      * 根据用户id请求用户数据
      */
     private void uploadHomepageInfo() {
-        UserData user = UserCenterHelper.getUserInfo(this);
-        user.setUserId(35605);
-        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID, 35605);
+//        UserData user = UserCenterHelper.getUserInfo(this);
+//        user.setUserId(35605);
+
+        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID, 201660001);
         Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
 
         String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
@@ -138,7 +141,6 @@ public class LaunchActivity extends BaseActivity {
         } else {
             NetUrlContstant.BASE_URL = s;
         }
-
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
@@ -150,21 +152,18 @@ public class LaunchActivity extends BaseActivity {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
                     data = hData.get(0);
                     Log.d("LaunchActivity", "线程启动获取成功");
-
+                    GetBillTemplatesManager.newInstance(LaunchActivity.this).sendLocalTemplates();
                     EventBus.getDefault().post(data);
                     if (!isShow) {
                         finish();
                     }
                     isShow = false;
-
-
                 }
             }
 
             @Override
             public void onFailure(String errorInfo) {
                 Log.d("LaunchActivity", "线程启动获取失败");
-
             }
         });
     }

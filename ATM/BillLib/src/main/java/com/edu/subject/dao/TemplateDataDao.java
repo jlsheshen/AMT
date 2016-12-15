@@ -35,6 +35,11 @@ public class TemplateDataDao {
 	private static final String SCORE = "SCORE";
 	private static final String ID = "ID";
 	private static final String REMARK = "REMARK";
+	private static final String NAME = "NAME";
+	private static final String BACKGROUND = "BACKGROUND";
+	private static final String FLAG = "FLAG";
+
+
 
 	private static final String TAG = "BillTestDataDao";
 
@@ -77,19 +82,19 @@ public class TemplateDataDao {
 			while (curs.moveToNext()) {
 				if (curs.isFirst()) {
 					template = new BillTemplate();
-					template.setId(curs.getInt(0));
-					template.setName(curs.getString(1));
-					template.setBitmap(curs.getString(2));
-					template.setFlag(curs.getInt(3));
+					template.setId(curs.getInt(curs.getColumnIndex(ID)));
+					template.setName(curs.getString(curs.getColumnIndex(NAME)));
+					template.setBitmap(curs.getString(curs.getColumnIndex(BACKGROUND)));
+					template.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
 				}
 				BaseElementInfo element;
-				int type = curs.getInt(7);
+				int type = curs.getInt(curs.getColumnIndex(TYPE));
 				switch (type) {
 				case ElementType.TYPE_SIGN:
 					element = new SignInfo();
 					initElement(element, curs);
 					((SignInfo) element).setUser(false);
-					((SignInfo) element).setBitmap(getSignBitmap(curs.getInt(12), db));
+					((SignInfo) element).setBitmap(getSignBitmap(curs.getColumnIndex(CONTENT), db));
 
 					break;
 				case ElementType.TYPE_FLASH:
@@ -102,7 +107,7 @@ public class TemplateDataDao {
 					element = new BlankInfo();
 					initElement(element, curs);
 					try {
-						((BlankInfo) element).setTextSize(curs.getInt(12));
+						((BlankInfo) element).setTextSize(curs.getInt(curs.getColumnIndex(CONTENT)));
 					} catch (Exception e) {
 						e.printStackTrace();
 						ToastUtil.showToast(mContext, "字体大小必须为整数：" + element);

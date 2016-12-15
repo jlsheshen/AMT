@@ -7,12 +7,12 @@
     android:focusableInTouchMode="true"
     >
 
-    <ProgressBar
-        android:id="@+id/startstudy_aty_pb"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        />
+    <!--<ProgressBar-->
+        <!--android:id="@+id/startstudy_aty_pb"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--/>-->
 
     <TextView
         android:id="@+id/startstudy_title_tv"
@@ -84,7 +84,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35px"
         android:src="@drawable/selector_startstudy"
-        android:visibility="gone"
         />
 
     <TextView

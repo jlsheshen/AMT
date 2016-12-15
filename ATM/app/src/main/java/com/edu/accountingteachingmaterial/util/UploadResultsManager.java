@@ -7,6 +7,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.library.util.ToastUtil;
@@ -36,6 +37,7 @@ public class UploadResultsManager extends JsonNetReqManager {
 	private List<AnswerResult> mAnswerResults;
 	private static UploadResultsManager mSingleton;
 	int examId;
+	SubjectViewPagerAdapter adapter;
 
 	private UploadResultsManager(Context context) {
 		mContext = context;
@@ -123,7 +125,8 @@ public class UploadResultsManager extends JsonNetReqManager {
 		boolean result = json.getBoolean("result");
 		String message = json.getString("message");
 		if (result) {
-			ToastUtil.showToast(mContext, "成绩上传成功");
+			float score = adapter.submit();
+			ToastUtil.showToast(mContext, "score:" + score);
 			ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
 			ExamListDao.getInstance(mContext).updateData("" + examId, contentValues);
@@ -144,4 +147,11 @@ public class UploadResultsManager extends JsonNetReqManager {
 		ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);
 	}
 
+	public SubjectViewPagerAdapter getAdapter() {
+		return adapter;
+	}
+
+	public void setAdapter(SubjectViewPagerAdapter adapter) {
+		this.adapter = adapter;
+	}
 }

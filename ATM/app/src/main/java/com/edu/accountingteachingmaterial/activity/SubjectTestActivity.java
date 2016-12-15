@@ -169,12 +169,13 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 break;
 
             case R.id.btnDone:
-                float score = mSubjectAdapter.submit();
+
                 UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+                UploadResultsManager.getSingleton(this).setAdapter(mSubjectAdapter);
                 int user =  PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
                 UploadResultsManager.getSingleton(this).uploadResult(user, examListData.getId(), 10000);
                 EventBus.getDefault().post(user);
-                ToastUtil.showToast(this, "score:" + score);
+
                 finish();
 
                 break;

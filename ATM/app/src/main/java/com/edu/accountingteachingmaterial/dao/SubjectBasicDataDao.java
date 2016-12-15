@@ -75,6 +75,10 @@ public class SubjectBasicDataDao extends BaseDataDao {
 			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
+		}finally {
+			if (curs != null){
+				curs.close();
+			}
 		}
 
 		return data;
@@ -94,7 +98,7 @@ public class SubjectBasicDataDao extends BaseDataDao {
 			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
 				String option = JSON.parseObject(subject.getOption()).getString("text");
 				String question = JSON.parseObject(subject.getQuestion()).getString("text");
-				String analysis = JSON.parseObject(subject.getAnalysis()).getString("text");
+				String analysis = "" + JSON.parseObject( subject.getAnalysis());
 				ContentValues values = new ContentValues();
 				values.put("CHAPTER_ID", subject.getChapterId());
 				values.put("FLAG", subject.getFlag());

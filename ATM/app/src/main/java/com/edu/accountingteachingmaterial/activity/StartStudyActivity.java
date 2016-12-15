@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -16,12 +17,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.entity.AccToken;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
-import com.edu.accountingteachingmaterial.util.GetBillTemplatesManager;
+import com.edu.accountingteachingmaterial.util.LoginNetMananger;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.lucher.net.req.RequestMethod;
+import com.lucher.net.req.impl.JsonReqEntity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,6 +45,15 @@ public class StartStudyActivity extends BaseActivity {
     ImageView bgIv;
     TextView settingIpTv;
     boolean inpassword = false;
+    private Context mContext;
+    // 需要上传答题结果的所有数据
+    private static LoginNetMananger mSingleton;
+    public static final String STUDNET_NUMBER = "STUDNET_NUMBER";
+
+    public static final String STUDNET_PASSWORD = "STUDNET_PASSWORD";
+
+    public static final String TOKEN = "TOKEN";
+
 
     @Override
     public int setLayout() {
@@ -50,12 +62,13 @@ public class StartStudyActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        GetBillTemplatesManager.newInstance(StartStudyActivity.this).sendLocalTemplates();
 
         EventBus.getDefault().register(this);
         numEt = bindView(R.id.startstudy_num_et);
+        numEt.setText(PreferenceHelper.getInstance(this).getStringValue(STUDNET_NUMBER));
         bgIv = bindView(R.id.startstudy_bg_iv);
         passwerEt = bindView(R.id.startstudy_pw_et);
+
         passwerEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
@@ -72,9 +85,10 @@ public class StartStudyActivity extends BaseActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PreferenceHelper.getInstance(StartStudyActivity.this).setIntValue(COURSE_ID, data.getCourse_id());
-                startActivity(MainActivity.class);
-                finish();
+//                login();
+//                startActivity(MainActivity.class);
+//                finish();
+                uploadHomepageInfo();
             }
         });
         settingIpTv = bindView(R.id.startstudy_setting_ip_iv);
@@ -86,21 +100,59 @@ public class StartStudyActivity extends BaseActivity {
         });
 
 
-
-        Bundle bundle = getIntent().getExtras();
-        data = (HomepageInformationData) bundle.getSerializable("HomepageInformationData");
-        if (data != null) {
-            findViewById(R.id.startstudy_aty_pb).setVisibility(View.GONE);
-            imageView.setVisibility(View.VISIBLE);
-        }
+//        Bundle bundle = getIntent().getExtras();
+//        data = (HomepageInformationData) bundle.getSerializable("HomepageInformationData");
+//        if (data != null) {
+//       //     findViewById(R.id.startstudy_aty_pb).setVisibility(View.GONE);
+//            imageView.setVisibility(View.VISIBLE);
+//        }
         findViewById(R.id.jump_up_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(MainActivity.class);
                 finish();
 
             }
         });
+    }
+
+    private void login() {
+        final String num = numEt.getText().toString();
+        final String pw = passwerEt.getText().toString();
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        String url = NetUrlContstant.loginUrl + "username=" + num + "&password=" + pw + "&rememberme=1";
+        JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url);
+        sendJsonNetReqManager.sendRequest(entity, "登陆中");
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                boolean result = jsonObject.getBoolean("result");
+                String message = jsonObject.getString("message");
+                if (result) {
+                    if (message == null||message.length()==0){
+                        Log.d("StartStudyActivity", "学号有误");
+                    }
+                    Log.d("StartStudyActivity","----" +  message);
+                    AccToken accToken = JSON.parseObject(jsonObject.getString("message"), AccToken.class);
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_NUMBER, num);
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(TOKEN, accToken.getLoginToken());
+                    startActivity(MainActivity.class);
+                    finish();
+                } else {
+                    Toast.makeText(StartStudyActivity.this, message.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("LaunchActivity", "登陆失败");
+                Toast.makeText(StartStudyActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void showIpDialog() {
@@ -130,6 +182,7 @@ public class StartStudyActivity extends BaseActivity {
         });
         alertDialog.show();
     }
+
     private void showIp(String s) {
         BASE_URL = "http://" + s;
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
@@ -141,6 +194,7 @@ public class StartStudyActivity extends BaseActivity {
                 if (jsonObject.getString("success").equals("true")) {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(NetUrlContstant.URL_NAME, BASE_URL);
+
                     Toast.makeText(StartStudyActivity.this, "Ip设置成功", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -149,19 +203,58 @@ public class StartStudyActivity extends BaseActivity {
             public void onFailure(String errorInfo) {
                 Log.d("LaunchActivity", "Ip设置失败");
                 Toast.makeText(StartStudyActivity.this, "Ip设置失败", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
 
 
-
     //线程类型
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(HomepageInformationData date) {
-        findViewById(R.id.startstudy_aty_pb).setVisibility(View.GONE);
+      //  findViewById(R.id.startstudy_aty_pb).setVisibility(View.GONE);
         imageView.setVisibility(View.VISIBLE);
         data = date;
+    }
+
+    private void uploadHomepageInfo() {
+//        UserData user = UserCenterHelper.getUserInfo(this);
+//        user.setUserId(35605);
+        final String num = numEt.getText().toString();
+        final String pw = passwerEt.getText().toString();
+
+        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID, 201660001);
+        Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + num);
+
+        String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
+        if ("".equals(s)) {
+            Log.d("LaunchActivity", "--------------" + s);
+        } else {
+            NetUrlContstant.BASE_URL = s;
+        }
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + num);
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
+                    data = hData.get(0);
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_NUMBER, num);
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setIntValue(COURSE_ID, data.getCourse_id());
+
+                    startActivity(MainActivity.class);
+                       finish();
+//                    EventBus.getDefault().post(data);
+                }
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("StartStudyActivity", "线程启动获取失败");
+            }
+        });
     }
 
     @Override

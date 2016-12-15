@@ -32,6 +32,8 @@ import com.lucher.net.req.RequestMethod;
 
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.util.LoginNetMananger.STUDNET_NUMBER;
+
 public class ClassFragment extends BaseFragment implements View.OnClickListener {
 
     ExpandableListView expandableListView;
@@ -127,6 +129,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private void uploadChapter() {
         int courseId = PreferenceHelper.getInstance(context).getIntValue(PreferenceHelper.COURSE_ID);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        Log.d("ClassFragment", NetUrlContstant.chapterUrl + courseId);
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterUrl + courseId);
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -170,8 +173,6 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         View contentView = LayoutInflater.from(context).inflate(
                 R.layout.ppw_history, null);
         loadHistoryDatas();
-
-
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.alpha = bgAlpha; //0.0-1.0
 //        getWindow().setAttributes(lp);
@@ -198,10 +199,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     private void loadHistoryDatas() {
 
-        Log.d("LaunchActivity", NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
-
+        Log.d("LaunchActivity", NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(STUDNET_NUMBER));
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(PreferenceHelper.USER_ID));
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.findHisUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(STUDNET_NUMBER));
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

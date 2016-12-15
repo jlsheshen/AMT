@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -95,7 +96,7 @@ public class ClassExerciseFragment extends BaseFragment {
 
                     //    downloadChildExercise(view, i);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt("EXERCISE_TYPE", ClassContstant.EXERCISE_IN_CLASS);
+                    b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectTestActivity.class, b);
 //                    if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_BEFORE_CLASS || datas.get(i).getLesson_type() == ClassContstant.EXERCISE_AFTER_CLASS) {
@@ -110,6 +111,16 @@ public class ClassExerciseFragment extends BaseFragment {
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
 
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
+
+                    if (datas.get(i) == null){
+                        Toast.makeText(context, "请重新下载", Toast.LENGTH_SHORT).show();
+                        stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
+                        stateIv.setVisibility(View.GONE);
+                        view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
+                        SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId());
+
+
+                    }
                     return false;
                 }
                 return false;
@@ -153,7 +164,7 @@ public class ClassExerciseFragment extends BaseFragment {
     }
 
     private void uploadChapterList() {
-        Log.d("ClassExerciseFragment", NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID));
+        Log.d("ClassExerciseFragment", NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
@@ -174,7 +185,13 @@ public class ClassExerciseFragment extends BaseFragment {
                             contentValues.put(ExamListDao.CHAPTER_ID, data.getChapter_id());
                             ExamListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
-                        } else {
+                        } else if (data.getIs_send() == 1){
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_READ);
+                            ExamListDao.getInstance(context).updateData(String.valueOf(data.getId()),contentValues);
+                            data.setState(ClassContstant.EXAM_READ);
+                        }else {
+
                             data.setState(data1.getState());
                         }
                         if (data.getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && data.getState() != ClassContstant.EXAM_NOT) {

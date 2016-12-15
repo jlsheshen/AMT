@@ -171,7 +171,9 @@ public class TestBillData extends BaseTestData {
 					} else {
 						if (BillAnswerHandler.isGroupBlank(element.getType())) {// 一组空元素
 							String remark = element.getRemark();
-							int groupId = Integer.valueOf(remark);
+							int groupId;
+							 groupId = Integer.valueOf(remark);
+
 							if (groups.get(groupId) == null) {
 								List<BlankResult> list = new ArrayList<BlankResult>(3);
 								groups.put(groupId, list);

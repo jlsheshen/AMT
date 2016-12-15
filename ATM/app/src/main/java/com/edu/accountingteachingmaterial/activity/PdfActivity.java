@@ -74,6 +74,8 @@ public class PdfActivity extends BaseActivity {
         String[] tmp = downUrl.split("/");
         String target = path + tmp[tmp.length - 1];
         checkPath(path);
+        Log.d("PdfActivity", downUrl);
+
         // 调用download方法开始下载
         mHandler = fHttp.download(downUrl, new AjaxParams(), target, true, new AjaxCallBack<File>() {
 
