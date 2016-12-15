@@ -31,8 +31,8 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     protected void initView(View view) {
-        layout1 = bindView(R.id.linearLayout1);
-        layout2 = bindView(R.id.linearLayout2);
+        layout1 = bindView(R.id.ly_first);
+        layout2 = bindView(R.id.ly_second);
         btnStart = (Button) view.findViewById(R.id.btn_start);
         btnStart.setOnClickListener(this);
     }
@@ -43,7 +43,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         strStem1 = context.getResources().getStringArray(R.array.question1);
         strStem2 = context.getResources().getStringArray(R.array.question2);
 
-//        layout1.removeAllViews();
+        layout1.removeAllViews();
 //        layout2.removeAllViews();
         AddAndSubTestView addAndSubTestView = null;
         for (int i = 1; i < strStem1.length; i++) {
