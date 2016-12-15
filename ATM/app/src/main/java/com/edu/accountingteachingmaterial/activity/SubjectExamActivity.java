@@ -123,7 +123,9 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
         viewPager.setAdapter(mSubjectAdapter);
 
-        mSubjectAdapter.reset();
+        if (textMode == ClassContstant.EXAM_UNDONE) {
+            mSubjectAdapter.reset();
+        }
 
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
 
@@ -228,7 +230,10 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         int userId = PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
         UploadResultsManager.getSingleton(this).uploadResult(userId, 1179, 10000);
         EventBus.getDefault().post(userId);
-        ToastUtil.showToast(this, "score:" + score);
+//        ToastUtil.showToast(this, "score:" + score);
+        Bundle bundle = new Bundle();
+        bundle.putInt("ExmaStatus", 1);
+        startActivity(UnitTestActivity.class, bundle);
         finish();
     }
 

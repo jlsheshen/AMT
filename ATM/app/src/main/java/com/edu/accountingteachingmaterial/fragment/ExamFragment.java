@@ -194,6 +194,7 @@
 
 package com.edu.accountingteachingmaterial.fragment;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
@@ -273,7 +274,9 @@ public class ExamFragment extends BaseFragment {
 
 
                 } else {
-                    startActivity(UnitTestActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("ExmaStatus", datas.get(i).getExmaStatus());
+                    startActivity(UnitTestActivity.class, bundle);
                 }
             }
         });
@@ -283,12 +286,12 @@ public class ExamFragment extends BaseFragment {
     private void loadData() {
 
         datas = new ArrayList<>();
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 5; i++) {
             ExamBean examBean = new ExamBean();
 
             examBean.setExmaStatus(i);
-            examBean.setTitle("会计立体化教材");
-            examBean.setTime("20161111");
+            examBean.setTitle("会计技能测试");
+            examBean.setTime("2016-11-11");
             examBean.setPublisher("赵铁柱");
             examBean.setItemNumber((long) 60);
             examBean.setStartTime("2016-11-11 10:30");

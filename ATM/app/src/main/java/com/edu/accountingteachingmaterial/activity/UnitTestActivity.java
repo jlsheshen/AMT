@@ -14,7 +14,6 @@ import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -38,6 +37,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     TestPaperListData testPaperListData;
     List<TopicsBean> topicsBeen;
     int examId;
+    int exmaStatus;
     int textMode;
 
     @Override
@@ -76,10 +76,10 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     @Override
     public void initData() {
 
-//        Bundle bundle = getIntent().getExtras();
-//        examId = bundle.getInt("examId");
+        Bundle bundle = getIntent().getExtras();
+        exmaStatus = bundle.getInt("ExmaStatus");
 //        uploadTestInfo();
-//        refreshState();
+        refreshState();
         rView();
     }
 
@@ -104,6 +104,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 bundle.putInt("examId", 1);
                 bundle.putInt("textMode", textMode);
                 startActivity(SubjectExamActivity.class, bundle);
+                finish();
                 break;
 
 
@@ -172,35 +173,38 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
     private void refreshState() {
-        int state = ExamListDao.getInstance(this).getState(examId);
+//        int state = ExamListDao.getInstance(this).getState(examId);
         //int state = 2;
         //未提交 state:2
-        if (state == ClassContstant.EXAM_UNDONE) {
-            imgShow.setBackgroundResource(R.mipmap.weitijao);
+        if (exmaStatus == ClassContstant.EXAM_UNDONE) {
+            imgShow.setImageResource(R.mipmap.weitijao);
+            imgShow.setVisibility(View.INVISIBLE);
             rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
             rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
             //开始比赛
             btnStart.setBackgroundResource(R.drawable.selector_start);
             textMode = ClassContstant.TEST_MODE_NORMAL;
-        } else if (state == ClassContstant.EXAM_COMMIT) {
+        } else if (exmaStatus == ClassContstant.EXAM_COMMIT) {
             //已提交 state:1
-            imgShow.setBackgroundResource(R.mipmap.yitijiao);
+            imgShow.setImageResource(R.mipmap.yitijiao);
+            imgShow.setVisibility(View.VISIBLE);
             rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
             rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
             //查看作答
             btnStart.setBackgroundResource(R.drawable.selector_answer);
             textMode = ClassContstant.TEST_MODE_LOOK;
-        } else if (state == ClassContstant.EXAM_READ) {
+        } else if (exmaStatus == ClassContstant.EXAM_READ) {
             //已批阅 state:3
-            imgShow.setBackgroundResource(R.mipmap.yipiyue);
+            imgShow.setImageResource(R.mipmap.yipiyue);
+            imgShow.setVisibility(View.VISIBLE);
             rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
             rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.VISIBLE);
-//            tvScore.setText(testPaperListData.getScore() + "");
-//            tvSubmittingTime.setText(testPaperListData.getEnd_time() + "");
-//            tvUsedTime.setText("");
+            tvScore.setText("90");
+            tvSubmittingTime.setText("2016-11-15 10;30");
+            tvUsedTime.setText("00:59:00");
             //查看答案
             btnStart.setBackgroundResource(R.drawable.selector_check_answer);
             textMode = ClassContstant.TEST_MODE_TEST;
@@ -214,13 +218,6 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     }
 
     private void rView() {
-        imgShow.setBackgroundResource(R.mipmap.weitijao);
-        rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
-        rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);
-        rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
-        //开始比赛
-        btnStart.setBackgroundResource(R.drawable.selector_start);
-        textMode = ClassContstant.TEST_MODE_NORMAL;
         testTitle.setText("会计立体化教材");
         tvPublisher.setText("赵铁柱");
         tvReleaseTime.setText("2016-11-11 10:30");

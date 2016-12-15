@@ -109,7 +109,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             ClassChapterData chapterBean = new ClassChapterData();
             List<SubChaptersBean> nodes = new ArrayList<>();
             chapterBean.setTitle("会计立体化" + i);
-            for (int j = 1; j < 10; j++) {
+            for (int j = 1; j < 3; j++) {
                 SubChaptersBean node = new SubChaptersBean();
                 node.setTitle("基础知识" + j);
                 nodes.add(node);
