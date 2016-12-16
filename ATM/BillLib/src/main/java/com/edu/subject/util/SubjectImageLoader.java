@@ -12,8 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.URLUtil;
 
-import com.edu.NetUrlContstant;
 import com.edu.library.data.DBHelper;
+import com.edu.subject.BASE_URL;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.common.ProgressImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -99,6 +99,7 @@ public class SubjectImageLoader {
 
         for (String url : urls) {
             Log.d("查看图片log11111", url);
+            url = BASE_URL.BASE_URL + url;
             preDownloadPic(url);
         }
     }
@@ -142,6 +143,8 @@ public class SubjectImageLoader {
         List<String> allUrl = new ArrayList<String>();
         allUrl = s;
         for (String url : allUrl) {
+            url = BASE_URL.BASE_URL + url;
+
             Log.d("查看图片log11111", url);
             preDownloadPic(url);
         }
@@ -153,7 +156,7 @@ public class SubjectImageLoader {
      * @param uri
      * @param context
      */
-    public void preDownloadPic(final String uri) {
+    public void preDownloadPic( final String uri) {
         if (BitmapParseUtil.existCache(mContext, uri)) {
             return;
         }

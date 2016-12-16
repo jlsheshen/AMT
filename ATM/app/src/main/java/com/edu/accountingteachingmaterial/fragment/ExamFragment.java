@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
@@ -78,7 +78,7 @@ public class ExamFragment extends BaseFragment {
                     final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
                     imageView.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
-                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getExam_id(), datas.get(i).getExam_id());
+                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getExam_id(), datas.get(i).getExam_id());
                 } else {
 
                     Bundle b = new Bundle();

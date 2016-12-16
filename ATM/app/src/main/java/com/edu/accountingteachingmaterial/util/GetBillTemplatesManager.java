@@ -10,7 +10,8 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.TemplateElementsDao;
 import com.edu.accountingteachingmaterial.entity.BillTemplateListBean;
 import com.edu.library.data.DBHelper;
@@ -25,6 +26,8 @@ import org.apache.http.Header;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
 
 
 /**
@@ -58,6 +61,8 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     private static GetBillTemplatesManager instance;
 
     private GetBillTemplatesManager(Context context) {
+        mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
+
         this.context = context;
     }
 
@@ -76,7 +81,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     public void sendLocalTemplates() {
         List<BillTemplateListBean> datas = getTemplates();
-        String url = NetUrlContstant.localTemplates;
+        String url = NetUrlContstant.getLocalTemplates();
         Log.d("GetBillTemplatesManager", url);
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity);

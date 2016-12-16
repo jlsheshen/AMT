@@ -5,7 +5,8 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.AccToken;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
@@ -34,6 +35,8 @@ public class LoginNetMananger extends JsonNetReqManager {
 
 
     private LoginNetMananger(Context context) {
+        mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
+
         mContext = context;
     }
 
@@ -57,7 +60,7 @@ public class LoginNetMananger extends JsonNetReqManager {
      */
     public void login(String number,String passWord) {
 
-        String url = NetUrlContstant.loginUrl + "username="  + number + "&password=" + passWord + "&rememberme=1";
+        String url = NetUrlContstant.getLoginUrl() + "username="  + number + "&password=" + passWord + "&rememberme=1";
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url);
         sendRequest(entity, "登陆中");
         Log.d(TAG, "url");

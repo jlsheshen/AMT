@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.SubjectDetailsContentActivity;
 import com.edu.accountingteachingmaterial.activity.SubjectPracticeActivity;
@@ -81,7 +81,7 @@ public class ClassExerciseFragment extends BaseFragment {
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
-                Log.d("ClassExerciseFragment", NetUrlContstant.subjectListUrl + datas.get(i).getId());
+                Log.d("ClassExerciseFragment", NetUrlContstant.getSubjectListUrl() + datas.get(i).getId());
                 item = i;
                 if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
                     return false;
@@ -90,10 +90,9 @@ public class ClassExerciseFragment extends BaseFragment {
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId());
+                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getId(), datas.get(i).getId());
 
                     //  datas.get(i).setState(ClassContstant.EXAM_UNDONE);
-
                     //    downloadChildExercise(view, i);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
@@ -117,7 +116,7 @@ public class ClassExerciseFragment extends BaseFragment {
                         stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                         stateIv.setVisibility(View.GONE);
                         view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                        SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.subjectListUrl + datas.get(i).getId(), datas.get(i).getId());
+                        SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getId(), datas.get(i).getId());
 
 
                     }
@@ -164,8 +163,8 @@ public class ClassExerciseFragment extends BaseFragment {
     }
 
     private void uploadChapterList() {
-        Log.d("ClassExerciseFragment", NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
-        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
+        Log.d("ClassExerciseFragment", NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
+        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -174,7 +173,7 @@ public class ClassExerciseFragment extends BaseFragment {
                 if (jsonObject.getString("success").equals("true")) {
                     datas = JSON.parseArray(jsonObject.getString("message"), ExamListData.class);
                     ToastUtil.showToast(context, "" + datas.get(0).getExam_name());
-                    Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
+                    Log.d("UnitTestActivity", "uploadChapterList" + jsonObject.getString("message"));
                     for (ExamListData data : datas) {
                         data1 = (ExamListData) ExamListDao.getInstance(context).getDataById(data.getId());
                         if (data1 == null) {

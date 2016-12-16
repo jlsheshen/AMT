@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
@@ -15,6 +15,7 @@ import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.library.util.DBCopyUtil;
+import com.edu.subject.BASE_URL;
 import com.edu.subject.util.SoundPoolUtil;
 import com.edu.testbill.Constant;
 import com.lucher.net.req.RequestMethod;
@@ -37,6 +38,14 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
+        String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
+        Log.d("LaunchActivity", "--------------" + s);
+
+        if ("".equals(s)) {
+        } else {
+            BASE_URL.BASE_URL = s;
+
+        }
 //		new Thread(new Runnable() {
 //			@Override
 //			public void run() {
@@ -115,12 +124,12 @@ public class LaunchActivity extends BaseActivity {
 //                    startActivity(StartStudyActivity.class, bundle);
                 startActivity(StartStudyActivity.class);
 
-                if (!isShow) {
+//                if (!isShow) {
                     finish();
-                }
+//                }
             }
         }.start();
-        uploadHomepageInfo();
+//        uploadHomepageInfo();
 
 
     }
@@ -132,18 +141,18 @@ public class LaunchActivity extends BaseActivity {
 //        UserData user = UserCenterHelper.getUserInfo(this);
 //        user.setUserId(35605);
 
-        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID, 201660001);
-        Log.d("LaunchActivity", NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
+        PreferenceHelper.getInstance(this).setStringValue(PreferenceHelper.USER_ID, "" + 201660001);
+        Log.d("LaunchActivity", NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
 
         String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
         if ("".equals(s)) {
             Log.d("LaunchActivity", "--------------" + s);
         } else {
-            NetUrlContstant.BASE_URL = s;
+            BASE_URL.BASE_URL = s;
         }
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

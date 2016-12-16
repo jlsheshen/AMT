@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
@@ -25,6 +26,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
+
 
 /**
  * 题目下载管理类
@@ -38,6 +41,8 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	private int chatperId;
 
 	public SubjectsDownloadManager(Context context) {
+		mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
+
 		mContext = context;
 	}
 

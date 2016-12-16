@@ -7,7 +7,6 @@ import android.os.Environment;
 import android.util.Log;
 import android.webkit.URLUtil;
 
-import com.edu.NetUrlContstant;
 import com.edu.library.util.FileUtil;
 import com.edu.subject.common.ProgressImageView;
 
@@ -80,6 +79,7 @@ public class BitmapParseUtil {
      * @throws IOException
      */
     private static Bitmap createBitmap(String uri, Context context, ProgressImageView imageView) throws IOException, IllegalArgumentException {
+      //  uri = BASE_URL.BASE_URL + uri;
         Bitmap bitmap = null;
         // 图片配置
         BitmapFactory.Options opt = new BitmapFactory.Options();
@@ -137,7 +137,6 @@ public class BitmapParseUtil {
      * @return 是否成功
      */
     public static boolean saveBitmap(Context context, String uri, Bitmap bm) {
-        Log.d(TAG, NetUrlContstant.background + uri);
         CACHE.put(uri, new SoftReference<Bitmap>(bm));
         //String[] s = uri.split("background/");
         boolean success = true;

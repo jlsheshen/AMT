@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.os.Environment;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +13,7 @@ import android.widget.ImageView;
 
 import com.edu.R;
 import com.edu.library.util.ToastUtil;
+import com.edu.subject.BASE_URL;
 import com.edu.subject.util.BitmapParseUtil;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
@@ -175,6 +175,7 @@ public class ProgressImageView extends ImageView implements ImageLoadingListener
      */
     public void loadImage(String uri) {
 //        String uri = "file://" + Environment.getExternalStorageDirectory().getPath() + "/EduResources/AccCourse/pic/" + s;
+       uri = BASE_URL.BASE_URL + uri;
         try {
             mBitmap = BitmapParseUtil.parse(uri, mContext, true, this);
             setImageBitmap(mBitmap);

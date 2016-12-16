@@ -1,9 +1,12 @@
 package com.edu.accountingteachingmaterial.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.lucher.net.req.impl.JsonNetReqManager;
 
 import org.apache.http.Header;
+
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
 
 
 /**
@@ -16,6 +19,7 @@ public class SendJsonNetReqManager extends JsonNetReqManager {
     public SendJsonNetReqManager() {
         initAsyncClient();
         initSyncClient();
+        mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
         mAsyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
         mSyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
     }

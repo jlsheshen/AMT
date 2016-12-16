@@ -16,7 +16,7 @@ import com.edu.accountingteachingmaterial.adapter.ExampleGVAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ClassicCase;
 import com.edu.accountingteachingmaterial.entity.StudyHistoryVO;
@@ -135,8 +135,8 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 
     private void uploadInfo() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        Log.d("ClassExampleFragment", NetUrlContstant.classicCaseUrl + data.getId());
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.classicCaseUrl + data.getId() + "-2");
+        Log.d("ClassExampleFragment", NetUrlContstant.getClassicCaseUrl() + data.getId());
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.getClassicCaseUrl() + data.getId() + "-2");
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

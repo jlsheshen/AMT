@@ -167,7 +167,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
                 handleDoneClicked();
                 UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
                 UserData user = UserCenterHelper.getUserInfo(this);
-                UploadResultsManager.getSingleton(this).uploadResult(PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID), examListData.getId());
+                UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
 
                 break;
 

@@ -21,8 +21,18 @@ public class PreferenceHelper {
 	 *
 	 */
 	public  static final String COURSE_ID = "COURSE_ID";
-
-
+	/**
+	 * 学号
+	 */
+	public static final String STUDNET_NUMBER = "STUDNET_NUMBER";
+	/**
+	 * 密码
+	 */
+	public static final String STUDNET_PASSWORD = "STUDNET_PASSWORD";
+	/**
+	 * token
+	 */
+	public static final String TOKEN = "TOKEN";
 	/**
 	 * 保存记录是否第一次进入某个页面的key
 	 */
@@ -219,6 +229,19 @@ public class PreferenceHelper {
 
 		return value;
 	}
+	/**
+	 * 获取指定key对应的value
+	 *
+	 * @param key
+	 * @return
+	 */
+	public String getStringValue(String key,String def) {
+		SharedPreferences sp = mContext.getSharedPreferences(PREFERENCE_VALUE_KEY, Context.MODE_PRIVATE);
+		String value = sp.getString(key, def);
+
+		return value;
+	}
+
 
 	/**
 	 * 设置指定key对应的value到preference

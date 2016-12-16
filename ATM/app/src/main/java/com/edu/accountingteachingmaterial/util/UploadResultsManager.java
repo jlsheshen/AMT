@@ -6,10 +6,11 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
-import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.net.AnswerResult;
@@ -22,6 +23,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
 
 
 /**
@@ -37,9 +40,16 @@ public class UploadResultsManager extends JsonNetReqManager {
 	private List<AnswerResult> mAnswerResults;
 	private static UploadResultsManager mSingleton;
 	int examId;
-	SubjectViewPagerAdapter adapter;
+	ResultsListener resultsListener;
+
+	public void setResultsListener(ResultsListener resultsListener) {
+		this.resultsListener = resultsListener;
+	}
+
 
 	private UploadResultsManager(Context context) {
+		mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
+
 		mContext = context;
 	}
 
@@ -96,7 +106,7 @@ public class UploadResultsManager extends JsonNetReqManager {
 			ToastUtil.showToast(mContext, "发送结果为空");
 			return;
 		}
-		String url = NetUrlContstant.subjectSubmitUrl  + studentId + "-" + examId + "-" + seconds;
+		String url = NetUrlContstant.getSubjectSubmitUrl()  + studentId + "-" + examId + "-" + seconds;
 		JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
 		sendRequest(entity, "正在拼命上传成绩");
 		Log.d(TAG, "uploadResult:" + JSON.toJSONString(mAnswerResults));
@@ -113,7 +123,7 @@ public class UploadResultsManager extends JsonNetReqManager {
 			ToastUtil.showToast(mContext, "发送结果为空");
 			return;
 		}
-		String url = NetUrlContstant.subjectSingleSubmitUrl  + studentId + "-" + examId;
+		String url = NetUrlContstant.getSubjectSingleSubmitUrl()  + studentId + "-" + examId;
 		Log.d("UploadResultsManager", "mAnswerResults.get(0):" + mAnswerResults.get(0) + "--" + url);
 		JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
 		sendRequest(entity, "正在拼命上传成绩");
@@ -125,11 +135,12 @@ public class UploadResultsManager extends JsonNetReqManager {
 		boolean result = json.getBoolean("result");
 		String message = json.getString("message");
 		if (result) {
-			float score = adapter.submit();
-			ToastUtil.showToast(mContext, "score:" + score);
+
 			ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
 			ExamListDao.getInstance(mContext).updateData("" + examId, contentValues);
+			resultsListener.onSuccess();
+
 			EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
 		} else {
 			ToastUtil.showToast(mContext, "成绩上传失败：" + message);
@@ -140,18 +151,15 @@ public class UploadResultsManager extends JsonNetReqManager {
 	@Override
 	public void onConnectionError(String arg0) {
 		ToastUtil.showToast(mContext, "成绩上传出错：" + arg0);
+		resultsListener.onFialure();
+
 	}
 
 	@Override
 	public void onConnectionFailure(String arg0, Header[] arg1) {
+		resultsListener.onFialure();
+
 		ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);
 	}
 
-	public SubjectViewPagerAdapter getAdapter() {
-		return adapter;
-	}
-
-	public void setAdapter(SubjectViewPagerAdapter adapter) {
-		this.adapter = adapter;
-	}
 }

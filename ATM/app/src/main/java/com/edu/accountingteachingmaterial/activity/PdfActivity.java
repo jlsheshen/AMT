@@ -3,12 +3,12 @@ package com.edu.accountingteachingmaterial.activity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.library.util.SdcardPathUtil;
 import com.edu.library.util.ToastUtil;
+import com.edu.subject.BASE_URL;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import net.tsz.afinal.FinalHttp;
@@ -26,7 +26,7 @@ public class PdfActivity extends BaseActivity {
     ExampleBean exampleBeans;
     private FinalHttp fHttp = new FinalHttp();
     private HttpHandler<File> mHandler;
-    private String mUrl = NetUrlContstant.BASE_URL + "interface/filedown/down/";
+    private String mUrl = BASE_URL.BASE_URL + "/interface/filedown/down/";
     //private String mUrl = NetUrlContstant.mediaorPdfUrl;
 
     @Override

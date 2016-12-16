@@ -19,6 +19,7 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.ExitDialog;
@@ -49,7 +50,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/18.
  */
 
-public class SubjectTestActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener {
+public class SubjectTestActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener,ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
@@ -169,20 +170,19 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 break;
 
             case R.id.btnDone:
-
+                float score = mSubjectAdapter.submit();
+                ToastUtil.showToast(this, "score:" + score);
+                UploadResultsManager.getSingleton(this).setResultsListener(this);
                 UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
-                UploadResultsManager.getSingleton(this).setAdapter(mSubjectAdapter);
-                int user =  PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
+                int user = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
                 UploadResultsManager.getSingleton(this).uploadResult(user, examListData.getId(), 10000);
-                EventBus.getDefault().post(user);
-
-                finish();
 
                 break;
 
             case R.id.btnCard:
                 if (!mCardDialog.isShowing()) {
                     mCardDialog.show(mSubjectAdapter.getData(mCurrentIndex).getId());
+
                 }
                 break;
 
@@ -313,6 +313,19 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
     public void onBackPressed() {
         mSubjectAdapter.saveAnswer(mCurrentIndex);
         super.onBackPressed();
+    }
+
+    @Override
+    public void onSuccess() {
+
+        EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+        finish();
+
+    }
+
+    @Override
+    public void onFialure() {
+        finish();
     }
 }
 

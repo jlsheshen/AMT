@@ -14,7 +14,7 @@ import android.widget.PopupWindow;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
 import com.edu.accountingteachingmaterial.adapter.ClassChapterDialogAdapter;

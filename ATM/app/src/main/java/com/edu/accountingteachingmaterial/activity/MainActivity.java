@@ -20,9 +20,9 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.fragment.ClassFragment;
 import com.edu.accountingteachingmaterial.fragment.ExamFragment;
@@ -36,7 +36,8 @@ import com.lucher.net.req.RequestMethod;
 
 import java.util.List;
 
-import static com.edu.NetUrlContstant.BASE_URL;
+import static com.edu.accountingteachingmaterial.constant.NetUrlContstant.URL_NAME;
+import static com.edu.subject.BASE_URL.BASE_URL;
 
 public class MainActivity extends BaseActivity implements OnClickListener, DrawerListener {
 
@@ -141,16 +142,15 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     private void showIp(String s) {
         UserData user = UserCenterHelper.getUserInfo(this);
         BASE_URL = "http://" + s;
-
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.homeInfoUrl + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST,  NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
-                    PreferenceHelper.getInstance(MainActivity.this).setStringValue(NetUrlContstant.URL_NAME, BASE_URL);
+                    PreferenceHelper.getInstance(MainActivity.this).setStringValue(URL_NAME, BASE_URL);
                     Toast.makeText(MainActivity.this, "Ip设置成功", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -159,6 +159,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
             public void onFailure(String errorInfo) {
                 Log.d("LaunchActivity", "Ip设置失败");
                 Toast.makeText(MainActivity.this, "Ip设置失败", Toast.LENGTH_SHORT).show();
+                Log.d("LaunchActivity", "Ip设置失败" + BASE_URL);
+
 
             }
         });
