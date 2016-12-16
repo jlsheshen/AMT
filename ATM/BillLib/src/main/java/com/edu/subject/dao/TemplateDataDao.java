@@ -116,14 +116,14 @@ public class TemplateDataDao {
 	 * @param curs
 	 */
 	private void initElement(BaseElementInfo element, Cursor curs) {
-		element.setId(curs.getInt(5));
-		element.setType(curs.getInt(7));
-		element.setX(curs.getInt(8));
-		element.setY(curs.getInt(9));
-		element.setWidth(curs.getInt(10));
-		element.setHeight(curs.getInt(11));
-		element.setScore(curs.getFloat(13));
-		element.setRemark(curs.getString(14));
+		element.setId(curs.getInt(6));
+		element.setType(curs.getInt(8));
+		element.setX(curs.getInt(9));
+		element.setY(curs.getInt(10));
+		element.setWidth(curs.getInt(11));
+		element.setHeight(curs.getInt(12));
+		element.setScore(curs.getFloat(14));
+		element.setRemark(curs.getString(15));
 	}
 
 	/**

@@ -209,6 +209,7 @@ import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExamBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.library.util.DBCopyUtil;
 import com.edu.testbill.Constant;
 import com.edu.testbill.util.SoundPoolUtil;
@@ -266,6 +267,7 @@ public class ExamFragment extends BaseFragment {
                         @Override
                         public void onFinish() {
                             datas.get(i).setExmaStatus(ClassContstant.EXAM_UNDONE);
+                            ExamListDao.getInstance(context).updateState(datas.get(i).getExamId(), ClassContstant.EXAM_UNDONE);
                             view.findViewById(R.id.item_exam_type_pb).setVisibility(View.GONE);
                             imageView.setVisibility(View.VISIBLE);
                             imageView.setImageResource(R.mipmap.btn_weitijiao_n);
@@ -275,7 +277,9 @@ public class ExamFragment extends BaseFragment {
 
                 } else {
                     Bundle bundle = new Bundle();
-                    bundle.putInt("ExmaStatus", datas.get(i).getExmaStatus());
+//                    bundle.putInt("ExmaStatus", ExamListDao.getInstance(context).getState(datas.get(i).getExamId()));
+                    bundle.putInt("ExmaID", datas.get(i).getExamId());
+
                     startActivity(UnitTestActivity.class, bundle);
                 }
             }
@@ -286,19 +290,70 @@ public class ExamFragment extends BaseFragment {
     private void loadData() {
 
         datas = new ArrayList<>();
-        for (int i = 1; i < 5; i++) {
-            ExamBean examBean = new ExamBean();
 
-            examBean.setExmaStatus(i);
-            examBean.setTitle("会计技能测试");
-            examBean.setTime("2016-11-11");
-            examBean.setPublisher("赵铁柱");
-            examBean.setItemNumber((long) 60);
-            examBean.setStartTime("2016-11-11 10:30");
-            examBean.setDuration(60);
-            datas.add(examBean);
+        ExamBean examBean1 = new ExamBean();
+        int exmaStatus = ExamListDao.getInstance(context).getState(1210);
+        if (exmaStatus == 0) {
+            examBean1.setExmaStatus(4);
+        } else {
+            examBean1.setExmaStatus(exmaStatus);
         }
+        examBean1.setTitle("会计技能测试1");
+        examBean1.setTime("2016-11-11");
+        examBean1.setPublisher("赵铁柱");
+        examBean1.setItemNumber((long) 20);
+        examBean1.setStartTime("2016-11-11 10:30");
+        examBean1.setDuration(60);
+        examBean1.setExamId(1210);
+        datas.add(examBean1);
+        ExamBean examBean2 = new ExamBean();
+        int exmaStatus2 = ExamListDao.getInstance(context).getState(1211);
+        if (exmaStatus2 == 0) {
+            examBean2.setExmaStatus(4);
+        } else {
+            examBean2.setExmaStatus(exmaStatus2);
+        }
+        examBean2.setTitle("会计技能测试2");
+        examBean2.setTime("2016-11-11");
+        examBean2.setPublisher("赵铁柱");
+        examBean2.setItemNumber((long) 139);
+        examBean2.setStartTime("2016-11-11 10:30");
+        examBean2.setDuration(60);
+        examBean2.setExamId(1211);
+        datas.add(examBean2);
+        ExamBean examBean3 = new ExamBean();
+        int exmaStatus3 = ExamListDao.getInstance(context).getState(1212);
+        if (exmaStatus3 == 0) {
+            examBean3.setExmaStatus(4);
+        } else {
+            examBean3.setExmaStatus(exmaStatus3);
+        }
+        examBean3.setTitle("会计技能测试3");
+        examBean3.setTime("2016-11-11");
+        examBean3.setPublisher("赵铁柱");
+        examBean3.setItemNumber((long) 200);
+        examBean3.setStartTime("2016-11-11 10:30");
+        examBean3.setDuration(60);
+        examBean3.setExamId(1212);
+        datas.add(examBean3);
+        ExamBean examBean4 = new ExamBean();
+        int exmaStatus4 = ExamListDao.getInstance(context).getState(1213);
+        if (exmaStatus4 == 0) {
+            examBean4.setExmaStatus(4);
+        } else {
+            examBean4.setExmaStatus(exmaStatus4);
+        }
+        examBean4.setTitle("会计技能测试4");
+        examBean4.setTime("2016-11-11");
+        examBean4.setPublisher("赵铁柱");
+        examBean4.setItemNumber((long) 200);
+        examBean4.setStartTime("2016-11-11 10:30");
+        examBean4.setDuration(60);
+        examBean4.setExamId(1213);
+        datas.add(examBean4);
         // TODO Auto-generated method stub
 
     }
+
+
 }

@@ -197,7 +197,8 @@ public class TestBillData extends BaseTestData {
 								blank.setRight(false);
 							}
 						} else {
-							blank.setAnswer(uAnswers[uIndex]);
+								blank.setAnswer(uAnswers[uIndex]);
+
 							if (answers[index].equals(uAnswers[uIndex])) {
 								blank.setScore(element.getScore());
 								blank.setRight(true);

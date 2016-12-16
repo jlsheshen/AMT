@@ -14,6 +14,7 @@ import com.edu.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -77,7 +78,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     public void initData() {
 
         Bundle bundle = getIntent().getExtras();
-        exmaStatus = bundle.getInt("ExmaStatus");
+//        exmaStatus = bundle.getInt("ExmaStatus");
+        examId= bundle.getInt("ExmaID");
 //        uploadTestInfo();
         refreshState();
         rView();
@@ -101,7 +103,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             case R.id.btn_start:
                 //ExamListData考试数据（测试）
                 Bundle bundle = new Bundle();
-                bundle.putInt("examId", 1);
+                bundle.putInt("ExmaID", examId);
                 bundle.putInt("textMode", textMode);
                 startActivity(SubjectExamActivity.class, bundle);
                 finish();
@@ -173,7 +175,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
     private void refreshState() {
-//        int state = ExamListDao.getInstance(this).getState(examId);
+        int exmaStatus = ExamListDao.getInstance(this).getState(examId);
         //int state = 2;
         //未提交 state:2
         if (exmaStatus == ClassContstant.EXAM_UNDONE) {

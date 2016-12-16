@@ -97,7 +97,7 @@ public class ExamListDao extends BaseDataDao {
         try {
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
-            String sql = "SELECT STATE FROM " + TABLE_NAME + " WHERE " + CHAPTER_ID + " = " + chapter;
+            String sql = "SELECT STATE FROM " + TABLE_NAME + " WHERE " + ID + " = " + chapter;
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null&& curs.getCount() !=0) {
@@ -114,4 +114,20 @@ public class ExamListDao extends BaseDataDao {
         }
         return state;
     }
+
+    /**
+     * 插入userId
+     *
+     * @param id
+     * @param values
+     */
+    public void updateState(int id, int state) {
+        String sql = "UPDATE " + TABLE_NAME + " SET " + " STATE =  '" + state + "'  WHERE ID = '" + id + "'";
+//        String sql = "UPDATE " + TABLE_NAME + " STATE = " + state + "  WHERE ID = '" + id + "'";
+        Log.d(TAG, "sql:" + sql);
+        DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
+        mDb = helper.getWritableDatabase();
+        mDb.execSQL(sql);
+    }
+
 }

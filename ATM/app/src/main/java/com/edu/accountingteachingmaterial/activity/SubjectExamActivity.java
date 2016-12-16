@@ -18,6 +18,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
@@ -110,10 +111,10 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         tvTime = (TextView) findViewById(R.id.tv_time);
 
         Bundle bundle = getIntent().getExtras();
-        examId = bundle.getInt("examId");
+        examId = bundle.getInt("ExmaID");
         textMode = bundle.getInt("textMode");
 
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1179);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
@@ -225,15 +226,17 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     }
 
     private void sendScore() {
-        float score = mSubjectAdapter.submit();
-        UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+//        float score = mSubjectAdapter.submit();
+//        UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
         int userId = PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
-        UploadResultsManager.getSingleton(this).uploadResult(userId, 1179, 10000);
+        UploadResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
         EventBus.getDefault().post(userId);
 //        ToastUtil.showToast(this, "score:" + score);
         Bundle bundle = new Bundle();
-        bundle.putInt("ExmaStatus", 1);
+//        bundle.putInt("ExmaStatus", 1);
+        bundle.putInt("ExmaID", examId);
         startActivity(UnitTestActivity.class, bundle);
+        ExamListDao.getInstance(this).updateState(examId, ClassContstant.EXAM_COMMIT);
         finish();
     }
 

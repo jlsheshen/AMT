@@ -62,10 +62,10 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 	 * @return 是否需要显示
 	 */
 	public boolean setResources(String question, String[] pics) {
-		if (question != null && !question.equals("")) {
-			mPageCount++;
-			mQuestion = question;
-		}
+//		if (question != null && !question.equals("")) {
+//			mPageCount++;
+//			mQuestion = question;
+//		}
 		if (pics != null && pics.length > 0) {
 			mPageCount += pics.length;
 			mPicResIds = pics;
