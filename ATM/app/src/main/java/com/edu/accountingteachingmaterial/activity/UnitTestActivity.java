@@ -201,7 +201,11 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
             //查看作答
             btnStart.setBackgroundResource(R.drawable.selector_answer);
-            textMode = ClassContstant.TEST_MODE_LOOK;
+            if (examId == 1210) {
+                textMode = ClassContstant.TEST_MODE_LOOK;
+            } else {
+                textMode = ClassContstant.TEST_MODE_TEST;
+            }
         } else if (exmaStatus == ClassContstant.EXAM_READ) {
             //已批阅 state:3
             imgShow.setImageResource(R.mipmap.yipiyue);
@@ -233,15 +237,15 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         tvEndTime.setText("2016-12-31 10:30");
         tvChallengeTime.setText("60分钟");
 
-        if(examId == 1210){
+        if (examId == 1210) {
             tvSingle.setText("0道");
             tvMultiple.setText("0道");
             tvJudge.setText("0道");
             tvFillIn.setText("0道");
             tvShort.setText("0道");
-            tvComprehensive.setText("0道");
+            tvComprehensive.setText("20道");
             tvTotal.setText("20道");
-        }else if (examId == 1211){
+        } else if (examId == 1211) {
             tvSingle.setText("18道");
             tvMultiple.setText("54道");
             tvJudge.setText("67道");
@@ -249,7 +253,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             tvShort.setText("0道");
             tvComprehensive.setText("0道");
             tvTotal.setText("139道");
-        }else if (examId == 1212){
+        } else if (examId == 1212) {
             tvSingle.setText("41道");
             tvMultiple.setText("88道");
             tvJudge.setText("71道");
@@ -257,7 +261,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             tvShort.setText("0道");
             tvComprehensive.setText("0道");
             tvTotal.setText("200道");
-        }else if (examId == 1213){
+        } else if (examId == 1213) {
             tvSingle.setText("34道");
             tvMultiple.setText("79道");
             tvJudge.setText("87道");

@@ -115,7 +115,7 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
         }
 
         tvAnswer.setText("正确答案：" + rightStr);
-        tvAnalysis.setText("解析：" + data.getAnalysis());
+        tvAnalysis.setText( data.getAnalysis());
 
         parseOption(data.getOption());
     }

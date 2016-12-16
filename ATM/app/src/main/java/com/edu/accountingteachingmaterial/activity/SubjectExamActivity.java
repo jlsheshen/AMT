@@ -228,8 +228,11 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     }
 
     private void sendScore() {
-//        float score = mSubjectAdapter.submit();
-//        UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+        float score = mSubjectAdapter.submit();
+        if (examId == 1210) {
+        } else {
+            UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+        }
         int userId = PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID);
         UploadResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
         EventBus.getDefault().post(userId);
@@ -237,7 +240,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         Bundle bundle = new Bundle();
 //        bundle.putInt("ExmaStatus", 1);
         bundle.putInt("ExmaID", examId);
-        bundle.putString("title",title);
+        bundle.putString("title", title);
         startActivity(UnitTestActivity.class, bundle);
         ExamListDao.getInstance(this).updateState(examId, ClassContstant.EXAM_COMMIT);
         finish();

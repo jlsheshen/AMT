@@ -106,7 +106,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
             }
         }
         // tvAnswer.setText("正确答案：" + data.getAnswer());
-        tvAnalysis.setText("解析：" + data.getAnalysis());
+        tvAnalysis.setText(data.getAnalysis());
 
         parseOption(data.getOption());
     }
