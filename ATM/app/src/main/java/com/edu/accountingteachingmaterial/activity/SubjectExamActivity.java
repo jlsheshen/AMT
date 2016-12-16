@@ -66,6 +66,8 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     List<BaseTestData> datas;
     int examId;//试卷ID
     int textMode;//测试模式
+    String title;
+    TextView tvQuestion;
     ExitDialog exitDialog;// 退出提示框
     // 页面相关状态的监听
     private CountryTestTimer timer;
@@ -109,13 +111,13 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
         tvTime = (TextView) findViewById(R.id.tv_time);
-
+        tvQuestion = (TextView) findViewById(R.id.tvQuestion);
         Bundle bundle = getIntent().getExtras();
         examId = bundle.getInt("ExmaID");
         textMode = bundle.getInt("textMode");
-
+        title = bundle.getString("title");
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
-
+        tvQuestion.setText(title);
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
@@ -235,6 +237,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         Bundle bundle = new Bundle();
 //        bundle.putInt("ExmaStatus", 1);
         bundle.putInt("ExmaID", examId);
+        bundle.putString("title",title);
         startActivity(UnitTestActivity.class, bundle);
         ExamListDao.getInstance(this).updateState(examId, ClassContstant.EXAM_COMMIT);
         finish();

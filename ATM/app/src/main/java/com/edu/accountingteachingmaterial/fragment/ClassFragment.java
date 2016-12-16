@@ -167,7 +167,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(context).inflate(
                 R.layout.ppw_history, null);
-        loadHistoryDatas();
+//        loadHistoryDatas();
 
 
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();

@@ -128,7 +128,7 @@ import android.os.Bundle;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
-import com.edu.accountingteachingmaterial.constant.UriConstant;
+import com.edu.library.util.SdcardPathUtil;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
@@ -152,7 +152,7 @@ public class PdfActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        File file = new File(UriConstant.FILE_PATH + "aaa.pdf");
+        File file = new File(SdcardPathUtil.getExternalSdCardPath() + "/aaa.pdf");
         pdfView.fromFile(file)
                 // pdfView.fromAsset(String)
                 //.pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default

@@ -279,7 +279,7 @@ public class ExamFragment extends BaseFragment {
                     Bundle bundle = new Bundle();
 //                    bundle.putInt("ExmaStatus", ExamListDao.getInstance(context).getState(datas.get(i).getExamId()));
                     bundle.putInt("ExmaID", datas.get(i).getExamId());
-
+                    bundle.putString("title", datas.get(i).getTitle());
                     startActivity(UnitTestActivity.class, bundle);
                 }
             }
@@ -298,11 +298,11 @@ public class ExamFragment extends BaseFragment {
         } else {
             examBean1.setExmaStatus(exmaStatus);
         }
-        examBean1.setTitle("会计技能测试1");
-        examBean1.setTime("2016-11-11");
-        examBean1.setPublisher("赵铁柱");
+        examBean1.setTitle("浙江技能高考试题：单据题");
+        examBean1.setTime("2016-12-11");
+        examBean1.setPublisher("章敏");
         examBean1.setItemNumber((long) 20);
-        examBean1.setStartTime("2016-11-11 10:30");
+        examBean1.setStartTime("2016-12-11 10:30");
         examBean1.setDuration(60);
         examBean1.setExamId(1210);
         datas.add(examBean1);
@@ -313,11 +313,11 @@ public class ExamFragment extends BaseFragment {
         } else {
             examBean2.setExmaStatus(exmaStatus2);
         }
-        examBean2.setTitle("会计技能测试2");
-        examBean2.setTime("2016-11-11");
-        examBean2.setPublisher("赵铁柱");
+        examBean2.setTitle("浙江技能高考试题：财务报表");
+        examBean2.setTime("2016-12-11");
+        examBean2.setPublisher("章敏");
         examBean2.setItemNumber((long) 139);
-        examBean2.setStartTime("2016-11-11 10:30");
+        examBean2.setStartTime("2016-12-11 10:30");
         examBean2.setDuration(60);
         examBean2.setExamId(1211);
         datas.add(examBean2);
@@ -328,11 +328,11 @@ public class ExamFragment extends BaseFragment {
         } else {
             examBean3.setExmaStatus(exmaStatus3);
         }
-        examBean3.setTitle("会计技能测试3");
-        examBean3.setTime("2016-11-11");
-        examBean3.setPublisher("赵铁柱");
+        examBean3.setTitle("浙江技能高考试题：原始凭证");
+        examBean3.setTime("2016-12-11");
+        examBean3.setPublisher("章敏");
         examBean3.setItemNumber((long) 200);
-        examBean3.setStartTime("2016-11-11 10:30");
+        examBean3.setStartTime("2016-12-11 10:30");
         examBean3.setDuration(60);
         examBean3.setExamId(1212);
         datas.add(examBean3);
@@ -343,11 +343,11 @@ public class ExamFragment extends BaseFragment {
         } else {
             examBean4.setExmaStatus(exmaStatus4);
         }
-        examBean4.setTitle("会计技能测试4");
-        examBean4.setTime("2016-11-11");
-        examBean4.setPublisher("赵铁柱");
+        examBean4.setTitle("浙江技能高考试题：账簿");
+        examBean4.setTime("2016-12-11");
+        examBean4.setPublisher("章敏");
         examBean4.setItemNumber((long) 200);
-        examBean4.setStartTime("2016-11-11 10:30");
+        examBean4.setStartTime("2016-12-11 10:30");
         examBean4.setDuration(60);
         examBean4.setExamId(1213);
         datas.add(examBean4);

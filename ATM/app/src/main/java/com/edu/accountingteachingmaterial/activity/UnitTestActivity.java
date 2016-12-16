@@ -40,6 +40,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     int examId;
     int exmaStatus;
     int textMode;
+    String title;
+    TextView testTitleTv;
 
     @Override
     public int setLayout() {
@@ -71,6 +73,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         rlScore = bindView(R.id.ly_score);
         rlSubmitting = bindView(R.id.item_submitting_ly);
         rlAnswerData = bindView(R.id.item_answer_ly);
+        testTitleTv = bindView(R.id.test_title_tv);
     }
 
 
@@ -79,7 +82,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
         Bundle bundle = getIntent().getExtras();
 //        exmaStatus = bundle.getInt("ExmaStatus");
-        examId= bundle.getInt("ExmaID");
+        examId = bundle.getInt("ExmaID");
+        title = bundle.getString("title");
 //        uploadTestInfo();
         refreshState();
         rView();
@@ -105,6 +109,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 Bundle bundle = new Bundle();
                 bundle.putInt("ExmaID", examId);
                 bundle.putInt("textMode", textMode);
+                bundle.putString("title", title);
                 startActivity(SubjectExamActivity.class, bundle);
                 finish();
                 break;
@@ -220,18 +225,46 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     }
 
     private void rView() {
-        testTitle.setText("会计立体化教材");
-        tvPublisher.setText("赵铁柱");
-        tvReleaseTime.setText("2016-11-11 10:30");
-        tvStartTime.setText("2016-11-11 10:30");
-        tvEndTime.setText("2016-12-11 10:30");
+        testTitleTv.setText(title);
+        testTitle.setText(title);
+        tvPublisher.setText("章敏");
+        tvReleaseTime.setText("2016-12-11 10:30");
+        tvStartTime.setText("2016-12-11 10:30");
+        tvEndTime.setText("2016-12-31 10:30");
         tvChallengeTime.setText("60分钟");
-        tvSingle.setText("10道");
-        tvMultiple.setText("10道");
-        tvJudge.setText("10道");
-        tvFillIn.setText("10道");
-        tvShort.setText("10道");
-        tvComprehensive.setText("10道");
-        tvTotal.setText("60道");
+
+        if(examId == 1210){
+            tvSingle.setText("0道");
+            tvMultiple.setText("0道");
+            tvJudge.setText("0道");
+            tvFillIn.setText("0道");
+            tvShort.setText("0道");
+            tvComprehensive.setText("0道");
+            tvTotal.setText("20道");
+        }else if (examId == 1211){
+            tvSingle.setText("18道");
+            tvMultiple.setText("54道");
+            tvJudge.setText("67道");
+            tvFillIn.setText("0道");
+            tvShort.setText("0道");
+            tvComprehensive.setText("0道");
+            tvTotal.setText("139道");
+        }else if (examId == 1212){
+            tvSingle.setText("41道");
+            tvMultiple.setText("88道");
+            tvJudge.setText("71道");
+            tvFillIn.setText("0道");
+            tvShort.setText("0道");
+            tvComprehensive.setText("0道");
+            tvTotal.setText("200道");
+        }else if (examId == 1213){
+            tvSingle.setText("34道");
+            tvMultiple.setText("79道");
+            tvJudge.setText("87道");
+            tvFillIn.setText("0道");
+            tvShort.setText("0道");
+            tvComprehensive.setText("0道");
+            tvTotal.setText("200道");
+        }
     }
 }
