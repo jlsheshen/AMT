@@ -7,7 +7,7 @@ package com.edu;
 public class NetUrlContstant {
     public static final String URL_NAME = "URL_NAME";
 
-    public static String BASE_URL = "http://192.168.1.142/";
+    public static String BASE_URL = "http://192.168.1.142:8080/";
     //首页课程信息
     public static final String homeInfoUrl = BASE_URL + "interface/course/findCoursesByUserId/";
     //课程章节列表

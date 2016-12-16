@@ -19,9 +19,11 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/tv_title"
-        android:background="@mipmap/icon_fanhui_n"
+        android:background="@drawable/bg_selector_jian"
         android:minHeight="0px"
-        android:minWidth="0px"/>
+        android:minWidth="0px"
+        android:text="-"
+        android:textColor="@color/trans_parent" />
 
     <EditText
         android:id="@+id/et_num"
@@ -63,8 +65,10 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="20dp"
         android:layout_toRightOf="@+id/tv_total"
-        android:background="@mipmap/icon_fanhui_n"
+        android:background="@drawable/bg_selector_jia"
         android:minHeight="0px"
-        android:minWidth="0px"/>
+        android:minWidth="0px"
+        android:text="+"
+        android:textColor="@color/trans_parent" />
 
 </RelativeLayout>

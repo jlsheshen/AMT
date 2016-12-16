@@ -53,8 +53,6 @@ public class AddAndSubTestView extends RelativeLayout {
         btnAdd = (Button) findViewById(R.id.btn_add);
         btnSub = (Button) findViewById(R.id.btn_sub);
         etNum = (EditText) findViewById(R.id.et_num);
-        btnAdd.setText("+");
-        btnSub.setText("-");
         btnAdd.setTag("+");
         btnSub.setTag("-");
         etNum.setText(String.valueOf(num));

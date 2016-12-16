@@ -34,7 +34,7 @@ public class ExamAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return datas == null?0:datas.size();
+        return datas == null ? 0 : datas.size();
     }
 
     @Override
@@ -50,26 +50,26 @@ public class ExamAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         ViewHolder viewHolder = null;
-        if (view == null){
-            view = LayoutInflater.from(context).inflate(R.layout.item_exam_lv,viewGroup,false);
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_exam_lv, viewGroup, false);
             AutoUtils.autoSize(view);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
-        }else {
+        } else {
             viewHolder = (ViewHolder) view.getTag();
         }
         OnLineExamListData examBean = datas.get(i);
-       setContent(viewHolder.titleTv,examBean.getExam_name());
-     setContent(viewHolder.timeTv, String.valueOf(examBean.getLast_time()));
-//        setContent(viewHolder.publisherTv,examBean.getCreator_name());
-      setContent(viewHolder.itemNumTv, examBean.getTopic_count() + "道");
+        setContent(viewHolder.titleTv, examBean.getExam_name());
+        setContent(viewHolder.timeTv, String.valueOf(examBean.getLast_time()));
+        setContent(viewHolder.publisherTv, examBean.getCreator_name());
+        setContent(viewHolder.itemNumTv, examBean.getTopic_count() + "道");
         setContent(viewHolder.startTimeTv, String.valueOf(examBean.getStart_time()));
         setContent(viewHolder.durationTv, String.valueOf(examBean.getLast_time()) + "分钟");
-        switch (examBean.getState()){
+        switch (examBean.getState()) {
             case ClassContstant.EXAM_COMMIT:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_yituijiao_n);
 
-            break;
+                break;
             case ClassContstant.EXAM_DOWNLOADING:
                 viewHolder.imageView.setVisibility(View.GONE);
                 viewHolder.progressBar.setVisibility(View.VISIBLE);
@@ -88,14 +88,16 @@ public class ExamAdapter extends BaseAdapter {
         }
         return view;
     }
-    void setContent(TextView view,String s){
+
+    void setContent(TextView view, String s) {
         view.setText(s);
     }
 
-    class ViewHolder{
-        TextView titleTv,timeTv,publisherTv,itemNumTv,startTimeTv,durationTv;
+    class ViewHolder {
+        TextView titleTv, timeTv, publisherTv, itemNumTv, startTimeTv, durationTv;
         ImageView imageView;
         ProgressBar progressBar;
+
         public ViewHolder(View view) {
             titleTv = (TextView) view.findViewById(R.id.item_exam_title_tv);
             timeTv = (TextView) view.findViewById(R.id.item_exam_time_tv);
@@ -103,8 +105,8 @@ public class ExamAdapter extends BaseAdapter {
             itemNumTv = (TextView) view.findViewById(R.id.item_exam_itemumber_tv);
             startTimeTv = (TextView) view.findViewById(R.id.item_exam_starttime_tv);
             durationTv = (TextView) view.findViewById(R.id.item_exam_duration_tv);
-            imageView  = (ImageView) view.findViewById(R.id.item_exam_type_iv);
-            progressBar  = (ProgressBar) view.findViewById(R.id.item_exam_type_pb);
+            imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
+            progressBar = (ProgressBar) view.findViewById(R.id.item_exam_type_pb);
         }
     }
 }

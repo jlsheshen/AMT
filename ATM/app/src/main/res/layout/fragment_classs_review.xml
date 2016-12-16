@@ -92,6 +92,12 @@
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:src="@mipmap/img_xxb" />
+
         <LinearLayout
             android:id="@+id/ly_first"
             android:layout_width="320px"
@@ -115,5 +121,5 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="40px"
-        android:text="智能出题" />
+        android:background="@drawable/bg_selector_ct" />
 </RelativeLayout>
