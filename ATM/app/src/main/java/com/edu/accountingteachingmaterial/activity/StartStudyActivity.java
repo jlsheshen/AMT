@@ -19,6 +19,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.entity.AccToken;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
+import com.edu.accountingteachingmaterial.util.GetBillTemplatesManager;
 import com.edu.accountingteachingmaterial.util.LoginNetMananger;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
@@ -51,7 +52,6 @@ public class StartStudyActivity extends BaseActivity {
     private Context mContext;
     // 需要上传答题结果的所有数据
     private static LoginNetMananger mSingleton;
-
 
 
     @Override
@@ -134,10 +134,10 @@ public class StartStudyActivity extends BaseActivity {
                 boolean result = jsonObject.getBoolean("result");
                 String message = jsonObject.getString("message");
                 if (result) {
-                    if (message == null||message.length()==0){
+                    if (message == null || message.length() == 0) {
                         Log.d("StartStudyActivity", "学号有误");
                     }
-                    Log.d("StartStudyActivity","----" +  message);
+                    Log.d("StartStudyActivity", "----" + message);
                     AccToken accToken = JSON.parseObject(jsonObject.getString("message"), AccToken.class);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_NUMBER, num);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
@@ -160,6 +160,9 @@ public class StartStudyActivity extends BaseActivity {
 
     }
 
+    /**
+     * 弹出设置ipdialog
+     */
     private void showIpDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         final AlertDialog alertDialog = builder.create();
@@ -188,9 +191,14 @@ public class StartStudyActivity extends BaseActivity {
         alertDialog.show();
     }
 
+    /**
+     * 测试ip
+     *
+     * @param s
+     */
     private void showIp(String s) {
         BASE_URL = "http://" + s;
-        Log.d("StartStudyActivity", NetUrlContstant.getSettingIpUrl() );
+        Log.d("StartStudyActivity", NetUrlContstant.getSettingIpUrl());
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getSettingIpUrl());
         Log.d("StartStudyActivity", NetUrlContstant.getSettingIpUrl());
@@ -217,14 +225,13 @@ public class StartStudyActivity extends BaseActivity {
     //线程类型
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(HomepageInformationData date) {
-      //  findViewById(R.id.startstudy_aty_pb).setVisibility(View.GONE);
+        //  findViewById(R.id.startstudy_aty_pb).setVisibility(View.GONE);
         imageView.setVisibility(View.VISIBLE);
         data = date;
     }
 
     /**
      * 登陆成功后获取课程的id
-     *
      */
     private void uploadHomepageInfo() {
 //        UserData user = UserCenterHelper.getUserInfo(this);
@@ -250,9 +257,10 @@ public class StartStudyActivity extends BaseActivity {
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_NUMBER, num);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setIntValue(COURSE_ID, data.getCourse_id());
+                    GetBillTemplatesManager.newInstance(StartStudyActivity.this).sendLocalTemplates();
 
-                    startActivity(MainActivity.class);
-                       finish();
+//                    startActivity(MainActivity.class);
+//                       finish();
 //                    EventBus.getDefault().post(data);
                 }
             }
@@ -270,9 +278,15 @@ public class StartStudyActivity extends BaseActivity {
     }
 
     @Override
+    protected void onPause() {
+        finish();
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
-
+        finish();
         super.onDestroy();
     }
 }

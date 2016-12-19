@@ -21,7 +21,8 @@
                 android:id="@+id/my_head_civ"
                 android:layout_width="85px"
                 android:layout_height="85px"
-                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="35px"
                 android:src="@mipmap/touxiang_me"
                 app:civ_border_overlay="false"
                 app:civ_border_width="0dp" />
@@ -36,6 +37,16 @@
                 android:text="@string/login"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/content_text_size" />
+            <TextView
+                android:id="@+id/my_number_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/my_name_tv"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5px"
+                android:text="学号"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
         <TextView

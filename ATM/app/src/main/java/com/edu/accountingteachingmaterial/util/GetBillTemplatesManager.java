@@ -1,7 +1,9 @@
 package com.edu.accountingteachingmaterial.util;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.activity.MainActivity;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.TemplateElementsDao;
@@ -26,6 +29,12 @@ import org.apache.http.Header;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Observable;
+import rx.Observer;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
 
@@ -44,8 +53,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     private static final String BACKGROUND = "BACKGROUND";
     private static final String FLAG = "FLAG";
     private static final String REMARK = "REMARK";
-
-
     private static final String CONTENT = "CONTENT";
     private static final String TEMPLATE_ID = "TEMPLATE_ID";
     private static final String TYPE = "TYPE";
@@ -60,8 +67,9 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     private Context context;
     private static GetBillTemplatesManager instance;
 
+
     private GetBillTemplatesManager(Context context) {
-        mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
+        mAsyncClient.addHeader(TOKEN, PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
 
         this.context = context;
     }
@@ -73,23 +81,35 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
      * @return
      */
     public static GetBillTemplatesManager newInstance(Context context) {
+
         if (instance == null) {
             instance = new GetBillTemplatesManager(context);
         }
         return instance;
     }
 
+    /**
+     * 发送请求
+     */
     public void sendLocalTemplates() {
+        long start = System.currentTimeMillis();
         List<BillTemplateListBean> datas = getTemplates();
         String url = NetUrlContstant.getLocalTemplates();
         Log.d("GetBillTemplatesManager", url);
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
-        sendRequest(entity);
+        sendRequest(entity, "耐心等待");
         Log.d("GetBillTemplatesManager", "uploadResult:" + JSON.toJSONString(datas));
+
 
     }
 
+    /**
+     * 获取本地模板数据
+     *
+     * @return
+     */
     private List<BillTemplateListBean> getTemplates() {
+        long start = System.currentTimeMillis();
         List<BillTemplateListBean> datas = null;
         Cursor curs = null;
         try {
@@ -107,6 +127,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                     datas.add(data);
                 }
             }
+
         } catch (SQLException ex) {
             ex.printStackTrace();
         } catch (Exception e) {
@@ -125,11 +146,41 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         Log.d("GetBillTemplatesManager", "onConnectionSuccess:" + json);
 
         boolean result = json.getBoolean("result");
-        String message = json.getString("message");
+        final String message = json.getString("message");
         if (result) {
-            List<TemplateData> billTemplates = JSON.parseArray(message, TemplateData.class);
+            final ProgressDialog myDialog = ProgressDialog.show(context, "正在加载模板..", "第一次加载时间会比较久^-^", true, false);
             Log.d(TAG, "------" + message + "---");
-            saveTemplates(billTemplates);
+
+            Observable.create(new Observable.OnSubscribe<List<TemplateData>>() {
+                @Override
+                public void call(Subscriber<? super List<TemplateData>> subscriber) {
+                    List<TemplateData> billTemplates = JSON.parseArray(message, TemplateData.class);
+                    saveTemplates(billTemplates);
+                    subscriber.onCompleted();
+
+                }
+            })
+                    .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
+                    .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
+                    .subscribe(new Observer<List<TemplateData>>() {
+                        @Override
+                        public void onNext(List<TemplateData> data) {
+                        }
+
+                        @Override
+                        public void onCompleted() {
+
+                            myDialog.dismiss();
+                            Intent i = new Intent(context, MainActivity.class);
+                            context.startActivity(i);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+                    });
+
         } else {
 
         }
@@ -174,6 +225,13 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     }
 
+    /**
+     * 对获取的数据与本地数据进行对比,判断
+     *
+     * @param values
+     * @param billTemplate
+     */
+
     public void updateTemplateInfo(ContentValues values, TemplateData billTemplate) {
         Cursor curs = null;
         String sql = "SELECT * FROM " + TB_NAME + " WHERE ID = " + values.get(ID);
@@ -200,6 +258,11 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         }
     }
 
+    /**
+     * 插入数据
+     *
+     * @param billTemplate
+     */
     private void insertData(TemplateData billTemplate) {
 
         for (TemplateData.BlanksDatasBean blanksDatasBean : billTemplate.getBlanksDatas()) {
@@ -218,6 +281,11 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         }
     }
 
+    /**
+     * 更新数据
+     *
+     * @param billTemplate
+     */
     private void updateData(TemplateData billTemplate) {
         TemplateElementsDao.getInstance(context).deleteData(billTemplate.getId());
 
@@ -235,8 +303,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(CONTENT, blanksDatasBean.getContent());
             TemplateElementsDao.getInstance(context).insertData(contentValues);
         }
-
-
     }
 
 

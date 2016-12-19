@@ -96,7 +96,6 @@ public class LaunchActivity extends BaseActivity {
 //
 //
 //		}).start();
-        GetBillTemplatesManager.newInstance(LaunchActivity.this).sendLocalTemplates();
 
 //		// TODO Auto-generated method stub
         timer = new CountDownTimer(3000, 1000) {
