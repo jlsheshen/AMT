@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.edu.accountingteachingmaterial"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     style="@style/FragmentPadding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="100px">
+    android:layout_marginLeft="100px"
+    tools:ignore="ResAuto">
 
     <LinearLayout
         android:id="@+id/ly_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10px"
         android:layout_marginTop="20px"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -23,7 +25,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
             android:text="设置测验难度"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20px"
             android:button="@null"
-            android:checked="false"
+            android:checked="true"
             android:drawableLeft="@drawable/bg_selector_checkbox"
             android:drawablePadding="10px"
             android:text="容易"
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20px"
             android:button="@null"
-            android:checked="true"
+            android:checked="false"
             android:drawableLeft="@drawable/bg_selector_checkbox"
             android:drawablePadding="10px"
             android:text="普通"
@@ -71,11 +72,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="250px"
         android:layout_above="@+id/btn_start"
         android:layout_below="@+id/ly_top"
         android:layout_marginBottom="20px"
-        android:layout_marginLeft="10px"
         android:layout_marginTop="20px"
         android:orientation="horizontal">
 
@@ -87,31 +87,34 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
             android:text="设置测验难度"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
+
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:layout_marginBottom="50px"
+            android:layout_marginLeft="-45px"
             android:src="@mipmap/img_xxb" />
 
         <LinearLayout
             android:id="@+id/ly_first"
-            android:layout_width="320px"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
+            android:layout_width="300px"
+            android:layout_height="250px"
+            android:layout_marginLeft="-25px"
+            android:background="@drawable/shape_chapter_list"
             android:orientation="vertical" />
 
         <LinearLayout
             android:id="@+id/ly_second"
-            android:layout_width="320px"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
+            android:layout_width="300px"
+            android:layout_height="250px"
+            android:layout_marginLeft="40px"
+            android:background="@drawable/shape_chapter_list"
             android:orientation="vertical" />
-
     </LinearLayout>
 
     <Button

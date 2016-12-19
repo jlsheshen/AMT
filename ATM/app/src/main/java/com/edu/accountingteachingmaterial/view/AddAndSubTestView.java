@@ -47,6 +47,7 @@ public class AddAndSubTestView extends RelativeLayout {
         initData();
     }
 
+
     private void initView() {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvTotal = (TextView) findViewById(R.id.tv_total);
@@ -89,7 +90,7 @@ public class AddAndSubTestView extends RelativeLayout {
                         Toast.makeText(mContext, "请输入一个大于0的数字" + num,
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        if (num <= total) {
+                        if (num <= Integer.parseInt(tvTotal.getText().toString())) {
                             etNum.setText(String.valueOf(num));
                             if (onNumChangeListener != null) {
                                 onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
@@ -115,7 +116,7 @@ public class AddAndSubTestView extends RelativeLayout {
                         Toast.makeText(mContext, "请输入一个大于0的数字" + num,
                                 Toast.LENGTH_SHORT).show();
                     } else {
-                        if (num <= total) {
+                        if (num <= Integer.parseInt(tvTotal.getText().toString())) {
                             etNum.setText(String.valueOf(num));
                             if (onNumChangeListener != null) {
                                 onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
@@ -207,5 +208,10 @@ public class AddAndSubTestView extends RelativeLayout {
         } else {
             return 0;
         }
+    }
+
+    public void refresh(int total) {
+        this.total = total;
+        tvTotal.setText(String.valueOf(total));
     }
 }

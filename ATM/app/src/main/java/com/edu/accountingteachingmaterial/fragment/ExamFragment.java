@@ -61,7 +61,7 @@ public class ExamFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        uploadExamList();
+//        uploadExamList();
 //        loadData();
         examAdapter = new ExamAdapter(context);
         examAdapter.setDatas(datas);

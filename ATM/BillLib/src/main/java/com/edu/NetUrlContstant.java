@@ -44,5 +44,9 @@ public class NetUrlContstant {
     public static final String background = "http://192.168.1.142:80/resources/files/background/";
     //视频播放地址、pdf下载地址
     public static final String mediaorPdfUrl = BASE_URL + "interface/filedown/down/";
+    //自测获取题目总数量
+    public static final String reviewTopicUrl = BASE_URL + "";
+    //自测上传题目总数量
+    public static final String  upLoadingReviewTopicUrl = BASE_URL + "";
 
 }

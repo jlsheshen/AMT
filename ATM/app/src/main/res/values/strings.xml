@@ -19,6 +19,10 @@
 
     <string-array name="question2">
         <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
         <item>简答题</item>
         <item>综合题</item>
         <item>表格题</item>
