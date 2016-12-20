@@ -16,7 +16,7 @@ import com.edu.accountingteachingmaterial.R;
 
 
 /**
- * @author ZJJ
+ * @author lyq
  */
 public class AddAndSubTestView extends RelativeLayout {
     View mView;
@@ -72,7 +72,7 @@ public class AddAndSubTestView extends RelativeLayout {
     /**
      * 加减按钮事件监听器
      *
-     * @author ZJJ
+     * @author lyq
      */
     class OnButtonClickListener implements OnClickListener {
 
@@ -87,7 +87,7 @@ public class AddAndSubTestView extends RelativeLayout {
                     if (++num < 0)  //先加，再判断
                     {
                         num--;
-                        Toast.makeText(mContext, "请输入一个大于0的数字" + num,
+                        Toast.makeText(mContext, "请输入一个大于0的数字",
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         if (num <= Integer.parseInt(tvTotal.getText().toString())) {
@@ -104,16 +104,13 @@ public class AddAndSubTestView extends RelativeLayout {
                             Toast.makeText(mContext, "请输入在正确会范围内的数字",
                                     Toast.LENGTH_SHORT).show();
                         }
-//                        if (onNumChangeListener != null) {
-//                            onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
-//                        }
 
                     }
                 } else if (v.getTag().equals("-")) {
                     if (--num < 0)  //先减，再判断
                     {
                         num++;
-                        Toast.makeText(mContext, "请输入一个大于0的数字" + num,
+                        Toast.makeText(mContext, "请输入一个大于0的数字",
                                 Toast.LENGTH_SHORT).show();
                     } else {
                         if (num <= Integer.parseInt(tvTotal.getText().toString())) {
@@ -122,9 +119,6 @@ public class AddAndSubTestView extends RelativeLayout {
                                 onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
                             }
                         }
-//                        if (onNumChangeListener != null) {
-//                            onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
-//                        }
                     }
                 }
             }
@@ -135,7 +129,7 @@ public class AddAndSubTestView extends RelativeLayout {
     /**
      * EditText输入变化事件监听器
      *
-     * @author ZJJ
+     * @author lyq
      */
     class OnTextChangeListener implements TextWatcher {
 

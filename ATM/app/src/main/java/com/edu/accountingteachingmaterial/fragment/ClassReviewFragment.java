@@ -35,11 +35,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     // * 加载题型view
     LinearLayout layout1;
     LinearLayout layout2;
-    //    // * 题目类型数据
-//    private String[] strStem1;
-//    private String[] strStem2;
-//    private String[] str = {"单选题", "多选题", "判断题", "填空题", "简答题", "综合题", "表格题"};
-
+    //    private String[] str = {"单选题", "多选题", "判断题", "填空题", "简答题", "综合题", "表格题"};
     Button btnStart;
     CheckBox cbEasy, cbNormal, cbHard;
     ReviewTopicData reviewTopicData;
@@ -86,9 +82,6 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     @Override
     protected void initData() {
 
-//        strStem1 = context.getResources().getStringArray(R.array.question1);
-//        strStem2 = context.getResources().getStringArray(R.array.question2);
-
         layout1.removeAllViews();
         layout2.removeAllViews();
 
@@ -117,7 +110,6 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         loadTopicList();
 
     }
-
 
     //获取试题总数
     private void getTotalNum() {
