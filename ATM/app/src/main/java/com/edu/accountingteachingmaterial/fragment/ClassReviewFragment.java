@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.fragment;
 
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,22 +9,23 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.activity.SubjectReViewActivity;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
+import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.util.SubjectsDownloadManager;
 import com.edu.accountingteachingmaterial.view.AddAndSubTestView;
 import com.edu.library.util.ToastUtil;
-import com.edu.subject.BASE_URL;
 import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.ArrayList;
 
 /**
  * Created by Administrator on 2016/12/14.
@@ -52,6 +52,8 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     AddAndSubTestView addAndSubTestView6 = null;
     AddAndSubTestView addAndSubTestView7 = null;
     int chapterId;
+    ReviewTopicVo topicVo;
+    ArrayList<Integer> list;
 
     @Override
     protected int initLayout() {
@@ -90,10 +92,10 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout1.removeAllViews();
         layout2.removeAllViews();
 
-        addAndSubTestView1 = new AddAndSubTestView(context, 12, "单选题");
-        addAndSubTestView2 = new AddAndSubTestView(context, 20, "多选题");
-        addAndSubTestView3 = new AddAndSubTestView(context, 30, "判断题");
-        addAndSubTestView4 = new AddAndSubTestView(context, 10, "填空题");
+        addAndSubTestView1 = new AddAndSubTestView(context, 0, "单选题");
+        addAndSubTestView2 = new AddAndSubTestView(context, 0, "多选题");
+        addAndSubTestView3 = new AddAndSubTestView(context, 0, "判断题");
+        addAndSubTestView4 = new AddAndSubTestView(context, 0, "填空题");
         addAndSubTestView1.setTag(1);
         addAndSubTestView2.setTag(2);
         addAndSubTestView3.setTag(3);
@@ -103,98 +105,48 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout1.addView(addAndSubTestView3);
         layout1.addView(addAndSubTestView4);
 
-        addAndSubTestView5 = new AddAndSubTestView(context, 12, "简答题");
-        addAndSubTestView6 = new AddAndSubTestView(context, 13, "综合题");
-        addAndSubTestView7 = new AddAndSubTestView(context, 15, "表格题");
+        addAndSubTestView5 = new AddAndSubTestView(context, 0, "简答题");
+        addAndSubTestView6 = new AddAndSubTestView(context, 0, "综合题");
+        addAndSubTestView7 = new AddAndSubTestView(context, 0, "表格题");
         addAndSubTestView5.setTag(5);
         addAndSubTestView6.setTag(6);
         addAndSubTestView7.setTag(7);
         layout2.addView(addAndSubTestView5);
         layout2.addView(addAndSubTestView6);
         layout2.addView(addAndSubTestView7);
+        loadTopicList();
 
     }
 
-    //刷新首页题目总题数
-    private void refreshView() {
-        if (cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked()) {
-            addAndSubTestView1.refresh(11);
-            addAndSubTestView2.refresh(11);
-            addAndSubTestView3.refresh(11);
-            addAndSubTestView4.refresh(11);
-            addAndSubTestView5.refresh(11);
-            addAndSubTestView6.refresh(11);
-            addAndSubTestView7.refresh(11);
-        } else if (!cbEasy.isChecked() && cbNormal.isChecked() && !cbHard.isChecked()) {
-            addAndSubTestView1.refresh(11);
-            addAndSubTestView2.refresh(12);
-            addAndSubTestView3.refresh(13);
-            addAndSubTestView4.refresh(14);
-            addAndSubTestView5.refresh(15);
-            addAndSubTestView6.refresh(16);
-            addAndSubTestView7.refresh(17);
-        } else if (!cbEasy.isChecked() && !cbNormal.isChecked() && cbHard.isChecked()) {
-            addAndSubTestView1.refresh(11);
-            addAndSubTestView2.refresh(21);
-            addAndSubTestView3.refresh(31);
-            addAndSubTestView4.refresh(41);
-            addAndSubTestView5.refresh(51);
-            addAndSubTestView6.refresh(61);
-            addAndSubTestView7.refresh(41);
-        } else if (cbEasy.isChecked() && cbNormal.isChecked() && !cbHard.isChecked()) {
-            addAndSubTestView1.refresh(11);
-            addAndSubTestView2.refresh(11);
-            addAndSubTestView3.refresh(13);
-            addAndSubTestView4.refresh(41);
-            addAndSubTestView5.refresh(15);
-            addAndSubTestView6.refresh(61);
-            addAndSubTestView7.refresh(11);
-        } else if (cbEasy.isChecked() && !cbNormal.isChecked() && cbHard.isChecked()) {
-            addAndSubTestView1.refresh(111);
-            addAndSubTestView2.refresh(21);
-            addAndSubTestView3.refresh(31);
-            addAndSubTestView4.refresh(41);
-            addAndSubTestView5.refresh(151);
-            addAndSubTestView6.refresh(61);
-            addAndSubTestView7.refresh(171);
-        } else if (!cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
-            addAndSubTestView1.refresh(111);
-            addAndSubTestView2.refresh(121);
-            addAndSubTestView3.refresh(11);
-            addAndSubTestView4.refresh(11);
-            addAndSubTestView5.refresh(151);
-            addAndSubTestView6.refresh(61);
-            addAndSubTestView7.refresh(71);
-        } else if (cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
-            addAndSubTestView1.refresh(111);
-            addAndSubTestView2.refresh(12);
-            addAndSubTestView3.refresh(131);
-            addAndSubTestView4.refresh(14);
-            addAndSubTestView5.refresh(151);
-            addAndSubTestView6.refresh(161);
-            addAndSubTestView7.refresh(17);
-        } else {
-            addAndSubTestView1.refresh(0);
-            addAndSubTestView2.refresh(0);
-            addAndSubTestView3.refresh(0);
-            addAndSubTestView4.refresh(0);
-            addAndSubTestView5.refresh(0);
-            addAndSubTestView6.refresh(0);
-            addAndSubTestView7.refresh(0);
-        }
-//        addAndSubTestView1.refresh(111);
-//        addAndSubTestView2.refresh(121);
-//        addAndSubTestView3.refresh(131);
-//        addAndSubTestView4.refresh(141);
-//        addAndSubTestView5.refresh(151);
-//        addAndSubTestView6.refresh(161);
-//        addAndSubTestView7.refresh(171);
-    }
 
     //获取试题总数
     private void getTotalNum() {
         totalNum = addAndSubTestView1.getNum() + addAndSubTestView2.getNum() + addAndSubTestView3.getNum() + addAndSubTestView4.getNum() + addAndSubTestView5.getNum() + addAndSubTestView6.getNum() + addAndSubTestView7.getNum();
         Log.d("ClassReviewFragment", "2016-12-19 total  num:" + totalNum);
+    }
+
+    private void getUploadData() {
+        list = new ArrayList<>();
+        topicVo = new ReviewTopicVo();
+        topicVo.setOne(addAndSubTestView1.getNum());
+        topicVo.setMulti(addAndSubTestView2.getNum());
+        topicVo.setJudge(addAndSubTestView3.getNum());
+        topicVo.setFilling(addAndSubTestView4.getNum());
+        topicVo.setAsk(addAndSubTestView5.getNum());
+        topicVo.setComp(addAndSubTestView6.getNum());
+        topicVo.setTable(addAndSubTestView7.getNum());
+        if (cbEasy.isChecked()) {
+            list.add(1);
+        }
+        if (cbNormal.isChecked()) {
+            list.add(2);
+        }
+        if (cbHard.isChecked()) {
+            list.add(3);
+        }
+        topicVo.setLevel(list);
+
+        Log.d("ClassReviewFragment", topicVo + "2016-12-19");
     }
 
     @Override
@@ -211,10 +163,11 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
                     return;
                 }
 //                uploading();
+                getUploadData();
                 ToastUtil.showToast(context, "智能组卷");
-                Bundle bundle = new Bundle();
-                bundle.putInt("chapterId", chapterId);
-                startActivity(SubjectReViewActivity.class, bundle);
+//                Bundle bundle = new Bundle();
+//                bundle.putInt("chapterId", chapterId);
+//                startActivity(SubjectReViewActivity.class, bundle);
                 break;
         }
 
@@ -226,7 +179,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         Log.d("ClassReviewFragment", "每个题目总数量");
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, BASE_URL.BASE_URL);
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getGetReviewList() + "901");
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
@@ -291,4 +244,72 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         super.onDestroy();
     }
 
+    //刷新首页题目总题数
+    private void refreshView() {
+        if (cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked()) {
+            addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getOrdinary().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getOrdinary().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getOrdinary().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getOrdinary().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getOrdinary().getTable());
+        } else if (!cbEasy.isChecked() && cbNormal.isChecked() && !cbHard.isChecked()) {
+            addAndSubTestView1.refresh(reviewTopicData.getEasy().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getEasy().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getEasy().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getEasy().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getEasy().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getEasy().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getEasy().getTable());
+        } else if (!cbEasy.isChecked() && !cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(reviewTopicData.getHard().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getHard().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getHard().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getHard().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getHard().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getHard().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getHard().getTable());
+        } else if (cbEasy.isChecked() && cbNormal.isChecked() && !cbHard.isChecked()) {
+            addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne() + reviewTopicData.getEasy().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti() + reviewTopicData.getEasy().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getOrdinary().getJudge() + reviewTopicData.getEasy().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getOrdinary().getFilling() + reviewTopicData.getEasy().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getOrdinary().getAsk() + reviewTopicData.getEasy().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getOrdinary().getComp() + reviewTopicData.getEasy().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getOrdinary().getTable() + reviewTopicData.getEasy().getTable());
+        } else if (cbEasy.isChecked() && !cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne() + reviewTopicData.getHard().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti() + reviewTopicData.getHard().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getOrdinary().getJudge() + reviewTopicData.getHard().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getOrdinary().getFilling() + reviewTopicData.getHard().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getOrdinary().getAsk() + reviewTopicData.getHard().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getOrdinary().getComp() + reviewTopicData.getHard().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getOrdinary().getTable() + reviewTopicData.getHard().getTable());
+        } else if (!cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(reviewTopicData.getEasy().getOne() + reviewTopicData.getHard().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getEasy().getMulti() + reviewTopicData.getHard().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getEasy().getJudge() + reviewTopicData.getHard().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getEasy().getFilling() + reviewTopicData.getHard().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getEasy().getAsk() + reviewTopicData.getHard().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getEasy().getComp() + reviewTopicData.getHard().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getEasy().getTable() + reviewTopicData.getHard().getTable());
+        } else if (cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne() + reviewTopicData.getEasy().getOne() + reviewTopicData.getHard().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti() + reviewTopicData.getEasy().getMulti() + reviewTopicData.getHard().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getOrdinary().getJudge() + reviewTopicData.getEasy().getJudge() + reviewTopicData.getHard().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getOrdinary().getFilling() + reviewTopicData.getEasy().getFilling() + reviewTopicData.getHard().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getOrdinary().getAsk() + reviewTopicData.getEasy().getAsk() + reviewTopicData.getHard().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getOrdinary().getComp() + reviewTopicData.getEasy().getComp() + reviewTopicData.getHard().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getOrdinary().getTable() + reviewTopicData.getEasy().getTable() + reviewTopicData.getHard().getTable());
+        } else {
+            addAndSubTestView1.refresh(0);
+            addAndSubTestView2.refresh(0);
+            addAndSubTestView3.refresh(0);
+            addAndSubTestView4.refresh(0);
+            addAndSubTestView5.refresh(0);
+            addAndSubTestView6.refresh(0);
+            addAndSubTestView7.refresh(0);
+        }
+    }
 }
