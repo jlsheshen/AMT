@@ -14,9 +14,9 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.AccToken;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.util.GetBillTemplatesManager;
@@ -52,6 +52,7 @@ public class StartStudyActivity extends BaseActivity {
     private Context mContext;
     // 需要上传答题结果的所有数据
     private static LoginNetMananger mSingleton;
+    Context context = this;
 
 
     @Override
@@ -234,12 +235,9 @@ public class StartStudyActivity extends BaseActivity {
      * 登陆成功后获取课程的id
      */
     private void uploadHomepageInfo() {
-//        UserData user = UserCenterHelper.getUserInfo(this);
-//        user.setUserId(35605);
         final String num = numEt.getText().toString();
         final String pw = passwerEt.getText().toString();
 
-//        PreferenceHelper.getInstance(this).setIntValue(PreferenceHelper.USER_ID, 20160001);
         Log.d("LaunchActivity", NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getStringValue(USER_ID));
 
         String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
@@ -257,7 +255,7 @@ public class StartStudyActivity extends BaseActivity {
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_NUMBER, num);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setIntValue(COURSE_ID, data.getCourse_id());
-                    GetBillTemplatesManager.newInstance(StartStudyActivity.this).sendLocalTemplates();
+                    GetBillTemplatesManager.newInstance(context).sendLocalTemplates();
 
 //                    startActivity(MainActivity.class);
 //                       finish();

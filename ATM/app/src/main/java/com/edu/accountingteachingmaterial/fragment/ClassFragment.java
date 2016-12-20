@@ -103,29 +103,6 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         showPopupWindow(expandableListView);
     }
 
-    //	private void loadData() {
-//		uploadChapter();
-//		datas = new ArrayList<>();
-//		for (int i = 0; i < 10; i++) {
-//			ClassChapterBean chapterBean = new ClassChapterBean();
-//			List<NodeBean> nodes = new ArrayList<>();
-//			chapterBean.setChapterId(i);
-//			chapterBean.setChapterNum("第" + i + "章");
-//			chapterBean.setTitle("章节标题" + i);
-//			for (int j = 0; j < 10; j++) {
-//				NodeBean node = new NodeBean();
-//				node.setNodeNum("第" + j + "节");
-//				node.setNodeId(i + "--" + j);
-//				node.setTitle("小节编号" + node.getNodeId());
-//				nodes.add(node);
-//
-//			}
-//			chapterBean.setNodes(nodes);
-//			datas.add(chapterBean);
-//
-//		}
-//
-//	}
     private void uploadChapter() {
         int courseId = PreferenceHelper.getInstance(context).getIntValue(PreferenceHelper.COURSE_ID);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
@@ -208,6 +185,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     List<HistoryListData> hData = JSON.parseArray(jsonObject.getString("message"), HistoryListData.class);
+
                     Log.d("LaunchActivity", "线程启动获取成功");
 
 

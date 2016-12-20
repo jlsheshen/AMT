@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -62,16 +63,15 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     private static final String HEIGHT = "HEIGHT";
     private static final String SCORE = "SCORE";
 
-
     SQLiteDatabase mDb = null;
-    private Context context;
     private static GetBillTemplatesManager instance;
+    ProgressDialog myDialog;
 
 
     private GetBillTemplatesManager(Context context) {
         mAsyncClient.addHeader(TOKEN, PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
 
-        this.context = context;
+        this.mContext = context;
     }
 
     /**
@@ -88,15 +88,15 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         return instance;
     }
 
+
     /**
      * 发送请求
      */
     public void sendLocalTemplates() {
-        long start = System.currentTimeMillis();
         List<BillTemplateListBean> datas = getTemplates();
         String url = NetUrlContstant.getLocalTemplates();
         Log.d("GetBillTemplatesManager", url);
-        JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
+        JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity, "耐心等待");
         Log.d("GetBillTemplatesManager", "uploadResult:" + JSON.toJSONString(datas));
 
@@ -113,7 +113,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         List<BillTemplateListBean> datas = null;
         Cursor curs = null;
         try {
-            DBHelper helper = new DBHelper(context, Constant.DATABASE_NAME, null);
+            DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
             mDb = helper.getWritableDatabase();
             String sql = "SELECT * FROM " + TB_NAME;
             Log.d(TAG, "sql:" + sql);
@@ -148,8 +148,15 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         boolean result = json.getBoolean("result");
         final String message = json.getString("message");
         if (result) {
-            final ProgressDialog myDialog = ProgressDialog.show(context, "正在加载模板..", "第一次加载时间会比较久^-^", true, false);
+            myDialog = new ProgressDialog(mContext);
+            myDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+            myDialog.setTitle("正在加载模板..");
+            myDialog.setMessage("第一次加载时间会比较久^-^");
+            myDialog.setCancelable(false);
+            myDialog.show();
+            // myDialog = ProgressDialog.show(mContext,"正在加载模板..", "第一次加载时间会比较久^-^", true, false);
             Log.d(TAG, "------" + message + "---");
+            Log.d("GetBillTemplatesManager", "context:2" + mContext);
 
             Observable.create(new Observable.OnSubscribe<List<TemplateData>>() {
                 @Override
@@ -171,8 +178,8 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         public void onCompleted() {
 
                             myDialog.dismiss();
-                            Intent i = new Intent(context, MainActivity.class);
-                            context.startActivity(i);
+                            Intent i = new Intent(mContext, MainActivity.class);
+                            mContext.startActivity(i);
                         }
 
                         @Override
@@ -221,7 +228,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(REMARK, billTemplate.getRemark());
             updateTemplateInfo(contentValues, billTemplate);
         }
-        SubjectImageLoader.getInstance(context).preDownloadAllPic(urls);
+        SubjectImageLoader.getInstance(mContext).preDownloadAllPic(urls);
 
     }
 
@@ -277,7 +284,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(SCORE, blanksDatasBean.getScore());
             contentValues.put(REMARK, blanksDatasBean.getRemark());
             contentValues.put(CONTENT, blanksDatasBean.getContent());
-            TemplateElementsDao.getInstance(context).insertData(contentValues);
+            TemplateElementsDao.getInstance(mContext).insertData(contentValues);
         }
     }
 
@@ -287,7 +294,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
      * @param billTemplate
      */
     private void updateData(TemplateData billTemplate) {
-        TemplateElementsDao.getInstance(context).deleteData(billTemplate.getId());
+        TemplateElementsDao.getInstance(mContext).deleteData(billTemplate.getId());
 
         for (TemplateData.BlanksDatasBean blanksDatasBean : billTemplate.getBlanksDatas()) {
             ContentValues contentValues = new ContentValues();
@@ -301,7 +308,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(SCORE, blanksDatasBean.getScore());
             contentValues.put(REMARK, blanksDatasBean.getRemark());
             contentValues.put(CONTENT, blanksDatasBean.getContent());
-            TemplateElementsDao.getInstance(context).insertData(contentValues);
+            TemplateElementsDao.getInstance(mContext).insertData(contentValues);
         }
     }
 

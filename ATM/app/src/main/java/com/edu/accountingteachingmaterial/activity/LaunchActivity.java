@@ -6,11 +6,10 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
-import com.edu.accountingteachingmaterial.util.GetBillTemplatesManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
@@ -46,6 +45,7 @@ public class LaunchActivity extends BaseActivity {
             BASE_URL.BASE_URL = s;
 
         }
+//        GetBillTemplatesManager.newInstance(LaunchActivity.this).sendLocalTemplates();
 //		new Thread(new Runnable() {
 //			@Override
 //			public void run() {
@@ -160,7 +160,7 @@ public class LaunchActivity extends BaseActivity {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
                     data = hData.get(0);
                     Log.d("LaunchActivity", "线程启动获取成功");
-                    GetBillTemplatesManager.newInstance(LaunchActivity.this).sendLocalTemplates();
+                  //  GetBillTemplatesManager.newInstance(LaunchActivity.this).sendLocalTemplates();
                     EventBus.getDefault().post(data);
                     if (!isShow) {
                         finish();

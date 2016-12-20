@@ -6,6 +6,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.activity.SubjectReViewActivity;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.view.AddAndSubTestView;
 import com.edu.library.util.ToastUtil;
@@ -63,6 +64,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         switch (v.getId()) {
             case R.id.btn_start:
                 ToastUtil.showToast(context, "智能组卷");
+                startActivity(SubjectReViewActivity.class);
                 break;
         }
     }
