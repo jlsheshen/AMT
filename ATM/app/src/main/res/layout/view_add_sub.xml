@@ -1,66 +1,86 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:layout_height="60px">
 
-    <TextView
-        android:id="@+id/tv_title"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:text="单选题"
-        android:textSize="20sp" />
+        android:layout_centerInParent="true">
 
-    <Button
-        android:id="@+id/btn_sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/tv_title"
-        android:src="@drawable/bg_checkbox_n" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="单选题"
+            android:textSize="20sp" />
 
-    <EditText
-        android:id="@+id/et_num"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/btn_sub"
-        android:background="@null"
-        android:numeric="integer"
-        android:singleLine="true"
-        android:text="10"
-        android:textSize="20sp" />
+        <Button
+            android:id="@+id/btn_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/tv_title"
+            android:background="@drawable/bg_selector_jian"
+            android:minHeight="0px"
+            android:minWidth="0px"
+            android:text="-"
+            android:textColor="@color/trans_parent" />
 
-    <TextView
-        android:id="@+id/tv_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/et_num"
-        android:text="/"
-        android:textSize="20sp" />
+        <EditText
+            android:id="@+id/et_num"
+            android:layout_width="40px"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/btn_sub"
+            android:background="@null"
+            android:numeric="integer"
+            android:singleLine="true"
+            android:text="10"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/tv_total"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
-        android:layout_toRightOf="@+id/tv_show"
-        android:text="170"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/tv_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/et_num"
+            android:text="/"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn_add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="20dp"
-        android:layout_toRightOf="@+id/tv_total"
-        android:src="@drawable/bg_checkbox_p" />
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="40px"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/tv_show"
+            android:text="170"
+            android:textSize="20sp" />
 
+        <Button
+            android:id="@+id/btn_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/tv_total"
+            android:background="@drawable/bg_selector_jia"
+            android:minHeight="0px"
+            android:minWidth="0px"
+            android:text="+"
+            android:textColor="@color/trans_parent" />
+    </RelativeLayout>
+
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="10px"
+        android:layout_marginRight="10px"
+        android:background="@color/colorBlueBar"/>
 </RelativeLayout>

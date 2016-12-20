@@ -17,9 +17,8 @@ import static com.edu.accountingteachingmaterial.dao.SubjectTestDataDao.FLAG;
 
 /**
  * 基础题型数据库操作类：单多判
- * 
+ *
  * @author lucher
- * 
  */
 public class SubjectBasicDataDao extends BaseDataDao {
 
@@ -138,9 +137,9 @@ public class SubjectBasicDataDao extends BaseDataDao {
 		subjectData.setAnalysis(curs.getString(curs.getColumnIndex(ANALYSIS)));
 		subjectData.setScore(curs.getInt(curs.getColumnIndex(SCORE)));
 //		subjectData.setFavorite(curs.getInt(10));
-		subjectData.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
+        subjectData.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
 
-		return subjectData;
-	}
+        return subjectData;
+    }
 
 }

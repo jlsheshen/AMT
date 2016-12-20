@@ -78,7 +78,7 @@
             android:layout_toLeftOf="@+id/class_aty_zhangjie_iv"
             android:layout_centerVertical="true"
             android:layout_marginRight="25px"
-            android:src="@mipmap/icon_zhangjieliebiao_n"
+            android:src="@mipmap/icon_history_n"
             android:visibility="gone" />
 
         <ImageView

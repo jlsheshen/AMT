@@ -61,8 +61,8 @@ public class ExamFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-//        uploadExamList();
-        loadData();
+        uploadExamList();
+//        loadData();
         examAdapter = new ExamAdapter(context);
         examAdapter.setDatas(datas);
 
@@ -99,6 +99,8 @@ public class ExamFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
 
+        Log.d("ClassExerciseFragment", "ExamFragment------走过了EventBus" + item);
+
         if (datas != null) {
             datas.get(item).setState(state);
             examAdapter.setDatas(datas);
@@ -109,7 +111,7 @@ public class ExamFragment extends BaseFragment {
     }
 
     private void uploadExamList() {
-        Log.d("ClassExerciseFragment", NetUrlContstant.chapterTypeUrl + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID));
+        Log.d("ClassExerciseFragment", NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID));
 
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getExamInfoUrl + "5926");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
@@ -126,7 +128,7 @@ public class ExamFragment extends BaseFragment {
                         ExamListData data1 = (ExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getU_id());
                         if (data1 == null) {
                             ContentValues contentValues = new ContentValues();
-                            contentValues.put(ExamOnLineListDao.ID, data.getId());
+                            contentValues.put(ExamOnLineListDao.ID, data.getExam_id());
                             contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_NOT);
                             contentValues.put(ExamOnLineListDao.TYPE, data.getExam_type());
                             contentValues.put(ExamOnLineListDao.USER_ID, data.getU_id());
@@ -172,7 +174,7 @@ public class ExamFragment extends BaseFragment {
 //        }
 //        examAdapter.setDatas(datas);
 //    }
-    private void loadData() {
+//    private void loadData() {
 //        datas = new ArrayList<>();
 //        for (int i = 1; i < datas.size(); i++) {
 //            ExamBean examBean = new ExamBean();
@@ -188,5 +190,5 @@ public class ExamFragment extends BaseFragment {
 //        }
 //        examAdapter.setDatas(datas);
 
-    }
+//    }
 }
