@@ -125,7 +125,7 @@ public class ChapterPopupWindow extends PopupWindow {
         Log.d("ChapterPopupWindow", "courseId" + "courseId" + courseId);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
 
-        NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, NetUrlContstant.chapterUrl + courseId);
+        NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, NetUrlContstant.getChapterUrl() + courseId);
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

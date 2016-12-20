@@ -27,6 +27,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     ImageView backIv, imgZhangjie, imgReviewHy;
     TextView textView;
     ClassChapterData.SubChaptersBean data;
+    int chapterId;
     View vLine;
 
     @Override
@@ -58,6 +59,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         replaceFragment(classEmphasisFragment);
         Bundle bundle = getIntent().getExtras();
         data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
+        chapterId = bundle.getInt("ChapterId");
         if (data != null) {
             textView.setText(data.getTitle());
         }
@@ -106,6 +108,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
             case R.id.class_review_iv:
                 if (null == classReviewFragment) {
                     classReviewFragment = new ClassReviewFragment();
+                    ((ClassReviewFragment) classReviewFragment).setData(chapterId);
                 }
                 replaceFragment(classReviewFragment);
                 imgReviewHy.setVisibility(View.VISIBLE);

@@ -1,36 +1,44 @@
 package com.edu.accountingteachingmaterial.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.SubjectReViewActivity;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.SubjectsDownloadManager;
 import com.edu.accountingteachingmaterial.view.AddAndSubTestView;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.BASE_URL;
 import com.lucher.net.req.RequestMethod;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 /**
  * Created by Administrator on 2016/12/14.
  */
 
-public class ClassReviewFragment extends BaseFragment implements View.OnClickListener {
+public class ClassReviewFragment extends BaseFragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
     // * 加载题型view
     LinearLayout layout1;
     LinearLayout layout2;
-//    // * 题目类型数据
+    //    // * 题目类型数据
 //    private String[] strStem1;
 //    private String[] strStem2;
-//    private String[单选题,多选题,判断题，填空题，简答题，综合题，表格题];
+//    private String[] str = {"单选题", "多选题", "判断题", "填空题", "简答题", "综合题", "表格题"};
 
     Button btnStart;
     CheckBox cbEasy, cbNormal, cbHard;
@@ -43,7 +51,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     AddAndSubTestView addAndSubTestView5 = null;
     AddAndSubTestView addAndSubTestView6 = null;
     AddAndSubTestView addAndSubTestView7 = null;
-
+    int chapterId;
 
     @Override
     protected int initLayout() {
@@ -52,6 +60,8 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     protected void initView(View view) {
+        EventBus.getDefault().register(this);
+
         layout1 = bindView(R.id.ly_first);
         layout2 = bindView(R.id.ly_second);
         cbEasy = bindView(R.id.cb_easy);
@@ -60,7 +70,15 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         btnStart = (Button) view.findViewById(R.id.btn_start);
         btnStart.setOnClickListener(this);
 
+        cbEasy.setOnCheckedChangeListener(this);
+        cbNormal.setOnCheckedChangeListener(this);
+        cbHard.setOnCheckedChangeListener(this);
 
+    }
+
+    public void setData(int chapterId) {
+        this.chapterId = chapterId;
+        Log.d("ClassReviewFragment", "chapterId:" + chapterId);
     }
 
     @Override
@@ -84,6 +102,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout1.addView(addAndSubTestView2);
         layout1.addView(addAndSubTestView3);
         layout1.addView(addAndSubTestView4);
+
         addAndSubTestView5 = new AddAndSubTestView(context, 12, "简答题");
         addAndSubTestView6 = new AddAndSubTestView(context, 13, "综合题");
         addAndSubTestView7 = new AddAndSubTestView(context, 15, "表格题");
@@ -94,47 +113,82 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout2.addView(addAndSubTestView6);
         layout2.addView(addAndSubTestView7);
 
-//            layout1.addView(addAndSubTestView);
-//        for (int i = 1; i < strStem1.length; i++) {
-//            addAndSubTestView = new AddAndSubTestView(context, 0, strStem1[i]);
-//            layout1.addView(addAndSubTestView);
-//            addAndSubTestView.setTag(i);
-//        }
-//        for (int j = 5; j < strStem2.length; j++) {
-//            addAndSubTestView = new AddAndSubTestView(context, 0, strStem2[j]);
-//            layout2.addView(addAndSubTestView);
-//            addAndSubTestView.setTag(j);
-//        }
-
-
     }
 
     //刷新首页题目总题数
     private void refreshView() {
-//        if (addAndSubTestView.getTag().equals(1)) {
-//            addAndSubTestView.refresh(120);
-//        } else if (layout1.getTag().equals(2)) {
-//            addAndSubTestView.refresh(140);
-//        } else if (layout1.getTag().equals(3)) {
-//            addAndSubTestView.refresh(160);
-//        } else if (layout1.getTag().equals(4)) {
-//            addAndSubTestView.refresh(170);
-//        }
-//
-//        if (layout2.getTag().equals(1)) {
-//            addAndSubTestView.refresh(110);
-//        } else if (layout2.getTag().equals(2)) {
-//            addAndSubTestView.refresh(180);
-//        } else if (layout2.getTag().equals(3)) {
-//            addAndSubTestView.refresh(150);
-//        }
-        addAndSubTestView1.refresh(111);
-        addAndSubTestView2.refresh(121);
-        addAndSubTestView3.refresh(131);
-        addAndSubTestView4.refresh(141);
-        addAndSubTestView5.refresh(151);
-        addAndSubTestView6.refresh(161);
-        addAndSubTestView7.refresh(171);
+        if (cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked()) {
+            addAndSubTestView1.refresh(11);
+            addAndSubTestView2.refresh(11);
+            addAndSubTestView3.refresh(11);
+            addAndSubTestView4.refresh(11);
+            addAndSubTestView5.refresh(11);
+            addAndSubTestView6.refresh(11);
+            addAndSubTestView7.refresh(11);
+        } else if (!cbEasy.isChecked() && cbNormal.isChecked() && !cbHard.isChecked()) {
+            addAndSubTestView1.refresh(11);
+            addAndSubTestView2.refresh(12);
+            addAndSubTestView3.refresh(13);
+            addAndSubTestView4.refresh(14);
+            addAndSubTestView5.refresh(15);
+            addAndSubTestView6.refresh(16);
+            addAndSubTestView7.refresh(17);
+        } else if (!cbEasy.isChecked() && !cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(11);
+            addAndSubTestView2.refresh(21);
+            addAndSubTestView3.refresh(31);
+            addAndSubTestView4.refresh(41);
+            addAndSubTestView5.refresh(51);
+            addAndSubTestView6.refresh(61);
+            addAndSubTestView7.refresh(41);
+        } else if (cbEasy.isChecked() && cbNormal.isChecked() && !cbHard.isChecked()) {
+            addAndSubTestView1.refresh(11);
+            addAndSubTestView2.refresh(11);
+            addAndSubTestView3.refresh(13);
+            addAndSubTestView4.refresh(41);
+            addAndSubTestView5.refresh(15);
+            addAndSubTestView6.refresh(61);
+            addAndSubTestView7.refresh(11);
+        } else if (cbEasy.isChecked() && !cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(111);
+            addAndSubTestView2.refresh(21);
+            addAndSubTestView3.refresh(31);
+            addAndSubTestView4.refresh(41);
+            addAndSubTestView5.refresh(151);
+            addAndSubTestView6.refresh(61);
+            addAndSubTestView7.refresh(171);
+        } else if (!cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(111);
+            addAndSubTestView2.refresh(121);
+            addAndSubTestView3.refresh(11);
+            addAndSubTestView4.refresh(11);
+            addAndSubTestView5.refresh(151);
+            addAndSubTestView6.refresh(61);
+            addAndSubTestView7.refresh(71);
+        } else if (cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
+            addAndSubTestView1.refresh(111);
+            addAndSubTestView2.refresh(12);
+            addAndSubTestView3.refresh(131);
+            addAndSubTestView4.refresh(14);
+            addAndSubTestView5.refresh(151);
+            addAndSubTestView6.refresh(161);
+            addAndSubTestView7.refresh(17);
+        } else {
+            addAndSubTestView1.refresh(0);
+            addAndSubTestView2.refresh(0);
+            addAndSubTestView3.refresh(0);
+            addAndSubTestView4.refresh(0);
+            addAndSubTestView5.refresh(0);
+            addAndSubTestView6.refresh(0);
+            addAndSubTestView7.refresh(0);
+        }
+//        addAndSubTestView1.refresh(111);
+//        addAndSubTestView2.refresh(121);
+//        addAndSubTestView3.refresh(131);
+//        addAndSubTestView4.refresh(141);
+//        addAndSubTestView5.refresh(151);
+//        addAndSubTestView6.refresh(161);
+//        addAndSubTestView7.refresh(171);
     }
 
     //获取试题总数
@@ -158,7 +212,9 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
                 }
 //                uploading();
                 ToastUtil.showToast(context, "智能组卷");
-                startActivity(SubjectReViewActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("chapterId", chapterId);
+                startActivity(SubjectReViewActivity.class, bundle);
                 break;
         }
 
@@ -177,7 +233,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     reviewTopicData = JSONObject.parseObject(jsonObject.getString("message"), ReviewTopicData.class);
-                    Log.d("LaunchActivity", "线程启动获取成功");
+                    Log.d("ClassReviewFragment", "获取成功");
 
                     refreshView();
                 }
@@ -185,20 +241,54 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
             @Override
             public void onFailure(String errorInfo) {
-                Log.d("LaunchActivity", "线程启动获取失败");
+                Log.d("ClassReviewFragment", "获取失败");
 
             }
         });
     }
 
-    //刷新题数数量
-    private void refreshTotalList() {
-
-    }
-
     //上传自选题目数量
     private void uploading() {
         ReviewTopicManager.getReviewTopicInstance(context).setReviewTopicVOList(reviewTopicData).sendTopic();
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switch (buttonView.getId()) {
+            case R.id.cb_easy:
+                refreshView();
+                break;
+            case R.id.cb_normal:
+                refreshView();
+                break;
+            case R.id.cb_hard:
+                refreshView();
+                break;
+        }
+    }
+
+    /**
+     * 根据发来的状态,来刷新列表
+     *
+     * @param state
+     */
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getData(Integer state) {
+
+        Log.d("ClassReviewFragment", "ClassReviewFragment------走过了EventBus");
+
+        if (state == 1) {
+            SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId);
+        }
+
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+
+        super.onDestroy();
     }
 
 }
