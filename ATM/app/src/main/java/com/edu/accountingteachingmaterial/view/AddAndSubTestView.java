@@ -152,6 +152,13 @@ public class AddAndSubTestView extends RelativeLayout {
                 if (numInt < 0) {
                     Toast.makeText(mContext, "请输入一个大于0的数字",
                             Toast.LENGTH_SHORT).show();
+                } else if (numInt > total) {
+                    etNum.setText(String.valueOf(0));
+                    if (onNumChangeListener != null) {
+                        onNumChangeListener.onNumChange(AddAndSubTestView.this, 0);
+                    }
+                    Toast.makeText(mContext, "请输入在正确会范围内的数字",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     //设置EditText光标位置 为文本末端
                     etNum.setSelection(etNum.getText().toString().length());
