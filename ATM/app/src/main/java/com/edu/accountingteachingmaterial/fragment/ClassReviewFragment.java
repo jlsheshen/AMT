@@ -34,7 +34,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     Button btnStart;
     CheckBox cbEasy, cbNormal, cbHard;
     ReviewTopicData reviewTopicData;
-    int totalNuml = 0;
+    int totalNum = 0;
     AddAndSubTestView addAndSubTestView1 = null;
     AddAndSubTestView addAndSubTestView2 = null;
     AddAndSubTestView addAndSubTestView3 = null;
@@ -138,8 +138,8 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
     //获取试题总数
     private void getTotalNum() {
-        totalNuml = addAndSubTestView1.getNum() + addAndSubTestView2.getNum() + addAndSubTestView3.getNum() + addAndSubTestView4.getNum() + addAndSubTestView5.getNum() + addAndSubTestView6.getNum() + addAndSubTestView7.getNum();
-        Log.d("ClassReviewFragment", "2016-12-19 total  num:" + totalNuml);
+        totalNum = addAndSubTestView1.getNum() + addAndSubTestView2.getNum() + addAndSubTestView3.getNum() + addAndSubTestView4.getNum() + addAndSubTestView5.getNum() + addAndSubTestView6.getNum() + addAndSubTestView7.getNum();
+        Log.d("ClassReviewFragment", "2016-12-19 total  num:" + totalNum);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
                     ToastUtil.showToast(context, "请选择测验难度！");
                     return;
                 }
-                if (totalNuml < 1) {
+                if (totalNum < 1) {
                     ToastUtil.showToast(context, "请输入正确题目数量！");
                     return;
                 }
