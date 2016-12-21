@@ -6,9 +6,10 @@ import android.util.Log;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.constant.UriConstant;
 import com.edu.library.util.SdcardPathUtil;
 import com.edu.library.util.ToastUtil;
-import com.edu.subject.BASE_URL;
 import com.github.barteksc.pdfviewer.PDFView;
 
 import net.tsz.afinal.FinalHttp;
@@ -26,8 +27,8 @@ public class PdfActivity extends BaseActivity {
     ExampleBean exampleBeans;
     private FinalHttp fHttp = new FinalHttp();
     private HttpHandler<File> mHandler;
-    private String mUrl = BASE_URL.BASE_URL + "/interface/filedown/down/";
-    //private String mUrl =.mediaorPdfUrl;
+
+    private String mUrl = NetUrlContstant.getMediaorPdfUrl();
 
     @Override
     public int setLayout() {
@@ -48,8 +49,8 @@ public class PdfActivity extends BaseActivity {
     }
 
     private void show() {
-        String url = "/sdcard/EduResources/AccCourse/pdf/" + exampleBeans.getUrl();
-        //String url = UriConstant.PDF_PATH + exampleBeans.getUrl();
+//        String url = "/sdcard/EduResources/AccCourse/pdf/" + exampleBeans.getUrl();
+        String url = UriConstant.PDF_PATH + exampleBeans.getUrl();
         File file = new File(url);
         pdfView.fromFile(file)
                 // pdfView.fromAsset(String)

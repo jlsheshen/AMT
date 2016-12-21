@@ -48,7 +48,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/18.
  */
 
-public class SubjectReViewActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener,ResultsListener {
+public class SubjectReViewActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
@@ -108,15 +108,16 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 
         Bundle bundle = getIntent().getExtras();
-        examListData = (ExamListData) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
-        if (datas == null || datas.size() == 0){
+//        examListData = (ExamListData) bundle.get("ExamListData");
+        int chapterId = bundle.getInt("chapterId");
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
+        if (datas == null || datas.size() == 0) {
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.ID, examListData.getId());
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
             contentValues.put(ExamListDao.TYPE, examListData.getExam_type());
             contentValues.put(ExamListDao.CHAPTER_ID, examListData.getChapter_id());
-            ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()),contentValues);
+            ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()), contentValues);
             Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -204,7 +205,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 //                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
 //                    @Override
 //                    public void onOkClicked() {
-                        finish();
+                finish();
 //                    }
 //
 //                    @Override

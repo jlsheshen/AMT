@@ -13,10 +13,10 @@ import android.widget.VideoView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.constant.UriConstant;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyPresenter;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyView;
-import com.edu.subject.BASE_URL;
 
 import java.io.File;
 
@@ -30,9 +30,10 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
     MediaController mController;
     private boolean isPlaying;
     // private ClassicCase classicCase;
-    private String url = BASE_URL.BASE_URL + "/interface/filedown/down/";
+//    private String url = BASE_URL.BASE_URL + "/interface/filedown/down/";
     //视频播放地址
-    //private String url = mediaorPdfUrl;
+
+    private String url = NetUrlContstant.getMediaorPdfUrl();
     ExampleBean exampleBeans;
 
     @Override

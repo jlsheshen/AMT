@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/com.edu.accountingteachingmaterial"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     style="@style/FragmentPadding"
@@ -48,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20px"
             android:button="@null"
-            android:checked="false"
+            android:checked="true"
             android:drawableLeft="@drawable/bg_selector_checkbox"
             android:drawablePadding="10px"
             android:text="普通"
@@ -61,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20px"
             android:button="@null"
-            android:checked="false"
+            android:checked="true"
             android:drawableLeft="@drawable/bg_selector_checkbox"
             android:drawablePadding="10px"
             android:text="困难"
@@ -87,7 +86,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="设置测验难度"
+            android:text="设置测验题型"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
 
