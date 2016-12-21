@@ -137,6 +137,7 @@ public class TestBillData extends BaseTestData {
 			result.setAnswer(uAnswer);
 		}
 		result.setScore(uScore);
+		result.setId(template.getId());
 		return result;
 	}
 
@@ -161,6 +162,7 @@ public class TestBillData extends BaseTestData {
 			if (element.getType() > SubjectConstant.ELEMENT_TYPE_BLANK_START && element.getType() < SubjectConstant.ELEMENT_TYPE_BLANK_END) {// 填空题
 				BlankResult blank = new BlankResult();
 				blank.setIndex(index + 1);
+				blank.setId(template.getId());
 				if (uAnswer == null) {
 					blank.setScore(0);
 					blank.setAnswer("null");

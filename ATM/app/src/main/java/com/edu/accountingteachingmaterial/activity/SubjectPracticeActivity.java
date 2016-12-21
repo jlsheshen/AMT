@@ -14,6 +14,7 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
@@ -46,7 +47,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/18.
  */
 
-public class SubjectPracticeActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener {
+public class SubjectPracticeActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener,ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
@@ -165,9 +166,6 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
             case R.id.btnDone:
 
                 handleDoneClicked();
-                UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
-                UserData user = UserCenterHelper.getUserInfo(this);
-                UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
 
                 break;
 
@@ -197,6 +195,12 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      */
     private void handleDoneClicked() {
         float score = mSubjectAdapter.submit(mCurrentIndex);
+        UploadResultsManager.getSingleton(this).setResultsListener(this);
+        UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
+        UserData user = UserCenterHelper.getUserInfo(this);
+        UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
+
+
         ToastUtil.showToast(this, "score:" + score);
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
 
@@ -304,6 +308,16 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
     public void onBackPressed() {
         mSubjectAdapter.saveAnswer(mCurrentIndex);
         super.onBackPressed();
+    }
+
+    @Override
+    public void onSuccess() {
+        finish();
+    }
+
+    @Override
+    public void onFialure() {
+
     }
 }
 

@@ -47,6 +47,7 @@ import java.util.List;
 
 /**
  * 页面内无重做功能
+ * 练习页面的预习与课后调用此Activity
  * Created by Administrator on 2016/11/18.
  */
 

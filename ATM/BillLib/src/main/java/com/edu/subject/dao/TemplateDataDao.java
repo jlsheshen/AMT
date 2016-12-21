@@ -82,7 +82,7 @@ public class TemplateDataDao {
 			while (curs.moveToNext()) {
 				if (curs.isFirst()) {
 					template = new BillTemplate();
-					template.setId(curs.getInt(curs.getColumnIndex(ID)));
+					template.setId(curs.getInt(0));
 					template.setName(curs.getString(curs.getColumnIndex(NAME)));
 					template.setBitmap(curs.getString(curs.getColumnIndex(BACKGROUND)));
 					template.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));

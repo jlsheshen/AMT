@@ -106,6 +106,7 @@ public class UploadResultsManager extends JsonNetReqManager {
 			ToastUtil.showToast(mContext, "发送结果为空");
 			return;
 		}
+		Log.d("UploadResultsManager", JSON.toJSONString(mAnswerResults));
 		String url = NetUrlContstant.getSubjectSubmitUrl()  + studentId + "-" + examId + "-" + seconds;
 		JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
 		sendRequest(entity, "正在拼命上传成绩");
@@ -150,13 +151,18 @@ public class UploadResultsManager extends JsonNetReqManager {
 
 	@Override
 	public void onConnectionError(String arg0) {
+		Log.d(TAG, "成绩上传出错：" + arg0);
 		ToastUtil.showToast(mContext, "成绩上传出错：" + arg0);
-		resultsListener.onFialure();
+		if (resultsListener != null){
+			resultsListener.onFialure();
+		}
 
 	}
 
 	@Override
 	public void onConnectionFailure(String arg0, Header[] arg1) {
+		Log.d(TAG, "成绩上传出错：" + arg0);
+
 		resultsListener.onFialure();
 
 		ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);

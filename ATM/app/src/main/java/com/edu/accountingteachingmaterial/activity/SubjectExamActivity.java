@@ -20,6 +20,7 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 
+import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.CountryTestTimer;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
@@ -46,7 +47,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-public class SubjectExamActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, CountryTestTimer.OnTimeOutListener {
+public class SubjectExamActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, CountryTestTimer.OnTimeOutListener,ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
@@ -221,6 +222,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
     private void sendScore() {
         float score = mSubjectAdapter.submit();
+        UploadResultsManager.getSingleton(this).setResultsListener(this);
         UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
         int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
         UploadResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
@@ -341,6 +343,16 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     public void onTimeOut() {
         //倒计时结束发送成绩
         sendScore();
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onFialure() {
+
     }
 }
 
