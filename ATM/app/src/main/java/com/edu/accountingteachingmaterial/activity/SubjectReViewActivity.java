@@ -9,16 +9,14 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
-import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.view.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
@@ -66,7 +64,8 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
     private SubjectCardDialog mCardDialog;
     List<BaseTestData> datas;
     //c测试数据
-    ExamListData examListData;
+    ReviewExamListDao examListData;
+    int chapterId;
     ExitDialog exitDialog;// 退出提示框
     // 页面相关状态的监听
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
@@ -109,19 +108,19 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
         Bundle bundle = getIntent().getExtras();
 //        examListData = (ExamListData) bundle.get("ExamListData");
-        int chapterId = bundle.getInt("chapterId");
+        chapterId = bundle.getInt("chapterId");
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
-        if (datas == null || datas.size() == 0) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(ExamListDao.ID, examListData.getId());
-            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
-            contentValues.put(ExamListDao.TYPE, examListData.getExam_type());
-            contentValues.put(ExamListDao.CHAPTER_ID, examListData.getChapter_id());
-            ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()), contentValues);
-            Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
+//        if (datas == null || datas.size() == 0) {
+//            ContentValues contentValues = new ContentValues();
+//            contentValues.put(ReviewExamListDao.ID, examListData.getId());
+//            contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_NOT);
+//            contentValues.put(ReviewExamListDao.TYPE, examListData.getExam_type());
+//            contentValues.put(ReviewExamListDao.CHAPTER_ID, examListData.getChapter_id());
+//            ReviewExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()), contentValues);
+//            Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
+//            finish();
+//            return;
+//        }
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
@@ -176,8 +175,8 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 //                int user = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
 //                UploadResultsManager.getSingleton(this).uploadResult(user, examListData.getId(), 10000);
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-                ExamListDao.getInstance(this).updateData("" + examListData.getChapter_id(), contentValues);
+                contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+                ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
 
                 EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
 

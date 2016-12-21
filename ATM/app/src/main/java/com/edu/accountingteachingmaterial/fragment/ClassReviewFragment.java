@@ -109,7 +109,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout2.addView(addAndSubTestView6);
         layout2.addView(addAndSubTestView7);
         loadAllTopicList();
-
+        setNumChangeListener();
     }
 
     //获取试题总数
@@ -148,7 +148,6 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start:
-                getTotalNum();
                 if ((!cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked())) {
                     ToastUtil.showToast(context, "请选择测验难度！");
                     return;
@@ -241,6 +240,57 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
         super.onDestroy();
     }
+    private void setNumChangeListener() {
+        addAndSubTestView1.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView2.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView3.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView4.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView5.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView6.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView7.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+    }
 
     //刷新首页题目总题数
     private void refreshView() {
@@ -309,7 +359,16 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             addAndSubTestView6.refresh(0);
             addAndSubTestView7.refresh(0);
         }
+        getTotalNum();
+        if ((!cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked())) {
+            btnStart.setClickable(false);
+            return;
+        }
+        if (totalNum < 1) {
+            btnStart.setClickable(false);
+            return;
+        }
+        btnStart.setClickable(true);
     }
-
 
 }
