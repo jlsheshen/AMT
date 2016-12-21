@@ -17,7 +17,6 @@ import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassReviewFragment;
 import com.edu.accountingteachingmaterial.view.ChapterPopupWindow;
-import com.edu.library.util.ToastUtil;
 
 public class ClassDetailActivity extends BaseActivity implements OnClickListener {
 
@@ -122,7 +121,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                 break;
 
             case R.id.class_review_hy:
-                ToastUtil.showToast(this, "自测历史");
+                startActivity(ReviewHistoryActivity.class);
                 break;
         }
 

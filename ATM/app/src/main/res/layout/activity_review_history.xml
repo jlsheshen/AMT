@@ -50,6 +50,6 @@
         android:divider="@color/colorBlueBackground"
         android:dividerHeight="1dp"
         ></ListView>
-
+    
 
 </LinearLayout>

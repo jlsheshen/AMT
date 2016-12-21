@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.fragment;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -9,14 +10,15 @@ import android.widget.LinearLayout;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.activity.SubjectReViewActivity;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.ReviewExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
-import com.edu.accountingteachingmaterial.util.SubjectsDownloadManager;
 import com.edu.accountingteachingmaterial.view.AddAndSubTestView;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
@@ -49,7 +51,6 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     AddAndSubTestView addAndSubTestView7 = null;
     int chapterId;
     ReviewTopicVo topicVo;
-    ArrayList<Integer> list;
 
     @Override
     protected int initLayout() {
@@ -107,8 +108,8 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout2.addView(addAndSubTestView5);
         layout2.addView(addAndSubTestView6);
         layout2.addView(addAndSubTestView7);
-        loadTopicList();
-
+        loadAllTopicList();
+        setNumChangeListener();
     }
 
     //获取试题总数
@@ -117,8 +118,9 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         Log.d("ClassReviewFragment", "2016-12-19 total  num:" + totalNum);
     }
 
-    private void getUploadData() {
-        list = new ArrayList<>();
+    //获取上传题目数据信息
+    private void getTopicUploadData() {
+        ArrayList<Integer> list = new ArrayList<>();
         topicVo = new ReviewTopicVo();
         topicVo.setOne(addAndSubTestView1.getNum());
         topicVo.setMulti(addAndSubTestView2.getNum());
@@ -138,6 +140,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         }
         topicVo.setLevel(list);
 
+        uploading();
         Log.d("ClassReviewFragment", topicVo + "2016-12-19");
     }
 
@@ -145,17 +148,15 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start:
-                getTotalNum();
                 if ((!cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked())) {
-                    ToastUtil.showToast(context, "请选择测验难度！");
+//                    ToastUtil.showToast(context, "请选择测验难度！");
                     return;
                 }
                 if (totalNum < 1) {
-                    ToastUtil.showToast(context, "请输入正确题目数量！");
+//                    ToastUtil.showToast(context, "请输入正确题目数量！");
                     return;
                 }
-//                uploading();
-                getUploadData();
+                getTopicUploadData();
                 ToastUtil.showToast(context, "智能组卷");
 //                Bundle bundle = new Bundle();
 //                bundle.putInt("chapterId", chapterId);
@@ -166,10 +167,9 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     }
 
     //获取题数总数量接口
-    private void loadTopicList() {
+    private void loadAllTopicList() {
 
         Log.d("ClassReviewFragment", "每个题目总数量");
-
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getGetReviewList() + "901");
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
@@ -212,6 +212,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
+
     /**
      * 根据发来的状态,来刷新列表
      *
@@ -224,7 +225,11 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         Log.d("ClassReviewFragment", "ClassReviewFragment------走过了EventBus");
 
         if (state == 1) {
-            SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId);
+            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId);
+        } else if (state == 2) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("chapterId", chapterId);
+            startActivity(SubjectReViewActivity.class, bundle);
         }
 
     }
@@ -234,6 +239,58 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         EventBus.getDefault().unregister(this);
 
         super.onDestroy();
+    }
+
+    private void setNumChangeListener() {
+        addAndSubTestView1.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView2.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView2 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView3.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView3 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView4.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView4 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView5.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView5 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView6.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView6 2016-12-21" + "刷新");
+            }
+        });
+        addAndSubTestView7.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
+            @Override
+            public void onNumChange(View view, int num) {
+                refreshView();
+                Log.d("ClassReviewFragment", "AddAndSubTestView7 2016-12-21" + "刷新");
+            }
+        });
     }
 
     //刷新首页题目总题数
@@ -303,5 +360,16 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             addAndSubTestView6.refresh(0);
             addAndSubTestView7.refresh(0);
         }
+        getTotalNum();
+        if ((!cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked())) {
+            btnStart.setClickable(false);
+            return;
+        }
+        if (totalNum < 1) {
+            btnStart.setClickable(false);
+            return;
+        }
+        btnStart.setClickable(true);
     }
+
 }

@@ -5,9 +5,9 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.library.util.ToastUtil;
-import com.edu.subject.BASE_URL;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
@@ -54,7 +54,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
             ToastUtil.showToast(mContext, "发送结果为空");
             return;
         }
-        String url = BASE_URL.BASE_URL;
+        String url = NetUrlContstant.getUploadingReviewList();
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity);
         Log.d(TAG, "uploadResult:" + JSON.toJSONString(datas));

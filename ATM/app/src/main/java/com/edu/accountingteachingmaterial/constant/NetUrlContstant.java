@@ -35,7 +35,7 @@ public class NetUrlContstant {
     public static final String simpleTopicUrl = "/interface/exam/findSimpleTopicById/";
     //{topicId}-{paperId}
     //获取在线考试列表
-    public static final String examInfoUrlList =  "/interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
+    public static final String examInfoUrlList = "/interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
     //拉取历史信息
     //拉取历史信息
     public static final String findHisUrl = "/interface/exam/findUserStudyHistoryByStuNum/";
@@ -52,6 +52,8 @@ public class NetUrlContstant {
     public static final String loginUrl = "/interface/login?";
     //自测获取总题数
     public static final String getReviewList = "/interface/course/findTopicSumByChapterIdnLevel/";
+    //上传选择题数和难易程度
+    public static final String uploadingReviewList = "/interface/course/findTopicSumByChapterIdnLevel/";
 
     public static String getSettingIpUrl() {
         return BASE_URL + settingIpUrl;
@@ -119,5 +121,9 @@ public class NetUrlContstant {
 
     public static String getGetReviewList() {
         return BASE_URL + getReviewList;
+    }
+
+    public static String getUploadingReviewList() {
+        return uploadingReviewList;
     }
 }

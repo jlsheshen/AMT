@@ -72,6 +72,8 @@
             android:name=".activity.SubjectExamActivity"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".activity.SubjectReViewActivity"
+        android:screenOrientation="landscape"></activity>
+        <activity android:name=".activity.ReviewHistoryActivity"
             android:screenOrientation="landscape"></activity>
 
         <meta-data
