@@ -1,5 +1,7 @@
 package com.edu.accountingteachingmaterial.model;
 
+import android.content.Context;
+
 import com.edu.accountingteachingmaterial.entity.StudyHistoryVO;
 
 /**
@@ -7,5 +9,5 @@ import com.edu.accountingteachingmaterial.entity.StudyHistoryVO;
  */
 
 public interface IUpLoading  {
-    StudyHistoryVO getUpLoadingData();
+    StudyHistoryVO getUpLoadingData(Context context);
 }

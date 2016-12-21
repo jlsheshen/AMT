@@ -1,8 +1,10 @@
 package com.edu.accountingteachingmaterial.entity;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.edu.accountingteachingmaterial.model.IUpLoading;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.library.data.BaseData;
 
 /**
@@ -187,14 +189,14 @@ public class ClassicCase extends BaseData implements IUpLoading{
     }
 
     @Override
-    public StudyHistoryVO getUpLoadingData() {
+    public StudyHistoryVO getUpLoadingData(Context context) {
         StudyHistoryVO history = new StudyHistoryVO();
         history.setChapterId(Long.valueOf(chapter_id));
         history.setCourseId(Long.valueOf(course_id));
         history.setIs_exam(0);
         history.setLessonId(Long.valueOf(id));
         history.setLessonType(lesson_type);
-        history.setUserId(Long.valueOf(35605));
+        history.setUserId(Long.valueOf(PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID)));
         Log.d("ClassicCase", "history.getUserId():" + history.getUserId() + "---" + history.getCourseId());
         return history;
     }

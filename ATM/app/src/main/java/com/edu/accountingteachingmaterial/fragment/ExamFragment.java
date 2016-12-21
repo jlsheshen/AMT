@@ -11,15 +11,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
-import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
-import com.edu.accountingteachingmaterial.entity.ExamListData;
+//import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.entity.OnLineExamData;
 import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -34,8 +33,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
-
-import static com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment.EXAM_ID;
 
 public class ExamFragment extends BaseFragment {
 
@@ -79,6 +76,7 @@ public class ExamFragment extends BaseFragment {
                     imageView.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
                     OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getExam_id(), datas.get(i).getExam_id());
+
                 } else {
 
                     Bundle b = new Bundle();
@@ -90,30 +88,12 @@ public class ExamFragment extends BaseFragment {
 
     }
 
-    /**
-     * 根据发来的状态,来刷新列表
-     *
-     * @param state
-     */
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getData(Integer state) {
-
-        Log.d("ClassExerciseFragment", "ExamFragment------走过了EventBus" + item);
-
-        if (datas != null) {
-            datas.get(item).setState(state);
-            examAdapter.setDatas(datas);
-        } else {
-//            datas= ExamOnLineListDao.getInstance(context).getAllDatasByChapter();
-        }
-
-    }
 
     private void uploadExamList() {
-        Log.d("ClassExerciseFragment", NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID));
+        Log.d("ClassExerciseFragment", NetUrlContstant.getExamInfoUrlList() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID));
 
-        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getExamInfoUrl + "5926");
+        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getExamInfoUrlList() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID));
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -125,7 +105,7 @@ public class ExamFragment extends BaseFragment {
                     ToastUtil.showToast(context, "" + onLineExamData.getList().get(0).getExam_name());
                     Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
                     for (OnLineExamListData data : datas) {
-                        ExamListData data1 = (ExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getU_id());
+                        OnLineExamListData data1 = (OnLineExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getExam_id());
                         if (data1 == null) {
                             ContentValues contentValues = new ContentValues();
                             contentValues.put(ExamOnLineListDao.ID, data.getExam_id());
@@ -149,6 +129,28 @@ public class ExamFragment extends BaseFragment {
                 ToastUtil.showToast(context, errorInfo);
             }
         });
+    }
+    /**
+     * 根据发来的状态,来刷新列表
+     *
+     * @param state
+     */
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getData(Integer state) {
+        Log.d("ClassExerciseFragment", "走过了EventBus");
+
+        if (datas != null) {
+            datas.get(item).setState(state);
+//            if (state != ClassContstant.EXAM_NOT) {
+//                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
+//            }
+            examAdapter.setDatas(datas);
+
+        } else {
+//            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
+        }
+
     }
 
     @Override

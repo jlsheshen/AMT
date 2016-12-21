@@ -178,7 +178,6 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 //			mSubjectList.get(i).setuAnswer("");
 //			mSubjectList.get(i).setState(SubjectState.STATE_INIT);
 //			mSubjectList.get(i).setuScore(0);
-
 		}
 		Log.d(TAG, "totalScore:" + totalScore);
 		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList);

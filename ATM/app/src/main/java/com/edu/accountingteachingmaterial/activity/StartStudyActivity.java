@@ -36,6 +36,7 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.COURSE_ID
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_NUMBER;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_PASSWORD;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 import static com.edu.subject.BASE_URL.BASE_URL;
 
@@ -208,7 +209,7 @@ public class StartStudyActivity extends BaseActivity {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
-                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(NetUrlContstant.URL_NAME, BASE_URL);
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(URL_NAME, BASE_URL);
 
                     Toast.makeText(StartStudyActivity.this, "Ip设置成功", Toast.LENGTH_SHORT).show();
                 }
@@ -240,7 +241,7 @@ public class StartStudyActivity extends BaseActivity {
 
         Log.d("LaunchActivity", NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getStringValue(USER_ID));
 
-        String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
+        String s = PreferenceHelper.getInstance(this).getStringValue(URL_NAME);
 
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
 

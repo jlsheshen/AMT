@@ -27,7 +27,7 @@ public class PdfActivity extends BaseActivity {
     private FinalHttp fHttp = new FinalHttp();
     private HttpHandler<File> mHandler;
     private String mUrl = BASE_URL.BASE_URL + "/interface/filedown/down/";
-    //private String mUrl = NetUrlContstant.mediaorPdfUrl;
+    //private String mUrl =.mediaorPdfUrl;
 
     @Override
     public int setLayout() {

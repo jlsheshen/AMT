@@ -68,6 +68,9 @@ public class ExamAdapter extends BaseAdapter {
         switch (examBean.getState()) {
             case ClassContstant.EXAM_COMMIT:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_yituijiao_n);
+                viewHolder.progressBar.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.VISIBLE);
+
 
                 break;
             case ClassContstant.EXAM_DOWNLOADING:
@@ -76,13 +79,19 @@ public class ExamAdapter extends BaseAdapter {
                 break;
             case ClassContstant.EXAM_NOT:
                 viewHolder.imageView.setImageResource(R.drawable.selector_exam_download_type);
+                viewHolder.progressBar.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.VISIBLE);
                 break;
             case ClassContstant.EXAM_READ:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_yipiyue_n);
+                viewHolder.progressBar.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.VISIBLE);
 
                 break;
             case ClassContstant.EXAM_UNDONE:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_weitijiao_n);
+                viewHolder.progressBar.setVisibility(View.GONE);
+                viewHolder.imageView.setVisibility(View.VISIBLE);
 
                 break;
         }

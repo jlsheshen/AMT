@@ -39,9 +39,7 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     List<ExampleBean> exampleBeans;
     List<ClassicCase> cData;
     ClassChapterData.SubChaptersBean data;
-//    private String mUrl = NetUrlContstant.BASE_URL + "interface/filedown/down/401-1";
-//    private FinalHttp fHttp = new FinalHttp();
-//    private HttpHandler<File> mHandler;
+
 
 
     public void setData(ClassChapterData.SubChaptersBean data) {
@@ -106,7 +104,7 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         List<StudyHistoryVO> historyVOs = new ArrayList<>();
-        historyVOs.add(cData.get(i).getUpLoadingData());
+        historyVOs.add(cData.get(i).getUpLoadingData(context));
         HistoryClickManager.getHisInstance(context).setStudyHistoryVOList(historyVOs).sendHistory();
 
         switch (exampleBeans.get(i).getType()) {

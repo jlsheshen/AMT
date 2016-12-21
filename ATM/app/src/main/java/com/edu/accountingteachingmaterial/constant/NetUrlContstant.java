@@ -8,7 +8,6 @@ import static com.edu.subject.BASE_URL.BASE_URL;
 
 public  class NetUrlContstant {
 
-    public static final String URL_NAME = "URL_NAME";
     //调试接口
     public static final String settingIpUrl =  "/interface/returnSuccess";
 
@@ -36,9 +35,9 @@ public  class NetUrlContstant {
     public static final String simpleTopicUrl =  "/interface/exam/findSimpleTopicById/";
     //{topicId}-{paperId}
     //获取在线考试列表
-    public static final String getExamInfoUrl =  "/interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
+    public static final String examInfoUrlList =  "/interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
     //拉取历史信息
-    public static final String findHisUrl =  "/interface/exam/findUserStudyHistoryByStuNum/";
+    public static final String findHisUrl =  "/interface/exam/findUserStudyHistoryById/";
     //{userId}
     //上传历史信息
     public static final String upLoadingHisUrl =  "/interface/exam/saveUserStudyHistories";
@@ -92,8 +91,8 @@ public  class NetUrlContstant {
         return BASE_URL + simpleTopicUrl;
     }
 
-    public static String getGetExamInfoUrl() {
-        return BASE_URL + getExamInfoUrl;
+    public static String getExamInfoUrlList() {
+        return BASE_URL + examInfoUrlList;
     }
 
     public static String getFindHisUrl() {

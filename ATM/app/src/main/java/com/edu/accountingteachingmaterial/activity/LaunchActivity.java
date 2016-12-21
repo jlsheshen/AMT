@@ -23,6 +23,8 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
+
 
 public class LaunchActivity extends BaseActivity {
     CountDownTimer timer;
@@ -37,7 +39,7 @@ public class LaunchActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
+        String s = PreferenceHelper.getInstance(this).getStringValue(URL_NAME);
         Log.d("LaunchActivity", "--------------" + s);
 
         if ("".equals(s)) {
@@ -143,7 +145,7 @@ public class LaunchActivity extends BaseActivity {
         PreferenceHelper.getInstance(this).setStringValue(PreferenceHelper.USER_ID, "" + 201660001);
         Log.d("LaunchActivity", NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
 
-        String s = PreferenceHelper.getInstance(this).getStringValue(NetUrlContstant.URL_NAME);
+        String s = PreferenceHelper.getInstance(this).getStringValue(URL_NAME);
         if ("".equals(s)) {
             Log.d("LaunchActivity", "--------------" + s);
         } else {

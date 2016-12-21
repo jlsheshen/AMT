@@ -32,7 +32,7 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
     // private ClassicCase classicCase;
     private String url = BASE_URL.BASE_URL + "/interface/filedown/down/";
     //视频播放地址
-    //private String url = NetUrlContstant.mediaorPdfUrl;
+    //private String url = mediaorPdfUrl;
     ExampleBean exampleBeans;
 
     @Override
@@ -55,9 +55,7 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
 
         // 为VideoView指定MediaController
         videoView.setMediaController(mController);
-
         videoView.start();
-
         // 为MediaController指定控制的VideoView
         mController.setMediaPlayer(videoView);
         // 增加监听上一个和下一个的切换事件，默认这两个按钮是不显示的

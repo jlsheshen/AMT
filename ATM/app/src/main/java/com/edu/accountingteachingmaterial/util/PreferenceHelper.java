@@ -12,6 +12,12 @@ import android.content.SharedPreferences.Editor;
  */
 public class PreferenceHelper {
 	/**
+	 * url地址
+	 */
+
+	public static final String URL_NAME = "URL_NAME";
+
+	/**
 	 * 用户id
 	 *
 	 */
