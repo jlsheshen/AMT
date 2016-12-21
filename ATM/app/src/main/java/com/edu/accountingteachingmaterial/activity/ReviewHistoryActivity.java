@@ -2,6 +2,7 @@ package com.edu.accountingteachingmaterial.activity;
 
 import android.os.Bundle;
 
+import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 
 /**
@@ -11,7 +12,7 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 public class ReviewHistoryActivity extends BaseActivity {
     @Override
     public int setLayout() {
-        return 0;
+        return R.layout.activity_review_history;
     }
 
     @Override

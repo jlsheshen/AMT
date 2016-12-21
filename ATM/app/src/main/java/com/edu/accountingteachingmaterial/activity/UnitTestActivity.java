@@ -153,14 +153,21 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 multiple += 1;
             } else if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_JUDGE) {
                 judge += 1;
+            } else if (topicsBeen.get(i).getType() == 4) {
+                fillin += 1;
+            } else if (topicsBeen.get(i).getType() == 5) {
+                shortin += 1;
+            } else if (topicsBeen.get(i).getType() == 6) {
+                comprehensive += 1;
             }
+
         }
         testTitle.setText(testPaperListData.getExam_name());
         tvPublisher.setText(testPaperListData.getCreator_name());
         tvReleaseTime.setText(testPaperListData.getCreate_date());
-//        tvStartTime.setText(testPaperListData.getStart_time()+"");
-//        tvEndTime.setText(testPaperListData.getEnd_time()+"");
-//        tvChallengeTime.setText(testPaperListData.getLast_time() + "分钟");
+        tvStartTime.setText(testPaperListData.getStart_time() + "");
+        tvEndTime.setText(testPaperListData.getEnd_time() + "");
+        tvChallengeTime.setText(testPaperListData.getLast_time() + "分钟");
         tvSingle.setText(single + "道");
         tvMultiple.setText(multiple + "道");
         tvJudge.setText(judge + "道");
