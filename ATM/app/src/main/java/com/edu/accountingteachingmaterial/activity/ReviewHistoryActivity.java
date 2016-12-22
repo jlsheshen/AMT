@@ -27,7 +27,7 @@ public class ReviewHistoryActivity extends BaseActivity {
     @Override
     public void initView(Bundle savedInstanceState) {
         listView = bindView(R.id.review_his_lv);
-        cancelTv = bindView(R.id.review_his_cancel_iv);
+        cancelTv = bindView(R.id.review_his_cancel_tv);
         backIv = bindView(R.id.review_his_back_iv);
     }
 

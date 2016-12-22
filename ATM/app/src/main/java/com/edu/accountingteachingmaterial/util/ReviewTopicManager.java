@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.library.util.ToastUtil;
@@ -67,7 +68,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
         String message = jsonObject.getString("message");
         if (result) {
             ToastUtil.showToast(context, "上传题目数量记录");
-            EventBus.getDefault().post(1);
+            EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
         } else {
             ToastUtil.showToast(context, "上传题目数量失败：" + message);
             Log.e(TAG, "uploadResult:" + jsonObject);

@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.SubjectReViewActivity;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
@@ -112,7 +113,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         setNumChangeListener();
     }
 
-    //获取试题总数
+    //获取本章节试题总数
     private void getTotalNum() {
         totalNum = addAndSubTestView1.getNum() + addAndSubTestView2.getNum() + addAndSubTestView3.getNum() + addAndSubTestView4.getNum() + addAndSubTestView5.getNum() + addAndSubTestView6.getNum() + addAndSubTestView7.getNum();
         Log.d("ClassReviewFragment", "2016-12-19 total  num:" + totalNum);
@@ -130,13 +131,13 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         topicVo.setComp(addAndSubTestView6.getNum());
         topicVo.setTable(addAndSubTestView7.getNum());
         if (cbEasy.isChecked()) {
-            list.add(1);
+            list.add(ClassContstant.LEVEL_ORDINARY);
         }
         if (cbNormal.isChecked()) {
-            list.add(2);
+            list.add(ClassContstant.LEVEL_EASY);
         }
         if (cbHard.isChecked()) {
-            list.add(3);
+            list.add(ClassContstant.LEVEL_HARD);
         }
         topicVo.setLevel(list);
 
@@ -178,7 +179,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     reviewTopicData = JSONObject.parseObject(jsonObject.getString("message"), ReviewTopicData.class);
-                    Log.d("ClassReviewFragment", "获取成功");
+                    Log.d("ClassReviewFragment", "获取成功" + reviewTopicData.getEasy().getAsk() + reviewTopicData.getEasy().getMulti());
 
                     refreshView();
                 }
@@ -224,9 +225,12 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
         Log.d("ClassReviewFragment", "ClassReviewFragment------走过了EventBus");
 
-        if (state == 1) {
+        if (state == ClassContstant.EXAM_UNDONE) {
+            //下载题目信息
             ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId);
-        } else if (state == 2) {
+
+        } else if (state == ClassContstant.EXAM_COMMIT) {
+            //跳转到答题界面
             Bundle bundle = new Bundle();
             bundle.putInt("chapterId", chapterId);
             startActivity(SubjectReViewActivity.class, bundle);
@@ -246,49 +250,42 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView2.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView2 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView3.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView3 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView4.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView4 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView5.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView5 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView6.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView6 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView7.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView7 2016-12-21" + "刷新");
             }
         });
     }
