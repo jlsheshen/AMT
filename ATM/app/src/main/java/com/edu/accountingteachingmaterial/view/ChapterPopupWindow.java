@@ -88,10 +88,8 @@ public class ChapterPopupWindow extends PopupWindow {
                 for (int i = 0, count = expandableListView.getExpandableListAdapter().getGroupCount(); i < count; i++) {
                     if (groupPosition != i) {// 关闭其他分组
                         expandableListView.collapseGroup(i);
-
                     }
-                }
-            }
+                }}
         });
 
         this.setOnDismissListener(new OnDismissListener() {

@@ -42,14 +42,54 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/content_text_size" />
     </RelativeLayout>
+
     <ListView
         android:id="@+id/review_his_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_margin="25px"
         android:divider="@color/colorBlueBackground"
         android:dividerHeight="1dp"
         ></ListView>
+
+    <RelativeLayout
+        android:id="@+id/review_his_bolw_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50px"
+        android:visibility="gone"
+        >
+        <TextView
+            android:id="@+id/review_his_delete_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:textSize="@dimen/content_text_size"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="80px"
+            android:alpha="0.5"
+
+            />
+        <View
+            style="@style/VerticalLine"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="165px"
+            />
+
+        <TextView
+            android:id="@+id/review_his_allchecked_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全选"
+            android:textSize="@dimen/content_text_size"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="200px"
+            />
+
+
+
+    </RelativeLayout>
     
+
 
 </LinearLayout>

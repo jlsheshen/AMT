@@ -74,7 +74,13 @@
         <activity android:name=".activity.SubjectReViewActivity"
         android:screenOrientation="landscape"></activity>
         <activity android:name=".activity.ReviewHistoryActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
 
         <meta-data
             android:name="design_width"

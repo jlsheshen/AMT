@@ -31,8 +31,9 @@ public abstract class BaseActivity extends AutoLayoutActivity{
 	 */
 	protected <K extends View> K bindView(int id) {
 		return (K) findViewById(id);
-
 	}
+
+
 
 	/**
 	 * 界面跳转

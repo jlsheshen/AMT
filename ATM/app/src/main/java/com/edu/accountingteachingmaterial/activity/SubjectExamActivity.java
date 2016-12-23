@@ -126,6 +126,8 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
 
         if (textMode == ClassContstant.TEST_MODE_NORMAL) {
+            findViewById(R.id.btnDone).setVisibility(View.VISIBLE);
+
             setTime();
         } else {
             findViewById(R.id.ly_time).setVisibility(View.GONE);

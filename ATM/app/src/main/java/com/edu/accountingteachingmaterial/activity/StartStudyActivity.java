@@ -55,7 +55,6 @@ public class StartStudyActivity extends BaseActivity {
     private static LoginNetMananger mSingleton;
     Context context = this;
 
-
     @Override
     public int setLayout() {
         return R.layout.activity_startstudy;
@@ -170,6 +169,8 @@ public class StartStudyActivity extends BaseActivity {
         final AlertDialog alertDialog = builder.create();
         alertDialog.show();
         final Window window = alertDialog.getWindow();
+        window.setBackgroundDrawableResource(android.R.color.transparent);
+
         // *** 主要就是在这里实现这种效果的.
         // 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
         window.setContentView(R.layout.dialog_changeip);

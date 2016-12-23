@@ -38,7 +38,7 @@ public class NetUrlContstant {
     public static final String examInfoUrlList = "/interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
     //拉取历史信息
     //拉取历史信息
-    public static final String findHisUrl = "/interface/exam/findUserStudyHistoryByStuNum/";
+    public static final String findHisUrl = "/interface/exam/findUserStudyHistoryById/";
     //{userId}
     //上传历史信息
     public static final String upLoadingHisUrl = "/interface/exam/saveUserStudyHistories";

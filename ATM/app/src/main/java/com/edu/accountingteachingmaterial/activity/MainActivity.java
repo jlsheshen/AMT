@@ -109,6 +109,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 final Window window = alertDialog.getWindow();
                 // *** 主要就是在这里实现这种效果的.
                 // 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
+                window.setBackgroundDrawableResource(android.R.color.transparent);
+
                 window.setContentView(R.layout.dialog_changeip);
                 alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 

@@ -67,12 +67,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
         expandableListView = (ExpandableListView) bindView(R.id.class_classchapter_exlv);
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
-        todayLv = bindView(R.id.ppw_histort_today_lv);
-        todayTv = bindView(R.id.ppw_histort_today_tv);
-        yesterdayLv = bindView(R.id.ppw_histort_yesterday_lv);
-        yesterdayTv = bindView(R.id.ppw_histort_yesterday_tv);
-        agoLv = bindView(R.id.ppw_histort_ago_lv);
-        agoTv = bindView(R.id.ppw_histort_ago_tv);
+
 
 
     }
@@ -162,6 +157,16 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(context).inflate(
                 R.layout.ppw_history, null);
+        todayLv = (NoScrollListView) contentView.findViewById(R.id.ppw_histort_today_lv);
+        todayTv = (TextView) contentView.findViewById(R.id.ppw_histort_today_tv);
+        yesterdayLv = (NoScrollListView) contentView.findViewById(R.id.ppw_histort_yesterday_lv);
+        yesterdayTv = (TextView) contentView.findViewById(R.id.ppw_histort_yesterday_tv);
+        agoLv = (NoScrollListView) contentView.findViewById(R.id.ppw_histort_ago_lv);
+        agoTv = (TextView) contentView.findViewById(R.id.ppw_histort_ago_tv);
+        todayLv.setOnItemClickListener(this);
+        yesterdayLv.setOnItemClickListener(this);
+        agoLv.setOnItemClickListener(this);
+
         loadHistoryDatas();
 //        WindowManager.LayoutParams lp = getWindow().getAttributes();
 //        lp.alpha = bgAlpha; //0.0-1.0
@@ -212,15 +217,15 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
                                 break;
                         }
                     }
-                    if (tData != null){
+                    if (tData != null&&tData.size()>0){
                     todayLv.setAdapter(todayAdapter);
                     todayAdapter.setDatas(tData);
                     }
-                    if (yData != null){
+                    if (yData != null&&yData.size()>0){
                         yesterdayLv.setAdapter(yestodayAdapter);
                         yestodayAdapter.setDatas(yData);
                     }
-                    if (aData != null){
+                    if (aData != null&&aData.size()>0){
                         agoLv.setAdapter(agoAdapter);
                         agoAdapter.setDatas(aData);
                     }
@@ -261,8 +266,6 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
         Bundle bundle = new Bundle();
         bundle.putSerializable("exampleBeans", exampleBean);
         startActivity(MediaActivity.class, bundle);
-
-
     }
 }
 

@@ -2,58 +2,72 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80px"
-    android:orientation="vertical"
-    android:paddingLeft="15px"
-    >
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/item_review_his_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/clickable_reviewhis_item_clickbox"
+        android:visibility="invisible"
+        android:layout_centerVertical="true"
+        />
+
     <TextView
         android:id="@+id/item_review_his_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorBlueBackground"
-        android:textSize="@dimen/item_title_text_size"
-        android:layout_marginTop="10px"
         android:layout_marginBottom="10px"
-        />
+        android:layout_marginTop="10px"
+        android:layout_toRightOf="@id/item_review_his_cb"
+        android:textColor="@color/colorBlueBackground"
+        android:textSize="@dimen/item_title_text_size" />
+
     <TextView
         android:id="@+id/item_review_his_number_tv"
-        android:layout_below="@id/item_review_his_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/item_text_size"
+        android:layout_below="@id/item_review_his_title"
+        android:layout_alignLeft="@id/item_review_his_title"
         android:drawableLeft="@mipmap/icon_shitishu_n"
         android:text="@string/test_number"
+        android:textSize="@dimen/item_text_size"
 
         />
+
     <TextView
         android:id="@+id/item_review_his_data_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/item_text_size"
-        android:drawableLeft="@mipmap/data"
-        android:text="@string/test_number"
         android:layout_below="@id/item_review_his_title"
         android:layout_toRightOf="@id/item_review_his_number_tv"
+        android:drawableLeft="@mipmap/data"
+        android:text="@string/test_number"
+        android:textSize="@dimen/item_text_size"
 
 
         />
+
+
     <TextView
         android:id="@+id/item_review_his_score_tv"
-        android:layout_toRightOf="@id/item_review_his_data_tv"
-
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content"
-        android:textSize="@dimen/item_text_size"
-        android:drawableLeft="@mipmap/icon_shitishu_n"
-        android:text="@string/test_number"
         android:layout_below="@id/item_review_his_title"
+        android:layout_toRightOf="@id/item_review_his_data_tv"
+        android:drawableLeft="@mipmap/score"
+        android:text="@string/test_number"
+        android:textSize="@dimen/item_text_size"
 
         />
+
     <ImageView
         android:id="@+id/item_review_his_state_iv"
         android:layout_width="60px"
         android:layout_height="60px"
-        android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:src="@mipmap/weiwancheng"
 
         />

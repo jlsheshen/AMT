@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.util.Log;
 
+import com.edu.accountingteachingmaterial.bean.ReviewHisListBean;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
-import com.edu.accountingteachingmaterial.entity.ReviewExamListData;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
@@ -43,9 +43,9 @@ public class ReviewExamListDao extends BaseDataDao {
      *
      * @param
      */
-    public List<ReviewExamListData> getDataByChatper(int chapter) {
+    public List<ReviewHisListBean> getDataByChatper(int chapter) {
         Cursor curs = null;
-        List<ReviewExamListData> datas = null;
+        List<ReviewHisListBean> datas = null;
         try {
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
@@ -53,11 +53,11 @@ public class ReviewExamListDao extends BaseDataDao {
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null) {
-                datas = new ArrayList<ReviewExamListData>(curs.getCount());
+                datas = new ArrayList<ReviewHisListBean>(curs.getCount());
                 int index = 1;
                 while (curs.moveToNext()) {
 
-                    datas.add((ReviewExamListData) parseCursor(curs));
+                    datas.add((ReviewHisListBean) parseCursor(curs));
                 }
             }
         } catch (SQLException ex) {

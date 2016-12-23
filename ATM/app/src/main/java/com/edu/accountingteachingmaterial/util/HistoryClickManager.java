@@ -62,7 +62,7 @@ public class HistoryClickManager extends JsonNetReqManager {
     public void sendHistory() {
 //        this.examId = examId;
         if (datas == null || datas.size() <= 0) {
-            ToastUtil.showToast(mContext, "发送结果为空");
+            ToastUtil.showToast(context, "发送结果为空");
             return;
         }
         String url = NetUrlContstant.getUpLoadingHisUrl();
