@@ -214,9 +214,15 @@ public class AddAndSubTestView extends RelativeLayout {
     public void refresh(int total) {
         this.total = total;
         tvTotal.setText(String.valueOf(total));
-
-        if (total < Integer.parseInt(etNum.getText().toString())) {
+//            if (total < Integer.parseInt(etNum.getText().toString())) {
+//                etNum.setText(0 + "");
+//            }
+        if (etNum.getText().toString().equals("")) {
             etNum.setText(0 + "");
+        } else if (!etNum.getText().toString().equals("")) {
+            if (total < Integer.parseInt(etNum.getText().toString())) {
+                etNum.setText(0 + "");
+            }
         }
     }
 }

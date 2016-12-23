@@ -198,7 +198,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
     //上传自选题型数量几难易程度
     private void uploadingTopicList() {
-        ReviewTopicManager.getReviewTopicInstance(context).setReviewTopicVOList(topicVo).sendTopic();
+        ReviewTopicManager.getReviewTopicInstance(context).setReviewTopicVOList(topicVo).sendTopic(chapterId);
     }
 
     /**
@@ -212,12 +212,12 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
         Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus");
 
-        if (state == ClassContstant.EXAM_UNDONE) {
+        if (state == ClassContstant.UPLOAD_TYPE) {
             //下载试题
             examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
             ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + examId, Integer.parseInt(examId));
 
-        } else if (state == ClassContstant.EXAM_COMMIT) {
+        } else if (state == ClassContstant.DOWNLOAD_TYPE) {
             //跳转到答题界面
             Bundle bundle = new Bundle();
             bundle.putInt("chapterId", Integer.parseInt(examId));
