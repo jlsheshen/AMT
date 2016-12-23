@@ -124,6 +124,23 @@ public class SubjectTestDataDao extends BaseDataDao {
         }
         return datas;
     }
+    /**
+     * 删除数据
+     *
+     * @param examId
+     */
+    public synchronized void deleteData(long examId) {
+        try {
+            Log.e(TAG, TABLE_NAME + "-deleteData:" + examId);
+            DBHelper helper = new DBHelper(mContext, dbName, null);
+            mDb = helper.getWritableDatabase();
+            mDb.delete(TABLE_NAME, CHAPTER_ID + "=?", new String[] { String.valueOf(examId) });
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            closeDb(mDb);
+        }
+    }
 
 
 

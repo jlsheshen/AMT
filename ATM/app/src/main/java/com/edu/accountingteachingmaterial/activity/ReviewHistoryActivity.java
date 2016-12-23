@@ -13,6 +13,7 @@ import com.edu.accountingteachingmaterial.adapter.ReviewHisAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ReviewHisListBean;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.view.DeteleDialog;
 
 import java.util.List;
@@ -66,7 +67,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //跳转到答题界面
                 Bundle bundle = new Bundle();
-//                bundle.putInt("chapterId", Integer.parseInt(datas.get(position).g));
+                bundle.putInt("chapterId", datas.get(position).getId());
                 startActivity(SubjectReViewActivity.class, bundle);
             }
         });
@@ -144,6 +145,8 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
     void deteleData(){
         for (int i = 0; i < checkList.size(); i++) {
             if (checkList.get(i)) {
+                ReviewExamListDao.getInstance(this).deleteData(datas.get(i).getId());
+                SubjectTestDataDao.getInstance(this).deleteData(datas.get(i).getId());
                 checkList.remove(i);
                 datas.remove(i);
                 i--;

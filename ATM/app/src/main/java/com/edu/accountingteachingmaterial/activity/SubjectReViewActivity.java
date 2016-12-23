@@ -176,6 +176,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 //                UploadResultsManager.getSingleton(this).uploadResult(user, examListData.getId(), 10000);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+                contentValues.put(ReviewExamListDao.SCORE,score);
                 ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
 
                 EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);

@@ -67,12 +67,14 @@ public class ReviewHisAdapter extends BaseAdapter {
         ReviewHisListBean reviewHisListBean = datas.get(position);
         viewHolder.numberTv.setText(reviewHisListBean.getNumber());
         viewHolder.titleTv.setText(reviewHisListBean.getTitle());
-        viewHolder.scoreTv.setText(reviewHisListBean.getScore());
         viewHolder.timeTv.setText(reviewHisListBean.getDate());
         if (reviewHisListBean.getState() == ClassContstant.EXAM_UNDONE){
             viewHolder.stateIv.setImageResource(R.mipmap.weiwancheng);
+            viewHolder.scoreTv.setVisibility(View.GONE);
         }else {
             viewHolder.stateIv.setImageResource(R.mipmap.wancheng);
+            viewHolder.scoreTv.setVisibility(View.VISIBLE);
+            viewHolder.scoreTv.setText(reviewHisListBean.getScore());
         }
         if (checkIsShow){
             viewHolder.check.setVisibility(View.VISIBLE);

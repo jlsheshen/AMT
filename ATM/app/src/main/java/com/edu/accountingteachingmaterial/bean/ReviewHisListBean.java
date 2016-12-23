@@ -21,6 +21,16 @@ public class ReviewHisListBean extends BaseData {
     int state;
     //章节id
     int chapterId;
+    //类型
+    int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public String getTitle() {
         return title;

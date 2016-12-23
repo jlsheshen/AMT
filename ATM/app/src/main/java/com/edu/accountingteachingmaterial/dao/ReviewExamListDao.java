@@ -80,9 +80,13 @@ public class ReviewExamListDao extends BaseDataDao {
         ReviewHisListBean examListData  = new ReviewHisListBean();
 
         examListData.setId(curs.getInt(curs.getColumnIndex(ID)));
-//        examListData.s(curs.getInt(curs.getColumnIndex(TYPE)));
-//        examListData.setState(curs.getInt(curs.getColumnIndex(STATE)));
-//        examListData.setChapter_id(curs.getInt(curs.getColumnIndex(CHAPTER_ID)));
+        examListData.setType(curs.getInt(curs.getColumnIndex(TYPE)));
+        examListData.setState(curs.getInt(curs.getColumnIndex(STATE)));
+        examListData.setChapterId(curs.getInt(curs.getColumnIndex(CHAPTER_ID)));
+        examListData.setTitle(curs.getString(curs.getColumnIndex(TITLE)));
+        examListData.setNumber(curs.getString(curs.getColumnIndex(NUM)));
+        examListData.setDate(curs.getString(curs.getColumnIndex(DATE)));
+        examListData.setScore(curs.getString(curs.getColumnIndex(SCORE)));
 
         return examListData;
     }
