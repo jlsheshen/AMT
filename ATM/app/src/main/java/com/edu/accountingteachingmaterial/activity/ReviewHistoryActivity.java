@@ -34,6 +34,7 @@ public class ReviewHistoryActivity extends BaseActivity {
     @Override
     public void initData() {
 
-        
+
     }
+
 }

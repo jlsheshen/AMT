@@ -17,11 +17,11 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.ReviewExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.view.AddAndSubTestView;
-import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
@@ -52,6 +52,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     AddAndSubTestView addAndSubTestView7 = null;
     int chapterId;
     ReviewTopicVo topicVo;
+    String examId;
 
     @Override
     protected int initLayout() {
@@ -126,7 +127,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
                     return;
                 }
                 getTopicUploadData();
-                ToastUtil.showToast(context, "智能组卷,开始答题！");
+//                ToastUtil.showToast(context, "智能组卷,开始答题！");
                 break;
         }
 
@@ -144,7 +145,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     reviewTopicData = JSONObject.parseObject(jsonObject.getString("message"), ReviewTopicData.class);
-                    Log.d("ClassReviewFragment", "获取题目数量成功");
+                    Log.d("ClassReviewFragment", "获取自测单元题目总数量");
 
                     refreshView();
                 }
@@ -152,7 +153,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
             @Override
             public void onFailure(String errorInfo) {
-                Log.d("ClassReviewFragment", "获取失败");
+                Log.d("ClassReviewFragment", "获取自测单元题目总数量失败");
 
             }
         });
@@ -166,15 +167,19 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
     //获取上传题目数据信息
     private void getTopicUploadData() {
-        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Integer> listType = new ArrayList<>();
+        ArrayList<Float> list = new ArrayList<>();
         topicVo = new ReviewTopicVo();
-        topicVo.setOne(addAndSubTestView1.getNum());
-        topicVo.setMulti(addAndSubTestView2.getNum());
-        topicVo.setJudge(addAndSubTestView3.getNum());
-        topicVo.setFilling(addAndSubTestView4.getNum());
-        topicVo.setAsk(addAndSubTestView5.getNum());
-        topicVo.setComp(addAndSubTestView6.getNum());
-        topicVo.setTable(addAndSubTestView7.getNum());
+        //题目数量
+        listType.add(addAndSubTestView1.getNum());
+        listType.add(addAndSubTestView2.getNum());
+        listType.add(addAndSubTestView3.getNum());
+        listType.add(addAndSubTestView4.getNum());
+        listType.add(addAndSubTestView5.getNum());
+        listType.add(addAndSubTestView6.getNum());
+        listType.add(addAndSubTestView7.getNum());
+        topicVo.setTopic_type(listType);
+        //测试难度
         if (cbEasy.isChecked()) {
             list.add(ClassContstant.LEVEL_ORDINARY);
         }
@@ -191,7 +196,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
     }
 
-    //上传自选题目数量
+    //上传自选题型数量几难易程度
     private void uploadingTopicList() {
         ReviewTopicManager.getReviewTopicInstance(context).setReviewTopicVOList(topicVo).sendTopic();
     }
@@ -205,16 +210,17 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
 
-        Log.d("ClassReviewFragment", "ClassReviewFragment------走了EventBus");
+        Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus");
 
         if (state == ClassContstant.EXAM_UNDONE) {
             //下载试题
-            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId);
+            examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
+            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + examId, Integer.parseInt(examId));
 
         } else if (state == ClassContstant.EXAM_COMMIT) {
             //跳转到答题界面
             Bundle bundle = new Bundle();
-            bundle.putInt("chapterId", chapterId);
+            bundle.putInt("chapterId", Integer.parseInt(examId));
             startActivity(SubjectReViewActivity.class, bundle);
         }
 

@@ -53,7 +53,7 @@ public class NetUrlContstant {
     //自测获取总题数
     public static final String getReviewList = "/interface/course/findTopicSumByChapterIdnLevel/";
     //上传选择题数和难易程度
-    public static final String uploadingReviewList = "/interface/course/findTopicSumByChapterIdnLevel/";
+    public static final String uploadingReviewList = "/interface/course/createPaperForSelfTest";
 
     public static String getSettingIpUrl() {
         return BASE_URL + settingIpUrl;
@@ -124,6 +124,6 @@ public class NetUrlContstant {
     }
 
     public static String getUploadingReviewList() {
-        return uploadingReviewList;
+        return BASE_URL + uploadingReviewList;
     }
 }

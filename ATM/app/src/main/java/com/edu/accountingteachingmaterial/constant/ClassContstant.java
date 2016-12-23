@@ -100,11 +100,11 @@ public final class ClassContstant {
 
     //题型难易程度
     //容易
-    public static final int LEVEL_ORDINARY = 1;
+    public static final float LEVEL_ORDINARY = 0f;
     //正常
-    public static final int LEVEL_EASY = 50;
+    public static final float LEVEL_EASY = 0.5f;
     //困难
-    public static final int LEVEL_HARD = 100;
+    public static final float LEVEL_HARD = 1f;
 
 
 }

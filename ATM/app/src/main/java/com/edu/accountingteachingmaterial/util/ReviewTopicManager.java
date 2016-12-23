@@ -52,13 +52,13 @@ public class ReviewTopicManager extends JsonNetReqManager {
 
     public void sendTopic() {
         if (datas == null) {
-            ToastUtil.showToast(mContext, "发送数据为空");
+            ToastUtil.showToast(mContext, "发送题目数据为空");
             return;
         }
-        String url = NetUrlContstant.getUploadingReviewList();
+        String url = NetUrlContstant.getUploadingReviewList() + "/901-39261";
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity);
-        Log.d(TAG, "uploadResult:" + JSON.toJSONString(datas));
+        Log.d(TAG, "ReviewTopicManager:" + JSON.toJSONString(datas));
 
     }
 
@@ -67,24 +67,25 @@ public class ReviewTopicManager extends JsonNetReqManager {
         boolean result = jsonObject.getBoolean("result");
         String message = jsonObject.getString("message");
         if (result) {
-            ToastUtil.showToast(context, "上传题目数量记录");
+            ToastUtil.showToast(context, "onConnectionSuccess 上传题目数量记录" + message);
+            PreferenceHelper.getInstance(context).setStringValue(PreferenceHelper.EXAM_ID, message);
             EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
         } else {
-            ToastUtil.showToast(context, "上传题目数量失败：" + message);
-            Log.e(TAG, "uploadResult:" + jsonObject);
+            ToastUtil.showToast(context, "上传题目数量记录失败：" + message);
+            Log.e(TAG, "ReviewTopicManager:" + jsonObject);
         }
     }
 
     @Override
     public void onConnectionFailure(String s, Header[] headers) {
-        ToastUtil.showToast(context, "上传题目数量失败：" + s);
+        ToastUtil.showToast(context, "onConnectionFailure 上传题目数量失败：" + s);
 
 
     }
 
     @Override
     public void onConnectionError(String s) {
-        ToastUtil.showToast(context, "上传题目数量失败：" + s);
+        ToastUtil.showToast(context, "onConnectionError 上传题目数量失败：" + s);
 
     }
 }
