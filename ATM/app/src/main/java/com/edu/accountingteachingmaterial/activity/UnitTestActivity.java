@@ -10,11 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
@@ -179,7 +179,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
     private void refreshState() {
-        int state = ExamListDao.getInstance(this).getState(examId);
+        int state = ExamOnLineListDao.getInstance(this).getState(examId);
         //int state = 2;
         //未提交 state:2
         if (state == ClassContstant.EXAM_UNDONE) {
