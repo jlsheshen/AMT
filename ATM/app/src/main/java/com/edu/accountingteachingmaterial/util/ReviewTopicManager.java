@@ -69,6 +69,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
         if (result) {
             ToastUtil.showToast(context, "onConnectionSuccess 上传题目数量记录" + message);
             PreferenceHelper.getInstance(context).setStringValue(PreferenceHelper.EXAM_ID, message);
+
             EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
         } else {
             ToastUtil.showToast(context, "上传题目数量记录失败：" + message);

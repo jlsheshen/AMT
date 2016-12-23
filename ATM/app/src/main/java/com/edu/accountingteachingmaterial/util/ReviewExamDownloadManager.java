@@ -67,6 +67,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
         parseSubjectJson(json);
         ContentValues contentValues = new ContentValues();
         contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_UNDONE);
+
         ReviewExamListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
 
         EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);

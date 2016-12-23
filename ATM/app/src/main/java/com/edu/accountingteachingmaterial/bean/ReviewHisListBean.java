@@ -15,10 +15,12 @@ public class ReviewHisListBean extends BaseData {
     String number;
     //日期
     String date;
-    //分组
+    //分数
     String score;
     //状态
     int state;
+    //章节id
+    int chapterId;
 
     public String getTitle() {
         return title;
@@ -58,5 +60,13 @@ public class ReviewHisListBean extends BaseData {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public int getChapterId() {
+        return chapterId;
+    }
+
+    public void setChapterId(int chapterId) {
+        this.chapterId = chapterId;
     }
 }

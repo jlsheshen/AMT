@@ -6,7 +6,6 @@ import android.database.SQLException;
 import android.util.Log;
 
 import com.edu.accountingteachingmaterial.bean.ReviewHisListBean;
-import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
@@ -77,12 +76,12 @@ public class ReviewExamListDao extends BaseDataDao {
 
     @Override
     public BaseData parseCursor(Cursor curs) {
-        ExamListData examListData  = new ExamListData();
+        ReviewHisListBean examListData  = new ReviewHisListBean();
 
         examListData.setId(curs.getInt(curs.getColumnIndex(ID)));
-        examListData.setExam_type(curs.getInt(curs.getColumnIndex(TYPE)));
-        examListData.setState(curs.getInt(curs.getColumnIndex(STATE)));
-        examListData.setChapter_id(curs.getInt(curs.getColumnIndex(CHAPTER_ID)));
+//        examListData.s(curs.getInt(curs.getColumnIndex(TYPE)));
+//        examListData.setState(curs.getInt(curs.getColumnIndex(STATE)));
+//        examListData.setChapter_id(curs.getInt(curs.getColumnIndex(CHAPTER_ID)));
 
         return examListData;
     }
@@ -93,7 +92,7 @@ public class ReviewExamListDao extends BaseDataDao {
         try {
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
-            String sql = "SELECT STATE FROM " + TABLE_NAME + " WHERE " + CHAPTER_ID + " = " + chapter;
+            String sql = "SELECT STATE FROM " + TABLE_NAME + " WHERE " + ID + " = " + chapter;
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null&& curs.getCount() !=0) {

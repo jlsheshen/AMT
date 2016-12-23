@@ -43,10 +43,13 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         bindAndListener(classReviewButton, R.id.class_review_iv);
         bindAndListener(backIv, R.id.class_aty_back_iv);
         bindAndListener(imgZhangjie, R.id.class_aty_zhangjie_iv);
-        bindAndListener(imgReviewHy, R.id.class_review_hy);
+        imgReviewHy = (ImageView) findViewById( R.id.class_review_hy);
+        imgReviewHy.setOnClickListener(this);
+//        bindAndListener(imgReviewHy, R.id.class_review_hy);
         textView = bindView(R.id.class_id_title_tv);
         imgZhangjie = (ImageView) findViewById(R.id.class_aty_zhangjie_iv);
-        imgReviewHy = (ImageView) findViewById(R.id.class_review_hy);
+//        bindAndListener(imgReviewHy,R.id.class_review_hy);
+
         vLine = (View) findViewById(R.id.view);
     }
 

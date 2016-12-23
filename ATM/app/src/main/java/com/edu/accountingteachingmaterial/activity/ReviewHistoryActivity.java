@@ -12,10 +12,9 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.ReviewHisAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ReviewHisListBean;
-import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
 import com.edu.accountingteachingmaterial.view.DeteleDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,7 +64,10 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(SubjectTestActivity.class);
+                //跳转到答题界面
+                Bundle bundle = new Bundle();
+//                bundle.putInt("chapterId", Integer.parseInt(datas.get(position).g));
+                startActivity(SubjectReViewActivity.class, bundle);
             }
         });
 
@@ -100,16 +102,17 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
     }
 
     private void loadData() {
-        datas = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
-            ReviewHisListBean d = new ReviewHisListBean();
-            d.setState(ClassContstant.EXAM_UNDONE);
-            d.setDate("2016-21-26");
-            d.setNumber("56");
-            d.setScore("615");
-            d.setTitle("155");
-            datas.add(d);
-        }
+        datas = ReviewExamListDao.getInstance(this).getDataByChatper(1253);
+              //  new ArrayList<>();
+//        for (int i = 0; i < 6; i++) {
+//            ReviewHisListBean d = new ReviewHisListBean();
+//            d.setState(ClassContstant.EXAM_UNDONE);
+//            d.setDate("2016-21-26");
+//            d.setNumber("56");
+//            d.setScore("615");
+//            d.setTitle("155");
+//            datas.add(d);
+//        }
     }
 
     @Override
