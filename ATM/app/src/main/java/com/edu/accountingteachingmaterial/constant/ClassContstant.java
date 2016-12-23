@@ -106,5 +106,10 @@ public final class ClassContstant {
     //困难
     public static final float LEVEL_HARD = 1f;
 
+    //上传题目数量记录成功
+    public static final int UPLOAD_TYPE = 1;
+    //下载题目数量记录成功
+    public static final int DOWNLOAD_TYPE = 2;
+
 
 }

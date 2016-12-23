@@ -58,7 +58,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
     public void getSubjects(String url, int chatperId) {
         this.chatperId = chatperId;
         UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
-        sendRequest(entity,"正在下载试题......");
+        sendRequest(entity, "正在下载试题......");
     }
 
     @Override
@@ -68,9 +68,16 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_UNDONE);
 
-        ReviewExamListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
+        contentValues.put(ReviewExamListDao.TYPE, 1);
+        contentValues.put(ReviewExamListDao.CHAPTER_ID, chatperId);
+        contentValues.put(ReviewExamListDao.ID, chatperId);
+        contentValues.put(ReviewExamListDao.TITLE,"会计立体化测试");
+        contentValues.put(ReviewExamListDao.NUM,"10");
+        contentValues.put(ReviewExamListDao.DATE,"2016-12-23");
+        contentValues.put(ReviewExamListDao.SCORE,"100");
+        ReviewExamListDao.getInstance(mContext).insertData(contentValues);
 
-        EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+        EventBus.getDefault().post(ClassContstant.DOWNLOAD_TYPE);
     }
 
     @Override

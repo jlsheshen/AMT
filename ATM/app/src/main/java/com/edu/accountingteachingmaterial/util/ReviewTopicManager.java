@@ -50,7 +50,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
 
     }
 
-    public void sendTopic() {
+    public void sendTopic(int chapterId) {
         if (datas == null) {
             ToastUtil.showToast(mContext, "发送题目数据为空");
             return;
@@ -67,12 +67,12 @@ public class ReviewTopicManager extends JsonNetReqManager {
         boolean result = jsonObject.getBoolean("result");
         String message = jsonObject.getString("message");
         if (result) {
-            ToastUtil.showToast(context, "onConnectionSuccess 上传题目数量记录" + message);
+            ToastUtil.showToast(context, "onConnectionSuccess 上传题目数量记录");
             PreferenceHelper.getInstance(context).setStringValue(PreferenceHelper.EXAM_ID, message);
 
-            EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
+            EventBus.getDefault().post(ClassContstant.UPLOAD_TYPE);
         } else {
-            ToastUtil.showToast(context, "上传题目数量记录失败：" + message);
+            ToastUtil.showToast(context, "上传题目数量记录失败：");
             Log.e(TAG, "ReviewTopicManager:" + jsonObject);
         }
     }
