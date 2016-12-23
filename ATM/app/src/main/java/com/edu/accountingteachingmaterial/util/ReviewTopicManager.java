@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
-import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
+import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
@@ -24,7 +24,7 @@ import org.greenrobot.eventbus.EventBus;
 public class ReviewTopicManager extends JsonNetReqManager {
     private Context context;
     private static ReviewTopicManager reviewTopicInstance;
-    private ReviewTopicData datas;
+    private ReviewTopicVo datas;
 
     private ReviewTopicManager(Context context) {
         this.context = context;
@@ -43,7 +43,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
         return reviewTopicInstance;
     }
 
-    public ReviewTopicManager setReviewTopicVOList(ReviewTopicData datas) {
+    public ReviewTopicManager setReviewTopicVOList(ReviewTopicVo datas) {
 
         this.datas = datas;
         return this;
@@ -52,7 +52,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
 
     public void sendTopic() {
         if (datas == null) {
-            ToastUtil.showToast(mContext, "发送结果为空");
+            ToastUtil.showToast(mContext, "发送数据为空");
             return;
         }
         String url = NetUrlContstant.getUploadingReviewList();

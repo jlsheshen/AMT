@@ -109,7 +109,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         Bundle bundle = getIntent().getExtras();
 //        examListData = (ExamListData) bundle.get("ExamListData");
         chapterId = bundle.getInt("chapterId");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, 1232);
 //        if (datas == null || datas.size() == 0) {
 //            ContentValues contentValues = new ContentValues();
 //            contentValues.put(ReviewExamListDao.ID, examListData.getId());

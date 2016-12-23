@@ -45,7 +45,7 @@
         android:layout_marginRight="35px"
         android:text="服务器IP设置"
         android:textColor="@color/colorBlueBackground"
-        android:textSize="@dimen/content_text_size" />
+        android:textSize="16sp" />
     <EditText
         android:id="@+id/startstudy_pw_et"
         android:layout_width="290px"
