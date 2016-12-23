@@ -61,7 +61,6 @@ public final class ClassContstant {
     public static final int ANSWER_NODONE = 3;
 
 
-
     //题型
     //单选
     public static final int SUBJECT_SINGLE_CHOSE = 1;
@@ -73,11 +72,11 @@ public final class ClassContstant {
     public static final String SUBJECT_MULITI_CHOSE_STRING = "多选题";
 
     //判断
-    public static final int SUBJECT_JUDGE =3;
+    public static final int SUBJECT_JUDGE = 3;
     public static final String SUBJECT_JUDGE_STRING = "判断题";
 
     //实训
-    public static final int SUBJECT_PRACTIAL =4;
+    public static final int SUBJECT_PRACTIAL = 4;
     public static final String SUBJECT_PRACTIAL_STRING = "实训题";
 
     //分录
@@ -93,19 +92,19 @@ public final class ClassContstant {
     public static final String SUBJECT_GROUP_BILL_STRING = "分组凭证";
 
     //今天
-    public static final int  HISTORY_TODAY= 1;
+    public static final int HISTORY_TODAY = 1;
     //昨天
     public static final int HISTORY_YESTODAY = 2;
     //很久很久以前
     public static final int HISTORY_AGO = 3;
 
-
-
-
-
-
-
-
+    //题型难易程度
+    //容易
+    public static final float LEVEL_ORDINARY = 0f;
+    //正常
+    public static final float LEVEL_EASY = 0.5f;
+    //困难
+    public static final float LEVEL_HARD = 1f;
 
 
 }

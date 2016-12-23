@@ -12,15 +12,16 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.SubjectReViewActivity;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.ReviewExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.view.AddAndSubTestView;
-import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,6 +52,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     AddAndSubTestView addAndSubTestView7 = null;
     int chapterId;
     ReviewTopicVo topicVo;
+    String examId;
 
     @Override
     protected int initLayout() {
@@ -110,57 +112,22 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout2.addView(addAndSubTestView7);
         loadAllTopicList();
         setNumChangeListener();
+
     }
 
-    //获取试题总数
-    private void getTotalNum() {
-        totalNum = addAndSubTestView1.getNum() + addAndSubTestView2.getNum() + addAndSubTestView3.getNum() + addAndSubTestView4.getNum() + addAndSubTestView5.getNum() + addAndSubTestView6.getNum() + addAndSubTestView7.getNum();
-        Log.d("ClassReviewFragment", "2016-12-19 total  num:" + totalNum);
-    }
-
-    //获取上传题目数据信息
-    private void getTopicUploadData() {
-        ArrayList<Integer> list = new ArrayList<>();
-        topicVo = new ReviewTopicVo();
-        topicVo.setOne(addAndSubTestView1.getNum());
-        topicVo.setMulti(addAndSubTestView2.getNum());
-        topicVo.setJudge(addAndSubTestView3.getNum());
-        topicVo.setFilling(addAndSubTestView4.getNum());
-        topicVo.setAsk(addAndSubTestView5.getNum());
-        topicVo.setComp(addAndSubTestView6.getNum());
-        topicVo.setTable(addAndSubTestView7.getNum());
-        if (cbEasy.isChecked()) {
-            list.add(1);
-        }
-        if (cbNormal.isChecked()) {
-            list.add(2);
-        }
-        if (cbHard.isChecked()) {
-            list.add(3);
-        }
-        topicVo.setLevel(list);
-
-        uploading();
-        Log.d("ClassReviewFragment", topicVo + "2016-12-19");
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_start:
                 if ((!cbEasy.isChecked() && !cbNormal.isChecked() && !cbHard.isChecked())) {
-//                    ToastUtil.showToast(context, "请选择测验难度！");
                     return;
                 }
                 if (totalNum < 1) {
-//                    ToastUtil.showToast(context, "请输入正确题目数量！");
                     return;
                 }
                 getTopicUploadData();
-                ToastUtil.showToast(context, "智能组卷");
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("chapterId", chapterId);
-//                startActivity(SubjectReViewActivity.class, bundle);
+//                ToastUtil.showToast(context, "智能组卷,开始答题！");
                 break;
         }
 
@@ -169,7 +136,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     //获取题数总数量接口
     private void loadAllTopicList() {
 
-        Log.d("ClassReviewFragment", "每个题目总数量");
+        Log.d("ClassReviewFragment", "getGetReviewList");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getGetReviewList() + "901");
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
@@ -178,7 +145,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     reviewTopicData = JSONObject.parseObject(jsonObject.getString("message"), ReviewTopicData.class);
-                    Log.d("ClassReviewFragment", "获取成功");
+                    Log.d("ClassReviewFragment", "获取自测单元题目总数量");
 
                     refreshView();
                 }
@@ -186,15 +153,77 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
             @Override
             public void onFailure(String errorInfo) {
-                Log.d("ClassReviewFragment", "获取失败");
+                Log.d("ClassReviewFragment", "获取自测单元题目总数量失败");
 
             }
         });
     }
 
-    //上传自选题目数量
-    private void uploading() {
-        ReviewTopicManager.getReviewTopicInstance(context).setReviewTopicVOList(reviewTopicData).sendTopic();
+    //获取本章节试题总数
+    private void getTotalNum() {
+        totalNum = addAndSubTestView1.getNum() + addAndSubTestView2.getNum() + addAndSubTestView3.getNum() + addAndSubTestView4.getNum() + addAndSubTestView5.getNum() + addAndSubTestView6.getNum() + addAndSubTestView7.getNum();
+        Log.d("ClassReviewFragment", " getTotalNum:" + totalNum);
+    }
+
+    //获取上传题目数据信息
+    private void getTopicUploadData() {
+        ArrayList<Integer> listType = new ArrayList<>();
+        ArrayList<Float> list = new ArrayList<>();
+        topicVo = new ReviewTopicVo();
+        //题目数量
+        listType.add(addAndSubTestView1.getNum());
+        listType.add(addAndSubTestView2.getNum());
+        listType.add(addAndSubTestView3.getNum());
+        listType.add(addAndSubTestView4.getNum());
+        listType.add(addAndSubTestView5.getNum());
+        listType.add(addAndSubTestView6.getNum());
+        listType.add(addAndSubTestView7.getNum());
+        topicVo.setTopic_type(listType);
+        //测试难度
+        if (cbEasy.isChecked()) {
+            list.add(ClassContstant.LEVEL_ORDINARY);
+        }
+        if (cbNormal.isChecked()) {
+            list.add(ClassContstant.LEVEL_EASY);
+        }
+        if (cbHard.isChecked()) {
+            list.add(ClassContstant.LEVEL_HARD);
+        }
+        topicVo.setLevel(list);
+
+        uploadingTopicList();
+        Log.d("ClassReviewFragment", "ClassReviewFragment" + topicVo);
+
+    }
+
+    //上传自选题型数量几难易程度
+    private void uploadingTopicList() {
+        ReviewTopicManager.getReviewTopicInstance(context).setReviewTopicVOList(topicVo).sendTopic();
+    }
+
+    /**
+     * 根据发来的状态,来刷新列表
+     *
+     * @param state
+     */
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getData(Integer state) {
+
+        Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus");
+
+        if (state == ClassContstant.EXAM_UNDONE) {
+            //下载试题
+            examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
+            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + examId, Integer.parseInt(examId));
+
+        } else if (state == ClassContstant.EXAM_COMMIT) {
+            //跳转到答题界面
+            Bundle bundle = new Bundle();
+            bundle.putInt("chapterId", Integer.parseInt(examId));
+            startActivity(SubjectReViewActivity.class, bundle);
+        }
+
     }
 
     @Override
@@ -212,28 +241,6 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         }
     }
 
-
-    /**
-     * 根据发来的状态,来刷新列表
-     *
-     * @param state
-     */
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getData(Integer state) {
-
-        Log.d("ClassReviewFragment", "ClassReviewFragment------走过了EventBus");
-
-        if (state == 1) {
-            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId);
-        } else if (state == 2) {
-            Bundle bundle = new Bundle();
-            bundle.putInt("chapterId", chapterId);
-            startActivity(SubjectReViewActivity.class, bundle);
-        }
-
-    }
-
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
@@ -246,49 +253,42 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView1 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView2.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView2 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView3.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView3 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView4.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView4 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView5.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView5 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView6.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView6 2016-12-21" + "刷新");
             }
         });
         addAndSubTestView7.setOnNumChangeListener(new AddAndSubTestView.OnNumChangeListener() {
             @Override
             public void onNumChange(View view, int num) {
                 refreshView();
-                Log.d("ClassReviewFragment", "AddAndSubTestView7 2016-12-21" + "刷新");
             }
         });
     }

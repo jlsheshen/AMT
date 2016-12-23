@@ -138,6 +138,10 @@ public class PreferenceHelper {
 	 * 屏幕宽度
 	 */
 	public static final String SCREEN_WIDTH = "screen_width";
+	/**
+	 * 自测examid
+	 */
+	public static final String EXAM_ID = "EXAM_ID";
 
 	/**
 	 * 自身实例

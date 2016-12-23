@@ -9,7 +9,6 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
@@ -59,7 +58,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
     public void getSubjects(String url, int chatperId) {
         this.chatperId = chatperId;
         UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
-        sendRequest(entity);
+        sendRequest(entity,"正在下载试题......");
     }
 
     @Override
@@ -67,13 +66,10 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
         Log.d(TAG, "onConnectionSuccess:" + json);
         parseSubjectJson(json);
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_UNDONE);
+        contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_UNDONE);
         ReviewExamListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
-//
-//		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
-//		stateIv.setImageResource(R.drawable.selector_exam_undown_type);
-//		stateIv.setVisibility(View.VISIBLE);
-        EventBus.getDefault().post(2);
+
+        EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
     }
 
     @Override

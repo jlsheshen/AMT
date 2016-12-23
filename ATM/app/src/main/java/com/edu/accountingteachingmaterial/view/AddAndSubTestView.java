@@ -57,8 +57,8 @@ public class AddAndSubTestView extends RelativeLayout {
         btnAdd.setTag("+");
         btnSub.setTag("-");
         etNum.setText(String.valueOf(num));
-        Editable etext = etNum.getText();
-        Selection.setSelection(etext, etext.length());
+        Editable editable = etNum.getText();
+        Selection.setSelection(editable, editable.length());
         btnAdd.setOnClickListener(new OnButtonClickListener());
         btnSub.setOnClickListener(new OnButtonClickListener());
         etNum.addTextChangedListener(new OnTextChangeListener());

@@ -44,6 +44,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
         listView = bindView(R.id.review_his_lv);
         cancelTv = bindView(R.id.review_his_cancel_tv);
         cancelTv.setOnClickListener(this);
+
         backIv = bindView(R.id.review_his_back_iv);
         backIv.setOnClickListener(this);
         deteleTv = bindView(R.id.review_his_delete_tv);
@@ -165,5 +166,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
                 }
             }
         });
+
     }
+
 }
