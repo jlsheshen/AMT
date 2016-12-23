@@ -58,7 +58,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
     public void getSubjects(String url, int chatperId) {
         this.chatperId = chatperId;
         UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
-        sendRequest(entity);
+        sendRequest(entity,"正在下载试题......");
     }
 
     @Override
