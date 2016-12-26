@@ -37,6 +37,7 @@
                 android:text="@string/login"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/content_text_size" />
+
             <TextView
                 android:id="@+id/my_number_tv"
                 android:layout_width="wrap_content"
@@ -50,6 +51,7 @@
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/tv_error"
             android:layout_width="match_parent"
             android:layout_height="60px"
             android:layout_marginLeft="30px"
@@ -64,12 +66,14 @@
             style="@style/HorizontalLine"
             android:layout_marginLeft="20px"
             android:layout_marginRight="20px" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <TextView
             android:layout_width="match_parent"
@@ -78,8 +82,7 @@
             android:gravity="center_vertical"
             android:text="@string/my_errors"
             android:textColor="@color/colorBlueBackground"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
+            android:textSize="24sp" />
 
         <View
             style="@style/HorizontalLine"
@@ -94,27 +97,22 @@
                 android:id="@+id/my_background_iv"
                 android:layout_width="320px"
                 android:layout_height="320px"
-                android:scaleType="fitCenter"
                 android:layout_centerInParent="true"
-                android:src="@mipmap/my_bacground"
-
-                />
+                android:scaleType="fitCenter"
+                android:src="@mipmap/my_bacground" />
 
             <TextView
                 android:id="@+id/my_noerror_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/my_background_iv"
-                android:layout_marginTop="25px"
                 android:layout_centerHorizontal="true"
+                android:layout_marginTop="25px"
                 android:text="我的人生没有错题"
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/item_title_text_size" />
-
-
         </RelativeLayout>
-
-
     </LinearLayout>
+
 
 </LinearLayout>

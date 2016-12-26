@@ -19,11 +19,10 @@ import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
-
 import com.edu.accountingteachingmaterial.model.ResultsListener;
-import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.CountryTestTimer;
-import com.edu.accountingteachingmaterial.util.UploadResultsManager;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.UploadOnlineResultsManager;
 import com.edu.accountingteachingmaterial.view.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
@@ -224,10 +223,10 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
     private void sendScore() {
         float score = mSubjectAdapter.submit();
-        UploadResultsManager.getSingleton(this).setResultsListener(this);
-        UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+        UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
+        UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
         int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
-        UploadResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
+        UploadOnlineResultsManager .getSingleton(this).uploadResult(userId, examId, 10000);
         EventBus.getDefault().post(userId);
         ToastUtil.showToast(this, "score:" + score);
         finish();

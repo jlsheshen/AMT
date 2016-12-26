@@ -21,6 +21,16 @@
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/img_download"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_toLeftOf="@+id/main_study_history_iv"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25px"
+            android:src="@mipmap/icon_history_n"
+            android:visibility="visible" />
+
+        <ImageView
             android:id="@+id/main_study_history_iv"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -35,8 +45,7 @@
 
     <ExpandableListView
         android:id="@+id/class_classchapter_exlv"
-        style="@style/ExpandableLvStyle">
-    </ExpandableListView>
+        style="@style/ExpandableLvStyle"></ExpandableListView>
 
 
 </LinearLayout>

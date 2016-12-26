@@ -60,13 +60,16 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
     }
 
     ImageView imgHistory;
+    ImageView imgDownLoad;
 
 
     @Override
     protected void initView(View view) {
         expandableListView = (ExpandableListView) bindView(R.id.class_classchapter_exlv);
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
+        imgDownLoad = (ImageView) bindView(R.id.img_download);
         imgHistory.setOnClickListener(this);
+        imgDownLoad.setOnClickListener(this);
 
 
 
@@ -148,6 +151,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
 //                     expandableListView.setEnabled(false);
 //                    expandableListView.setAlpha(0.5f);
                 }
+                break;
+
+            case R.id.img_download:
+                ToastUtil.showToast(context, "我的下载");
                 break;
         }
     }
