@@ -22,5 +22,10 @@ public class SubjectState {
 	 * 错误状态-用于所有模式
 	 */
 	public static final int STATE_WRONG = 3;
+	/**
+	 * 错误状态-在错题页面删除后的状态
+	 */
+	public static final int STATE_AFTER_WRONG = 4;
+
 
 }

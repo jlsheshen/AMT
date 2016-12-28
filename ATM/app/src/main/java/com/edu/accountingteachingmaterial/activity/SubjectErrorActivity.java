@@ -9,22 +9,16 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
+import com.edu.accountingteachingmaterial.adapter.ErrorSubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
-import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
-import com.edu.library.usercenter.UserCenterHelper;
-import com.edu.library.usercenter.UserData;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
-import com.edu.subject.TestMode;
 import com.edu.subject.common.SubjectCardAdapter;
 import com.edu.subject.common.SubjectCardDialog;
 import com.edu.subject.dao.SignDataDao;
@@ -41,17 +35,20 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment.ERRORS_DATAS;
+import static com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment.ERRORS_ITEM;
+
 
 /**
  * 页面内有重做功能
  * Created by Administrator on 2016/11/18.
  */
 
-public class SubjectPracticeActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener,ResultsListener {
+public class SubjectErrorActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener,ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
-    private SubjectViewPagerAdapter mSubjectAdapter;
+    private ErrorSubjectViewPagerAdapter mSubjectAdapter;
 
     private int mCurrentIndex;
 
@@ -103,10 +100,9 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         btnDone = (ImageView) findViewById(R.id.btnFlash);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         Bundle bundle = getIntent().getExtras();
-        examListData = (ExamListData) bundle.get("ExamListData");
-        int item = bundle.getInt("ExamListDataItem",0);
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData .getId());
-        mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
+        int item = bundle.getInt(ERRORS_ITEM,0);
+        datas = (List<BaseTestData>) bundle.get(ERRORS_DATAS);;
+        mSubjectAdapter = new ErrorSubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
         viewPager.setAdapter(mSubjectAdapter);
         viewPager.setCurrentItem(item);
@@ -194,22 +190,20 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      * 处理完成/重做按钮点击事件
      */
     private void handleDoneClicked() {
-        float score = mSubjectAdapter.submit(mCurrentIndex);
-        UploadResultsManager.getSingleton(this).setResultsListener(this);
-        UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
-        UserData user = UserCenterHelper.getUserInfo(this);
-        UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
-
-
-        ToastUtil.showToast(this, "score:" + score);
+//        UploadResultsManager.getSingleton(this).setResultsListener(this);
+//        UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
+//        UserData user = UserCenterHelper.getUserInfo(this);
+//        UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
+            float score = mSubjectAdapter.submit(mCurrentIndex);
+            ToastUtil.showToast(this, "score:" + score);
 
 //            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         }
-//        else {
-//            mSubjectAdapter.reset(mCurrentIndex);
+        else {
+            mSubjectAdapter.reset(mCurrentIndex);
 //            btnDone.setImageResource(R.mipmap.icon_fasong_n);
-//        }
+        }
     }
 
     /**

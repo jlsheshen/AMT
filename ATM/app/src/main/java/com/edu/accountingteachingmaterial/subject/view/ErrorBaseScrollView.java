@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
 import com.edu.library.common.PreferenceHelper;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.data.BaseSubjectData;
@@ -21,7 +21,7 @@ import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MO
  *
  * @author lucher
  */
-public abstract class BaseScrollView extends RelativeLayout {
+public abstract class ErrorBaseScrollView extends RelativeLayout {
 
     /**
      * 题目数据保存
@@ -42,22 +42,22 @@ public abstract class BaseScrollView extends RelativeLayout {
      */
     protected int testMode;
 
-    public BaseScrollView(Context context) {
+    public ErrorBaseScrollView(Context context) {
         super(context);
     }
 
-    public BaseScrollView(Context context, BaseTestData data, int testMode) {
+    public ErrorBaseScrollView(Context context, BaseTestData data, int testMode) {
         super(context);
         mTestData = data;
         this.testMode = testMode;
         mData = mTestData.getSubjectData();
     }
 
-    public BaseScrollView(Context context, AttributeSet attrs) {
+    public ErrorBaseScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public BaseScrollView(Context context, AttributeSet attrs, int defStyle) {
+    public ErrorBaseScrollView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -72,23 +72,23 @@ public abstract class BaseScrollView extends RelativeLayout {
 //            mTestData.setState(SubjectState.STATE_CORRECT);
 //            mTestData.setuScore(mData.getScore());
 //            contentValues = new ContentValues();
-//            contentValues.put(SubjectTestDataDao.STATE, SubjectState.STATE_CORRECT);
-//            contentValues.put(SubjectTestDataDao.UANSWER, answer);
-//            contentValues.put(SubjectTestDataDao.USCORE, mData.getScore());
-//            contentValues.put(SubjectTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-//            contentValues.put(SubjectTestDataDao.REMARK, "0");
-//            SubjectTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+//            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_CORRECT);
+//            contentValues.put(ErrorTestDataDao.UANSWER, answer);
+//            contentValues.put(ErrorTestDataDao.USCORE, mData.getScore());
+//            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
+//            contentValues.put(ErrorTestDataDao.REMARK, "0");
+//            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
 //        } else {
 //            // 2是错误
 //            mTestData.setState(SubjectState.STATE_WRONG);
 //            mTestData.setErrorCount(mTestData.getErrorCount() + 1);
 //            contentValues = new ContentValues();
-//            contentValues.put(SubjectTestDataDao.STATE, SubjectState.STATE_WRONG);
-//            contentValues.put(SubjectTestDataDao.UANSWER, answer);
-//            contentValues.put(SubjectTestDataDao.USCORE, 0);
-//            contentValues.put(SubjectTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-//            contentValues.put(SubjectTestDataDao.REMARK, "0");
-//            SubjectTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+//            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_WRONG);
+//            contentValues.put(ErrorTestDataDao.UANSWER, answer);
+//            contentValues.put(ErrorTestDataDao.USCORE, 0);
+//            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
+//            contentValues.put(ErrorTestDataDao.REMARK, "0");
+//            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
 //        }
     }
 
@@ -166,14 +166,14 @@ public abstract class BaseScrollView extends RelativeLayout {
         // 更新mData里以及数据库里的用户答案
         mTestData.setuAnswer(answer);
         contentValues = new ContentValues();
-        contentValues.put(SubjectTestDataDao.UANSWER, answer);
+        contentValues.put(ErrorTestDataDao.UANSWER, answer);
         if (answer.equals("")) {
             mData.setRemark("0");
         } else {
             mData.setRemark("1");
         }
-        contentValues.put(SubjectTestDataDao.REMARK, mData.getRemark());
-        SubjectTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+        contentValues.put(ErrorTestDataDao.REMARK, mData.getRemark());
+        ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
     }
 
     public void setSubjectListener(SubjectListener subjectListener) {

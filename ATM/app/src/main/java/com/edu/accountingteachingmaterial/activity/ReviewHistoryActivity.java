@@ -47,11 +47,11 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
 
         backIv = bindView(R.id.review_his_back_iv);
         backIv.setOnClickListener(this);
-        deteleTv = bindView(R.id.review_his_delete_tv);
+        deteleTv = bindView(R.id.bolw_bar_delete_tv);
         deteleTv.setOnClickListener(this);
-        allCheckTv = bindView(R.id.review_his_allchecked_tv);
+        allCheckTv = bindView(R.id.blow_bar_allchecked_tv);
         allCheckTv.setOnClickListener(this);
-        layout = bindView(R.id.review_his_bolw_bar);
+        layout = bindView(R.id.bolw_bar);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -103,7 +103,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
     }
 
     private void loadData() {
-        datas = ReviewExamListDao.getInstance(this).getDataByChatper(1253);
+        datas = (List<ReviewHisListBean>) ReviewExamListDao.getInstance(this).getAllDatas();
               //  new ArrayList<>();
 //        for (int i = 0; i < 6; i++) {
 //            ReviewHisListBean d = new ReviewHisListBean();
@@ -127,14 +127,14 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
             case R.id.review_his_back_iv:
                 finish();
                 break;
-            case R.id.review_his_delete_tv:
+            case R.id.bolw_bar_delete_tv:
 //                deteleData();
 //                reviewHisAdapter.setDatas(datas);
 
                 showDeteleDialog();
 
                 break;
-            case R.id.review_his_allchecked_tv:
+            case R.id.blow_bar_allchecked_tv:
                 reviewHisAdapter.setAllchecked();
                 break;
             default:

@@ -73,7 +73,7 @@ public class UploadResultsManager extends JsonNetReqManager {
 	 */
 	public void setResults(List<BaseTestData> datas) {
 		if (datas != null) {
-			mAnswerResults = new ArrayList<AnswerResult>(datas.size());
+			mAnswerResults = new ArrayList<>(datas.size());
 			for (BaseTestData data : datas) {
 				mAnswerResults.add(data.toResult());
 			}

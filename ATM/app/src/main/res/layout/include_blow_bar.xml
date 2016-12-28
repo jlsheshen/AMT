@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bolw_bar"
+    android:layout_width="match_parent"
+    android:layout_height="50px"
+    android:visibility="gone"
+    android:background="@color/colorBlueBackground"
+    >
+    <View
+        android:id="@+id/bolw_bar_line"
+        style="@style/VerticalLine"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="165px"
+        />
+    <TextView
+        android:id="@+id/bolw_bar_delete_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="删除"
+        android:textSize="@dimen/content_text_size"
+        android:layout_alignLeft="@id/bolw_bar_line"
+        android:layout_marginLeft="55px"
+        android:alpha="0.5"
+        />
+
+    <TextView
+        android:id="@+id/blow_bar_allchecked_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="全选"
+        android:textSize="@dimen/content_text_size"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="215px"
+        />
+
+</RelativeLayout>

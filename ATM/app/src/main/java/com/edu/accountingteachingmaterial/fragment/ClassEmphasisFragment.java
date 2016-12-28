@@ -7,26 +7,26 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.UriConstant;
 
-public class ClassEmphasisFragment  extends BaseFragment{
+public class ClassEmphasisFragment extends BaseFragment {
 
-	 WebView wView;
-	@Override
-	protected int initLayout() {
-		// TODO Auto-generated method stub
-		return R.layout.fragment_class_emphasis;
-	}
+    WebView wView;
 
-	@Override
-	protected void initView(View view) {
+    @Override
+    protected int initLayout() {
+        // TODO Auto-generated method stub
+        return R.layout.fragment_class_emphasis;
+    }
 
-		 wView = bindView(R.id.emphasis_wv);
-	 wView.loadUrl(UriConstant.ASSETS_PATH+ "index.html");
-	}
+    @Override
+    protected void initView(View view) {
+        wView = bindView(R.id.emphasis_wv);
+        wView.loadUrl(UriConstant.ASSETS_PATH + "index.html");
 
-	@Override
-	protected void initData() {
-		// TODO Auto-generated method stub
-		
-	}
+    }
+
+    @Override
+    protected void initData() {
+        // TODO Auto-generated method stub
+    }
 
 }

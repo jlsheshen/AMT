@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="65px"
+        android:padding="3dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的错题"
+            android:textSize="@dimen/title_text_size"
+            android:textStyle="bold"
+            android:textColor="@color/colorBlueBackground"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20px"
+            />
+
+        <TextView
+            android:id="@+id/error_compile_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="编辑"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="@dimen/content_text_size"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20px"
+            />
+        <View
+            android:layout_marginRight="20px"
+            android:layout_marginLeft="20px"
+            android:layout_alignParentBottom="true"
+            style="@style/HorizontalLine"/>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/error_lv"
+        android:layout_below="@id/error_compile_tv"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+    </ListView>
+    <include layout="@layout/include_blow_bar"/>
+</LinearLayout>

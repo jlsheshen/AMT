@@ -49,6 +49,8 @@ public class ClassExerciseFragment extends BaseFragment {
     ExamListData data1;
     Bundle b = new Bundle();
     ClassChapterData.SubChaptersBean data;
+    public static final String ERRORS_ITEM = "ErrorsItem";
+    public static final String ERRORS_DATAS = "ErrorsDatas";
 
     static final String EXAM_ID = "EXAM_ID";
 

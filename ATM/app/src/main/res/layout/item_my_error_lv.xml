@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <CheckBox
+        android:id="@+id/item_my_error_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/clickable_reviewhis_item_clickbox"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        /> />
+
+    <TextView
+        android:id="@+id/item_my_error_type_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlueBackground"
+        android:textSize="@dimen/item_title_text_size"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/item_my_error_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorBlueBackground"
+        android:textSize="@dimen/item_title_text_size" />
+
+</LinearLayout>

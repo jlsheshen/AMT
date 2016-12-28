@@ -6,6 +6,8 @@
     <string name="setting">设置</string>
     <string name="exam">试卷</string>
     <string name="my_errors">我的错题</string>
+    <string name="my_downloads">我的下载</string>
+
     <string name="test_number">试题数:</string>
     <string name="review_history">自测历史</string>
 

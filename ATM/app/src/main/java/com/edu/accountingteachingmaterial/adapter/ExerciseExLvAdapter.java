@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -154,6 +155,9 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
         }
 
         BaseTestData exercisePracticeBean = datas.get(i).getTestList().get(i1);
+        Log.d("ExerciseExLvAdapter", "exercisePracticeBean.getId():" + exercisePracticeBean.getId());
+        Log.d("ExerciseExLvAdapter", "exercisePracticeBean.getSubjectData().getId():" + exercisePracticeBean.getSubjectData().getId());
+        Log.d("ExerciseExLvAdapter", exercisePracticeBean.getSubjectData().getQuestion());
         childViewHolder.contentTv.setText(exercisePracticeBean.getSubjectData().getQuestion());
         String s = null;
         switch (exercisePracticeBean.getSubjectType()) {

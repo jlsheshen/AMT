@@ -37,6 +37,7 @@
                 android:text="@string/login"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/content_text_size" />
+
             <TextView
                 android:id="@+id/my_number_tv"
                 android:layout_width="wrap_content"
@@ -49,16 +50,44 @@
                 android:textSize="@dimen/item_text_size" />
         </RelativeLayout>
 
-        <TextView
+        <RadioGroup
             android:layout_width="match_parent"
-            android:layout_height="60px"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
-            android:drawableLeft="@mipmap/icon_wodecuoti_n"
-            android:gravity="center_vertical"
-            android:text="@string/my_errors"
-            android:textColor="@color/colorBlueBackground"
-            android:textSize="@dimen/item_title_text_size"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/my_download_rb"
+                android:layout_width="match_parent"
+                android:layout_height="60px"
+                android:drawableLeft="@mipmap/icon_wodecuoti_n"
+                android:gravity="center_vertical"
+                android:text="@string/my_downloads"
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/item_title_text_size"
+                android:textStyle="bold"
+                android:button="@null"
+                />
+            <View
+                style="@style/HorizontalLine"
+                />
+
+            <RadioButton
+                android:id="@+id/my_error_rb"
+                android:layout_width="match_parent"
+                android:layout_height="60px"
+                android:drawableLeft="@mipmap/icon_wodecuoti_n"
+                android:gravity="center_vertical"
+                android:text="@string/my_errors"
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/item_title_text_size"
+                android:textStyle="bold"
+                android:button="@null"
+                />
+            <View
+                style="@style/HorizontalLine"
+            />
+        </RadioGroup>
 
         <View
             style="@style/HorizontalLine"
@@ -66,55 +95,54 @@
             android:layout_marginRight="20px" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/title_layout_height"
-            android:layout_marginLeft="30px"
-            android:gravity="center_vertical"
-            android:text="@string/my_errors"
-            android:textColor="@color/colorBlueBackground"
-            android:textSize="@dimen/title_text_size"
-            android:textStyle="bold" />
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="@dimen/title_layout_height"-->
+            <!--android:layout_marginLeft="30px"-->
+            <!--android:gravity="center_vertical"-->
+            <!--android:text="@string/my_errors"-->
+            <!--android:textColor="@color/colorBlueBackground"-->
+            <!--android:textSize="@dimen/title_text_size"-->
+            <!--android:textStyle="bold" />-->
 
-        <View
-            style="@style/HorizontalLine"
-            android:layout_marginLeft="25px"
-            android:layout_marginRight="25px" />
+        <!--<View-->
+            <!--style="@style/HorizontalLine"-->
+            <!--android:layout_marginLeft="25px"-->
+            <!--android:layout_marginRight="25px" />-->
 
         <RelativeLayout
+            android:id="@+id/my_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/my_background_iv"
-                android:layout_width="320px"
-                android:layout_height="320px"
-                android:scaleType="fitCenter"
-                android:layout_centerInParent="true"
-                android:src="@mipmap/my_bacground"
+            <!--<ImageView-->
+                <!--android:id="@+id/my_background_iv"-->
+                <!--android:layout_width="320px"-->
+                <!--android:layout_height="320px"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--android:scaleType="fitCenter"-->
+                <!--android:src="@mipmap/my_bacground" />-->
 
-                />
-
-            <TextView
-                android:id="@+id/my_noerror_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/my_background_iv"
-                android:layout_marginTop="25px"
-                android:layout_centerHorizontal="true"
-                android:text="我的人生没有错题"
-                android:textColor="@color/colorBlueBackground"
-                android:textSize="@dimen/item_title_text_size" />
+            <!--<TextView-->
+                <!--android:id="@+id/my_noerror_tv"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@id/my_background_iv"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="25px"-->
+                <!--android:text="我的人生没有错题"-->
+                <!--android:textColor="@color/colorBlueBackground"-->
+                <!--android:textSize="@dimen/item_title_text_size" />-->
 
 
         </RelativeLayout>
 
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </LinearLayout>
