@@ -35,8 +35,7 @@
 
     <ExpandableListView
         android:id="@+id/class_classchapter_exlv"
-        style="@style/ExpandableLvStyle">
-    </ExpandableListView>
+        style="@style/ExpandableLvStyle"></ExpandableListView>
 
 
 </LinearLayout>

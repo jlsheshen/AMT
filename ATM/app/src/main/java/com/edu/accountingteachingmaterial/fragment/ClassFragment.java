@@ -40,16 +40,16 @@ import com.lucher.net.req.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassFragment extends BaseFragment implements View.OnClickListener,AdapterView.OnItemClickListener {
+public class ClassFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     ExpandableListView expandableListView;
     List<ClassChapterData> datas;
     ClassChapterExLvAdapter chapterExLvAdapter;
-    HistoryPpwAdapter todayAdapter,yestodayAdapter,agoAdapter;
+    HistoryPpwAdapter todayAdapter, yestodayAdapter, agoAdapter;
     PopupWindow popupWindow;
     NoScrollListView todayLv, yesterdayLv, agoLv;
     TextView todayTv, yesterdayTv, agoTv;
-    List<HistoryListData> tData,yData,aData;
+    List<HistoryListData> tData, yData, aData;
     boolean ppwShowing = false;
 
 
@@ -61,13 +61,11 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
 
     ImageView imgHistory;
 
-
     @Override
     protected void initView(View view) {
         expandableListView = (ExpandableListView) bindView(R.id.class_classchapter_exlv);
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
-
 
 
     }
@@ -201,13 +199,13 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     List<HistoryListData> hData = JSON.parseArray(jsonObject.getString("message"), HistoryListData.class);
-                    tData= new ArrayList<HistoryListData>();
-                     yData = new ArrayList<HistoryListData>();
-                     aData = new ArrayList<HistoryListData>();
+                    tData = new ArrayList<HistoryListData>();
+                    yData = new ArrayList<HistoryListData>();
+                    aData = new ArrayList<HistoryListData>();
                     for (HistoryListData historyListData : hData) {
-                        switch (historyListData.getDate_diff()){
+                        switch (historyListData.getDate_diff()) {
                             case ClassContstant.HISTORY_TODAY:
-                               tData.add(historyListData);
+                                tData.add(historyListData);
                                 break;
                             case ClassContstant.HISTORY_YESTODAY:
                                 yData.add(historyListData);
@@ -217,15 +215,15 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
                                 break;
                         }
                     }
-                    if (tData != null&&tData.size()>0){
-                    todayLv.setAdapter(todayAdapter);
-                    todayAdapter.setDatas(tData);
+                    if (tData != null && tData.size() > 0) {
+                        todayLv.setAdapter(todayAdapter);
+                        todayAdapter.setDatas(tData);
                     }
-                    if (yData != null&&yData.size()>0){
+                    if (yData != null && yData.size() > 0) {
                         yesterdayLv.setAdapter(yestodayAdapter);
                         yestodayAdapter.setDatas(yData);
                     }
-                    if (aData != null&&aData.size()>0){
+                    if (aData != null && aData.size() > 0) {
                         agoLv.setAdapter(agoAdapter);
                         agoAdapter.setDatas(aData);
                     }
@@ -247,7 +245,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
         ExampleBean exampleBean = new ExampleBean();
 
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.ppw_histort_today_lv:
                 historyVOs.add(tData.get(i).getUpLoadingData(context));
                 exampleBean.setUrl(tData.get(i).getFile_path());

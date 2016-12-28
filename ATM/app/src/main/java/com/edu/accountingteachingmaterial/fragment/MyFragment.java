@@ -16,6 +16,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     RadioButton errorButton, downloadButton;
     Fragment errorView, downloadView;
 
+
     @Override
     protected int initLayout() {
         // TODO Auto-generated method stub
@@ -30,7 +31,6 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         errorButton.setOnClickListener(this);
         downloadButton = bindView(R.id.my_error_rb);
         downloadButton.setOnClickListener(this);
-
 
         // TODO Auto-generated method stub
 

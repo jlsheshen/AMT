@@ -18,7 +18,6 @@ import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
-//import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.entity.OnLineExamData;
 import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;

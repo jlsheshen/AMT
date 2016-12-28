@@ -51,6 +51,7 @@
         </RelativeLayout>
 
         <RadioGroup
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30px"
@@ -93,6 +94,7 @@
             style="@style/HorizontalLine"
             android:layout_marginLeft="20px"
             android:layout_marginRight="20px" />
+
     </LinearLayout>
 
     <!--<LinearLayout-->
@@ -144,5 +146,7 @@
 
 
     <!--</LinearLayout>-->
+
+
 
 </LinearLayout>

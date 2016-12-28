@@ -180,7 +180,6 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
     private void refreshState() {
         int state = ExamOnLineListDao.getInstance(this).getState(examId);
-        //int state = 2;
         //未提交 state:2
         if (state == ClassContstant.EXAM_UNDONE) {
             imgShow.setBackgroundResource(R.mipmap.weitijao);
