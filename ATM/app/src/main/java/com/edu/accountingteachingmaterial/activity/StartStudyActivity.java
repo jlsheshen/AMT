@@ -33,6 +33,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.COURSE_ID;
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.KEY_LOGIN_STATE;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_NUMBER;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_PASSWORD;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
@@ -113,12 +114,14 @@ public class StartStudyActivity extends BaseActivity {
         findViewById(R.id.jump_up_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(MainActivity.class);
                 finish();
 
             }
         });
+        if (PreferenceHelper.getInstance(StartStudyActivity.this).getBooleanValue(KEY_LOGIN_STATE) == true) {
+            login();
+        }
     }
 
     private void login() {
@@ -147,6 +150,7 @@ public class StartStudyActivity extends BaseActivity {
                     uploadHomepageInfo();
 //                    startActivity(MainActivity.class);
 //                    finish();
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setBooleanValue(KEY_LOGIN_STATE, true);
                 } else {
                     Toast.makeText(StartStudyActivity.this, message.toString(), Toast.LENGTH_SHORT).show();
                 }

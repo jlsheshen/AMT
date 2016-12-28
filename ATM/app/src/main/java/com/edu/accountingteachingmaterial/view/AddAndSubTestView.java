@@ -204,7 +204,7 @@ public class AddAndSubTestView extends RelativeLayout {
      * @return
      */
     public int getNum() {
-        if (etNum.getText().toString() != null) {
+        if (etNum.getText().toString() != null && etNum.getText().toString() != "") {
             return Integer.parseInt(etNum.getText().toString());
         } else {
             return 0;

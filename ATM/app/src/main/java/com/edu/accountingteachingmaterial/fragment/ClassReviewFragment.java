@@ -88,10 +88,10 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout1.removeAllViews();
         layout2.removeAllViews();
 
-        addAndSubTestView1 = new AddAndSubTestView(context, 0, "单选题");
-        addAndSubTestView2 = new AddAndSubTestView(context, 0, "多选题");
-        addAndSubTestView3 = new AddAndSubTestView(context, 0, "判断题");
-        addAndSubTestView4 = new AddAndSubTestView(context, 0, "填空题");
+        addAndSubTestView1 = new AddAndSubTestView(context, 0, ClassContstant.S_SINGLE);
+        addAndSubTestView2 = new AddAndSubTestView(context, 0, ClassContstant.S_MULTI);
+        addAndSubTestView3 = new AddAndSubTestView(context, 0, ClassContstant.S_JUDGE);
+        addAndSubTestView4 = new AddAndSubTestView(context, 0, ClassContstant.S_FILLIN);
         addAndSubTestView1.setTag(1);
         addAndSubTestView2.setTag(2);
         addAndSubTestView3.setTag(3);
@@ -101,9 +101,9 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         layout1.addView(addAndSubTestView3);
         layout1.addView(addAndSubTestView4);
 
-        addAndSubTestView5 = new AddAndSubTestView(context, 0, "简答题");
-        addAndSubTestView6 = new AddAndSubTestView(context, 0, "综合题");
-        addAndSubTestView7 = new AddAndSubTestView(context, 0, "表格题");
+        addAndSubTestView5 = new AddAndSubTestView(context, 0, ClassContstant.S_SHORTIN);
+        addAndSubTestView6 = new AddAndSubTestView(context, 0, ClassContstant.S_COMPREHENSIVE);
+        addAndSubTestView7 = new AddAndSubTestView(context, 0, ClassContstant.S_FORM);
         addAndSubTestView5.setTag(5);
         addAndSubTestView6.setTag(6);
         addAndSubTestView7.setTag(7);

@@ -66,7 +66,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //跳转到答题界面
                 Bundle bundle = new Bundle();
-//                bundle.putInt("chapterId", Integer.parseInt(datas.get(position).g));
+                bundle.putInt("chapterId", datas.get(position).getId());
                 startActivity(SubjectReViewActivity.class, bundle);
             }
         });
@@ -85,14 +85,14 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
             public void onCheckeBoxChecked() {
                 int i = 0;
                 for (Boolean aBoolean : checkList) {
-                    if (aBoolean){
+                    if (aBoolean) {
                         i++;
                     }
                 }
-                if (i>0){
+                if (i > 0) {
                     deteleTv.setText("删除(" + i + ")");
                     deteleTv.setAlpha(1);
-                }else {
+                } else {
                     deteleTv.setText("删除");
                     deteleTv.setAlpha(0.5f);
                 }
@@ -103,7 +103,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
 
     private void loadData() {
         datas = ReviewExamListDao.getInstance(this).getDataByChatper(1253);
-              //  new ArrayList<>();
+        //  new ArrayList<>();
 //        for (int i = 0; i < 6; i++) {
 //            ReviewHisListBean d = new ReviewHisListBean();
 //            d.setState(ClassContstant.EXAM_UNDONE);
@@ -141,7 +141,8 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
 
         }
     }
-    void deteleData(){
+
+    void deteleData() {
         for (int i = 0; i < checkList.size(); i++) {
             if (checkList.get(i)) {
                 checkList.remove(i);
@@ -151,6 +152,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
         }
         reviewHisAdapter.setDatas(datas);
     }
+
     private void showDeteleDialog() {
         deteleDialog = new DeteleDialog(this);
         if (!deteleDialog.isShowing()) {

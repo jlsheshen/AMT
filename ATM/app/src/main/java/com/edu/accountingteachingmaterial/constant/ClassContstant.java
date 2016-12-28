@@ -110,6 +110,11 @@ public final class ClassContstant {
     public static final int UPLOAD_TYPE = 1;
     //下载题目数量记录成功
     public static final int DOWNLOAD_TYPE = 2;
-
-
+    public static final String S_SINGLE = "单选题";
+    public static final String S_MULTI = "多选题";
+    public static final String S_JUDGE = "判断题";
+    public static final String S_FILLIN = "填空题";
+    public static final String S_SHORTIN = "简答题";
+    public static final String S_COMPREHENSIVE = "综合题";
+    public static final String S_FORM = "表格题";
 }
