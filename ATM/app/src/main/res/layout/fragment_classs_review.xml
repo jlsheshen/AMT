@@ -18,11 +18,14 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:src="@mipmap/img_star" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5px"
             android:text="设置测验难度"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
@@ -79,11 +82,15 @@
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:layout_marginTop="10px"
+            android:src="@mipmap/img_star" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5px"
             android:text="设置测验题型"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
