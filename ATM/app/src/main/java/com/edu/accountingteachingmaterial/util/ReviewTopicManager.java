@@ -17,6 +17,8 @@ import com.lucher.net.req.impl.JsonReqEntity;
 import org.apache.http.Header;
 import org.greenrobot.eventbus.EventBus;
 
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
+
 
 /**
  * 上传要组成的试卷每个题目数量
@@ -57,10 +59,11 @@ public class ReviewTopicManager extends JsonNetReqManager {
             ToastUtil.showToast(mContext, "发送题目数据为空");
             return;
         }
-//       int useId = PreferenceHelper.getInstance(context).getIntValue(USER_ID);
-        String url = NetUrlContstant.getUploadingReviewList() + "/901-39261";
+        String useId = PreferenceHelper.getInstance(context).getStringValue(USER_ID);
+        String url = NetUrlContstant.getUploadingReviewList() + chapterId + "-" + useId;
+        //String url = NetUrlContstant.getUploadingReviewList() + "/901-39261";
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
-        sendRequest(entity,dialog);
+        sendRequest(entity, dialog);
         Log.d(TAG, "ReviewTopicManager:" + JSON.toJSONString(datas));
 
     }
