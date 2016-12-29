@@ -113,10 +113,13 @@ public class SubjectBasicDataDao extends BaseDataDao {
 					ToastUtil.showToast(mContext, "题目格式出错：" + subject);
 				}
 				Log.d(TAG, "insert:" + id + "," + values);
+			}else {
+				id = curs.getInt(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+
 			if (curs != null) {
 				curs.close();
 			}

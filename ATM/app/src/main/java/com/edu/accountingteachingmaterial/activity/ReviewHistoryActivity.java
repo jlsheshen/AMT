@@ -12,6 +12,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.ReviewHisAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ReviewHisListBean;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.view.DeteleDialog;
@@ -65,10 +66,20 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //跳转到答题界面
-                Bundle bundle = new Bundle();
-                bundle.putInt("chapterId", datas.get(position).getId());
-                startActivity(SubjectReViewActivity.class, bundle);
+                if (datas.get(position).getState() == ClassContstant.EXAM_COMMIT){
+                    //跳转到答题界面
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("chapterId", datas.get(position).getId());
+                    startActivity(SubjectDetailsLocalActivity.class, bundle);
+
+                }else {
+                    //跳转到答题界面
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("chapterId", datas.get(position).getId());
+                    startActivity(SubjectReViewActivity.class, bundle);
+                }
+
+
             }
         });
 

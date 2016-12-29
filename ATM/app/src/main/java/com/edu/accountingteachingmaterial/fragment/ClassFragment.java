@@ -19,6 +19,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
 import com.edu.accountingteachingmaterial.activity.MediaActivity;
+import com.edu.accountingteachingmaterial.activity.PdfActivity;
 import com.edu.accountingteachingmaterial.adapter.ClassChapterExLvAdapter;
 import com.edu.accountingteachingmaterial.adapter.HistoryPpwAdapter;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
@@ -263,7 +264,17 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
         HistoryClickManager.getHisInstance(context).setStudyHistoryVOList(historyVOs).sendHistory();
         Bundle bundle = new Bundle();
         bundle.putSerializable("exampleBeans", exampleBean);
-        startActivity(MediaActivity.class, bundle);
+        switch (exampleBean.getType()){
+            case ClassContstant.MEADIA_TYPE:
+                startActivity(MediaActivity.class, bundle);
+
+                break;
+            case ClassContstant.PDF_TYPE:
+                startActivity(PdfActivity.class, bundle);
+                break;
+
+        }
+
     }
 }
 

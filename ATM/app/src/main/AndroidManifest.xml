@@ -79,6 +79,8 @@
         <activity android:name=".activity.SubjectErrorActivity"
             android:screenOrientation="landscape">
         </activity>
+        <activity android:name=".activity.SubjectDetailsLocalActivity"    android:screenOrientation="landscape">
+        </activity>
 
         <meta-data
             android:name="design_width"

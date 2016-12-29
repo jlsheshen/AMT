@@ -107,21 +107,8 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 
         Bundle bundle = getIntent().getExtras();
-//        examListData = (ExamListData) bundle.get("ExamListData");
         chapterId = bundle.getInt("chapterId");
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
-//        if (datas == null || datas.size() == 0) {
-//            ContentValues contentValues = new ContentValues();
-//            contentValues.put(ReviewExamListDao.ID, examListData.getId());
-//            contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_NOT);
-//            contentValues.put(ReviewExamListDao.TYPE, examListData.getExam_type());
-//            contentValues.put(ReviewExamListDao.CHAPTER_ID, examListData.getChapter_id());
-//            ReviewExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()), contentValues);
-//            Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
-//            finish();
-//            return;
-//        }
-
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
@@ -178,8 +165,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
                 contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
                 contentValues.put(ReviewExamListDao.SCORE,score);
                 ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
-
-                EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+                finish();
 
                 break;
 

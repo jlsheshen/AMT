@@ -46,6 +46,8 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
         Bundle bundle = getIntent().getExtras();
         exampleBeans = (ExampleBean) bundle.getSerializable("exampleBeans");
         String mUrl = url + exampleBeans.getUrl();
+        Log.d("MediaActivity", mUrl);
+
         videoView = bindView(R.id.media_vv);
         mController = new MediaController(this);
         // presenter.start();

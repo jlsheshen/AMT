@@ -26,7 +26,9 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Bas
 
 	@Override
 	protected void onDestroy() {
-		presenter.dettach();
+		if (presenter == null){}else {
+			presenter.dettach();
+		}
 		// TODO Auto-generated method stub
 		super.onDestroy();
 	}
