@@ -57,6 +57,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
             ToastUtil.showToast(mContext, "发送题目数据为空");
             return;
         }
+//       int useId = PreferenceHelper.getInstance(context).getIntValue(USER_ID);
         String url = NetUrlContstant.getUploadingReviewList() + "/901-39261";
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity,dialog);
