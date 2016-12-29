@@ -11,7 +11,6 @@ import com.edu.accountingteachingmaterial.entity.AccToken;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
-import com.lucher.net.req.impl.JsonReqEntity;
 
 import org.apache.http.Header;
 
@@ -66,9 +65,9 @@ public class LoginNetMananger extends JsonNetReqManager {
      */
     public void login(String number,String passWord,loginListener listener) {
         studentNumber = number;
-        studentPassword = number;
+        studentPassword = passWord;
         String url = NetUrlContstant.getLoginUrl() + "username="  + number + "&password=" + passWord + "&rememberme=1";
-        JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url);
+        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, url);
         sendRequest(entity, "登陆中");
         Log.d(TAG, "url");
         loginListener = listener;
@@ -127,7 +126,7 @@ public class LoginNetMananger extends JsonNetReqManager {
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
                     HomepageInformationData data = hData.get(0);
                     PreferenceHelper.getInstance(context).setStringValue(STUDNET_NUMBER, studentNumber);
-                    PreferenceHelper.getInstance(context).setStringValue(STUDNET_PASSWORD, studentNumber);
+                    PreferenceHelper.getInstance(context).setStringValue(STUDNET_PASSWORD, studentPassword);
                     PreferenceHelper.getInstance(context).setIntValue(COURSE_ID, data.getCourse_id());
                     GetBillTemplatesManager.newInstance(context).sendLocalTemplates();
                     loginListener.onSuccess();

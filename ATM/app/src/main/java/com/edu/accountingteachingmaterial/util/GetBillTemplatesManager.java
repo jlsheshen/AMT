@@ -3,7 +3,6 @@ package com.edu.accountingteachingmaterial.util;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.activity.MainActivity;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.TemplateElementsDao;
@@ -27,6 +25,7 @@ import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
 
 import org.apache.http.Header;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -174,10 +173,10 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         }
                         @Override
                         public void onCompleted() {
-
                             myDialog.dismiss();
-                            Intent i = new Intent(mContext, MainActivity.class);
-                            mContext.startActivity(i);
+                            EventBus.getDefault().post("1");
+//                            Intent i = new Intent(mContext, MainActivity.class);
+//                            mContext.startActivity(i);
                         }
                         @Override
                         public void onError(Throwable e) {

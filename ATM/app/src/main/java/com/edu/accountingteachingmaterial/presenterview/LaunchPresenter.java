@@ -18,7 +18,7 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
 public class LaunchPresenter extends BasePresenter<LaunchView> {
     CountDownTimer timer;
 
-    void loadData(final Context context) {
+    public void loadData(final Context context) {
         String s = PreferenceHelper.getInstance(context).getStringValue(URL_NAME);
         Log.d("LaunchActivity", "--------------" + s);
         mView.launchLogin();

@@ -13,11 +13,17 @@ public abstract class BaseActivity extends AutoLayoutActivity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(setLayout());
-
+		bindPresenter();
 		initView(savedInstanceState);
 		initData();
 
 	}
+
+	protected void bindPresenter() {
+
+	}
+
+
 	public abstract int setLayout();
 
 	public abstract void initView(Bundle savedInstanceState);

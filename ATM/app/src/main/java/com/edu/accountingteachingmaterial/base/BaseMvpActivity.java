@@ -9,8 +9,11 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Bas
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+	}
+	@Override
+	public void initView(Bundle savedInstanceState) {
 		presenter = initPresenter();
-
+		presenter.attach((V) this);
 	}
 
 	public abstract T initPresenter();
@@ -19,7 +22,6 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Bas
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		presenter.attach((V) this);
 	}
 
 	@Override
