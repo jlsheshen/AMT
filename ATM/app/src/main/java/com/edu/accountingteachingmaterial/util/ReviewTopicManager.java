@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
+import com.edu.accountingteachingmaterial.view.LoadingDialog;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
@@ -51,13 +52,14 @@ public class ReviewTopicManager extends JsonNetReqManager {
     }
 
     public void sendTopic(int chapterId) {
+        LoadingDialog dialog = new LoadingDialog(context);
         if (datas == null) {
             ToastUtil.showToast(mContext, "发送题目数据为空");
             return;
         }
         String url = NetUrlContstant.getUploadingReviewList() + "/901-39261";
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
-        sendRequest(entity);
+        sendRequest(entity,dialog);
         Log.d(TAG, "ReviewTopicManager:" + JSON.toJSONString(datas));
 
     }

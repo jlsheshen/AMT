@@ -41,7 +41,6 @@ public class LaunchActivity extends BaseActivity {
     public void initView(Bundle savedInstanceState) {
         String s = PreferenceHelper.getInstance(this).getStringValue(URL_NAME);
         Log.d("LaunchActivity", "--------------" + s);
-
         if ("".equals(s)) {
         } else {
             BASE_URL.BASE_URL = s;

@@ -164,7 +164,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                     List<TemplateData> billTemplates = JSON.parseArray(message, TemplateData.class);
                     saveTemplates(billTemplates);
                     subscriber.onCompleted();
-
                 }
             })
                     .subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
@@ -173,7 +172,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         @Override
                         public void onNext(List<TemplateData> data) {
                         }
-
                         @Override
                         public void onCompleted() {
 
@@ -181,7 +179,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                             Intent i = new Intent(mContext, MainActivity.class);
                             mContext.startActivity(i);
                         }
-
                         @Override
                         public void onError(Throwable e) {
 

@@ -38,6 +38,7 @@
             style="@style/HorizontalLine"/>
     </RelativeLayout>
 
+
     <ListView
         android:id="@+id/error_lv"
         android:layout_below="@id/error_compile_tv"
@@ -45,5 +46,33 @@
         android:layout_weight="1"
         android:layout_height="0dp">
     </ListView>
+    <RelativeLayout
+        android:id="@+id/my_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+
+        <ImageView
+            android:id="@+id/my_background_iv"
+            android:layout_width="320px"
+            android:layout_height="320px"
+            android:layout_centerInParent="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/my_bacground" />
+        <TextView
+            android:id="@+id/my_noerror_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/my_background_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25px"
+            android:text="我的人生没有错题"
+            android:textColor="@color/colorBlueBackground"
+            android:textSize="@dimen/item_title_text_size" />
+    </RelativeLayout>
     <include layout="@layout/include_blow_bar"/>
+
+
+
 </LinearLayout>

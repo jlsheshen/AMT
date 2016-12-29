@@ -39,12 +39,20 @@ public class DeteleDialog extends Dialog implements View.OnClickListener {
         getWindow().setWindowAnimations(com.edu.R.style.TranAnimation);
         setContentView(R.layout.dialog_detele);
         setCancelable(false);
-
+        tvTitle = (TextView) findViewById(R.id.tv_text);
         btnOk = (ImageView) findViewById(R.id.btn_ok);
         btnCancel = (ImageView) findViewById(R.id.btn_cancel);
 
         btnOk.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+    }
+
+    /**
+     * 设置dialog标题
+     * @param s
+     */
+    public void setText(String s) {
+        tvTitle.setText(s);
     }
 
     @Override

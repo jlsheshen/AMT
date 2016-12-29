@@ -9,7 +9,7 @@
         android:button="@drawable/clickable_reviewhis_item_clickbox"
         android:visibility="gone"
         android:layout_centerVertical="true"
-        /> />
+        />
 
     <TextView
         android:id="@+id/item_my_error_type_tv"

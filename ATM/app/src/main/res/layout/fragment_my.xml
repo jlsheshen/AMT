@@ -54,40 +54,44 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30px"
             android:orientation="vertical">
 
             <RadioButton
                 android:id="@+id/my_download_rb"
                 android:layout_width="match_parent"
                 android:layout_height="60px"
+                android:background="@drawable/selector_my_error"
+                android:button="@null"
                 android:drawableLeft="@mipmap/icon_wodecuoti_n"
                 android:gravity="center_vertical"
+                android:paddingLeft="30px"
                 android:text="@string/my_downloads"
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/item_title_text_size"
                 android:textStyle="bold"
-                android:button="@null"
+
+
                 />
-            <View
-                style="@style/HorizontalLine"
-                />
+
+            <View style="@style/HorizontalLine" />
 
             <RadioButton
                 android:id="@+id/my_error_rb"
                 android:layout_width="match_parent"
                 android:layout_height="60px"
+                android:background="@drawable/selector_my_error"
+                android:button="@null"
                 android:drawableLeft="@mipmap/icon_wodecuoti_n"
                 android:gravity="center_vertical"
+                android:paddingLeft="30px"
                 android:text="@string/my_errors"
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/item_title_text_size"
                 android:textStyle="bold"
-                android:button="@null"
+
                 />
-            <View
-                style="@style/HorizontalLine"
-            />
+
+            <View style="@style/HorizontalLine" />
         </RadioGroup>
 
         <View
@@ -98,55 +102,54 @@
     </LinearLayout>
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:orientation="vertical">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
+
+    <!--<TextView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="@dimen/title_layout_height"-->
+    <!--android:layout_marginLeft="30px"-->
+    <!--android:gravity="center_vertical"-->
+    <!--android:text="@string/my_errors"-->
+    <!--android:textColor="@color/colorBlueBackground"-->
+    <!--android:textSize="@dimen/title_text_size"-->
+    <!--android:textStyle="bold" />-->
+
+    <!--<View-->
+    <!--style="@style/HorizontalLine"-->
+    <!--android:layout_marginLeft="25px"-->
+    <!--android:layout_marginRight="25px" />-->
+
+    <RelativeLayout
+        android:id="@+id/my_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--<ImageView-->
+        <!--android:id="@+id/my_background_iv"-->
+        <!--android:layout_width="320px"-->
+        <!--android:layout_height="320px"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@mipmap/my_bacground" />-->
 
         <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/title_layout_height"-->
-            <!--android:layout_marginLeft="30px"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:text="@string/my_errors"-->
-            <!--android:textColor="@color/colorBlueBackground"-->
-            <!--android:textSize="@dimen/title_text_size"-->
-            <!--android:textStyle="bold" />-->
-
-        <!--<View-->
-            <!--style="@style/HorizontalLine"-->
-            <!--android:layout_marginLeft="25px"-->
-            <!--android:layout_marginRight="25px" />-->
-
-        <RelativeLayout
-            android:id="@+id/my_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <!--<ImageView-->
-                <!--android:id="@+id/my_background_iv"-->
-                <!--android:layout_width="320px"-->
-                <!--android:layout_height="320px"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:scaleType="fitCenter"-->
-                <!--android:src="@mipmap/my_bacground" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/my_noerror_tv"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_below="@id/my_background_iv"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:layout_marginTop="25px"-->
-                <!--android:text="我的人生没有错题"-->
-                <!--android:textColor="@color/colorBlueBackground"-->
-                <!--android:textSize="@dimen/item_title_text_size" />-->
+        <!--android:id="@+id/my_noerror_tv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/my_background_iv"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:layout_marginTop="25px"-->
+        <!--android:text="我的人生没有错题"-->
+        <!--android:textColor="@color/colorBlueBackground"-->
+        <!--android:textSize="@dimen/item_title_text_size" />-->
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
 
     <!--</LinearLayout>-->
-
 
 
 </LinearLayout>

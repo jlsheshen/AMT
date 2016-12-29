@@ -32,7 +32,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
     ErrorAdapter adapter;
     List<BaseTestData> datas;
     TextView compileTv, deteleTv, allCheckTv;
-    ViewGroup layout;
+    ViewGroup layout, noErrorsLayout;
     DeteleDialog deteleDialog;
     List<Boolean> checkList;
     boolean layoutShow = false;
@@ -53,6 +53,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
         allCheckTv = bindView(R.id.blow_bar_allchecked_tv);
         allCheckTv.setOnClickListener(this);
         layout = bindView(R.id.bolw_bar);
+        noErrorsLayout = bindView(R.id.my_view);
 
     }
 
@@ -60,37 +61,43 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
     protected void initData() {
         adapter = new ErrorAdapter(context);
         datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE);
-        adapter.setDatas(datas);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle b = new Bundle();
-                b.putInt(ERRORS_ITEM, position);
-                b.putSerializable(ERRORS_DATAS, (Serializable) datas);
-                startActivity(SubjectErrorActivity.class, b);
-            }
-        });
+        if (datas == null) {
+            listView.setVisibility(View.GONE);
+            noErrorsLayout.setVisibility(View.VISIBLE);
+        } else {
+            adapter.setDatas(datas);
+            listView.setAdapter(adapter);
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Bundle b = new Bundle();
+                    b.putInt(ERRORS_ITEM, position);
+                    b.putSerializable(ERRORS_DATAS, (Serializable) datas);
+                    startActivity(SubjectErrorActivity.class, b);
+                }
+            });
 
-        adapter.setChecked(new ReviewHisAdapter.OnCheckedListener() {
-            @Override
-            public void onCheckeBoxChecked() {
-                int i = 0;
-                for (Boolean aBoolean : checkList) {
-                    if (aBoolean) {
-                        i++;
+            adapter.setChecked(new ReviewHisAdapter.OnCheckedListener() {
+                @Override
+                public void onCheckeBoxChecked() {
+                    int i = 0;
+                    for (Boolean aBoolean : checkList) {
+                        if (aBoolean) {
+                            i++;
+                        }
                     }
-                }
-                if (i > 0) {
-                    deteleTv.setText("删除(" + i + ")");
-                    deteleTv.setAlpha(1);
-                } else {
-                    deteleTv.setText("删除");
-                    deteleTv.setAlpha(0.5f);
-                }
+                    if (i > 0) {
+                        deteleTv.setText("删除(" + i + ")");
+                        deteleTv.setAlpha(1);
+                    } else {
+                        deteleTv.setText("删除");
+                        deteleTv.setAlpha(0.5f);
+                    }
 
-            }
-        });
+                }
+            });
+        }
+
     }
 
     private void showDeteleDialog() {
@@ -136,9 +143,12 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                     adapter.setClickShow();
                     checkList = adapter.getIsChecked();
                     layout.setVisibility(View.VISIBLE);
+                    layoutShow = true;
                 } else {
                     adapter.setClickConceal();
                     layout.setVisibility(View.GONE);
+                    layoutShow = false;
+
                 }
                 break;
             case R.id.bolw_bar_delete_tv:

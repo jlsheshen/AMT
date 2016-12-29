@@ -119,9 +119,9 @@ public class StartStudyActivity extends BaseActivity {
 
             }
         });
-        if (PreferenceHelper.getInstance(StartStudyActivity.this).getBooleanValue(KEY_LOGIN_STATE) == true) {
-            login();
-        }
+//        if (PreferenceHelper.getInstance(StartStudyActivity.this).getBooleanValue(KEY_LOGIN_STATE) == true) {
+//            login();
+//        }
     }
 
     private void login() {
@@ -262,10 +262,6 @@ public class StartStudyActivity extends BaseActivity {
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setIntValue(COURSE_ID, data.getCourse_id());
                     GetBillTemplatesManager.newInstance(context).sendLocalTemplates();
-
-//                    startActivity(MainActivity.class);
-//                       finish();
-//                    EventBus.getDefault().post(data);
                 }
             }
 
