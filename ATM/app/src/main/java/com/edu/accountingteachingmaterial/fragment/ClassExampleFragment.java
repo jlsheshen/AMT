@@ -80,7 +80,7 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
             } else if (cData.get(i).getFile_type() == 3 || cData.get(i).getFile_type() == 4 || cData.get(i).getFile_type() == 5) {
                 ExampleBean exampleBean1 = new ExampleBean();
                 exampleBean1.setName(cData.get(i).getTitle());
-                exampleBean1.setUrl(String.valueOf(cData.get(i).getUri()) + "-1");
+                exampleBean1.setUrl(String.valueOf(cData.get(i).getUri()));
                 exampleBean1.setType(ClassContstant.PDF_TYPE);
                 exampleBeans.add(exampleBean1);
             }

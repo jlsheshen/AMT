@@ -52,7 +52,6 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
     ListView ppwList;
     //    NoScrollListView todayLv, yesterdayLv, agoLv;
 //    TextView todayTv, yesterdayTv, agoTv;
-    List<HistoryListData> ppwDatas;
     boolean ppwShowing = false;
 
 
@@ -267,6 +266,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
                     yData = new ArrayList<HistoryListData>();
                     aData = new ArrayList<HistoryListData>();
                     for (HistoryListData historyListData : hData) {
+                        historyListData.setUri(historyListData.getUri());
                         switch (historyListData.getDate_diff()) {
                             case ClassContstant.HISTORY_TODAY:
                                 tData.add(historyListData);

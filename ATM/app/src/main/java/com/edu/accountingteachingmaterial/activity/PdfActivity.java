@@ -7,7 +7,6 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
-import com.edu.accountingteachingmaterial.constant.UriConstant;
 import com.edu.library.util.SdcardPathUtil;
 import com.edu.library.util.ToastUtil;
 import com.github.barteksc.pdfviewer.PDFView;
@@ -27,6 +26,7 @@ public class PdfActivity extends BaseActivity {
     ExampleBean exampleBeans;
     private FinalHttp fHttp = new FinalHttp();
     private HttpHandler<File> mHandler;
+    String target;
 
     private String mUrl = NetUrlContstant.getMediaorPdfUrl();
 
@@ -51,9 +51,13 @@ public class PdfActivity extends BaseActivity {
 
     private void show() {
 //        String url = "/sdcard/EduResources/AccCourse/pdf/" + exampleBeans.getUrl();
-        String url = UriConstant.PDF_PATH + exampleBeans.getUrl();
-        Log.d("PdfActivity", url);
-        File file = new File(url);
+
+//        String url = UriConstant.PDF_PATH + exampleBeans.getUrl();
+//        String[] tmp = exampleBeans.getUrl().split("/");
+//        String url = UriConstant.PDF_PATH  + tmp[tmp.length - 1];
+
+        Log.d("PdfActivity1", target);
+        File file = new File(target);
         pdfView.fromFile(file)
                 // pdfView.fromAsset(String)
                 //.pages(0, 2, 1, 3, 3, 3) // all pages are displayed by default
@@ -71,30 +75,27 @@ public class PdfActivity extends BaseActivity {
      * 开始下载
      */
     public void start() {
-        String downUrl = mUrl + exampleBeans.getUrl();
+        String downUrl = mUrl + exampleBeans.getUrl() + "-1";
         String path = SdcardPathUtil.getExternalSdCardPath() + "/EduResources/AccCourse/pdf/";
         //String path = UriConstant.PDF_PATH;
         String[] tmp = downUrl.split("/");
-        String target = path + tmp[tmp.length - 1];
+         target = path + tmp[tmp.length - 1];
         checkPath(path);
-        Log.d("PdfActivity", downUrl);
+        Log.d("PdfActivity2", downUrl);
+        Log.d("PdfActivity3", target);
 
         // 调用download方法开始下载
         mHandler = fHttp.download(downUrl, new AjaxParams(), target, true, new AjaxCallBack<File>() {
-
             public void onStart() {
             }
-
             public void onLoading(long count, long current) {
                 Log.d("", "下载进度：" + current + "/" + count);
             }
-
             public void onSuccess(File f) {
                 Log.d("", f == null ? "null" : f.getAbsoluteFile().toString());
                 show();
                 ToastUtil.showToast(PdfActivity.this, "下载成功");
             }
-
             public void onFailure(Throwable t, int errorNo, String strMsg) {
 
                 Log.e("", "failure:" + strMsg + ",errorNo:" + errorNo);
@@ -104,11 +105,9 @@ public class PdfActivity extends BaseActivity {
                 } else {
                     ToastUtil.showToast(PdfActivity.this, "下载失败：" + strMsg);
                 }
-
             }
         });
     }
-
     /**
      * 检查该路径是否存在，不存在则创建
      *

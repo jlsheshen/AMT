@@ -53,10 +53,11 @@ public class HistoryListData extends BaseData implements IUpLoading {
     @Override
     public StudyHistoryVO getUpLoadingData(Context context) {
         StudyHistoryVO history = new StudyHistoryVO();
-        history.setSectionId(Long.valueOf(chapter_id));
+        history.setChapterId(null);
+        history.setSectionId(Long.valueOf(section_id));
         history.setCourseId((long) course_id);
         history.setIs_exam(0);
-        history.setLessonId(Long.valueOf(id));
+        history.setLessonId(Long.valueOf(lesson_id));
         history.setLessonType(lesson_type);
         history.setUserId(Long.valueOf(PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID)));
         Log.d("ClassicCase", "history.getUserId():" + history.getUserId() + "---" + history.getCourseId());
