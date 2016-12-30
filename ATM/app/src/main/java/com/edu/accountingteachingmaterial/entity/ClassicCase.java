@@ -15,42 +15,56 @@ public class ClassicCase extends BaseData implements IUpLoading{
 
 
     /**
-     * chapter_id : 291
+     * chapter_id : 718
      * content : null
-     * course_id : 113
-     * create_date : 2016-11-29 16:48:11
-     * creator : 5928
-     * file_id : 439
-     * file_type : 1
-     * id : 234
+     * course_id : 156
+     * create_date : 2016-12-15 10:16:16
+     * creator : 39261
+     * file_id : 531
+     * file_type : 3
      * is_publish : 1
      * lesson_type : 2
      * modifier : null
-     * modify_date : null
+     * modify_date : 2016-12-22 13:51:22
      * parent_menu : null
-     * priority : 7
+     * priority : 8
      * status : 1
-     * title : 经典示例一个
-     * type : 1
+     * title : 利润表式样
+     * type : 3
+     * uri : /filedown/down/531
      */
 
     private int chapter_id;
-    private Object content;
+    private String content;
     private int course_id;
     private String create_date;
     private int creator;
     private int file_id;
     private int file_type;
-    private int id;
     private int is_publish;
     private int lesson_type;
-    private Object modifier;
-    private Object modify_date;
-    private Object parent_menu;
+    private String modifier;
+    private String modify_date;
+    private String parent_menu;
     private int priority;
     private int status;
     private String title;
     private int type;
+    private String uri;
+
+    @Override
+    public StudyHistoryVO getUpLoadingData(Context context) {
+        StudyHistoryVO history = new StudyHistoryVO();
+        history.setChapterId(null);
+        history.setCourseId(Long.valueOf(course_id));
+        history.setSectionId(Long.valueOf(chapter_id));
+        history.setIs_exam(0);
+        history.setLessonId(Long.valueOf(id));
+        history.setLessonType(lesson_type);
+        history.setUserId(Long.valueOf(PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID)));
+        Log.d("ClassicCase", "history.getUserId():" + history.getUserId() + "---" + history.getCourseId());
+        return history;
+    }
 
     public int getChapter_id() {
         return chapter_id;
@@ -60,11 +74,11 @@ public class ClassicCase extends BaseData implements IUpLoading{
         this.chapter_id = chapter_id;
     }
 
-    public Object getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(Object content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -108,14 +122,6 @@ public class ClassicCase extends BaseData implements IUpLoading{
         this.file_type = file_type;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getIs_publish() {
         return is_publish;
     }
@@ -132,27 +138,27 @@ public class ClassicCase extends BaseData implements IUpLoading{
         this.lesson_type = lesson_type;
     }
 
-    public Object getModifier() {
+    public String getModifier() {
         return modifier;
     }
 
-    public void setModifier(Object modifier) {
+    public void setModifier(String modifier) {
         this.modifier = modifier;
     }
 
-    public Object getModify_date() {
+    public String getModify_date() {
         return modify_date;
     }
 
-    public void setModify_date(Object modify_date) {
+    public void setModify_date(String modify_date) {
         this.modify_date = modify_date;
     }
 
-    public Object getParent_menu() {
+    public String getParent_menu() {
         return parent_menu;
     }
 
-    public void setParent_menu(Object parent_menu) {
+    public void setParent_menu(String parent_menu) {
         this.parent_menu = parent_menu;
     }
 
@@ -188,16 +194,11 @@ public class ClassicCase extends BaseData implements IUpLoading{
         this.type = type;
     }
 
-    @Override
-    public StudyHistoryVO getUpLoadingData(Context context) {
-        StudyHistoryVO history = new StudyHistoryVO();
-        history.setChapterId(Long.valueOf(chapter_id));
-        history.setCourseId(Long.valueOf(course_id));
-        history.setIs_exam(0);
-        history.setLessonId(Long.valueOf(id));
-        history.setLessonType(lesson_type);
-        history.setUserId(Long.valueOf(PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID)));
-        Log.d("ClassicCase", "history.getUserId():" + history.getUserId() + "---" + history.getCourseId());
-        return history;
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 }

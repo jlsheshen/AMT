@@ -15,36 +15,53 @@ public class HistoryListData extends BaseData implements IUpLoading {
 
 
     /**
-     * chapter_id : 718
-     * chapter_title : 财务会计报告的编制
+     * chapter_id : 677
+     * chapter_title : 会计的概念与目标
      * course_id : null
      * course_title : 基础会计 第四版 高等教育出版社
-     * date_diff : 0
-     * file_path : D:\filesys\20161215\cf235221-66c8-4e08-8893-a1f4b7d95531.pptx
-     * id : 10
+     * date_diff : 1
+     * file_path : D:\filesys\20161216\138482f7-1c87-4093-9d6c-9635776cba11.mp4
+     * file_type : 1
      * is_exam : 0
-     * lesson_id : 410
-     * lesson_title : 利润表式样
+     * lesson_id : 436
+     * lesson_title : 111
      * lesson_type : 2
      * section_id : null
-     * upload_time : 2016-12-20 13:19:07
+     * section_title : null
+     * upload_time : 2016-12-29 15:54:47
+     * uri : /filedown/down/544
      * user_id : 39262
      */
 
     private int chapter_id;
     private String chapter_title;
-    private String course_id;
+    private int course_id;
     private String course_title;
     private int date_diff;
     private String file_path;
-    private int id;
+    private int file_type;
     private int is_exam;
     private int lesson_id;
     private String lesson_title;
     private int lesson_type;
-    private Object section_id;
+    private String section_id;
+    private String section_title;
     private String upload_time;
+    private String uri;
     private int user_id;
+
+    @Override
+    public StudyHistoryVO getUpLoadingData(Context context) {
+        StudyHistoryVO history = new StudyHistoryVO();
+        history.setSectionId(Long.valueOf(chapter_id));
+        history.setCourseId((long) course_id);
+        history.setIs_exam(0);
+        history.setLessonId(Long.valueOf(id));
+        history.setLessonType(lesson_type);
+        history.setUserId(Long.valueOf(PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID)));
+        Log.d("ClassicCase", "history.getUserId():" + history.getUserId() + "---" + history.getCourseId());
+        return history;
+    }
 
     public int getChapter_id() {
         return chapter_id;
@@ -62,11 +79,11 @@ public class HistoryListData extends BaseData implements IUpLoading {
         this.chapter_title = chapter_title;
     }
 
-    public String getCourse_id() {
+    public int getCourse_id() {
         return course_id;
     }
 
-    public void setCourse_id(String course_id) {
+    public void setCourse_id(int course_id) {
         this.course_id = course_id;
     }
 
@@ -94,12 +111,12 @@ public class HistoryListData extends BaseData implements IUpLoading {
         this.file_path = file_path;
     }
 
-    public int getId() {
-        return id;
+    public int getFile_type() {
+        return file_type;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFile_type(int file_type) {
+        this.file_type = file_type;
     }
 
     public int getIs_exam() {
@@ -134,12 +151,20 @@ public class HistoryListData extends BaseData implements IUpLoading {
         this.lesson_type = lesson_type;
     }
 
-    public Object getSection_id() {
+    public String getSection_id() {
         return section_id;
     }
 
-    public void setSection_id(Object section_id) {
+    public void setSection_id(String section_id) {
         this.section_id = section_id;
+    }
+
+    public String getSection_title() {
+        return section_title;
+    }
+
+    public void setSection_title(String section_title) {
+        this.section_title = section_title;
     }
 
     public String getUpload_time() {
@@ -150,24 +175,19 @@ public class HistoryListData extends BaseData implements IUpLoading {
         this.upload_time = upload_time;
     }
 
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
     public int getUser_id() {
         return user_id;
     }
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
-    }
-
-    @Override
-    public StudyHistoryVO getUpLoadingData(Context context) {
-        StudyHistoryVO history = new StudyHistoryVO();
-        history.setChapterId(Long.valueOf(chapter_id));
-        history.setCourseId(Long.valueOf(course_id));
-        history.setIs_exam(0);
-        history.setLessonId(Long.valueOf(id));
-        history.setLessonType(lesson_type);
-        history.setUserId(Long.valueOf(PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID)));
-        Log.d("ClassicCase", "history.getUserId():" + history.getUserId() + "---" + history.getCourseId());
-        return history;
     }
 }

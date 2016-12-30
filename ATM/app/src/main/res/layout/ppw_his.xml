@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="300px"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="300px"
+        android:layout_height="@dimen/ppw__title_item_height"
+        android:textSize="@dimen/item_title_text_size"
+        android:gravity="center"
+        android:text="历史信息"
+        />
+    <ListView
+        android:id="@+id/ppw_history_lv"
+        android:layout_width="300px"
+        android:layout_height="wrap_content"
+        android:layout_margin="15px"
+        />
+
+</LinearLayout>

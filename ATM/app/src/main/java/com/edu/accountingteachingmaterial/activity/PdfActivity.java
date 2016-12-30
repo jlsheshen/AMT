@@ -44,6 +44,7 @@ public class PdfActivity extends BaseActivity {
     public void initData() {
         Bundle bundle = getIntent().getExtras();
         exampleBeans = (ExampleBean) bundle.getSerializable("exampleBeans");
+        Log.d("PdfActivity", "exampleBeans:" + exampleBeans);
 
         start();
     }

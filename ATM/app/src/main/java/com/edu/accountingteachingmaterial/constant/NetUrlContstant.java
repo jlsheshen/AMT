@@ -47,7 +47,7 @@ public class NetUrlContstant {
     //    //图片url前缀
 //    public static final String background = "http://192.168.1.142:80/resources/files/background/";
     //视频播放地址、pdf下载地址
-    public static final String mediaorPdfUrl = "/interface/filedown/down/";
+    public static final String mediaorPdfUrl = "/interface";
     //登陆
     public static final String loginUrl = "/interface/login?";
     //自测获取总题数
@@ -112,7 +112,7 @@ public class NetUrlContstant {
     }
 
     public static String getMediaorPdfUrl() {
-        return BASE_URL + mediaorPdfUrl;
+        return BASE_URL + mediaorPdfUrl ;
     }
 
     public static String getLoginUrl() {

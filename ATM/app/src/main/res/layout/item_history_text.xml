@@ -7,6 +7,12 @@
     android:padding="5px"
    >
     <TextView
+        android:id="@+id/item_history_day_tv"
+        style="@style/ppw_title_item_style"
+        android:text="今天"
+        android:visibility="gone"
+        />
+    <TextView
         android:id="@+id/item_history_chapter_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

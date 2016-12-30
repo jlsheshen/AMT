@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.entity.HistoryListData;
 
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.List;
 public class HistoryPpwAdapter extends BaseAdapter {
     Context context;
     List<HistoryListData> datas;
+    private String lesson_title;
 
     public HistoryPpwAdapter(Context context) {
         this.context = context;
@@ -27,6 +29,9 @@ public class HistoryPpwAdapter extends BaseAdapter {
     public void setDatas(List<HistoryListData> datas) {
         this.datas = datas;
         notifyDataSetChanged();
+    }
+    public HistoryListData getData(int i) {
+        return datas.get(i);
     }
 
     @Override
@@ -54,19 +59,44 @@ public class HistoryPpwAdapter extends BaseAdapter {
         } else {
             viewHolder = (HisViewHolder) view.getTag();
         }
-        viewHolder.chapterTv.setText(datas.get(i).getChapter_title());
-        viewHolder.NodeTv.setText("此处应该有节");
-        viewHolder.contentTv.setText(datas.get(i).getLesson_title());
+        if (null == datas.get(i)) {
+            viewHolder.chapterTv.setVisibility(View.GONE);
+            viewHolder.NodeTv.setVisibility(View.GONE);
+            viewHolder.contentTv.setVisibility(View.GONE);
+            viewHolder.dayTv.setVisibility(View.VISIBLE);
+
+
+            switch (datas.get(i + 1).getDate_diff()) {
+                case ClassContstant.HISTORY_TODAY:
+                    viewHolder.dayTv.setText("今天");
+                    break;
+                case ClassContstant.HISTORY_YESTODAY:
+                    viewHolder.dayTv.setText("昨天");
+                    break;
+                default:
+                    viewHolder.dayTv.setText("更早");
+                    break;
+            }
+        } else {
+            viewHolder.chapterTv.setVisibility(View.VISIBLE);
+            viewHolder.NodeTv.setVisibility(View.VISIBLE);
+            viewHolder.contentTv.setVisibility(View.VISIBLE);
+            viewHolder.dayTv.setVisibility(View.GONE);
+            viewHolder.chapterTv.setText(datas.get(i).getChapter_title());
+            viewHolder.NodeTv.setText(datas.get(i).getSection_title());
+            viewHolder.contentTv.setText(datas.get(i).getLesson_title());
+        }
         return view;
     }
 
     public class HisViewHolder {
-        TextView chapterTv, NodeTv, contentTv;
+        TextView chapterTv, NodeTv, contentTv, dayTv;
 
         public HisViewHolder(View view) {
             chapterTv = (TextView) view.findViewById(R.id.item_history_chapter_tv);
             NodeTv = (TextView) view.findViewById(R.id.item_history_node_tv);
             contentTv = (TextView) view.findViewById(R.id.item_history_content_tv);
+            dayTv = (TextView) view.findViewById(R.id.item_history_day_tv);
         }
     }
 
