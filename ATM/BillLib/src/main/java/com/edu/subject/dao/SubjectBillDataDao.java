@@ -181,7 +181,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 				values.put("FLAG", subject.getFlag());
 				values.put("TEMPLATE_ID", subject.getTemplateId());
 				values.put("QUESTION", question);
-					values.put("PIC", subject.getPic());
+				values.put("PIC", subject.getPic());
 				values.put("LABELS", subject.getLabel());
 				values.put("BLANKS", subject.getAnswer());
 				values.put("SCORE", subject.getScore());

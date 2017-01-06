@@ -1,5 +1,8 @@
 package com.edu.accountingteachingmaterial.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
 import com.edu.accountingteachingmaterial.presenterview.LaunchPresenter;
@@ -16,6 +19,18 @@ import com.edu.testbill.Constant;
 public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter> implements LaunchView {
 
     boolean isSuccess;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
+            finish();
+            return;
+        }
+        super.onCreate(savedInstanceState);
+    }
+
     @Override
     public LaunchPresenter initPresenter() {
         return new LaunchPresenter();
@@ -51,7 +66,7 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
     public void startActivity() {
         if (!isSuccess){
         startActivity(StartStudyActivity.class);
-        ;}else {
+        }else {
             startActivity(MainActivity.class);
 
         }

@@ -116,6 +116,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_NORMAL);
 
         viewPager.setAdapter(mSubjectAdapter);
+
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
     }
 
@@ -165,6 +166,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
                 contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
                 contentValues.put(ReviewExamListDao.SCORE,score);
                 ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
+                EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
                 finish();
 
                 break;

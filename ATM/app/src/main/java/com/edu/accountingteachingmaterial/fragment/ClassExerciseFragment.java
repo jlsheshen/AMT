@@ -38,7 +38,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.EXAM_ID;
+
 /**
+ * 练习界面,包括课前,随堂,课后练习
  * Created by Administrator on 2016/11/9.
  */
 public class ClassExerciseFragment extends BaseFragment {
@@ -51,9 +54,6 @@ public class ClassExerciseFragment extends BaseFragment {
     ClassChapterData.SubChaptersBean data;
     public static final String ERRORS_ITEM = "ErrorsItem";
     public static final String ERRORS_DATAS = "ErrorsDatas";
-
-    static final String EXAM_ID = "EXAM_ID";
-
     int item;
 
     @Override
@@ -70,7 +70,7 @@ public class ClassExerciseFragment extends BaseFragment {
     public void setData(ClassChapterData.SubChaptersBean data) {
         this.data = data;
         int i = data.getId();
-        PreferenceHelper.getInstance(BaseApplication.getContext()).setIntValue(EXAM_ID, i);
+        PreferenceHelper.getInstance(BaseApplication.getContext()).setStringValue(EXAM_ID, "" + i);
 
     }
 
@@ -110,6 +110,8 @@ public class ClassExerciseFragment extends BaseFragment {
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectDetailsContentActivity.class, b);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
+                    b.putSerializable("ExamListData", datas.get(i));
+                    startActivity(SubjectDetailsContentActivity.class, b);
 
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
 
@@ -119,8 +121,6 @@ public class ClassExerciseFragment extends BaseFragment {
                         stateIv.setVisibility(View.GONE);
                         view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
                         SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getId(), datas.get(i).getId());
-
-
                     }
                     return false;
                 }
@@ -135,7 +135,6 @@ public class ClassExerciseFragment extends BaseFragment {
                 b.putInt("ExamListDataItem", i1);
                 b.putSerializable("ExamListData", datas.get(i));
                 startActivity(SubjectPracticeActivity.class, b);
-
                 return false;
             }
         });
@@ -165,8 +164,8 @@ public class ClassExerciseFragment extends BaseFragment {
     }
 
     private void uploadChapterList() {
-        Log.d("ClassExerciseFragment", NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
-        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getIntValue(EXAM_ID) + "-0");
+        Log.d("ClassExerciseFragment", NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(EXAM_ID) + "-0");
+        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(EXAM_ID) + "-0");
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -198,17 +197,14 @@ public class ClassExerciseFragment extends BaseFragment {
                         if (data.getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && data.getState() != ClassContstant.EXAM_NOT) {
                             List<BaseTestData> tests = SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, data.getId());
                             data.setTestList(tests);
-                            Log.d("ClassExerciseFragment", "看看怎么样" + data);
                         }
                     }
                     adapter.setDatas(datas);
                 }
             }
-
             @Override
             public void onFailure(String errorInfo) {
-
-                ToastUtil.showToast(context, errorInfo);
+                Toast.makeText(context, errorInfo, Toast.LENGTH_SHORT).show();
             }
         });
     }

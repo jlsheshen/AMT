@@ -1,4 +1,4 @@
-package com.edu.accountingteachingmaterial.activity;
+package com.edu.accountingteachingmaterial.presenterview;
 
 
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.fragment.ClassFragment;
@@ -30,19 +30,17 @@ import com.edu.accountingteachingmaterial.fragment.MyFragment;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
-import com.edu.library.util.DoubleClickExitUtil;
 import com.lucher.net.req.RequestMethod;
 
 import java.util.List;
 
 import static com.edu.subject.BASE_URL.BASE_URL;
 
-public class MainActivity extends BaseActivity implements OnClickListener, DrawerListener {
+public class MainActivity extends BaseMvpActivity<MainView,MainPresenter> implements OnClickListener, DrawerListener {
 
 
     RadioButton classButton, examButton, myButton, settingButton;
-    Fragment examFragment, myFragment;
-    ClassFragment classFragment;
+    Fragment classFragment, examFragment, myFragment;
     DrawerLayout drawerLayout;
     LinearLayout changeIpLy;
 
@@ -63,6 +61,11 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
         bindAndListener(changeIpLy, R.id.change_ip_ly);
         // TODO Auto-generated method stub
         findViewById(R.id.main_my_iv).bringToFront();
+    }
+
+    @Override
+    public MainPresenter initPresenter() {
+        return new MainPresenter();
     }
 
     @Override
@@ -121,13 +124,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                     public void onClick(View view) {
                         EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                         String s = editText.getText().toString();
-                        Log.d("MainActivity", "-------------" + s);
-                        if (s == null&&s.length()<1){
-                            Toast.makeText(MainActivity.this, "请输入IP地址", Toast.LENGTH_SHORT).show();
-                        }else {
-                            showIp(s);
-                        }
                         //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
+                        showIp(s);
                     }
                 });
                 window.findViewById(R.id.ip_close_iv).setOnClickListener(new OnClickListener() {
@@ -145,21 +143,10 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
 
     }
 
-    @Override
-    public void onBackPressed() {
-        if (classFragment != null){
-            if (classFragment.isPpwShowing()) {
-                classFragment.showPpw();
-                return;
-            }
-        }
-        DoubleClickExitUtil.doubleClickExit(this);
-    }
-
     private void showIp(String s) {
         BASE_URL = "http://" + s;
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST,  NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST,  NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.USER_ID));
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

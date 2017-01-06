@@ -167,7 +167,7 @@ public class ErrorTestDataDao extends BaseDataDao {
             Log.e(TAG, TABLE_NAME + "-deleteData:" + examId);
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
-            mDb.delete(TABLE_NAME, CHAPTER_ID + "=?", new String[] { String.valueOf(examId) });
+            mDb.delete(TABLE_NAME, ID + "=?", new String[] { String.valueOf(examId) });
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

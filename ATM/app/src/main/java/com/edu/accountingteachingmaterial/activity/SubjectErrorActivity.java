@@ -101,7 +101,7 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
         btnSign = (ImageView) findViewById(R.id.btnSign);
         Bundle bundle = getIntent().getExtras();
         int item = bundle.getInt(ERRORS_ITEM,0);
-        datas = (List<BaseTestData>) bundle.get(ERRORS_DATAS);;
+        datas = (List<BaseTestData>) bundle.get(ERRORS_DATAS);
         mSubjectAdapter = new ErrorSubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
         viewPager.setAdapter(mSubjectAdapter);

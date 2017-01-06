@@ -62,6 +62,8 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.view_subject_judge, this);
         init((SubjectBasicData) data.getSubjectData());
+        scoreTv = (TextView) findViewById(R.id.tv_score);
+        scoreTv.setText("(" + (int) mData.getScore() + "分)");
         refreshAnswerState();
     }
 

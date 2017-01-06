@@ -4,38 +4,35 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.base.BaseCheckAdapter;
 import com.edu.accountingteachingmaterial.bean.ReviewHisListBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/12/21.
  */
 
-public class ReviewHisAdapter extends BaseAdapter {
-    Context context;
+public class ReviewHisAdapter extends BaseCheckAdapter {
     List<ReviewHisListBean> datas;
-    boolean checkIsShow = false;
 //    HashMap<Integer ,Boolean> isCheck;
-    List<Boolean> checkList;
-    OnCheckedListener checkedListener;
+
+    public ReviewHisAdapter(Context context) {
+        super(context);
+    }
+
 
     public void setChecked(OnCheckedListener checked) {
         this.checkedListener = checked;
     }
 
-    public ReviewHisAdapter(Context context) {
-        this.context = context;
-    }
 
 
 
@@ -99,45 +96,6 @@ public class ReviewHisAdapter extends BaseAdapter {
     }
     public void setDatas(List<ReviewHisListBean> datas) {
         this.datas = datas;
-        notifyDataSetChanged();
-    }
-    // 初始化isSelected的数据
-    private void checkRest(){
-        for(int i=0; i<datas.size();i++) {
-            getIsChecked().add(i,false);
-        }
-    }
-
-    public void setClickShow() {
-        if (checkList==null){
-            checkList  = new ArrayList<>();
-            checkRest();
-        }
-            checkIsShow = true;
-
-        notifyDataSetChanged();
-    }
-    public void setClickConceal() {
-        checkIsShow = false;
-        checkRest();
-        notifyDataSetChanged();
-    }
-    public  List<Boolean> getIsChecked() {
-        return checkList;
-    }
-//    public  HashMap<Integer,Boolean> getIsChecked() {
-//        return isCheck;
-//    }
-
-    public  void setIsChecked(int i,boolean b) {
-        this.checkList.set(i,b);
-    }
-
-    public void setAllchecked() {
-        for(int i=0; i<datas.size();i++) {
-            getIsChecked().set(i,true);
-
-        }
         notifyDataSetChanged();
     }
 

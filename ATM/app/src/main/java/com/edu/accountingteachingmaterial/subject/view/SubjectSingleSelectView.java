@@ -63,6 +63,8 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.view_subject_single_select, this);
         init((SubjectBasicData) mData);
+        scoreTv = (TextView) findViewById(R.id.tv_score);
+        scoreTv.setText("(" + (int) mData.getScore() + "分)");
         refreshAnswerState((SubjectBasicData) mData);
     }
 
@@ -80,7 +82,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
         tvSubjectType = (TextView) this.findViewById(R.id.tv_subject_type);
         tvSubjectType.setOnClickListener(this);
 //		tvSubjectType.setText("错误" + mTestData.getErrorCount() + "次");
-        tvSubjectType.setText("单选 - " + data.getSubjectIndex());
+        tvSubjectType.setText("单选 - " + mTestData.getSubjectIndex());
         tvQestion = (TextView) this.findViewById(R.id.tv_question);
         // 刷新题目数据
 //        tvQestion.setText(data.getSubjectIndex() + "." + data.getQuestion());
@@ -144,20 +146,20 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
         if (testMode == TEST_MODE_NORMAL) {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
 //                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
-                tvSubjectType.setVisibility(View.GONE);
+//                tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
         } else if (testMode == TEST_MODE_TEST) {
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
-            tvSubjectType.setVisibility(View.VISIBLE);
+//            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         } else if (testMode == TEST_MODE_LOOK) {
-            tvSubjectType.setVisibility(View.VISIBLE);
+//            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         } else {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
                 showCorrectAnswer(state == SubjectState.STATE_CORRECT);
-                tvSubjectType.setVisibility(View.GONE);
+//                tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
         }

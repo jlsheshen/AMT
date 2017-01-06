@@ -39,14 +39,14 @@ public class SendJsonNetReqManager extends JsonNetReqManager {
     @Override
     public void onConnectionFailure(String errorInfo, Header[] headers) {
         if (mListener != null) {
-            mListener.onFailure(errorInfo);
+            mListener.onFailure(errorInfo + "链接失败,请检查网络");
         }
     }
 
     @Override
     public void onConnectionError(String errorInfo) {
         if (mListener != null) {
-            mListener.onFailure(errorInfo);
+            mListener.onFailure( "链接错误,可能当前章节并没有练习题");
         }
     }
 

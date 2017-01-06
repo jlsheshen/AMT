@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
             android:gravity="center_vertical"
-            android:text="判断 - 9"
+            android:text="判断"
             android:textColor="@color/black"
             android:textSize="@dimen/item_title_text_size" />
 
@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:paddingLeft="15px"
-            android:text="(2分)"
             android:textColor="@color/black"
             android:textSize="@dimen/item_title_text_size" />
 

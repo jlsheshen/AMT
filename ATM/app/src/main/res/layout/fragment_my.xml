@@ -69,8 +69,7 @@
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/item_title_text_size"
                 android:textStyle="bold"
-
-
+                android:visibility="gone"
                 />
 
             <View style="@style/HorizontalLine" />

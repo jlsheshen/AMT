@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
+import android.widget.TextView;
 
+import com.edu.accountingteachingmaterial.R;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 public abstract class BaseActivity extends AutoLayoutActivity{
+	TextView scoreTv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

@@ -9,9 +9,5 @@ public class BasePresenter<T> {
 	}
 	public void dettach(){
 		this.mView = null;
-		
 	}
-	
-			
-
 }

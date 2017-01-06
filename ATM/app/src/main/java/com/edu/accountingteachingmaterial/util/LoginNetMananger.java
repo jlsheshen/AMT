@@ -123,7 +123,12 @@ public class LoginNetMananger extends JsonNetReqManager {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
+                    Log.d(TAG, "登陆后验证成功" + jsonObject.getString("message"));
                     List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
+                    if (hData.size()== 0){
+                        loginListener.onFailure("没有课程,登陆失败");
+                        return;
+                    }
                     HomepageInformationData data = hData.get(0);
                     PreferenceHelper.getInstance(context).setStringValue(STUDNET_NUMBER, studentNumber);
                     PreferenceHelper.getInstance(context).setStringValue(STUDNET_PASSWORD, studentPassword);
@@ -136,6 +141,8 @@ public class LoginNetMananger extends JsonNetReqManager {
 
             @Override
             public void onFailure(String errorInfo) {
+                Log.d(TAG, "登陆后验证失败" +errorInfo );
+
                 loginListener.onFailure(errorInfo);
 
             }

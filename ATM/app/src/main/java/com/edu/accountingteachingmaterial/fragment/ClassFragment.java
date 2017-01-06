@@ -133,21 +133,25 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
             }
         });
     }
+    public void showPpw(){
+        if (ppwShowing) {
+            popupWindow.dismiss();
+            ppwShowing = false;
+        } else {
+            popupWindow.showAsDropDown(imgHistory, 50, 50);
+            ppwShowing = true;
+//          expandableListView.setEnabled(false);
+//          expandableListView.setAlpha(0.5f);
+        }
+
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_study_history_iv:
+                showPpw();
 
-                if (ppwShowing) {
-                    popupWindow.dismiss();
-                    ppwShowing = false;
-                } else {
-                    popupWindow.showAsDropDown(imgHistory, 50, 50);
-                    ppwShowing = true;
-//                     expandableListView.setEnabled(false);
-//                    expandableListView.setAlpha(0.5f);
-                }
                 break;
         }
     }
@@ -160,36 +164,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
         ppwList = (ListView) contentView.findViewById(R.id.ppw_history_lv);
         ppwList.setOnItemClickListener(this);
 
-//        todayLv = (NoScrollListView) contentView.findViewById(R.id.ppw_histort_today_lv);
-//        todayTv = (TextView) contentView.findViewById(R.id.ppw_histort_today_tv);
-//        yesterdayLv = (NoScrollListView) contentView.findViewById(R.id.ppw_histort_yesterday_lv);
-//        yesterdayTv = (TextView) contentView.findViewById(R.id.ppw_histort_yesterday_tv);
-//        agoLv = (NoScrollListView) contentView.findViewById(R.id.ppw_histort_ago_lv);
-//        agoTv = (TextView) contentView.findViewById(R.id.ppw_histort_ago_tv);
-//        todayLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                itemClick(tData,position,todayLv,todayAdapter);
-//            }
-//
-//        });
-//        yesterdayLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                itemClick(yData,position,yesterdayLv,yestodayAdapter);
-//            }
-//        });
-//        agoLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                itemClick(aData,position,agoLv,agoAdapter);
-//            }
-//        });
         loadHistoryDatas();
-//        WindowManager.LayoutParams lp = getWindow().getAttributes();
-//        lp.alpha = bgAlpha; //0.0-1.0
-//        getWindow().setAttributes(lp);
-//         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, view.getLayoutParams().height);
 
         popupWindow.setContentView(contentView);
@@ -294,25 +270,13 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
                     }
                     ppwList.setAdapter(ppwAdapter);
                     ppwAdapter.setDatas(datas);
-//                    if (tData != null && tData.size() > 0) {
-//                        todayLv.setAdapter(todayAdapter);
-//                        todayAdapter.setDatas(tData);
-//                    }
-//                    if (yData != null && yData.size() > 0) {
-//                        yesterdayLv.setAdapter(yestodayAdapter);
-//                        yestodayAdapter.setDatas(yData);
-//                    }
-//                    if (aData != null && aData.size() > 0) {
-//                        agoLv.setAdapter(agoAdapter);
-//                        agoAdapter.setDatas(aData);
-//                    }
                     Log.d("LaunchActivity", "线程启动获取成功");
                 }
             }
 
             @Override
             public void onFailure(String errorInfo) {
-                Log.d("LaunchActivity", "线程启动获取失败");
+                Log.d("LaunchActivity", "线程启动获取失败" +errorInfo );
 
             }
         });
@@ -343,42 +307,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
         }
 
     }
-
-//    @Override
-//    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        List<StudyHistoryVO> historyVOs = new ArrayList<>();
-//        ExampleBean exampleBean = new ExampleBean();
-//
-//        switch (view.getId()) {
-//            case R.id.ppw_histort_today_lv:
-//                historyVOs.add(tData.get(i).getUpLoadingData(context));
-//                exampleBean.setUrl(tData.get(i).getUri());
-//
-//            case R.id.ppw_histort_yesterday_lv:
-//                historyVOs.add(yData.get(i).getUpLoadingData(context));
-//                exampleBean.setUrl(yData.get(i).getUri());
-//
-//            case R.id.ppw_histort_ago_lv:
-//                historyVOs.add(aData.get(i).getUpLoadingData(context));
-//                exampleBean.setUrl(aData.get(i).getUri());
-//                break;
-//        }
-//        HistoryClickManager.getHisInstance(context).setStudyHistoryVOList(historyVOs).sendHistory();
-//        Bundle bundle = new Bundle();
-//        bundle.putSerializable("exampleBeans", exampleBean);
-//        Log.d("ClassFragment", "exampleBean:" + exampleBean);
-//        switch (aData.get(i).getFile_type()){
-//            case ClassContstant.MEADIA_TYPE:
-//                startActivity(MediaActivity.class, bundle);
-//
-//                break;
-//            default:
-//                startActivity(PdfActivity.class, bundle);
-//                break;
-//
-//        }
-//
-//    }
+    public boolean isPpwShowing() {
+        return ppwShowing;
+    }
 }
 
 

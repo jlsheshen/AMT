@@ -14,7 +14,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     CircleImageView circleImageView;
     TextView textView;
     RadioButton errorButton, downloadButton;
-    Fragment errorView, downloadView;
+    MyErrorsFragment errorView, downloadView;
 
 
     @Override
@@ -44,6 +44,14 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (null == errorView) {
+            errorView = new MyErrorsFragment();
+        }
+        replaceFragment(errorView);
+    }
 
     @Override
     public void onClick(View v) {
@@ -58,6 +66,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
             case R.id.my_error_rb:
                 if (null == errorView) {
                     errorView = new MyErrorsFragment();
+
                 }
                 replaceFragment(errorView);
 
@@ -66,10 +75,19 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         }
 
     }
+
+    @Override
+    public void onDestroy() {
+        errorView = null;
+        super.onDestroy();
+    }
+
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.my_view, fragment);
         // Commit the transaction
         transaction.commit();
+        errorView.setData();
+
     }
 }

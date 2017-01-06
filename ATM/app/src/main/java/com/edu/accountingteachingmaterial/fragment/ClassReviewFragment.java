@@ -113,6 +113,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         loadAllTopicList();
         setNumChangeListener();
 
+
     }
 
 

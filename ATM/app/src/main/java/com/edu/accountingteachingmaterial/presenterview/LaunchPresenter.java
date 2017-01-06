@@ -37,7 +37,11 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
                 @Override
                 public void onFailure(String message) {
                     ToastUtil.showToast(context,"登录出错" + message);
-                    mView.jumpLogin();
+                    if (mView != null){
+                    mView.jumpLogin();}else {
+
+
+                    }
                 }
             });
 //            login();
@@ -50,7 +54,9 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
 
             @Override
             public void onFinish() {
+                if (mView !=null){
                 mView.startActivity();
+                }
             }
         }.start();
 

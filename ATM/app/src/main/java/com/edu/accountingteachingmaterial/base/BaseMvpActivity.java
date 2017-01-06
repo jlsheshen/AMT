@@ -22,11 +22,19 @@ public abstract class BaseMvpActivity<V, T extends BasePresenter<V>> extends Bas
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
+		if (presenter == null) {
+			presenter = initPresenter();
+			if (presenter.mView == null) {
+				presenter.attach((V) this);
+			}
+		}
 	}
 
 	@Override
 	protected void onDestroy() {
-		if (presenter == null){}else {
+		if (presenter == null){
+
+		}else {
 			presenter.dettach();
 		}
 		// TODO Auto-generated method stub

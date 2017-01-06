@@ -27,9 +27,11 @@ public abstract class BaseCheckAdapter extends BaseAdapter {
 
     // 初始化isSelected的数据
     private void checkRest(){
-        for(int i=0; i<getCount();i++) {
-            getIsChecked().add(i,false);
-        }
+            for(int i=0; i<getCount();i++) {
+                getIsChecked().add(i,false);
+            }
+
+
     }
 
 
@@ -44,7 +46,7 @@ public abstract class BaseCheckAdapter extends BaseAdapter {
     }
     public void setClickConceal() {
         checkIsShow = false;
-        checkRest();
+        checkList=null;
         notifyDataSetChanged();
     }
     public  List<Boolean> getIsChecked() {
@@ -59,9 +61,8 @@ public abstract class BaseCheckAdapter extends BaseAdapter {
     }
 
     public void setAllchecked() {
-        for(int i=0; i<getCount();i++) {
+        for(int i=0; i< getIsChecked().size();i++) {
             getIsChecked().set(i,true);
-
         }
         notifyDataSetChanged();
     }

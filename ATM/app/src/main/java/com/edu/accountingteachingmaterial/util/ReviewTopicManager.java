@@ -74,7 +74,7 @@ public class ReviewTopicManager extends JsonNetReqManager {
         String message = jsonObject.getString("message");
         if (result) {
             ToastUtil.showToast(context, "onConnectionSuccess 上传题目数量记录");
-            PreferenceHelper.getInstance(context).setStringValue(PreferenceHelper.EXAM_ID, message);
+//            PreferenceHelper.getInstance(context).setStringValue(PreferenceHelper.EXAM_ID, message);
 
             EventBus.getDefault().post(ClassContstant.UPLOAD_TYPE);
         } else {

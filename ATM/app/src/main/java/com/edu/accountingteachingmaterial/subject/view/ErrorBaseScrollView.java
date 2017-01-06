@@ -4,10 +4,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
 import com.edu.library.common.PreferenceHelper;
 import com.edu.subject.SubjectListener;
+import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseSubjectData;
 import com.edu.subject.data.BaseTestData;
 
@@ -37,6 +39,8 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
 
     ContentValues contentValues;
 
+    TextView scoreTv;
+
     /**
      * 测试的模式，取值为TEST_MODE_NORMAL，TEST_MODE_TEST
      */
@@ -51,6 +55,7 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
         mTestData = data;
         this.testMode = testMode;
         mData = mTestData.getSubjectData();
+
     }
 
     public ErrorBaseScrollView(Context context, AttributeSet attrs) {
@@ -66,30 +71,31 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
      */
     private void updateState(String answer) {
         mTestData.setuAnswer(answer);
-//
-//        if (answer.equals(mData.getAnswer())) {
-//            // 1是正确
-//            mTestData.setState(SubjectState.STATE_CORRECT);
-//            mTestData.setuScore(mData.getScore());
-//            contentValues = new ContentValues();
-//            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_CORRECT);
-//            contentValues.put(ErrorTestDataDao.UANSWER, answer);
-//            contentValues.put(ErrorTestDataDao.USCORE, mData.getScore());
-//            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-//            contentValues.put(ErrorTestDataDao.REMARK, "0");
-//            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
-//        } else {
-//            // 2是错误
-//            mTestData.setState(SubjectState.STATE_WRONG);
-//            mTestData.setErrorCount(mTestData.getErrorCount() + 1);
-//            contentValues = new ContentValues();
-//            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_WRONG);
-//            contentValues.put(ErrorTestDataDao.UANSWER, answer);
-//            contentValues.put(ErrorTestDataDao.USCORE, 0);
-//            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-//            contentValues.put(ErrorTestDataDao.REMARK, "0");
-//            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
-//        }
+
+        if (answer.equals(mData.getAnswer())) {
+            // 1是正确
+            mTestData.setState(SubjectState.STATE_CORRECT);
+            mTestData.setuScore(mData.getScore());
+            contentValues = new ContentValues();
+            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_CORRECT);
+            contentValues.put(ErrorTestDataDao.UANSWER, answer);
+            contentValues.put(ErrorTestDataDao.USCORE, mData.getScore());
+            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
+            contentValues.put(ErrorTestDataDao.REMARK, "0");
+            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+        } else {
+            // 2是错误
+            mTestData.setState(SubjectState.STATE_WRONG);
+            mTestData.setErrorCount(mTestData.getErrorCount() + 1);
+            contentValues = new ContentValues();
+            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_WRONG);
+            contentValues.put(ErrorTestDataDao.UANSWER, answer);
+            contentValues.put(ErrorTestDataDao.USCORE, 0);
+            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
+            contentValues.put(ErrorTestDataDao.REMARK, "0");
+            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+
+        }
     }
 
     /**

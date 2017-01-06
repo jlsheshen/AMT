@@ -42,7 +42,8 @@
             android:onClick="onClick"
             android:text="取消"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/content_text_size" />
+            android:textSize="@dimen/content_text_size"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <ListView

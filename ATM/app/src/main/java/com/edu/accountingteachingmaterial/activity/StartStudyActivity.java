@@ -121,53 +121,22 @@ public class StartStudyActivity extends BaseActivity {
 //        }
     }
 
+    /**
+     * 登陆操作
+     */
     private void login() {
          String num = numEt.getText().toString();
          String pw = passwerEt.getText().toString();
             LoginNetMananger.getSingleton(context).login(num, pw, new LoginNetMananger.loginListener() {
             @Override
             public void onSuccess() {
+                Log.d("StartStudyActivity", "登陆操作成功");
             }
             @Override
             public void onFailure(String message) {
-        }});}
-//        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-//        String url = NetUrlContstant.getLoginUrl() + "username=" + num + "&password=" + pw + "&rememberme=1";
-//        Log.d("StartStudyActivity", url);
-//        NetSendCodeEntity entity = new NetSendCodeEntity(this, RequestMethod.POST, url);
-//        sendJsonNetReqManager.sendRequest(entity, "登陆中");
-//        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-//            @Override
-//            public void onSuccess(JSONObject jsonObject) {
-//                boolean result = jsonObject.getBoolean("result");
-//                String message = jsonObject.getString("message");
-//                if (result) {
-//                    if (message == null || message.length() == 0) {
-//                        Log.d("StartStudyActivity", "学号有误");
-//                    }
-//                    Log.d("StartStudyActivity", "----" + message);
-//                    AccToken accToken = JSON.parseObject(jsonObject.getString("message"), AccToken.class);
-//                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_NUMBER, num);
-//                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
-//                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(TOKEN, accToken.getLoginToken());
-//                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(PreferenceHelper.USER_ID, String.valueOf(accToken.getStuId()));
-//                    uploadHomepageInfo();
-////                    startActivity(MainActivity.class);
-////                    finish();
-//                    PreferenceHelper.getInstance(StartStudyActivity.this).setBooleanValue(KEY_LOGIN_STATE, true);
-//                } else {
-//                    Toast.makeText(StartStudyActivity.this, message.toString(), Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(String errorInfo) {
-//                Log.d("LaunchActivity", "登陆失败");
-//                Toast.makeText(StartStudyActivity.this, "登陆失败", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//    }
+                Log.d("StartStudyActivity", "登陆操作失败" + message);
+
+            }});}
 
     /**
      * 弹出设置ipdialog
@@ -209,10 +178,10 @@ public class StartStudyActivity extends BaseActivity {
      */
     private void showIp(String s) {
         BASE_URL = "http://" + s;
-        Log.d("StartStudyActivity", NetUrlContstant.getSettingIpUrl());
+        Log.d("StartStudyActivity", "---------" + NetUrlContstant.getSettingIpUrl());
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getSettingIpUrl());
-        Log.d("StartStudyActivity", NetUrlContstant.getSettingIpUrl());
+        Log.d("StartStudyActivity", "---------" + NetUrlContstant.getSettingIpUrl());
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

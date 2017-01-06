@@ -73,7 +73,9 @@ public class ChapterPopupWindow extends PopupWindow {
                 Intent intent = new Intent(mContext, ClassDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
+                bundle.putInt("ChapterId", datas.get(groupPosition).getId());
                 intent.putExtras(bundle);
+                context.finish();
                 mContext.startActivity(intent);
                 ChapterPopupWindow.this.dismiss();
                 backgroundAlpha(context, 1f);

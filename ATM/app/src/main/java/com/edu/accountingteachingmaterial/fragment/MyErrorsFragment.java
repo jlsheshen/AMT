@@ -100,6 +100,21 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
 
     }
 
+
+    public void setData(){
+        if (context == null||adapter == null) {
+            return;
+        }else {
+
+        datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE);
+            if (datas.size()>0){
+                compileTv.setVisibility(View.VISIBLE);
+            }else {
+                compileTv.setVisibility(View.GONE);
+            }
+        adapter.setDatas(datas);}
+    }
+
     private void showDeteleDialog() {
         deteleDialog = new DeteleDialog(context);
         if (!deteleDialog.isShowing()) {
@@ -140,11 +155,15 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
         switch (v.getId()) {
             case R.id.error_compile_tv:
                 if (!layoutShow) {
+                    compileTv.setText("取消");
+
                     adapter.setClickShow();
                     checkList = adapter.getIsChecked();
                     layout.setVisibility(View.VISIBLE);
                     layoutShow = true;
                 } else {
+                    compileTv.setText("编辑");
+
                     adapter.setClickConceal();
                     layout.setVisibility(View.GONE);
                     layoutShow = false;

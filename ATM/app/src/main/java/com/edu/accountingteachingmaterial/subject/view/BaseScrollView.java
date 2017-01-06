@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.library.common.PreferenceHelper;
@@ -37,6 +38,8 @@ public abstract class BaseScrollView extends RelativeLayout {
     protected PreferenceHelper preHelper;
 
     ContentValues contentValues;
+    TextView scoreTv;
+
 
     /**
      * 测试的模式，取值为TEST_MODE_NORMAL，TEST_MODE_TEST

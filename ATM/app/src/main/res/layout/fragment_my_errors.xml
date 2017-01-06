@@ -30,6 +30,7 @@
             android:textSize="@dimen/content_text_size"
             android:layout_centerVertical="true"
             android:layout_marginRight="20px"
+            android:visibility="visible"
             />
         <View
             android:layout_marginRight="20px"

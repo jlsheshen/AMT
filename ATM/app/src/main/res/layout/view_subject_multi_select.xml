@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10px"
             android:gravity="center_vertical"
-            android:text="多选 - 2"
+            android:text="多选"
             android:textColor="@color/black"
             android:textSize="@dimen/item_title_text_size" />
 

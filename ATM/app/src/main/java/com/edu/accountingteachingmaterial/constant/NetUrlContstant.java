@@ -7,53 +7,54 @@ import static com.edu.subject.BASE_URL.BASE_URL;
  */
 
 public class NetUrlContstant {
+    public static final String INTERCACE = "/eduExam/interface/";
 
     //调试接口
-    public static final String settingIpUrl = "/interface/returnSuccess";
+    public static final String settingIpUrl = INTERCACE+"returnSuccess";
 
     //首页课程信息
-    public static final String homeInfoUrl = "/interface/course/findCoursesByUserId/";
+    public static final String homeInfoUrl = INTERCACE+"course/findCoursesByUserId/";
     //课程章节列表
-    public static final String chapterUrl = "/interface/course/findChaptersByCourseId/";
+    public static final String chapterUrl = INTERCACE+"course/findChaptersByCourseId/";
     //试卷列表
-    public static final String chapterTypeUrl = "/interface/exam/findAllPracticeByChapterIdnType/";
+    public static final String chapterTypeUrl = INTERCACE+"exam/findAllPracticeByChapterIdnType/";
     //试题列表
-    public static final String subjectListUrl = "/interface/exam/findExamPaperTopicById/";
+    public static final String subjectListUrl = INTERCACE+"exam/findExamPaperTopicById/";
     //上传答案 一组题上传
-    public static final String subjectSubmitUrl = "/interface/exam/submitPracticeExamByStudentId/";
+    public static final String subjectSubmitUrl = INTERCACE+"exam/submitPracticeExamByStudentId/";
     //上传答案,单个题上传
-    public static final String subjectSingleSubmitUrl = "/interface/exam/submitSingleTopicsByStudentId/";
+    public static final String subjectSingleSubmitUrl = INTERCACE+"exam/submitSingleTopicsByStudentId/";
 //    {studentId}-{examId}
 
     //{studentId}-{examId}-{seconds}
     //经典示例
-    public static final String classicCaseUrl = "/interface/course/findContentsByTypenChapterId/";
+    public static final String classicCaseUrl = INTERCACE+"course/findContentsByTypenChapterId/";
     //在线考试信息列表
-    public static final String examInfoUrl = "/interface/exam/findExamPaperBriefById/";
+    public static final String examInfoUrl = INTERCACE+"exam/findExamPaperBriefById/";
     //{examId}
     //获取每道题目信息
-    public static final String simpleTopicUrl = "/interface/exam/findSimpleTopicById/";
+    public static final String simpleTopicUrl = INTERCACE+"exam/findSimpleTopicById/";
     //{topicId}-{paperId}
     //获取在线考试列表
-    public static final String examInfoUrlList = "/interface/exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
+    public static final String examInfoUrlList = INTERCACE+"exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
     //拉取历史信息
     //拉取历史信息
-    public static final String findHisUrl = "/interface/exam/findUserStudyHistoryById/";
+    public static final String findHisUrl = INTERCACE+"exam/findUserStudyHistoryById/";
     //{userId}
     //上传历史信息
-    public static final String upLoadingHisUrl = "/interface/exam/saveUserStudyHistories";
+    public static final String upLoadingHisUrl = INTERCACE+"exam/saveUserStudyHistories";
     //上传本币模板数据
-    public static final String localTemplates = "/interface/exam/findBillTemplatesByIds";
+    public static final String localTemplates = INTERCACE+"exam/findBillTemplatesByIds";
     //    //图片url前缀
 //    public static final String background = "http://192.168.1.142:80/resources/files/background/";
     //视频播放地址、pdf下载地址
-    public static final String mediaorPdfUrl = "/interface";
+    public static final String mediaorPdfUrl = "/eduExam/interface";
     //登陆
-    public static final String loginUrl = "/interface/login?";
+    public static final String loginUrl = INTERCACE+"login?";
     //自测获取总题数
-    public static final String getReviewList = "/interface/course/findTopicSumByChapterIdnLevel/";
+    public static final String getReviewList = INTERCACE+"course/findTopicSumByChapterIdnLevel/";
     //上传选择题数和难易程度
-    public static final String uploadingReviewList = "/interface/course/createPaperForSelfTest/";
+    public static final String uploadingReviewList = INTERCACE+"course/createPaperForSelfTest/";
 
     public static String getSettingIpUrl() {
         return BASE_URL + settingIpUrl;

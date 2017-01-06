@@ -62,6 +62,8 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.view_subject_judge, this);
         init((SubjectBasicData) data.getSubjectData());
+        scoreTv = (TextView) findViewById(R.id.tv_score);
+        scoreTv.setText("(" + (int) mData.getScore() + "分)");
         refreshAnswerState();
     }
 
@@ -74,13 +76,13 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
         layout = (RelativeLayout) this.findViewById(R.id.layout_parent);
         layout.setOnClickListener(this);
         tvQestion = (TextView) this.findViewById(R.id.tv_question);
-        tvQestion.setText( data.getQuestion());
+        tvQestion.setText(data.getQuestion());
         tvAnswer = (TextView) this.findViewById(R.id.tv_answer);
         tvSubjectType = (TextView) this.findViewById(R.id.tv_subject_type);
         tvSubjectType.setOnClickListener(this);
         tvAnalysis = (TextView) this.findViewById(R.id.tv_analysis);
 //		tvSubjectType.setText("错误" + mTestData.getErrorCount() + "次");
-        tvSubjectType.setText("判断 - " + data.getSubjectIndex());
+        tvSubjectType.setText("判断 - " + mTestData.getSubjectIndex());
         rbTrue = (RadioButton) this.findViewById(R.id.rb_A);
         rbFalse = (RadioButton) this.findViewById(R.id.rb_B);
 
@@ -113,20 +115,20 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
         if (testMode == TEST_MODE_NORMAL) {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
 //                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
-                tvSubjectType.setVisibility(View.GONE);
+//                tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
         } else if(testMode == TEST_MODE_TEST){
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
-            tvSubjectType.setVisibility(View.VISIBLE);
+//            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         } else if (testMode == TEST_MODE_LOOK) {
-            tvSubjectType.setVisibility(View.VISIBLE);
+//            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         }else {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
                 showCorrectAnswer(state == SubjectState.STATE_CORRECT);
-                tvSubjectType.setVisibility(View.GONE);
+//                tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
         }
@@ -217,8 +219,8 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
                 handler.removeMessages(0);
                 break;
             case R.id.rb_A:
-                rbTrue.setTextColor(getResources().getColor(R.color.blue));
-                rbFalse.setTextColor(Color.BLACK);
+//                rbTrue.setTextColor(getResources().getColor(R.color.blue));
+//                rbFalse.setTextColor(Color.BLACK);
                 String answerA = v.getTag().toString();
 
                 handleOnClick(answerA);
@@ -226,8 +228,8 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
                 handler.sendEmptyMessageDelayed(0, 300);
                 break;
             case R.id.rb_B:
-                rbFalse.setTextColor(getResources().getColor(R.color.blue));
-                rbTrue.setTextColor(Color.BLACK);
+//                rbFalse.setTextColor(getResources().getColor(R.color.blue));
+//                rbTrue.setTextColor(Color.BLACK);
                 String answerB = v.getTag().toString();
                 handleOnClick(answerB);
                 handler.removeMessages(0);

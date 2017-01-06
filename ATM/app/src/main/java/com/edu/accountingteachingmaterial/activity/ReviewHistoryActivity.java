@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.activity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,6 +17,10 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.view.DeteleDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -53,6 +58,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
         allCheckTv = bindView(R.id.blow_bar_allchecked_tv);
         allCheckTv.setOnClickListener(this);
         layout = bindView(R.id.bolw_bar);
+        EventBus.getDefault().register(this);
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -60,19 +66,20 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
                 reviewHisAdapter.setClickShow();
                 checkList = reviewHisAdapter.getIsChecked();
                 layout.setVisibility(View.VISIBLE);
-                return false;
+                cancelTv.setVisibility(View.VISIBLE);
+                return true;
             }
         });
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (datas.get(position).getState() == ClassContstant.EXAM_COMMIT){
+                if (datas.get(position).getState() == ClassContstant.EXAM_COMMIT) {
                     //跳转到答题界面
                     Bundle bundle = new Bundle();
                     bundle.putInt("chapterId", datas.get(position).getId());
                     startActivity(SubjectDetailsLocalActivity.class, bundle);
 
-                }else {
+                } else {
                     //跳转到答题界面
                     Bundle bundle = new Bundle();
                     bundle.putInt("chapterId", datas.get(position).getId());
@@ -89,9 +96,11 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
     public void initData() {
         reviewHisAdapter = new ReviewHisAdapter(this);
 //        datas = ReviewExamListDao.getInstance(this).getDataByChatper(chapterId);
+
         loadData();
         listView.setAdapter(reviewHisAdapter);
         reviewHisAdapter.setDatas(datas);
+//        reviewHisAdapter.setClickShow();
         reviewHisAdapter.setChecked(new ReviewHisAdapter.OnCheckedListener() {
             @Override
             public void onCheckeBoxChecked() {
@@ -115,18 +124,23 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
 
     private void loadData() {
         datas = (List<ReviewHisListBean>) ReviewExamListDao.getInstance(this).getAllDatas();
-              //  new ArrayList<>();
-
-//        for (int i = 0; i < 6; i++) {
-//            ReviewHisListBean d = new ReviewHisListBean();
-//            d.setState(ClassContstant.EXAM_UNDONE);
-//            d.setDate("2016-21-26");
-//            d.setNumber("56");
-//            d.setScore("615");
-//            d.setTitle("155");
-//            datas.add(d);
-//        }
     }
+
+    /**
+     * 根据发来的状态,来刷新列表
+     *
+     * @param state
+     */
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getData(Integer state) {
+        Log.d("ClassExerciseFragment", "走过了EventBus");
+        if (state == ClassContstant.EXAM_COMMIT) {
+            loadData();
+            reviewHisAdapter.setDatas(datas);
+        }
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -134,6 +148,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
             case R.id.review_his_cancel_tv:
                 reviewHisAdapter.setClickConceal();
                 layout.setVisibility(View.GONE);
+                cancelTv.setVisibility(View.GONE);
 
                 break;
             case R.id.review_his_back_iv:
@@ -165,6 +180,11 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
                 i--;
             }
         }
+        if (datas.size() < 1) {
+            cancelTv.setVisibility(View.GONE);
+            layout.setVisibility(View.GONE);
+
+        }
         reviewHisAdapter.setDatas(datas);
     }
 
@@ -177,6 +197,7 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onOkClicked() {
                 deteleData();
+
             }
 
             @Override
@@ -186,7 +207,11 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
                 }
             }
         });
-
     }
 
+    @Override
+    protected void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
+    }
 }
