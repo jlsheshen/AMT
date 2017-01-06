@@ -164,6 +164,13 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     private void getTotalNum() {
         totalNum = addAndSubTestView1.getNum() + addAndSubTestView2.getNum() + addAndSubTestView3.getNum() + addAndSubTestView4.getNum() + addAndSubTestView5.getNum() + addAndSubTestView6.getNum() + addAndSubTestView7.getNum();
         Log.d("ClassReviewFragment", " getTotalNum:" + totalNum);
+        if ((totalNum < 1)) {
+            btnStart.setBackground(getResources().getDrawable(R.drawable.btn_ct_p));
+        } else {
+            btnStart.setBackground(getResources().getDrawable(R.drawable.bg_selector_ct));
+
+        }
+
     }
 
     //获取上传题目数据信息
@@ -193,7 +200,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         topicVo.setLevel(list);
 
         uploadingTopicList();
-        Log.d("ClassReviewFragment", "ClassReviewFragment" + topicVo);
+        Log.d("ClassReviewFragment", "ClassReviewFragment" + JSONObject.toJSONString(topicVo));
 
     }
 
@@ -216,12 +223,16 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
         if (state == ClassContstant.UPLOAD_TYPE) {
             //下载试题
             examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
-            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + examId, Integer.parseInt(examId));
+            Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus---" + examId+ "---" +totalNum );
+
+            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + examId, Integer.parseInt(examId.trim()),totalNum);
+
 
         } else if (state == ClassContstant.DOWNLOAD_TYPE) {
+           int reviewId =  ReviewExamDownloadManager.newInstance(context).getReviewId();
             //跳转到答题界面
             Bundle bundle = new Bundle();
-            bundle.putInt("chapterId", Integer.parseInt(examId));
+            bundle.putInt("chapterId", reviewId);
             startActivity(SubjectReViewActivity.class, bundle);
         }
 

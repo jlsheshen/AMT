@@ -99,7 +99,7 @@ public class SubjectImageLoader {
 
         for (String url : urls) {
             Log.d("查看图片log11111", url);
-            url = BASE_URL.BASE_URL + url;
+//            url = BASE_URL.getBaseImageUrl() + url;
             preDownloadPic(url);
         }
     }
@@ -143,7 +143,8 @@ public class SubjectImageLoader {
         List<String> allUrl = new ArrayList<String>();
         allUrl = s;
         for (String url : allUrl) {
-            url = BASE_URL.BASE_URL + url;
+            BASE_URL.getBaseImageUrl();
+//            url = BASE_URL.getBaseImageUrl() + url;
 
             Log.d("查看图片log11111", url);
             preDownloadPic(url);
@@ -152,7 +153,6 @@ public class SubjectImageLoader {
 
     /**
      * 预下载图片
-     *
      * @param uri
      * @param context
      */
@@ -171,6 +171,7 @@ public class SubjectImageLoader {
                 String reason = parseErrorMsg(failReason.getType());
                 Log.e(TAG, "downloadPic failure:" + reason + "," + imageUri);
                 preDownloadPic(uri);
+
             }
 
             @Override

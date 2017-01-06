@@ -155,6 +155,10 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
         }
 
         BaseTestData exercisePracticeBean = datas.get(i).getTestList().get(i1);
+        if (exercisePracticeBean.getSubjectData() == null){
+            Log.d("ExerciseExLvAdapter", "没有支持的题型");
+            return view;
+        }
         Log.d("ExerciseExLvAdapter", "exercisePracticeBean.getId():" + exercisePracticeBean.getId());
         Log.d("ExerciseExLvAdapter", "exercisePracticeBean.getSubjectData().getId():" + exercisePracticeBean.getSubjectData().getId());
         Log.d("ExerciseExLvAdapter", exercisePracticeBean.getSubjectData().getQuestion());

@@ -145,7 +145,11 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 				case ClassContstant.SUBJECT_BILL:
 					int billId = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
 					if (billId > 0) {
-						SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId,subject.getChapterId(), db);
+						if (subject.getTemplateId().length()>3) {
+							subject.setSubjectType(ClassContstant.SUBJECT_GROUP_BILL);
+						}
+						SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId, subject.getChapterId(), db);
+
 					}
 
 					break;

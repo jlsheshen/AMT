@@ -10,8 +10,8 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
+import com.edu.accountingteachingmaterial.dao.ReviewTestDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.library.data.DBHelper;
 import com.edu.subject.dao.SubjectBillDataDao;
 import com.edu.subject.data.SubjectData;
@@ -23,6 +23,7 @@ import com.lucher.net.req.impl.UrlReqEntity;
 import org.apache.http.Header;
 import org.greenrobot.eventbus.EventBus;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 
@@ -35,6 +36,8 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
 
     private Context mContext;
     private int chatperId;
+    int subjectNumber;
+    int reviewId;
 
     public ReviewExamDownloadManager(Context context) {
         mContext = context;
@@ -55,8 +58,10 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
      *
      * @param url
      */
-    public void getSubjects(String url, int chatperId) {
+    public void getSubjects(String url, int chatperId, int number) {
         this.chatperId = chatperId;
+        subjectNumber = number;
+        Log.d("ReviewExamDownloadManag", url);
         UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
         sendRequest(entity, "正在下载试题......");
     }
@@ -70,14 +75,26 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
 
         contentValues.put(ReviewExamListDao.TYPE, 1);
         contentValues.put(ReviewExamListDao.CHAPTER_ID, chatperId);
-        contentValues.put(ReviewExamListDao.ID, chatperId);
-        contentValues.put(ReviewExamListDao.TITLE,"会计立体化测试");
-        contentValues.put(ReviewExamListDao.NUM,"10");
-        contentValues.put(ReviewExamListDao.DATE,"2016-12-23");
-        contentValues.put(ReviewExamListDao.SCORE,"100");
-        ReviewExamListDao.getInstance(mContext).insertData(contentValues);
-
+//       contentValues.put(ReviewExamListDao.ID, chatperId);
+        contentValues.put(ReviewExamListDao.TITLE, "会计立体化测试");
+        contentValues.put(ReviewExamListDao.NUM, subjectNumber);
+        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        String date = sDateFormat.format(new java.util.Date());
+        contentValues.put(ReviewExamListDao.DATE, date);
+//        contentValues.put(ReviewExamListDao.SCORE,"100");
+        reviewId =  ReviewExamListDao.getInstance(mContext).insertDataGetId(contentValues);
+//        //跳转到答题界面
+//        Intent intent  = new Intent(mContext,SubjectReViewActivity.class);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("chapterId",reviewId);
+//        intent.putExtras(bundle);
+//        mContext.startActivity(intent);
+//
         EventBus.getDefault().post(ClassContstant.DOWNLOAD_TYPE);
+    }
+
+    public int getReviewId() {
+        return reviewId;
     }
 
     @Override
@@ -130,7 +147,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
                     int basicId = SubjectBasicDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
 
                     if (basicId > 0) {
-                        SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), basicId, subject.getChapterId(), db);
+                        ReviewTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), basicId, subject.getChapterId(), db);
                     }
                     break;
 
@@ -144,7 +161,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
                 case ClassContstant.SUBJECT_BILL:
                     int billId = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
                     if (billId > 0) {
-                        SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId, subject.getChapterId(), db);
+                        ReviewTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId, subject.getChapterId(), db);
                     }
 
                     break;

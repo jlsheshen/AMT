@@ -16,7 +16,7 @@ import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.dao.ReviewTestDataDao;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.view.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
@@ -34,8 +34,6 @@ import com.edu.testbill.Constant;
 import com.edu.testbill.dialog.SignChooseDialog;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.List;
@@ -95,7 +93,6 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
 
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
@@ -108,7 +105,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
         Bundle bundle = getIntent().getExtras();
         chapterId = bundle.getInt("chapterId");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
+        datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
@@ -165,8 +162,9 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
                 contentValues.put(ReviewExamListDao.SCORE,score);
-                ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
-                EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+                ReviewExamListDao.getInstance(this).updateData("" + dataId, contentValues);
+
+//                EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
                 finish();
 
                 break;
@@ -291,13 +289,9 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         ToastUtil.showToast(this, "全部重做操作完成");
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showDone(String message) {
-    }
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 

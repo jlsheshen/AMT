@@ -156,11 +156,32 @@ public abstract class BaseDataDao {
 			DBHelper helper = new DBHelper(mContext, dbName, null);
 			mDb = helper.getWritableDatabase();
 			mDb.insert(TABLE_NAME, null, values);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			closeDb(mDb);
 		}
+	}
+	/**
+	 * 插入数据带返回值
+	 *
+	 * @param values
+	 */
+	public synchronized int insertDataGetId(ContentValues values) {
+		int id = 0;
+		try {
+			Log.d(TAG, TABLE_NAME + "-insertData");
+			DBHelper helper = new DBHelper(mContext, dbName, null);
+			mDb = helper.getWritableDatabase();
+			 id = (int) mDb.insert(TABLE_NAME, null, values);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeDb(mDb);
+		}
+		return id;
 	}
 
 	/**

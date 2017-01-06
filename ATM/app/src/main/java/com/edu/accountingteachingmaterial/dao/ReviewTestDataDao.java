@@ -37,7 +37,7 @@ import java.util.List;
  *
  * @author lucher
  */
-public class SubjectTestDataDao extends BaseDataDao {
+public class ReviewTestDataDao extends BaseDataDao {
 
     //题目类型
     public static final String SUBJECT_ID = "SUBJECT_ID";
@@ -67,15 +67,15 @@ public class SubjectTestDataDao extends BaseDataDao {
     /**
      * 自身引用
      */
-    private static SubjectTestDataDao instance = null;
+    private static ReviewTestDataDao instance = null;
 
-    private SubjectTestDataDao(Context context) {
+    private ReviewTestDataDao(Context context) {
         super(context, Constant.DATABASE_NAME);
     }
 
     @Override
     public void setTableName() {
-        TABLE_NAME = "TB_TEST";
+        TABLE_NAME = "TB_REVIEW_TEST";
     }
 
     /**
@@ -83,9 +83,9 @@ public class SubjectTestDataDao extends BaseDataDao {
      *
      * @return
      */
-    public static SubjectTestDataDao getInstance(Context context) {
+    public static ReviewTestDataDao getInstance(Context context) {
         if (instance == null)
-            instance = new SubjectTestDataDao(context);
+            instance = new ReviewTestDataDao(context);
         return instance;
     }
 
@@ -125,13 +125,13 @@ public class SubjectTestDataDao extends BaseDataDao {
         return datas;
     }
 
-    public List<BaseTestData> getErrors(int testMode,int state) {
+    public List<BaseTestData> getErrors(int testMode) {
         Cursor curs = null;
         List<BaseTestData> datas = null;
         try {
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
-            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + STATE + " = " + SubjectState.STATE_WRONG;
+            String sql = "SELECT * FROM " + TABLE_NAME;
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null) {
@@ -167,7 +167,7 @@ public class SubjectTestDataDao extends BaseDataDao {
             Log.e(TAG, TABLE_NAME + "-deleteData:" + examId);
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
-            mDb.delete(TABLE_NAME, CHAPTER_ID + "=?", new String[] { String.valueOf(examId) });
+            mDb.delete(TABLE_NAME, ID + "=?", new String[] { String.valueOf(examId) });
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -318,7 +318,7 @@ public class SubjectTestDataDao extends BaseDataDao {
     /**
      * 根据chatperid获取对应数据
      *
-     * @param chatperid
+     * @param id
      * @return
      */
     public synchronized BaseData getDataByChatperId(int chatperid) {
@@ -415,11 +415,6 @@ public class SubjectTestDataDao extends BaseDataDao {
                 values.put(USIGNS, ((TestGroupBillData) data).getuSigns());
             }
             mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
-            if (data.getState() == SubjectState.STATE_WRONG){
-
-                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectData().getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -444,13 +439,10 @@ public class SubjectTestDataDao extends BaseDataDao {
                 values.put(UANSWER, data.getuAnswer());
                 values.put(USCORE, data.getuScore());
                 values.put(STATE, data.getState());
-
                 if (data instanceof TestBillData) {
                     values.put(USIGNS, ((TestBillData) data).getuSigns());
                 }
                 mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
-                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectData().getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
-
             }
             mDb.setTransactionSuccessful();
         } catch (Exception e) {
@@ -469,7 +461,6 @@ public class SubjectTestDataDao extends BaseDataDao {
     public void insertTest(int subjectType, int subjectId,int chapterid, SQLiteDatabase db) {
         ContentValues values = new ContentValues();
         values.put("FLAG", -1);
-
         values.put("SUBJECT_TYPE", subjectType);
         values.put("SUBJECT_ID", subjectId);
         values.put(CHAPTER_ID,chapterid);

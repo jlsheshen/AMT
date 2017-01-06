@@ -88,7 +88,7 @@ public final class ClassContstant {
     public static final String SUBJECT_BILL_STRING = "凭证题";
 
     //多组凭证
-    public static final int SUBJECT_GROUP_BILL = 7;
+    public static final int SUBJECT_GROUP_BILL = 9;
     public static final String SUBJECT_GROUP_BILL_STRING = "分组凭证";
 
     //今天

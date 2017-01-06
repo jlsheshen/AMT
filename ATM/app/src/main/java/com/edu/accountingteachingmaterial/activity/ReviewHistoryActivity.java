@@ -123,7 +123,8 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
     }
 
     private void loadData() {
-        datas = (List<ReviewHisListBean>) ReviewExamListDao.getInstance(this).getAllDatas();
+        
+        datas = (List<ReviewHisListBean>) ReviewExamListDao.getInstance(this).getDataByChatper();
     }
 
     /**
