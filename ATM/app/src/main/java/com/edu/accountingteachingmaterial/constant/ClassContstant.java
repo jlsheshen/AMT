@@ -107,9 +107,9 @@ public final class ClassContstant {
     public static final float LEVEL_HARD = 1f;
 
     //上传题目数量记录成功
-    public static final int UPLOAD_TYPE = 1;
+    public static final int UPLOAD_TYPE = 21;
     //下载题目数量记录成功
-    public static final int DOWNLOAD_TYPE = 2;
+    public static final int DOWNLOAD_TYPE = 22;
     public static final String S_SINGLE = "单选题";
     public static final String S_MULTI = "多选题";
     public static final String S_JUDGE = "判断题";

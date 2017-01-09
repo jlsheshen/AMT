@@ -106,6 +106,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         Bundle bundle = getIntent().getExtras();
         chapterId = bundle.getInt("chapterId");
         datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
+
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
@@ -162,9 +163,8 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
                 contentValues.put(ReviewExamListDao.SCORE,score);
-                ReviewExamListDao.getInstance(this).updateData("" + dataId, contentValues);
-
-//                EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+                ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
+               EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
                 finish();
 
                 break;

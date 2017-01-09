@@ -96,11 +96,11 @@ public class SubjectBasicDataDao extends BaseDataDao {
 		int id = 0;
 		try {
 			boolean a = (curs != null);
+			int iddd = curs.getInt(0);
 			boolean b = (curs.moveToNext());
-			int iddd = curs.getInt(curs.getColumnIndex("ID"));
-			boolean c = (curs.getColumnIndex("ID")) > 0;
+			boolean c = (curs.getInt(0)) > 0;
 			String sub  = JSONObject.toJSONString(subject);
-			Log.d(TAG, sub + "----" +sql );
+			Log.d(TAG, sub + "----" +sql  + "----" + iddd);
 			if (!(a && b && c)) {
 //			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
 				String option = JSON.parseObject(subject.getOption()).getString("text");
@@ -122,7 +122,7 @@ public class SubjectBasicDataDao extends BaseDataDao {
 				}
 				Log.d(TAG, "insert:" + id + "," + values);
 			}else {
-				id = curs.getInt(curs.getColumnIndex("ID"));
+				id = curs.getInt(0);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
