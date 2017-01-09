@@ -17,6 +17,7 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.ReviewExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
@@ -221,10 +222,10 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
         if (state == ClassContstant.UPLOAD_TYPE) {
             //下载试题
-//            examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
+               examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.REVIEW_ID);
             Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus---" + chapterId+ "---" +totalNum );
 
-            ReviewExamDownloadManager.getInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId,totalNum);
+            ReviewExamDownloadManager.getInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + examId, chapterId,totalNum);
 
 
         } else if (state == ClassContstant.DOWNLOAD_TYPE) {
@@ -232,6 +233,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             //跳转到答题界面
             Bundle bundle = new Bundle();
             bundle.putInt("chapterId", reviewId);
+            Log.d("ClassReviewFragment", "reviewId:" + reviewId);
             startActivity(SubjectReViewActivity.class, bundle);
         }
 

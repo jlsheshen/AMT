@@ -27,6 +27,9 @@ public class ReviewExamListDao extends BaseDataDao {
     public static final String NUM = "NUM";
     public static final String DATE = "DATE";
     public static final String SCORE = "SCORE";
+    public static final String REVIEW_ID = "REVIEW_ID";
+
+
 
     public static ReviewExamListDao getInstance(Context context) {
         if (instance == null)

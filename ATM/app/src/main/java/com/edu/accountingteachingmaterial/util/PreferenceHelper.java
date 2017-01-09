@@ -46,6 +46,12 @@ public class PreferenceHelper {
      */
     public static final String CHAPTER_ID = "CHAPTER_ID";
     /**
+     * REVIEW id
+     */
+    public static final String REVIEW_ID = "REVIEW_ID";
+
+
+    /**
      * 保存记录是否第一次进入某个页面的key
      */
     private static final String PREFERENCE_ISFIRSTTIME_KEY = "is_first_time";

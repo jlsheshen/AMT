@@ -167,12 +167,13 @@ public class SubjectBillDataDao extends BaseDataDao {
 		Cursor curs = db.rawQuery(sql, null);
 		int id = 0;
 		try {
-			boolean a = (curs != null);
-			boolean b = (curs.moveToNext());
-			int iddd = curs.getInt(0);
+//			boolean a = (curs != null);
+//			boolean b = (curs.moveToNext());
+//			int iddd = curs.getInt(0);
+//			String sub  = JSONObject.toJSONString(subject);
+//			boolean c = (curs.getInt(0) > 0);
 			String sub  = JSONObject.toJSONString(subject);
-			boolean c = (curs.getInt(0) > 0);
-			Log.d(TAG, ("--" + a + "--" + b + "--" + c + "----" + sub));
+			Log.d(TAG, ("--" + sql +  "----" + sub));
 
 			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
 				String question = JSON.parseObject(subject.getQuestion()).getString("text");
@@ -190,7 +191,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 				if (id < 0) {
 					ToastUtil.showToast(mContext, "题目格式出错：" + subject);
 				}
-				Log.d(TAG, "insert:" + id + "," + values);
+				Log.d(TAG, "insert:" + id + "------------------" + values);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

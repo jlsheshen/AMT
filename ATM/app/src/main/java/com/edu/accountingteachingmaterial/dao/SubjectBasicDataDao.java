@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 import com.edu.subject.data.SubjectData;
 import com.edu.library.data.BaseDataDao;
@@ -94,7 +95,14 @@ public class SubjectBasicDataDao extends BaseDataDao {
 		Cursor curs = db.rawQuery(sql, null);
 		int id = 0;
 		try {
-			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
+			boolean a = (curs != null);
+			boolean b = (curs.moveToNext());
+			int iddd = curs.getInt(curs.getColumnIndex("ID"));
+			boolean c = (curs.getColumnIndex("ID")) > 0;
+			String sub  = JSONObject.toJSONString(subject);
+			Log.d(TAG, sub + "----" +sql );
+			if (!(a && b && c)) {
+//			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
 				String option = JSON.parseObject(subject.getOption()).getString("text");
 				String question = JSON.parseObject(subject.getQuestion()).getString("text");
 				String analysis = "" + JSON.parseObject( subject.getAnalysis());
@@ -114,7 +122,7 @@ public class SubjectBasicDataDao extends BaseDataDao {
 				}
 				Log.d(TAG, "insert:" + id + "," + values);
 			}else {
-				id = curs.getInt(0);
+				id = curs.getInt(curs.getColumnIndex("ID"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

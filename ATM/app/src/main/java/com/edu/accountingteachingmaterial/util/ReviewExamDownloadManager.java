@@ -78,26 +78,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
     public void onConnectionSuccess(JSONObject json, Header[] arg1) {
         Log.d(TAG, "onConnectionSuccess:" + json);
         parseSubjectJson(json);
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_UNDONE);
 
-        contentValues.put(ReviewExamListDao.TYPE, 1);
-        contentValues.put(ReviewExamListDao.CHAPTER_ID, chatperId);
-//       contentValues.put(ReviewExamListDao.ID, chatperId);
-        contentValues.put(ReviewExamListDao.TITLE, "会计立体化测试");
-        contentValues.put(ReviewExamListDao.NUM, subjectNumber);
-        SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String date = sDateFormat.format(new java.util.Date());
-        contentValues.put(ReviewExamListDao.DATE, date);
-//        contentValues.put(ReviewExamListDao.SCORE,"100");
-        reviewId =  ReviewExamListDao.getInstance(mContext).insertDataGetId(contentValues);
-//        //跳转到答题界面
-//        Intent intent  = new Intent(mContext,SubjectReViewActivity.class);
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("chapterId",reviewId);
-//        intent.putExtras(bundle);
-//        mContext.startActivity(intent);
-//
         EventBus.getDefault().post(ClassContstant.DOWNLOAD_TYPE);
     }
 
@@ -127,6 +108,19 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
         boolean result = json.getBoolean("result");
         String message = json.getString("message");
         if (result) {
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_UNDONE);
+
+            contentValues.put(ReviewExamListDao.TYPE, 1);
+            contentValues.put(ReviewExamListDao.CHAPTER_ID, chatperId);
+            String review = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.REVIEW_ID);
+            contentValues.put(ReviewExamListDao.REVIEW_ID, review);
+            contentValues.put(ReviewExamListDao.TITLE, "会计立体化测试");
+            contentValues.put(ReviewExamListDao.NUM, subjectNumber);
+            SimpleDateFormat sDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = sDateFormat.format(new java.util.Date());
+            contentValues.put(ReviewExamListDao.DATE, date);
+            reviewId =  ReviewExamListDao.getInstance(mContext).insertDataGetId(contentValues);
             List<SubjectData> subjects = JSON.parseArray(message, SubjectData.class);
             Log.d(TAG, "------" + message + "---");
             saveSubjects(subjects);
@@ -156,7 +150,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
                     int basicId = SubjectBasicDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
 
                     if (basicId > 0) {
-                        ReviewTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), basicId, subject.getChapterId(), db);
+                        ReviewTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), basicId,reviewId, db);
                     }
                     break;
 
@@ -170,7 +164,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
                 case ClassContstant.SUBJECT_BILL:
                     int billId = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
                     if (billId > 0) {
-                        ReviewTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId, subject.getChapterId(), db);
+                        ReviewTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId, reviewId, db);
                     }
 
                     break;
