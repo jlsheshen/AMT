@@ -36,6 +36,11 @@ public class PreferenceHelper {
      * token
      */
     public static final String TOKEN = "TOKEN";
+
+    /**
+     * 自测examid
+     */
+    public static final String EXAM_ID = "EXAM_ID";
     /**
      * 保存记录是否第一次进入某个页面的key
      */
@@ -135,10 +140,7 @@ public class PreferenceHelper {
      * 屏幕宽度
      */
     public static final String SCREEN_WIDTH = "screen_width";
-    /**
-     * 自测examid
-     */
-    public static final String EXAM_ID = "EXAM_ID";
+
     /**
      * 登录状态
      */

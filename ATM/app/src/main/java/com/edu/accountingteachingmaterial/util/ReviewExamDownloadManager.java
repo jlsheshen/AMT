@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
 import com.edu.accountingteachingmaterial.dao.ReviewTestDataDao;
@@ -26,6 +27,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
+
 
 /**
  * 题目下载管理类
@@ -40,6 +43,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
     int reviewId;
 
     public ReviewExamDownloadManager(Context context) {
+        mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
         mContext = context;
     }
 

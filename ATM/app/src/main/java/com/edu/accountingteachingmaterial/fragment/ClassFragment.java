@@ -122,7 +122,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
-                    Log.d("UnitTestActivity", "uploadChapter" + "success" + datas);
+                    Log.d("UnitTestActivity", "uploadChapter" + "success" + jsonObject.getString("message"));
                     chapterExLvAdapter.setDatas(datas);
                 }
             }

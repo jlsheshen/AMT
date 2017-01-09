@@ -17,7 +17,6 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
-import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.ReviewExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
@@ -222,10 +221,10 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 
         if (state == ClassContstant.UPLOAD_TYPE) {
             //下载试题
-            examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
-            Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus---" + examId+ "---" +totalNum );
+//            examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
+            Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus---" + chapterId+ "---" +totalNum );
 
-            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + examId, Integer.parseInt(examId.trim()),totalNum);
+            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId,totalNum);
 
 
         } else if (state == ClassContstant.DOWNLOAD_TYPE) {
