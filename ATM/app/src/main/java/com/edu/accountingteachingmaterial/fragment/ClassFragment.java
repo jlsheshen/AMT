@@ -88,6 +88,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener,
                 bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
                 bundle.putInt("ChapterId", datas.get(groupPosition).getId());
                 startActivity(ClassDetailActivity.class, bundle);
+
                 // TODO Auto-generated method stub
                 return false;
             }

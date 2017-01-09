@@ -224,11 +224,11 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
 //            examId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.EXAM_ID);
             Log.d("ClassReviewFragment", "ClassReviewFragment------路过EventBus---" + chapterId+ "---" +totalNum );
 
-            ReviewExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId,totalNum);
+            ReviewExamDownloadManager.getInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + chapterId, chapterId,totalNum);
 
 
         } else if (state == ClassContstant.DOWNLOAD_TYPE) {
-           int reviewId =  ReviewExamDownloadManager.newInstance(context).getReviewId();
+           int reviewId =  ReviewExamDownloadManager.getInstance(context).getReviewId();
             //跳转到答题界面
             Bundle bundle = new Bundle();
             bundle.putInt("chapterId", reviewId);

@@ -41,6 +41,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
     private int chatperId;
     int subjectNumber;
     int reviewId;
+    public static ReviewExamDownloadManager intance;
 
     public ReviewExamDownloadManager(Context context) {
         mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
@@ -53,8 +54,11 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
      * @param context
      * @return
      */
-    public static ReviewExamDownloadManager newInstance(Context context) {
-        return new ReviewExamDownloadManager(context);
+    public static ReviewExamDownloadManager getInstance(Context context) {
+        if (intance == null){
+            intance  = new ReviewExamDownloadManager(context);
+        }
+        return intance;
     }
 
     /**
@@ -98,6 +102,7 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
     }
 
     public int getReviewId() {
+        //intance = null;
         return reviewId;
     }
 

@@ -38,9 +38,13 @@ public class PreferenceHelper {
     public static final String TOKEN = "TOKEN";
 
     /**
-     * 自测examid
+     * examid
      */
     public static final String EXAM_ID = "EXAM_ID";
+    /**
+     * 章id
+     */
+    public static final String CHAPTER_ID = "CHAPTER_ID";
     /**
      * 保存记录是否第一次进入某个页面的key
      */
