@@ -120,9 +120,28 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ly_null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_challeng_time_ly"
+            android:layout_marginLeft="80px"
+            android:layout_marginTop="5px"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ly_null"
             android:layout_marginLeft="80px"
             android:layout_marginTop="5px"
             android:orientation="horizontal"
@@ -310,9 +329,38 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/item_form_ly"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_short_ly"
+            android:layout_marginLeft="60px"
+            android:layout_marginTop="5px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:text="表格题："
+                android:textColor="@color/colorTestInfo"
+                android:textSize="@dimen/content_text_size" />
+
+            <TextView
+                android:id="@+id/form_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15px"
+                android:text=""
+                android:textColor="@color/colorBlueBackground"
+                android:textSize="@dimen/content_text_size" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_form_ly"
             android:layout_marginLeft="60px"
             android:layout_marginTop="5px"
             android:orientation="horizontal">
