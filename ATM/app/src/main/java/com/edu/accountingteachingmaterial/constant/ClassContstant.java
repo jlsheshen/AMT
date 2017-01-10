@@ -124,4 +124,11 @@ public final class ClassContstant {
     public static final String S_SHORTIN = "简答题";
     public static final String S_COMPREHENSIVE = "综合题";
     public static final String S_FORM = "表格题";
+    public static final int SUB_SINGLE = 1;
+    public static final int SUB_MULTI = 2;
+    public static final int SUB_JUDGE = 3;
+    public static final int SUB_FILLIN = 4;
+    public static final int SUB_SHORTIN = 5;
+    public static final int SUB_COMPREHENSIVE = 6;
+    public static final int SUB_FORM = 22;
 }

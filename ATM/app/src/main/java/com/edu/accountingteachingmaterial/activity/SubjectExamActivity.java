@@ -49,7 +49,7 @@ import java.util.List;
  * 在线考试答题界面
  */
 
-public class SubjectExamActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, CountryTestTimer.OnTimeOutListener,ResultsListener {
+public class SubjectExamActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, CountryTestTimer.OnTimeOutListener, ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
@@ -71,7 +71,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     ExitDialog exitDialog;// 退出提示框
     // 页面相关状态的监听
     private CountryTestTimer timer;
-    int totalTime = 60;
+    int totalTime;
     private TextView tvTime;
     private ViewPager.OnPageChangeListener mPageChangeListener = new ViewPager.OnPageChangeListener() {
 
@@ -115,6 +115,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         Bundle bundle = getIntent().getExtras();
         examId = bundle.getInt("examId");
         textMode = bundle.getInt("textMode");
+        totalTime = bundle.getInt("totalTime");
 
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
 

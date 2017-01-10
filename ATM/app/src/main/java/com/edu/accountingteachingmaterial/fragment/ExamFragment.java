@@ -91,7 +91,6 @@ public class ExamFragment extends BaseFragment {
     }
 
 
-
     private void uploadExamList() {
         Log.d("ClassExerciseFragment", NetUrlContstant.getExamInfoUrlList() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID));
 
@@ -116,6 +115,8 @@ public class ExamFragment extends BaseFragment {
                             contentValues.put(ExamOnLineListDao.USER_ID, data.getU_id());
                             ExamOnLineListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
+                        } else if (data.getIs_read() == 1) {//判断试卷是否已批阅
+                            data.setState(ClassContstant.EXAM_READ);
                         } else {
                             data.setState(data1.getState());
                         }
@@ -132,6 +133,7 @@ public class ExamFragment extends BaseFragment {
             }
         });
     }
+
     /**
      * 根据发来的状态,来刷新列表
      *

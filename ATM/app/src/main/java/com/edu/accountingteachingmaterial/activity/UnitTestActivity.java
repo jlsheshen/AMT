@@ -32,7 +32,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     ImageView imgBack, imgShow;
     TextView testTitle, tvPublisher, tvReleaseTime, tvScore, tvSubmittingTime,
             tvUsedTime, tvStartTime, tvEndTime, tvChallengeTime,
-            tvSingle, tvMultiple, tvJudge, tvFillIn, tvShort, tvComprehensive, tvTotal;
+            tvSingle, tvMultiple, tvJudge, tvFillIn, tvShort, tvComprehensive, tvForm, tvTotal;
     Button btnStart;
     LinearLayout rlScore, rlSubmitting, rlAnswerData;
     TestPaperListData testPaperListData;
@@ -66,6 +66,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         tvFillIn = bindView(R.id.fill_in_tv);
         tvShort = bindView(R.id.short_tv);
         tvComprehensive = bindView(R.id.comprehensive_tv);
+        tvForm = bindView(R.id.form_tv);
         tvTotal = bindView(R.id.total_tv);
         rlScore = bindView(R.id.ly_score);
         rlSubmitting = bindView(R.id.item_submitting_ly);
@@ -109,11 +110,11 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putInt("examId", examId);
                     bundle.putInt("textMode", textMode);
+                    bundle.putInt("totalTime", Integer.parseInt(testPaperListData.getLast_time().toString()));
                     startActivity(SubjectExamActivity.class, bundle);
                 }
+
                 break;
-
-
         }
     }
 
@@ -152,20 +153,22 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //设置显示测验信息，试题信息
     private void refreshView() {
-        int single = 0, multiple = 0, judge = 0, fillin = 0, shortin = 0, comprehensive = 0;
+        int single = 0, multiple = 0, judge = 0, fillin = 0, shortin = 0, comprehensive = 0, form = 0;
         for (int i = 0; i < topicsBeen.size(); i++) {
-            if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_SINGLE_CHOSE) {
+            if (topicsBeen.get(i).getType() == ClassContstant.SUB_SINGLE) {
                 single += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_MULITI_CHOSE) {
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_MULTI) {
                 multiple += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUBJECT_JUDGE) {
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_JUDGE) {
                 judge += 1;
-            } else if (topicsBeen.get(i).getType() == 4) {
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FILLIN) {
                 fillin += 1;
-            } else if (topicsBeen.get(i).getType() == 5) {
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_SHORTIN) {
                 shortin += 1;
-            } else if (topicsBeen.get(i).getType() == 6) {
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_COMPREHENSIVE) {
                 comprehensive += 1;
+            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FORM) {
+                form += 1;
             }
 
         }
@@ -181,6 +184,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         tvFillIn.setText(fillin + "道");
         tvShort.setText(shortin + "道");
         tvComprehensive.setText(comprehensive + "道");
+        tvForm.setText(form + "道");
         tvTotal.setText(topicsBeen.size() + "道");
     }
 
@@ -211,9 +215,9 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
             rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.VISIBLE);
-//            tvScore.setText(testPaperListData.getScore() + "");
-//            tvSubmittingTime.setText(testPaperListData.getEnd_time() + "");
-//            tvUsedTime.setText("");
+            tvScore.setText(testPaperListData.getScore() + "");
+            tvSubmittingTime.setText(testPaperListData.getEnd_time() + "");
+            tvUsedTime.setText("");
             //查看答案
             btnStart.setBackgroundResource(R.drawable.selector_check_answer);
             textMode = ClassContstant.TEST_MODE_TEST;
