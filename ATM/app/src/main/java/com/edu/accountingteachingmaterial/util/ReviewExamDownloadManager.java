@@ -162,7 +162,11 @@ public class ReviewExamDownloadManager extends JsonNetReqManager {
                     break;
 
                 case ClassContstant.SUBJECT_BILL:
+
                     int billId = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
+                    if (subject.getTemplateId().length()>3) {
+                        subject.setSubjectType(ClassContstant.SUBJECT_GROUP_BILL);
+                    }
                     if (billId > 0) {
                         ReviewTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId, reviewId, db);
                     }

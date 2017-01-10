@@ -68,7 +68,7 @@ public class LoginNetMananger extends JsonNetReqManager {
         studentPassword = passWord;
         String url = NetUrlContstant.getLoginUrl() + "username="  + number + "&password=" + passWord + "&rememberme=1";
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, url);
-        sendRequest(entity, "登陆中");
+        sendRequest(entity);
         Log.d(TAG, "url");
         loginListener = listener;
 

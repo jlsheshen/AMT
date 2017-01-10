@@ -45,6 +45,9 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * 在线考试答题界面
+ */
 
 public class SubjectExamActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, CountryTestTimer.OnTimeOutListener,ResultsListener {
 
@@ -308,8 +311,6 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     @Override
     public void onRedoClicked() {
         mCardDialog.dismiss();
-        mSubjectAdapter.reset();
-        ToastUtil.showToast(this, "全部重做操作完成");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

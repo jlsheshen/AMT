@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.edu.library.timer.EduBaseTimer;
 
 /**
- * 乡试考试答题界面用的timer
+ * 在线考试答题界面用的timer
  *
  * @author lucher
  */
@@ -20,7 +20,7 @@ public class CountryTestTimer extends EduBaseTimer {
     // 计时器监听
     private OnTimeOutListener mListener;
 
-    //	private Context mContext;
+
     public CountryTestTimer(long countDownInterval) {
         super(countDownInterval);
     }
@@ -28,7 +28,6 @@ public class CountryTestTimer extends EduBaseTimer {
     public CountryTestTimer(TextView tvTimer, long countDownInterval, long totalTime, Context context) {
         super(countDownInterval, totalTime);
         this.tvTimer = tvTimer;
-//		mContext=context;
         updataTime();
     }
 
@@ -48,7 +47,6 @@ public class CountryTestTimer extends EduBaseTimer {
         long hour = (totalTimeLeft / 1000) / 60 / 60;
         long minute = (totalTimeLeft / 1000) / 60 - hour * 60;
         long second = totalTimeLeft / 1000 - minute * 60 - hour * 60 * 60;
-        //tvTimer.setText((minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second);
         tvTimer.setText((hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second);
     }
 
@@ -76,14 +74,12 @@ public class CountryTestTimer extends EduBaseTimer {
     public void setOnTimeOutListener(OnTimeOutListener listener) {
         this.mListener = listener;
     }
-
     /**
      * 计时器计时完成监听
      *
      * @author lucher
      */
     public interface OnTimeOutListener {
-
         /**
          * 时间到
          */

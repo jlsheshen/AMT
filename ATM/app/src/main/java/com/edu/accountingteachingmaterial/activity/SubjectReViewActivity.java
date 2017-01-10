@@ -285,8 +285,6 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
     @Override
     public void onRedoClicked() {
         mCardDialog.dismiss();
-        mSubjectAdapter.reset();
-        ToastUtil.showToast(this, "全部重做操作完成");
     }
 
 

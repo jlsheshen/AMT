@@ -282,8 +282,6 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
     @Override
     public void onRedoClicked() {
         mCardDialog.dismiss();
-        mSubjectAdapter.reset();
-        ToastUtil.showToast(this, "全部重做操作完成");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

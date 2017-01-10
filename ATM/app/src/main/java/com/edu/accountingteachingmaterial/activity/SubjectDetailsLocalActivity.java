@@ -31,11 +31,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 
- * 测试示例
- * 
+ * 本地查看答案
  * @author lucher
- * 
  */
 public class SubjectDetailsLocalActivity extends FragmentActivity implements OnItemClickListener, OnCardItemClickListener {
 
@@ -45,7 +42,6 @@ public class SubjectDetailsLocalActivity extends FragmentActivity implements OnI
 	List<BaseTestData> datas;
 	private int mCurrentIndex;
 	private ImageView backIv;
-//	private TextView tvBillQuestion;
 
 	// 印章选择对话框
 	private SignChooseDialog signDialog;
@@ -219,5 +215,6 @@ public class SubjectDetailsLocalActivity extends FragmentActivity implements OnI
 
 	@Override
 	public void onRedoClicked() {
+		mCardDialog.dismiss();
 	}
 }

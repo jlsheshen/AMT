@@ -95,12 +95,10 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initData() {
         reviewHisAdapter = new ReviewHisAdapter(this);
-//        datas = ReviewExamListDao.getInstance(this).getDataByChatper(chapterId);
 
         loadData();
         listView.setAdapter(reviewHisAdapter);
         reviewHisAdapter.setDatas(datas);
-//        reviewHisAdapter.setClickShow();
         reviewHisAdapter.setChecked(new ReviewHisAdapter.OnCheckedListener() {
             @Override
             public void onCheckeBoxChecked() {
@@ -123,9 +121,9 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
     }
 
     private void loadData() {
-//        int examid = PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.EXAM_ID);
-//        datas = (List<ReviewHisListBean>) ReviewExamListDao.getInstance(this).getDataByChatper();
-        datas = (List<ReviewHisListBean>) ReviewExamListDao.getInstance(this).getAllDatas();
+        Bundle bundle = getIntent().getExtras();
+        chapterId = bundle.getInt("chapterId");
+        datas = (List<ReviewHisListBean>) ReviewExamListDao.getInstance(this).getDataByChatper(chapterId);
     }
 
     /**
@@ -157,18 +155,13 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.bolw_bar_delete_tv:
-//                deteleData();
-//                reviewHisAdapter.setDatas(datas);
-
                 showDeteleDialog();
-
                 break;
             case R.id.blow_bar_allchecked_tv:
                 reviewHisAdapter.setAllchecked();
                 break;
             default:
                 break;
-
         }
     }
 
@@ -199,7 +192,6 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onOkClicked() {
                 deteleData();
-
             }
 
             @Override

@@ -60,6 +60,13 @@ public final class ClassContstant {
     //未做
     public static final int ANSWER_NODONE = 3;
 
+    /**
+     * 跳轉傳值
+     */
+    public static final String SUBJECT_EXAM_ID = "SUBJECT_EXAM_ID";
+
+    public static final String SUBJECT_DIALOG_ID = "SUBJECT_DIALOG_ID";
+
 
     //题型
     //单选

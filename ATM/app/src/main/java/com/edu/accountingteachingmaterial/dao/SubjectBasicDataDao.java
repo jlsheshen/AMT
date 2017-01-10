@@ -10,9 +10,9 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
-import com.edu.subject.data.SubjectData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.util.ToastUtil;
+import com.edu.subject.data.SubjectData;
 
 import static com.edu.accountingteachingmaterial.dao.SubjectTestDataDao.FLAG;
 
@@ -95,14 +95,14 @@ public class SubjectBasicDataDao extends BaseDataDao {
 		Cursor curs = db.rawQuery(sql, null);
 		int id = 0;
 		try {
-			boolean a = (curs != null);
-			int iddd = curs.getInt(0);
-			boolean b = (curs.moveToNext());
-			boolean c = (curs.getInt(0)) > 0;
+//			boolean a = (curs != null);
+//			int iddd = curs.getInt(0);
+//			boolean b = (curs.moveToNext());
+//			boolean c = (curs.getInt(0)) > 0;
 			String sub  = JSONObject.toJSONString(subject);
-			Log.d(TAG, sub + "----" +sql  + "----" + iddd);
-			if (!(a && b && c)) {
-//			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
+			Log.d(TAG, sub + "----" +sql  + "----");
+//			if (!(a && b && c)) {
+			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
 				String option = JSON.parseObject(subject.getOption()).getString("text");
 				String question = JSON.parseObject(subject.getQuestion()).getString("text");
 				String analysis = "" + JSON.parseObject( subject.getAnalysis());
@@ -122,7 +122,11 @@ public class SubjectBasicDataDao extends BaseDataDao {
 				}
 				Log.d(TAG, "insert:" + id + "," + values);
 			}else {
-				id = curs.getInt(0);
+				Cursor cursor = db.rawQuery("select * from " +TABLE_NAME +" where flag = "  + subject.getFlag(),null);
+				while (cursor.moveToNext()) {
+					id = cursor.getInt(cursor.getColumnIndex(ID));
+				}
+				cursor.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -162,37 +162,4 @@ public class ExamFragment extends BaseFragment {
         super.onDestroy();
     }
 
-    //    private void loadData() {
-//        datas = new ArrayList<>();
-//        for (int i = 1; i < examListDatas.size(); i++) {
-//            ExamBean examBean = new ExamBean();
-//            examBean.setId(examListDatas.get(i).getId());
-//            examBean.setExmaStatus(examListDatas.get(i).getState());
-//            examBean.setTitle(examListDatas.get(i).getExam_name());
-//            examBean.setTime(examListDatas.get(i).getCreate_date());
-//            examBean.setPublisher("李有才");
-//            examBean.setItemNumber((long) examListDatas.get(i).getTopic_num());
-//            examBean.setStartTime(examListDatas.get(i).getStart_time() + "");
-//            examBean.setDuration(60);
-//            datas.add(examBean);
-//        }
-//        examAdapter.setDatas(datas);
-//    }
-//    private void loadData() {
-//        datas = new ArrayList<>();
-//        for (int i = 1; i < datas.size(); i++) {
-//            ExamBean examBean = new ExamBean();
-//            examBean.setId(examListDatas.get(i).getId());
-//            examBean.setExmaStatus(examListDatas.get(i).getState());
-//            examBean.setTitle(examListDatas.get(i).getExam_name());
-//            examBean.setTime(examListDatas.get(i).getCreate_date());
-//            examBean.setPublisher("李有才");
-//            examBean.setItemNumber((long) examListDatas.get(i).getTopic_num());
-//            examBean.setStartTime(examListDatas.get(i).getStart_time() + "");
-//            examBean.setDuration(60);
-//            datas.add(examBean);
-//        }
-//        examAdapter.setDatas(datas);
-
-//    }
 }

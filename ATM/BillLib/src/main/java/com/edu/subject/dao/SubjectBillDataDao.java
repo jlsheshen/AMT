@@ -176,6 +176,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 			Log.d(TAG, ("--" + sql +  "----" + sub));
 
 			if (!(curs != null && curs.moveToNext() && curs.getInt(0) > 0)) {
+//			if (!(curs != null && curs.moveToNext())) {
 				String question = JSON.parseObject(subject.getQuestion()).getString("text");
 				ContentValues values = new ContentValues();
 				values.put("CHAPTER_ID", subject.getChapterId());
@@ -192,6 +193,12 @@ public class SubjectBillDataDao extends BaseDataDao {
 					ToastUtil.showToast(mContext, "题目格式出错：" + subject);
 				}
 				Log.d(TAG, "insert:" + id + "------------------" + values);
+			}else {
+				Cursor cursor = db.rawQuery("select * from " +TABLE_NAME +" where flag = "  + subject.getFlag(),null);
+				while (cursor.moveToNext()) {
+					id = cursor.getInt(cursor.getColumnIndex(ID));
+				}
+				cursor.close();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
