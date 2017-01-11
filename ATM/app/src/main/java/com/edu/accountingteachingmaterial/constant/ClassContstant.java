@@ -61,11 +61,18 @@ public final class ClassContstant {
     public static final int ANSWER_NODONE = 3;
 
     /**
+     * 考试页面
      * 跳轉傳值
      */
     public static final String SUBJECT_EXAM_ID = "SUBJECT_EXAM_ID";
 
-    public static final String SUBJECT_DIALOG_ID = "SUBJECT_DIALOG_ID";
+    public static final String SUBJECT_DETAIL_ID = "SUBJECT_DETAIL_ID";
+
+    /**
+     * 自测页面跳转传值
+     */
+    public static final String SUBJECT_REVIEW_ID = "SUBJECT_REVIEW_ID";
+
 
 
     //题型

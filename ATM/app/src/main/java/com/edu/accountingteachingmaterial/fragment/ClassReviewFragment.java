@@ -232,7 +232,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
            int reviewId =  ReviewExamDownloadManager.getInstance(context).getReviewId();
             //跳转到答题界面
             Bundle bundle = new Bundle();
-            bundle.putInt("chapterId", reviewId);
+            bundle.putInt(ClassContstant.SUBJECT_REVIEW_ID, reviewId);
             Log.d("ClassReviewFragment", "reviewId:" + reviewId);
             startActivity(SubjectReViewActivity.class, bundle);
         }
@@ -357,6 +357,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             addAndSubTestView6.refresh(reviewTopicData.getEasy().getComp() + reviewTopicData.getHard().getComp());
             addAndSubTestView7.refresh(reviewTopicData.getEasy().getTable() + reviewTopicData.getHard().getTable());
         } else if (cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
+
             addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne() + reviewTopicData.getEasy().getOne() + reviewTopicData.getHard().getOne());
             addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti() + reviewTopicData.getEasy().getMulti() + reviewTopicData.getHard().getMulti());
             addAndSubTestView3.refresh(reviewTopicData.getOrdinary().getJudge() + reviewTopicData.getEasy().getJudge() + reviewTopicData.getHard().getJudge());

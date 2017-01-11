@@ -162,10 +162,10 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
 //               showCorrectAnswer(state == SubjectState.STATE_CORRECT);
 //                tvSubjectType.setVisibility(View.GONE);
-                disableOption();
+//                disableOption();
             } else {// 未完成或是尚未做
                 // btnSend.setVisibility(View.GONE);
-                btnSubmit.setVisibility(View.VISIBLE);
+//                btnSubmit.setVisibility(View.VISIBLE);
             }
         }  else if(testMode == TEST_MODE_TEST){
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
@@ -262,8 +262,8 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
 
     @Override
     public float submit() {
-        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
-        disableOption();
+//        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
+//        disableOption();
         return 0;
     }
 
@@ -282,7 +282,7 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
         }
         tvAnswer.setVisibility(View.GONE);
         tvAnalysis.setVisibility(View.GONE);
-        btnSubmit.setVisibility(View.VISIBLE);
+//        btnSubmit.setVisibility(View.VISIBLE);
         mTestData.setRemark("0");
 //		mTestData.setSendState(0);
         mTestData.setState(SubjectState.STATE_INIT);
@@ -301,9 +301,6 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.layout_parent:
-                handler.removeMessages(0);
-                break;
-            case R.id.btn_submit:
                 String answer = getUserAnswer();
 
                 if (answer.equals("")) {
@@ -312,6 +309,16 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
                 handleOnClick(answer);
                 handler.removeMessages(0);
                 handler.sendEmptyMessageDelayed(0, 300);
+                break;
+            case R.id.btn_submit:
+//                String answer = getUserAnswer();
+//
+//                if (answer.equals("")) {
+//                    answer = "-1";
+//                }
+//                handleOnClick(answer);
+//                handler.removeMessages(0);
+//                handler.sendEmptyMessageDelayed(0, 300);
                 // btnSend.setVisibility(View.VISIBLE);
                 break;
             default:

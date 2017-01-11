@@ -257,7 +257,7 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 	@Override
 	public float submit() {
 		if (inited) {
-			showSwitch(true);
+//		showSwitch(true);
 			return billView.submit();
 		} else {
 			return mData.getuScore();

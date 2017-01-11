@@ -117,11 +117,11 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 //		btnReturn.setVisibility(View.GONE);
         Bundle bundle = getIntent().getExtras();
 //        ExamListData data = (ExamListData) bundle.get("ExamListData");
-        int dataId = bundle.getInt(ClassContstant.SUBJECT_DIALOG_ID);
+        int dataId = bundle.getInt(ClassContstant.SUBJECT_DETAIL_ID);
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, dataId);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
-        mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
+        mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
         viewPager.setAdapter(mSubjectAdapter);
 
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());

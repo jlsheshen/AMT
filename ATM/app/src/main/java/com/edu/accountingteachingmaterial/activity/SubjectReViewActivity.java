@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
+import com.edu.accountingteachingmaterial.adapter.ReviewSubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
@@ -48,7 +48,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
-    private SubjectViewPagerAdapter mSubjectAdapter;
+    private ReviewSubjectViewPagerAdapter mSubjectAdapter;
     int dataId;
 
     private int mCurrentIndex;
@@ -104,13 +104,13 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 
         Bundle bundle = getIntent().getExtras();
-        chapterId = bundle.getInt("chapterId");
+        chapterId = bundle.getInt(ClassContstant.SUBJECT_REVIEW_ID);
         datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
-        mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
+        mSubjectAdapter = new ReviewSubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_NORMAL);
 
         viewPager.setAdapter(mSubjectAdapter);

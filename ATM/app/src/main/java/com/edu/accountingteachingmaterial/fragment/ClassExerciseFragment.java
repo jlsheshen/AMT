@@ -38,7 +38,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import static com.edu.accountingteachingmaterial.constant.ClassContstant.SUBJECT_DIALOG_ID;
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.SUBJECT_DETAIL_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.EXAM_ID;
 
 /**
@@ -108,10 +108,10 @@ public class ClassExerciseFragment extends BaseFragment {
 //                    } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
 //                    }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt(SUBJECT_DIALOG_ID,datas.get(i).getId());
+                    b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
-                    b.putInt(SUBJECT_DIALOG_ID,datas.get(i).getId());
+                    b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
 
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {

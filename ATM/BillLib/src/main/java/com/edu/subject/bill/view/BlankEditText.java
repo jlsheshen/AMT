@@ -107,12 +107,12 @@ public class BlankEditText extends EditText implements IScaleable {
 			showUAnswer(true);
 		} else if (mTestMode == TestMode.MODE_PRACTICE) {// 练习
 			// 状态初始化
-			if (mState == SubjectState.STATE_CORRECT || mState == SubjectState.STATE_WRONG) {
-				judgeAnswer();
+//			if (mState == SubjectState.STATE_CORRECT || mState == SubjectState.STATE_WRONG) {
+//				judgeAnswer();
+//				showUAnswer(true);
+//			} else {
 				showUAnswer(true);
-			} else {
-				showUAnswer(true);
-			}
+//			}
 		} else if (mTestMode == TestMode.MODE_EXAM) {// 测试模式
 			showUAnswer(true);
 		}

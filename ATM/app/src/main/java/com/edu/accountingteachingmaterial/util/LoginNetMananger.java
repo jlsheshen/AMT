@@ -68,8 +68,9 @@ public class LoginNetMananger extends JsonNetReqManager {
         studentPassword = passWord;
         String url = NetUrlContstant.getLoginUrl() + "username="  + number + "&password=" + passWord + "&rememberme=1";
         NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, url);
-        sendRequest(entity);
         Log.d(TAG, "url");
+
+        sendRequest(entity);
         loginListener = listener;
 
     }
@@ -135,14 +136,11 @@ public class LoginNetMananger extends JsonNetReqManager {
                     PreferenceHelper.getInstance(context).setIntValue(COURSE_ID, data.getCourse_id());
                     GetBillTemplatesManager.newInstance(context).sendLocalTemplates();
                     loginListener.onSuccess();
-
                 }
             }
-
             @Override
             public void onFailure(String errorInfo) {
                 Log.d(TAG, "登陆后验证失败" +errorInfo );
-
                 loginListener.onFailure(errorInfo);
 
             }

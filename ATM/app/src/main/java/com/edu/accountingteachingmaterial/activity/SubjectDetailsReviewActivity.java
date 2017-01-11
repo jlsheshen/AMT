@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.dao.ReviewTestDataDao;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
@@ -31,10 +31,10 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * 本地查看答案
+ * 本地自测答案
  * @author lucher
  */
-public class SubjectDetailsLocalActivity extends FragmentActivity implements OnItemClickListener, OnCardItemClickListener {
+public class SubjectDetailsReviewActivity extends FragmentActivity implements OnItemClickListener, OnCardItemClickListener {
 
 	// 显示题目的viewpager控件
 	private UnTouchableViewPager viewPager;
@@ -116,11 +116,11 @@ public class SubjectDetailsLocalActivity extends FragmentActivity implements OnI
 //		btnReturn.setImageResource(R.mipmap.icon_congzuo_n);
 //		btnReturn.setVisibility(View.GONE);
 		Bundle bundle = getIntent().getExtras();
-		int chapterId = bundle.getInt("chapterId");
-		datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
+		int chapterId = bundle.getInt(ClassContstant.SUBJECT_REVIEW_ID);
+		datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
 
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
-		mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
+		mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
 		viewPager.setAdapter(mSubjectAdapter);
 
 		mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());

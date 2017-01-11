@@ -163,7 +163,7 @@ public class TestBillData extends BaseTestData {
 				BlankResult blank = new BlankResult();
 				blank.setIndex(index + 1);
 				blank.setId(template.getId());
-				if (uAnswer == null) {
+				if (uAnswer == null||"".equals(uAnswer)) {
 					blank.setScore(0);
 					blank.setAnswer("null");
 				} else {

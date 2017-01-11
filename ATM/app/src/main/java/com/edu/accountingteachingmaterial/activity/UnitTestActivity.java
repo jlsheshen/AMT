@@ -103,7 +103,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 if (textMode == ClassContstant.TEST_MODE_TEST) {
                     //ExamListData考试数据（测试）
                     Bundle bundle = new Bundle();
-                    bundle.putInt(ClassContstant.SUBJECT_DIALOG_ID, examId);
+                    bundle.putInt(ClassContstant.SUBJECT_DETAIL_ID, examId);
                     startActivity(SubjectDetailsContentActivity.class, bundle);
                 }else {
                     //ExamListData考试数据（测试）

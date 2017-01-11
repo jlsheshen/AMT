@@ -28,7 +28,7 @@ import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MO
  *
  * @author lucher
  */
-public class ErrorSubjectMultiSelectView extends ErrorBaseScrollView implements ISubject, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class ReviewSubjectMultiSelectView extends ReviewBaseScrollView implements ISubject, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     /**
      * 多选题对应的选项，最多有五个选项
@@ -72,7 +72,7 @@ public class ErrorSubjectMultiSelectView extends ErrorBaseScrollView implements 
         }
     };
 
-    public ErrorSubjectMultiSelectView(Context context, BaseTestData data, int testMode) {
+    public ReviewSubjectMultiSelectView(Context context, BaseTestData data, int testMode) {
         super(context, data, testMode);
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.view_subject_multi_select, this);
@@ -262,7 +262,7 @@ public class ErrorSubjectMultiSelectView extends ErrorBaseScrollView implements 
 
     @Override
     public float submit() {
-//        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
+//       showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
 //        disableOption();
         return 0;
     }

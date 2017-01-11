@@ -76,13 +76,13 @@ public class ReviewHistoryActivity extends BaseActivity implements View.OnClickL
                 if (datas.get(position).getState() == ClassContstant.EXAM_COMMIT) {
                     //跳转到答题界面
                     Bundle bundle = new Bundle();
-                    bundle.putInt("chapterId", datas.get(position).getId());
-                    startActivity(SubjectDetailsLocalActivity.class, bundle);
+                    bundle.putInt(ClassContstant.SUBJECT_REVIEW_ID, datas.get(position).getId());
+                    startActivity(SubjectDetailsReviewActivity.class, bundle);
 
                 } else {
                     //跳转到答题界面
                     Bundle bundle = new Bundle();
-                    bundle.putInt("chapterId", datas.get(position).getId());
+                    bundle.putInt(ClassContstant.SUBJECT_REVIEW_ID, datas.get(position).getId());
                     startActivity(SubjectReViewActivity.class, bundle);
                 }
 

@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
+import com.edu.accountingteachingmaterial.dao.ReviewTestDataDao;
 import com.edu.library.common.PreferenceHelper;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
@@ -23,7 +23,7 @@ import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MO
  *
  * @author lucher
  */
-public abstract class ErrorBaseScrollView extends RelativeLayout {
+public abstract class ReviewBaseScrollView extends RelativeLayout {
 
     /**
      * 题目数据保存
@@ -46,11 +46,11 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
      */
     protected int testMode;
 
-    public ErrorBaseScrollView(Context context) {
+    public ReviewBaseScrollView(Context context) {
         super(context);
     }
 
-    public ErrorBaseScrollView(Context context, BaseTestData data, int testMode) {
+    public ReviewBaseScrollView(Context context, BaseTestData data, int testMode) {
         super(context);
         mTestData = data;
         this.testMode = testMode;
@@ -58,11 +58,11 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
 
     }
 
-    public ErrorBaseScrollView(Context context, AttributeSet attrs) {
+    public ReviewBaseScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public ErrorBaseScrollView(Context context, AttributeSet attrs, int defStyle) {
+    public ReviewBaseScrollView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
@@ -77,23 +77,23 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
             mTestData.setState(SubjectState.STATE_CORRECT);
             mTestData.setuScore(mData.getScore());
             contentValues = new ContentValues();
-            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_CORRECT);
-            contentValues.put(ErrorTestDataDao.UANSWER, answer);
-            contentValues.put(ErrorTestDataDao.USCORE, mData.getScore());
-            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-            contentValues.put(ErrorTestDataDao.REMARK, "0");
-            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+            contentValues.put(ReviewTestDataDao.STATE, SubjectState.STATE_CORRECT);
+            contentValues.put(ReviewTestDataDao.UANSWER, answer);
+            contentValues.put(ReviewTestDataDao.USCORE, mData.getScore());
+            contentValues.put(ReviewTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
+            contentValues.put(ReviewTestDataDao.REMARK, "0");
+            ReviewTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
         } else {
             // 2是错误
             mTestData.setState(SubjectState.STATE_WRONG);
             mTestData.setErrorCount(mTestData.getErrorCount() + 1);
             contentValues = new ContentValues();
-            contentValues.put(ErrorTestDataDao.STATE, SubjectState.STATE_WRONG);
-            contentValues.put(ErrorTestDataDao.UANSWER, answer);
-            contentValues.put(ErrorTestDataDao.USCORE, 0);
-            contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-            contentValues.put(ErrorTestDataDao.REMARK, "0");
-            ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+            contentValues.put(ReviewTestDataDao.STATE, SubjectState.STATE_WRONG);
+            contentValues.put(ReviewTestDataDao.UANSWER, answer);
+            contentValues.put(ReviewTestDataDao.USCORE, 0);
+            contentValues.put(ReviewTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
+            contentValues.put(ReviewTestDataDao.REMARK, "0");
+            ReviewTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
 
         }
     }
@@ -172,14 +172,14 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
         // 更新mData里以及数据库里的用户答案
         mTestData.setuAnswer(answer);
         contentValues = new ContentValues();
-        contentValues.put(ErrorTestDataDao.UANSWER, answer);
+        contentValues.put(ReviewTestDataDao.UANSWER, answer);
         if (answer.equals("")) {
             mData.setRemark("0");
         } else {
             mData.setRemark("1");
         }
-        contentValues.put(ErrorTestDataDao.REMARK, mData.getRemark());
-        ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
+        contentValues.put(ReviewTestDataDao.REMARK, mData.getRemark());
+        ReviewTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
     }
 
     public void setSubjectListener(SubjectListener subjectListener) {

@@ -90,7 +90,7 @@
             android:screenOrientation="landscape"
             android:launchMode="singleTask">
         </activity>
-        <activity android:name=".activity.SubjectDetailsLocalActivity"    android:screenOrientation="landscape"
+        <activity android:name=".activity.SubjectDetailsReviewActivity"    android:screenOrientation="landscape"
             android:launchMode="singleTask">
         </activity>
 

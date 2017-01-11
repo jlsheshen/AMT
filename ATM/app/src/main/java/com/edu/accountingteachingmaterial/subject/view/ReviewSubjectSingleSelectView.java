@@ -13,11 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 import com.edu.subject.ISubject;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
-import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_LOOK;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
@@ -28,7 +28,7 @@ import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MO
  *
  * @author lucher
  */
-public class SubjectSingleSelectView extends BaseScrollView implements OnClickListener, ISubject {
+public class ReviewSubjectSingleSelectView extends ReviewBaseScrollView implements OnClickListener, ISubject {
 
 
     /**
@@ -58,7 +58,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
     private Button btnSend;
 
 
-    public SubjectSingleSelectView(Context context, BaseTestData data, int testMode) {
+    public ReviewSubjectSingleSelectView(Context context, BaseTestData data, int testMode) {
         super(context, data, testMode);
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.view_subject_single_select, this);
@@ -74,8 +74,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
      * @param data
      */
     private void init(SubjectBasicData data) {
-        tvSubjectType = (TextView) this.findViewById(R.id.tv_subject_type);
-        tvSubjectType.setOnClickListener(this);
+
 
         layout = (RelativeLayout) this.findViewById(R.id.layout_parent);
         layout.setOnClickListener(this);

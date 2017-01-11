@@ -26,7 +26,7 @@ import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MO
  *
  * @author lucher
  */
-public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubject, View.OnClickListener {
+public class ReviewrSubjectJudgeView extends ReviewBaseScrollView implements ISubject, View.OnClickListener {
 
     /**
      * 问题，正确答案文本控件
@@ -57,7 +57,7 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
         }
     };
 
-    public ErrorSubjectJudgeView(Context context, BaseTestData data, int testMode) {
+    public ReviewrSubjectJudgeView(Context context, BaseTestData data, int testMode) {
         super(context, data, testMode);
         LayoutInflater inflater = LayoutInflater.from(context);
         inflater.inflate(R.layout.view_subject_judge, this);
@@ -219,7 +219,7 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
                 handler.removeMessages(0);
                 break;
             case R.id.rb_A:
-//                rbTrue.setTextColor(getResources().getColor(R.color.blue));
+//                rbTrue.setTextColor(getResources().getColor(R.color.));
 //                rbFalse.setTextColor(Color.BLACK);
                 String answerA = v.getTag().toString();
 

@@ -146,7 +146,7 @@ public class ErrorSubjectSingleSelectView extends ErrorBaseScrollView implements
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {// 已完成 // 用户选择答案后显示正确答案，且不能进行修改
 //                showCorrectAnswer(state == SubjectState.STATE_CORRECT);
 //                tvSubjectType.setVisibility(View.GONE);
-                disableOption();
+//                disableOption();
             }
         } else if (testMode == TEST_MODE_TEST) {
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
@@ -229,8 +229,8 @@ public class ErrorSubjectSingleSelectView extends ErrorBaseScrollView implements
 
     @Override
     public float submit() {
-        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
-        disableOption();
+//        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
+//        disableOption();
         // TODO Auto-generated method stub
         return 0;
     }
