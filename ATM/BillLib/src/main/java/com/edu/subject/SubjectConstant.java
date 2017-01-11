@@ -45,5 +45,5 @@ public class SubjectConstant {
 	/**
 	 * 数据库名字，需要在具体项目中重新赋值
 	 */
-	public static String DATABASE_NAME = "EduBillView.db";
+	public static String DATABASE_NAME = "AccountingTeaching.db";
 }

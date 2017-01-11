@@ -40,6 +40,7 @@
             app:civ_border_width="0dp" />
 
         <TextView
+            android:id="@+id/main_relogin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

@@ -1,12 +1,8 @@
 package com.edu.subject.bill.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Environment;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -37,6 +33,9 @@ import com.edu.subject.bill.view.SignView.DragListener;
 import com.edu.subject.dao.TemplateDataDao;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.TestBillData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 支持缩放，自由滚动，智能滚动等功能的单据视图
@@ -865,8 +864,10 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
      * 保存答案
      */
     public void saveAnswer() {
-        if (mTestData.getState() != SubjectState.STATE_INIT && mTestData.getState() != SubjectState.STATE_UNFINISH)
-            return;
+        if (mTestData.getState() != SubjectState.STATE_INIT && mTestData.getState() != SubjectState.STATE_UNFINISH){
+            //            return;
+
+        }
         mAnswerHandler.save();
     }
 

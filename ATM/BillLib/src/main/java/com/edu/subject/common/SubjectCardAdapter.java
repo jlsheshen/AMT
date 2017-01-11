@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.edu.R;
-import com.edu.library.R.color;
 import com.edu.subject.SubjectState;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
@@ -93,13 +92,13 @@ public class SubjectCardAdapter extends BaseAdapter implements OnClickListener {
                     backgroud = R.mipmap.zuoguo;
                 }
             } else if (testData.getState() == SubjectState.STATE_CORRECT) {
-                if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
+                if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
                     backgroud = R.mipmap.zhengque;
                 } else {
                     backgroud = R.mipmap.zhengque;
                 }
             } else if (testData.getState() == SubjectState.STATE_WRONG) {
-                if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
+                if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
                     backgroud = R.mipmap.cuowu;
                 } else {
                     backgroud = R.mipmap.cuowu;

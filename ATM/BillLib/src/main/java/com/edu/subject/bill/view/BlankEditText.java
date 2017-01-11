@@ -107,12 +107,12 @@ public class BlankEditText extends EditText implements IScaleable {
 			showUAnswer(true);
 		} else if (mTestMode == TestMode.MODE_PRACTICE) {// 练习
 			// 状态初始化
-//			if (mState == SubjectState.STATE_CORRECT || mState == SubjectState.STATE_WRONG) {
+			if (mState == SubjectState.STATE_CORRECT || mState == SubjectState.STATE_WRONG) {
 //				judgeAnswer();
-//				showUAnswer(true);
-//			} else {
 				showUAnswer(true);
-//			}
+			} else {
+				showUAnswer(true);
+			}
 		} else if (mTestMode == TestMode.MODE_EXAM) {// 测试模式
 			showUAnswer(true);
 		}
@@ -422,12 +422,12 @@ public class BlankEditText extends EditText implements IScaleable {
 				setFocusable(true);
 				setBackgroundColor(BG_COLOR_NORMAL);
 			} else {
-				setFocusable(false);
-				if (mData.isRight()) {
-					setBackgroundColor(BG_COLOR_CORRECT);
-				} else {
-					setBackgroundColor(BG_COLOR_ERROR);
-				}
+//				setFocusable(false);
+//				if (mData.isRight()) {
+//					setBackgroundColor(BG_COLOR_CORRECT);
+//				} else {
+//					setBackgroundColor(BG_COLOR_ERROR);
+//				}
 			}
 
 		} else if (mTestMode == TestMode.MODE_SHOW_DETAILS) {// 显示详情模式

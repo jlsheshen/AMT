@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -45,6 +46,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     ClassFragment classFragment;
     DrawerLayout drawerLayout;
     LinearLayout changeIpLy;
+    TextView reLoginTv;
+
 
 
     @Override
@@ -59,6 +62,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
         bindAndListener(examButton, R.id.main_exam_iv);
         bindAndListener(myButton, R.id.main_my_iv);
         bindAndListener(settingButton, R.id.main_setting_iv);
+        bindAndListener(reLoginTv,R.id.main_relogin);
         drawerLayout = bindView(R.id.main_aty_seeting);
         bindAndListener(changeIpLy, R.id.change_ip_ly);
         // TODO Auto-generated method stub
@@ -138,6 +142,11 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 });
                 alertDialog.show();
 
+                break;
+            case R.id.main_relogin:
+
+                startActivity(StartStudyActivity.class);
+                finish();
                 break;
 
         }
