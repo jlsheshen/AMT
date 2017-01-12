@@ -107,6 +107,7 @@ public class ExamFragment extends BaseFragment {
                     Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
                     for (OnLineExamListData data : datas) {
                         OnLineExamListData data1 = (OnLineExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getExam_id());
+                        int state = ExamOnLineListDao.getInstance(context).getState(data.getExam_id());
                         if (data1 == null) {
                             ContentValues contentValues = new ContentValues();
                             contentValues.put(ExamOnLineListDao.ID, data.getExam_id());
@@ -115,9 +116,20 @@ public class ExamFragment extends BaseFragment {
                             contentValues.put(ExamOnLineListDao.USER_ID, data.getU_id());
                             ExamOnLineListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
-                        } else if (data.getIs_read() == 1) {//判断试卷是否已批阅
+                        } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 0 && data.getIs_send() == 1) {//判断试卷是否已批阅
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
+                            ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
+                            data.setState(ClassContstant.EXAM_READ);
+                        } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 1) {//判断试卷是否已批阅
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
+                            ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
                             data.setState(ClassContstant.EXAM_READ);
                         } else {
+                            ContentValues contentValues = new ContentValues();
+                            contentValues.put(ExamOnLineListDao.STATE, data1.getState());
+                            ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
                             data.setState(data1.getState());
                         }
                     }

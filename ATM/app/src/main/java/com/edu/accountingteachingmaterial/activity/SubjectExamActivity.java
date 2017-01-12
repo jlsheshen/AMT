@@ -135,6 +135,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         } else {
             findViewById(R.id.ly_time).setVisibility(View.GONE);
             findViewById(R.id.btnDone).setVisibility(View.INVISIBLE);
+
         }
 
     }
