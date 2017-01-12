@@ -112,7 +112,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
         Bundle bundle = getIntent().getExtras();
         examListData = (ExamListData) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, examListData.getId());
         if (datas == null || datas.size() == 0){
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.ID, examListData.getId());

@@ -298,14 +298,14 @@ public class SubjectTestDataDao extends BaseDataDao {
         data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
         data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
         data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
-        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
-            data.setuAnswer(null);
-            data.setuScore(0);
-            data.setState(SubjectState.STATE_INIT);
-            if (data.getSubjectType() == SubjectType.SUBJECT_BILL) {
-                ((TestBillData) data).setuSigns(null);
-            }
-        } else {
+//        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
+//            data.setuAnswer(null);
+//            data.setuScore(0);
+//            data.setState(SubjectState.STATE_INIT);
+//            if (data.getSubjectType() == SubjectType.SUBJECT_BILL) {
+//                ((TestBillData) data).setuSigns(null);
+//            }
+//        } else {
             data.setuAnswer(curs.getString(curs.getColumnIndex(UANSWER)));
             data.setuScore(curs.getInt(curs.getColumnIndex(USCORE)));
             data.setState(curs.getInt(curs.getColumnIndex(STATE)));
@@ -313,7 +313,7 @@ public class SubjectTestDataDao extends BaseDataDao {
             if (data.getSubjectType() == SubjectType.SUBJECT_BILL) {
                 ((TestBillData) data).setuSigns(curs.getString(curs.getColumnIndex(USIGNS)));
             }
-        }
+//        }
     }
     /**
      * 根据chatperid获取对应数据
@@ -416,8 +416,7 @@ public class SubjectTestDataDao extends BaseDataDao {
             }
             mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
             if (data.getState() == SubjectState.STATE_WRONG){
-
-                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectData().getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
+                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
             }
 
         } catch (Exception e) {
@@ -447,9 +446,11 @@ public class SubjectTestDataDao extends BaseDataDao {
 
                 if (data instanceof TestBillData) {
                     values.put(USIGNS, ((TestBillData) data).getuSigns());
+                } else if (data instanceof TestGroupBillData) {
+                    values.put(USIGNS, ((TestGroupBillData) data).getuSigns());
                 }
                 mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
-                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectData().getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
+                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
 
             }
             mDb.setTransactionSuccessful();

@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.constant;
 
 import static com.edu.subject.BASE_URL.BASE_URL;
+import static com.edu.subject.BASE_URL.TEMP_URL;
 
 /**
  * Created by Administrator on 2016/11/21.
@@ -58,7 +59,7 @@ public class NetUrlContstant {
     public static final String uploadingReviewList = INTERCACE + "course/createPaperForSelfTest/";
 
     public static String getSettingIpUrl() {
-        return BASE_URL + settingIpUrl;
+        return TEMP_URL + settingIpUrl;
     }
 
     public static String getHomeInfoUrl() {

@@ -19,12 +19,10 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
-import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.fragment.ClassFragment;
 import com.edu.accountingteachingmaterial.fragment.ExamFragment;
 import com.edu.accountingteachingmaterial.fragment.MyFragment;
@@ -34,9 +32,8 @@ import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.library.util.DoubleClickExitUtil;
 import com.lucher.net.req.RequestMethod;
 
-import java.util.List;
-
 import static com.edu.subject.BASE_URL.BASE_URL;
+import static com.edu.subject.BASE_URL.TEMP_URL;
 
 public class MainActivity extends BaseActivity implements OnClickListener, DrawerListener {
 
@@ -47,6 +44,8 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     DrawerLayout drawerLayout;
     LinearLayout changeIpLy;
     TextView reLoginTv;
+    AlertDialog alertDialog;
+    int drawerLayoutIsShow = 0;
 
 
 
@@ -110,7 +109,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 break;
             case R.id.change_ip_ly:
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                final AlertDialog alertDialog = builder.create();
+                alertDialog = builder.create();
                 alertDialog.show();
                 final Window window = alertDialog.getWindow();
                 // *** 主要就是在这里实现这种效果的.
@@ -126,11 +125,12 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                         EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                         String s = editText.getText().toString();
                         Log.d("MainActivity", "-------------" + s);
-                        if (s == null&&s.length()<1){
-                            Toast.makeText(MainActivity.this, "请输入IP地址", Toast.LENGTH_SHORT).show();
-                        }else {
-                            showIp(s);
+                        if (s.length()<4){
+                            Toast.makeText(MainActivity.this, "请输入正确IP地址", Toast.LENGTH_SHORT).show();
+                            return;
                         }
+                            showIp(s);
+
                         //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -162,27 +162,34 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 return;
             }
         }
+        if (drawerLayout != null){
+            if (drawerLayoutIsShow == 1) {
+                drawerLayout.closeDrawers();
+                return;
+            }
+        }
         DoubleClickExitUtil.doubleClickExit(this);
     }
 
     private void showIp(String s) {
-        BASE_URL = "http://" + s;
+        TEMP_URL = "http://" + s;
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST,  NetUrlContstant.getHomeInfoUrl() + PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getSettingIpUrl());
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
-                    List<HomepageInformationData> hData = JSON.parseArray(jsonObject.getString("message"), HomepageInformationData.class);
+                    BASE_URL = TEMP_URL;
                     PreferenceHelper.getInstance(MainActivity.this).setStringValue(PreferenceHelper.URL_NAME, BASE_URL);
                     Toast.makeText(MainActivity.this, "Ip设置成功", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+
                 }
             }
 
             @Override
             public void onFailure(String errorInfo) {
-                Log.d("LaunchActivity", "Ip设置失败");
                 Toast.makeText(MainActivity.this, "Ip设置失败", Toast.LENGTH_SHORT).show();
                 Log.d("LaunchActivity", "Ip设置失败" + BASE_URL);
 
@@ -207,11 +214,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     @Override
     public void onDrawerClosed(View arg0) {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        drawerLayoutIsShow = 0;
+
     }
 
     @Override
     public void onDrawerOpened(View arg0) {
-
+        drawerLayoutIsShow = 1;
         // TODO Auto-generated method stub
 
     }

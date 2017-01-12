@@ -11,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.util.ToastUtil;
+import com.edu.subject.BASE_URL;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.SubjectType;
 import com.edu.subject.data.SubjectBillData;
@@ -85,11 +86,10 @@ public class SubjectBillDataDao extends BaseDataDao {
 
 	/**
 	 * 获取题目数据，用于分组单据
-	 * 
-	 * @param subjectId
-	 * @param mDb
-	 * @return
-	 */
+	 * @param id
+	 * @param db
+     * @return
+     */
 	public List<SubjectBillData> getDatas(String id, SQLiteDatabase db) {
 		List<SubjectBillData> datas = null;
 		Cursor curs = null;
@@ -183,7 +183,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 				values.put("FLAG", subject.getFlag());
 				values.put("TEMPLATE_ID", subject.getTemplateId());
 				values.put("QUESTION", question);
-				values.put("PIC", subject.getPic());
+				values.put("PIC", BASE_URL.getBaseImageUrl() + subject.getPic());
 				values.put("LABELS", subject.getLabel());
 				values.put("BLANKS", subject.getAnswer());
 				values.put("SCORE", subject.getScore());

@@ -37,6 +37,7 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_P
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 import static com.edu.subject.BASE_URL.BASE_URL;
+import static com.edu.subject.BASE_URL.TEMP_URL;
 
 /**
  * Created by Administrator on 2016/11/11.
@@ -47,6 +48,7 @@ public class StartStudyActivity extends BaseActivity {
     EditText numEt, passwerEt;
     ImageView bgIv;
     TextView settingIpTv;
+     AlertDialog alertDialog;
     boolean inpassword = false;
     private Context mContext;
     // 需要上传答题结果的所有数据
@@ -128,7 +130,7 @@ public class StartStudyActivity extends BaseActivity {
     private void login() {
          String num = numEt.getText().toString();
          String pw = passwerEt.getText().toString();
-            LoginNetMananger.getSingleton(context).login(num, pw, new LoginNetMananger.loginListener() {
+        LoginNetMananger.getSingleton(context).login(num, pw, new LoginNetMananger.loginListener() {
             @Override
             public void onSuccess() {
                 Log.d("StartStudyActivity", "登陆操作成功");
@@ -144,7 +146,7 @@ public class StartStudyActivity extends BaseActivity {
      */
     private void showIpDialog() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final AlertDialog alertDialog = builder.create();
+        alertDialog = builder.create();
         alertDialog.show();
         final Window window = alertDialog.getWindow();
         window.setBackgroundDrawableResource(android.R.color.transparent);
@@ -159,6 +161,10 @@ public class StartStudyActivity extends BaseActivity {
             public void onClick(View view) {
                 EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                 String s = editText.getText().toString();
+                if (s.length()<4){
+                    Toast.makeText(StartStudyActivity.this, "请输入正确IP地址", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
                 showIp(s);
             }
@@ -178,19 +184,19 @@ public class StartStudyActivity extends BaseActivity {
      * @param s
      */
     private void showIp(String s) {
-        BASE_URL = "http://" + s;
+        TEMP_URL = "http://" + s;
         Log.d("StartStudyActivity", "---------" + NetUrlContstant.getSettingIpUrl());
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getSettingIpUrl());
-        Log.d("StartStudyActivity", "---------" + NetUrlContstant.getSettingIpUrl());
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
+                    BASE_URL = TEMP_URL;
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(URL_NAME, BASE_URL);
-
                     Toast.makeText(StartStudyActivity.this, "Ip设置成功", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
                 }
             }
 
@@ -201,7 +207,6 @@ public class StartStudyActivity extends BaseActivity {
             }
         });
     }
-
 
     //线程类型
     @Subscribe(threadMode = ThreadMode.MAIN)

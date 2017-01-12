@@ -117,7 +117,7 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
 //		btnReturn.setVisibility(View.GONE);
 		Bundle bundle = getIntent().getExtras();
 		int chapterId = bundle.getInt(ClassContstant.SUBJECT_REVIEW_ID);
-		datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
+		datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, chapterId);
 
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
 		mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);

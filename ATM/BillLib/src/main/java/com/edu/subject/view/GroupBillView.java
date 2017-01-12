@@ -227,6 +227,9 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 		StringBuilder signBuilder = new StringBuilder();
 		int index = 0;
 		// 拼接答案，累加分数
+		if (billViews == null) {
+			return;
+		}
 		for (int i = 0; i < billViews.size(); i++) {
 			BillView billView = billViews.get(i);
 			mData.getTestDatas().get(i).getSubjectData().setScore(totalScore);

@@ -27,9 +27,11 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     protected void initView(View view) {
         circleImageView = bindView(R.id.my_head_civ);
         textView = bindView(R.id.my_name_tv);
-        errorButton = bindView(R.id.my_download_rb);
+        errorButton = bindView(R.id.my_error_rb);
         errorButton.setOnClickListener(this);
-        downloadButton = bindView(R.id.my_error_rb);
+       errorButton.setChecked(true);
+//        errorButton.setClickable(true);
+        downloadButton = bindView(R.id.my_download_rb);
         downloadButton.setOnClickListener(this);
 
         // TODO Auto-generated method stub

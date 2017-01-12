@@ -97,9 +97,14 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                 }
             });
         }
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        dismissLayout();
+
+    }
 
     public void setData(){
         if (context == null||adapter == null) {
@@ -147,7 +152,15 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                 i--;
             }
         }
+        dismissLayout();
         adapter.setDatas(datas);
+    }
+    void dismissLayout(){
+        if (datas==null||datas.size()<1){
+            layout.setVisibility(View.GONE);
+            compileTv.setVisibility(View.GONE);
+            layoutShow = false;
+        }
     }
 
     @Override

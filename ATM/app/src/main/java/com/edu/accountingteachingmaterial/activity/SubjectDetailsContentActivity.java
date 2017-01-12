@@ -118,7 +118,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
         Bundle bundle = getIntent().getExtras();
 //        ExamListData data = (ExamListData) bundle.get("ExamListData");
         int dataId = bundle.getInt(ClassContstant.SUBJECT_DETAIL_ID);
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, dataId);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, dataId);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
