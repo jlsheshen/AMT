@@ -167,7 +167,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     private void uploadTestTime() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         Log.d("SubjectExamActivity", "uploadTestTime");
-        String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
+        String useId = PreferenceHelper.getInstance(this).getStringValue(
+                USER_ID);
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + examId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -183,6 +184,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                         bundle.putInt("textMode", textMode);
                         bundle.putInt("totalTime", startExamData.getRemaining());
                         startActivity(SubjectExamActivity.class, bundle);
+                        finish();
                     } else {
                         ToastUtil.showToast(UnitTestActivity.this, "当前考试还没开始，请稍后!");
                         return;
@@ -276,9 +278,4 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        refreshState();
-    }
 }
