@@ -16,6 +16,7 @@ import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
+import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.common.SubjectCardAdapter.OnCardItemClickListener;
@@ -181,6 +182,8 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
         if (mCurrentIndex != 0) {
             mCurrentIndex--;
             viewPager.setCurrentItem(mCurrentIndex, true);
+        } else {
+            ToastUtil.showToast(this, "已经是第一页");
         }
     }
 
@@ -191,6 +194,8 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
         if (mCurrentIndex != mSubjectAdapter.getCount() - 1) {
             mCurrentIndex++;
             viewPager.setCurrentItem(mCurrentIndex, true);
+        } else {
+            ToastUtil.showToast(this, "已经是最后一页");
         }
     }
 
