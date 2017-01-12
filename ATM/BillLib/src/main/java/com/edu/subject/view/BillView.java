@@ -12,6 +12,7 @@ import com.edu.library.util.ToastUtil;
 import com.edu.subject.ISubject;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.SubjectListener;
+import com.edu.subject.SubjectState;
 import com.edu.subject.TestMode;
 import com.edu.subject.bill.element.info.SignInfo;
 import com.edu.subject.bill.listener.BillZoomListener;
@@ -97,8 +98,7 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 		switchAnswer = findViewById(R.id.switchView);
 		btnShowUser.setOnClickListener(this);
 		btnShowRight.setOnClickListener(this);
-		if (mData.getTestMode() == TestMode.MODE_SHOW_DETAILS
-//				|| (mData.getTestMode() == TestMode.MODE_PRACTICE && (mData.getState() == SubjectState.STATE_CORRECT || mData.getState() == SubjectState.STATE_WRONG))
+		if (mData.getTestMode() == TestMode.MODE_SHOW_DETAILS || (mData.getTestMode() == TestMode.MODE_PRACTICE && (mData.getState() == SubjectState.STATE_CORRECT || mData.getState() == SubjectState.STATE_WRONG))
 				) {
 			showSwitch(true);
 		}

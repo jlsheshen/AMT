@@ -17,6 +17,7 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.TemplateElementsDao;
 import com.edu.accountingteachingmaterial.entity.BillTemplateListBean;
 import com.edu.library.data.DBHelper;
+import com.edu.subject.BASE_URL;
 import com.edu.subject.data.TemplateData;
 import com.edu.subject.util.SubjectImageLoader;
 import com.edu.testbill.Constant;
@@ -217,7 +218,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(ID, billTemplate.getId());
             contentValues.put(TIME, billTemplate.getTimeStamp());
             contentValues.put(NAME, billTemplate.getName());
-            String s = billTemplate.getBitmap();
+            String s = BASE_URL.getBaseImageUrl() + billTemplate.getBitmap();
             urls.add(s);
             contentValues.put(BACKGROUND, s);
             contentValues.put(FLAG, billTemplate.getFlag());

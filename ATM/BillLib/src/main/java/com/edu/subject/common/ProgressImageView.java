@@ -175,7 +175,8 @@ public class ProgressImageView extends ImageView implements ImageLoadingListener
      */
     public void loadImage(String uri) {
 //        String uri = "file://" + Environment.getExternalStorageDirectory().getPath() + "/EduResources/AccCourse/pic/" + s;
-        uri = BASE_URL.getBaseImageUrl() + uri;
+//        uri = BASE_URL.getBaseImageUrl() + uri;
+        BASE_URL.getBaseImageUrl();
         try {
             mBitmap = BitmapParseUtil.parse(uri, mContext, true, this);
             setImageBitmap(mBitmap);

@@ -75,7 +75,7 @@ public class SignView extends ProgressImageView implements IScaleable {
 		} else if (mTestMode == TestMode.MODE_PRACTICE) {// 练习
 			// 状态初始化
 			if (mState == SubjectState.STATE_CORRECT || mState == SubjectState.STATE_WRONG) {
-//				judgeAnswer();
+				judgeAnswer();
 				showUAnswer(true);
 			} else {
 				showUAnswer(true);
