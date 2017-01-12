@@ -9,6 +9,7 @@ import com.edu.library.data.BaseData;
 public class OnLineExamListData extends BaseData {
     /**
      * 另外添加 答题状态
+     *
      * @return
      */
     private int State;
@@ -39,6 +40,7 @@ public class OnLineExamListData extends BaseData {
     private int exam_paper_id;
     private int exam_type;
     private int is_read;
+    private int is_send;
     private int last_time;
     private String publish_time;
     private int sendscore;
@@ -118,6 +120,14 @@ public class OnLineExamListData extends BaseData {
 
     public void setIs_read(int is_read) {
         this.is_read = is_read;
+    }
+
+    public int getIs_send() {
+        return is_send;
+    }
+
+    public void setIs_send(int is_send) {
+        this.is_send = is_send;
     }
 
     public int getLast_time() {

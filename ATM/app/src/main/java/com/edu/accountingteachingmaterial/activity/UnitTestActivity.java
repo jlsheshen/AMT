@@ -18,11 +18,14 @@ import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.lucher.net.req.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 
 /**
  * Created by Administrator on 2016/11/18.
@@ -105,12 +108,12 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putInt(ClassContstant.SUBJECT_DIALOG_ID, examId);
                     startActivity(SubjectDetailsContentActivity.class, bundle);
-                }else {
+                } else {
                     //ExamListData考试数据（测试）
                     Bundle bundle = new Bundle();
                     bundle.putInt("examId", examId);
                     bundle.putInt("textMode", textMode);
-                    bundle.putInt("totalTime", Integer.parseInt(testPaperListData.getLast_time().toString()));
+                    bundle.putInt("totalTime", testPaperListData.getLast_time());
                     startActivity(SubjectExamActivity.class, bundle);
                 }
 
@@ -125,7 +128,9 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     private void uploadTestInfo() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         Log.d("UnitTestActivity", "uploadTestInfo");
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + examId);
+        String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + examId + "-" + useId);
+//        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + examId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
@@ -185,7 +190,10 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         tvShort.setText(shortin + "道");
         tvComprehensive.setText(comprehensive + "道");
         tvForm.setText(form + "道");
-        tvTotal.setText(topicsBeen.size() + "道");
+        tvTotal.setText(testPaperListData.getTopic_num() + "道");
+        tvSubmittingTime.setText(testPaperListData.getUpload_time() + "");
+        tvUsedTime.setText(testPaperListData.getStu_last_time() + "");
+        tvScore.setText(testPaperListData.getStu_score() + "");
     }
 
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
@@ -215,9 +223,9 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             rlScore.findViewById(R.id.ly_score).setVisibility(View.VISIBLE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.VISIBLE);
             rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.VISIBLE);
-            tvScore.setText(testPaperListData.getScore() + "");
-            tvSubmittingTime.setText(testPaperListData.getEnd_time() + "");
-            tvUsedTime.setText("");
+//            tvSubmittingTime.setText(testPaperListData.getUpload_time() + "");
+//            tvUsedTime.setText(testPaperListData.getStu_last_time() + "");
+//            tvScore.setText(testPaperListData.getStu_score() + "");
             //查看答案
             btnStart.setBackgroundResource(R.drawable.selector_check_answer);
             textMode = ClassContstant.TEST_MODE_TEST;
