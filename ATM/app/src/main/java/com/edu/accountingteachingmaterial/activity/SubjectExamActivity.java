@@ -262,6 +262,11 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
         EventBus.getDefault().post(userId);
         ToastUtil.showToast(this, "score:" + score);
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("examId", examId);
+        bundle.putInt("textMode", textMode);
+        startActivity(UnitTestActivity.class, bundle);
         finish();
     }
 
