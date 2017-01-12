@@ -186,6 +186,8 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
         if (mCurrentIndex != 0) {
             mCurrentIndex--;
             viewPager.setCurrentItem(mCurrentIndex, true);
+        } else {
+            ToastUtil.showToast(this, "已经是第一页");
         }
     }
 
@@ -196,7 +198,10 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
         if (mCurrentIndex != mSubjectAdapter.getCount() - 1) {
             mCurrentIndex++;
             viewPager.setCurrentItem(mCurrentIndex, true);
+        } else {
+            ToastUtil.showToast(this, "已经是最后一页");
         }
+
     }
 
     @Override
