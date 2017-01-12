@@ -18,9 +18,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white" >
+  <LinearLayout
+        android:id="@+id/rl_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="25px"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/tv_subject_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10px"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tv_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingLeft="15px"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+
+        <!--<TextView-->
+            <!--android:id="@+id/user_score"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="10px"-->
+            <!--android:background="@mipmap/bg_score"-->
+            <!--android:paddingLeft="15px"-->
+            <!--android:text="2分"-->
+            <!--android:textColor="@color/red"-->
+            <!--android:textSize="@dimen/item_title_text_size"-->
+            <!--android:visibility="gone" />-->
+
+    </LinearLayout>
         <com.edu.subject.bill.view.ZoomableBillView
             android:id="@+id/billView"
+            android:layout_below="@id/rl_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true" />
@@ -52,7 +90,7 @@
             android:id="@+id/ibtnPic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_below="@id/rl_top"
             android:background="@null"
             android:src="@drawable/ibtn_selector_badge"
             android:visibility="gone" />

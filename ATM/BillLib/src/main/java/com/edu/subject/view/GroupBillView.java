@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.edu.R;
 import com.edu.library.util.ToastUtil;
@@ -42,6 +43,8 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 	private List<BillView> billViews;
 	// 单据相关数据
 	private TestGroupBillData mData;
+	//成绩,试题类型
+	private TextView scoreTv,subTypeTv;
 
 	// 当前单据索引
 	private int mCurrentIndex;
@@ -92,6 +95,10 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 		ibtnPic = (ImageButton) findViewById(R.id.ibtnPic);
 		slidingLayout = (SlidingDragLayout) findViewById(R.id.sliding_menu);
 		slidingLayout.setBadgeView(ibtnPic);
+		subTypeTv = (TextView) findViewById(R.id.tv_subject_type);
+		scoreTv = (TextView) findViewById(R.id.tv_score);
+		subTypeTv.setText("多组表格 - " + mData.getSubjectIndex());
+		scoreTv.setText("(" + (int) mData.getScore() + "分)");
 		slidingLayout.setDragListener(new DragListener() {
 
 			@Override
@@ -131,7 +138,7 @@ public class GroupBillView extends RelativeLayout implements ISubject, OnChecked
 			radio.setText(data.getSubjectData().getLabel());
 			tabs.addView(radio);
 			// 初始化单据
-			BillView billView = new BillView(mContext, data);
+			BillView billView = new BillView(mContext, data,true);
 			billView.onVisible();
 			billView.setGroup();
 			billView.applyData(mData.getTestDatas().get(i));

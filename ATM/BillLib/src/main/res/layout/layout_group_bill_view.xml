@@ -19,14 +19,40 @@
         android:layout_height="match_parent"
         android:background="@color/white"
         android:gravity="center" >
+        <LinearLayout
+            android:id="@+id/rl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25px"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_subject_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10px"
+                android:gravity="center_vertical"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/tv_score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingLeft="15px"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/layout"
+            android:layout_below="@id/rl_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:tag="再套一层是为了让标签居中显示，直接通过radiogroup居中会有bug导致标签显示不全" >
-
             <HorizontalScrollView
                 android:id="@+id/horizontalScrollView1"
                 android:layout_width="wrap_content"
@@ -53,6 +79,7 @@
 
         <ImageButton
             android:id="@+id/ibtnPic"
+            android:layout_below="@id/rl_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
