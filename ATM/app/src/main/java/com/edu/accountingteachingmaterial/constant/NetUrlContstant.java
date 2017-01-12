@@ -57,6 +57,8 @@ public class NetUrlContstant {
     public static final String getReviewList = INTERCACE + "course/findTopicSumByChapterIdnLevel/";
     //上传选择题数和难易程度
     public static final String uploadingReviewList = INTERCACE + "course/createPaperForSelfTest/";
+    //获取试卷答题时间
+    public static final String uploadingTestTime = INTERCACE + "exam/findRemainingByExamId/";
 
     public static String getSettingIpUrl() {
         return TEMP_URL + settingIpUrl;
@@ -128,5 +130,9 @@ public class NetUrlContstant {
 
     public static String getUploadingReviewList() {
         return BASE_URL + uploadingReviewList;
+    }
+
+    public static String getUploadingTestTime() {
+        return BASE_URL + uploadingTestTime;
     }
 }

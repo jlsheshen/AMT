@@ -44,7 +44,6 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
     private RelativeLayout layout;
 
 
-
     /**
      * 处理延时自动翻页
      */
@@ -99,7 +98,8 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
             answer = "对";
         }
         tvAnswer.setText("正确答案：" + answer);
-        tvAnalysis.setText("解析：" + data.getAnalysis());
+        //tvAnalysis.setText("解析：" + data.getAnalysis());
+        tvAnalysis.setText(data.getAnalysis());
     }
 
     /**
@@ -118,14 +118,14 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
 //                tvSubjectType.setVisibility(View.GONE);
 //                disableOption();
             }
-        } else if(testMode == TEST_MODE_TEST){
+        } else if (testMode == TEST_MODE_TEST) {
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
 //            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         } else if (testMode == TEST_MODE_LOOK) {
 //            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
-        }else {
+        } else {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
                 showCorrectAnswer(state == SubjectState.STATE_CORRECT);
 //                tvSubjectType.setVisibility(View.GONE);

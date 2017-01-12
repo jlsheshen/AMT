@@ -15,11 +15,13 @@ import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
+import com.edu.accountingteachingmaterial.entity.StartExamData;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 
 import java.util.ArrayList;
@@ -109,12 +111,13 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                     bundle.putInt(ClassContstant.SUBJECT_DETAIL_ID, examId);
                     startActivity(SubjectDetailsContentActivity.class, bundle);
                 } else {
-                    //ExamListData考试数据（测试）
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("examId", examId);
-                    bundle.putInt("textMode", textMode);
-                    bundle.putInt("totalTime", testPaperListData.getLast_time());
-                    startActivity(SubjectExamActivity.class, bundle);
+//                    //ExamListData考试数据（测试）
+//                    Bundle bundle = new Bundle();
+//                    bundle.putInt("examId", examId);
+//                    bundle.putInt("textMode", textMode);
+//                    bundle.putInt("totalTime", testPaperListData.getLast_time());
+//                    startActivity(SubjectExamActivity.class, bundle);
+                    uploadTestTime();
                 }
 
                 break;
@@ -151,6 +154,47 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onFailure(String errorInfo) {
                 Log.d("UnitTestActivity", errorInfo);
+
+            }
+        });
+    }
+
+
+    /**
+     * 获取当前考试剩余时间IME
+     */
+
+    private void uploadTestTime() {
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        Log.d("SubjectExamActivity", "uploadTestTime");
+        String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + examId);
+        sendJsonNetReqManager.sendRequest(netSendCodeEntity);
+        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
+            @Override
+            public void onSuccess(JSONObject jsonObject) {
+                if (jsonObject.getString("success").equals("true")) {
+                    Log.d("SubjectExamActivity", jsonObject.getString("message"));
+                    StartExamData startExamData = JSONObject.parseObject(jsonObject.getString("message"), StartExamData.class);
+                    if (startExamData.getStarted_time() > 0) {
+                        //ExamListData考试数据（测试）
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("examId", examId);
+                        bundle.putInt("textMode", textMode);
+                        bundle.putInt("totalTime", startExamData.getRemaining());
+                        startActivity(SubjectExamActivity.class, bundle);
+                    } else {
+                        ToastUtil.showToast(UnitTestActivity.this, "当前考试还没开始，请稍后!");
+                        return;
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(String errorInfo) {
+                Log.d("SubjectExamActivity", errorInfo);
 
             }
         });
