@@ -117,8 +117,8 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
         }
 
         tvAnswer.setText("正确答案：" + rightStr);
-        tvAnalysis.setText("解析：" + data.getAnalysis());
-
+        //tvAnalysis.setText("解析：" + data.getAnalysis());
+        tvAnalysis.setText(data.getAnalysis());
         parseOption(data.getOption());
     }
 
@@ -167,14 +167,14 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
                 // btnSend.setVisibility(View.GONE);
 //                btnSubmit.setVisibility(View.VISIBLE);
             }
-        }  else if(testMode == TEST_MODE_TEST){
+        } else if (testMode == TEST_MODE_TEST) {
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
 //            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         } else if (testMode == TEST_MODE_LOOK) {
 //            tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
-        }else {
+        } else {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
                 showCorrectAnswer(state == SubjectState.STATE_CORRECT);
 //                tvSubjectType.setVisibility(View.GONE);

@@ -116,6 +116,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         examId = bundle.getInt("examId");
         textMode = bundle.getInt("textMode");
         totalTime = bundle.getInt("totalTime");
+        Log.d("SubjectExamActivity", "totalTime:" + totalTime);
 
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
 
@@ -130,8 +131,11 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
         if (textMode == ClassContstant.TEST_MODE_NORMAL) {
             findViewById(R.id.btnDone).setVisibility(View.VISIBLE);
-
-            setTime();
+            if (totalTime > 0) {
+                setTime();
+            } else {
+                findViewById(R.id.ly_time).setVisibility(View.GONE);
+            }
         } else {
             findViewById(R.id.ly_time).setVisibility(View.GONE);
             findViewById(R.id.btnDone).setVisibility(View.INVISIBLE);
@@ -182,23 +186,43 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
             case R.id.btnDone:
 
                 exitDialog = new ExitDialog(this);
-                if (!exitDialog.isShowing() && timer != null) {
-                    exitDialog.show();
-                }
-                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
-                    @Override
-                    public void onOkClicked() {
-                        sendScore();
+                //在答题时间范围内答题
+                if (totalTime > 0) {
+                    if (!exitDialog.isShowing() && timer != null) {
+                        exitDialog.show();
                     }
-
-                    @Override
-                    public void onCancelClicked() {
-                        if (exitDialog.isShowing()) {
-                            exitDialog.dismiss();
+                    exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
+                        @Override
+                        public void onOkClicked() {
+                            sendScore();
                         }
-                    }
-                });
 
+                        @Override
+                        public void onCancelClicked() {
+                            if (exitDialog.isShowing()) {
+                                exitDialog.dismiss();
+                            }
+                        }
+                    });
+                    //不在考试时间范围内
+                } else {
+                    if (!exitDialog.isShowing()) {
+                        exitDialog.show();
+                    }
+                    exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
+                        @Override
+                        public void onOkClicked() {
+                            sendScore();
+                        }
+
+                        @Override
+                        public void onCancelClicked() {
+                            if (exitDialog.isShowing()) {
+                                exitDialog.dismiss();
+                            }
+                        }
+                    });
+                }
                 break;
 
             case R.id.btnCard:
@@ -217,6 +241,10 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
                 break;
             case R.id.class_aty_back_iv:
+                mSubjectAdapter.saveAnswer(mCurrentIndex);
+                if (timer != null) {
+                    timer.cancel();
+                }
                 finish();
 
                 break;
@@ -329,6 +357,10 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     @Override
     public void onBackPressed() {
         mSubjectAdapter.saveAnswer(mCurrentIndex);
+        if (timer != null) {
+            timer.cancel();
+        }
+        finish();
         super.onBackPressed();
     }
 
@@ -336,7 +368,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     //开始倒计时
     private void setTime() {
         // 倒计时时间设置
-        timer = new CountryTestTimer(tvTime, 1000, totalTime * 60 * 1000, SubjectExamActivity.this);
+        timer = new CountryTestTimer(tvTime, 1000, totalTime * 1000, SubjectExamActivity.this);
         timer.setOnTimeOutListener(this);
         if (timer != null && !timer.isRunning()) {
             timer.start();
@@ -358,6 +390,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     public void onFialure() {
 
     }
+
 }
 
 

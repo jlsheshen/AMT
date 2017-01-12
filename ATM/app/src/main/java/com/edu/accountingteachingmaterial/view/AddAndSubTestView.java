@@ -5,6 +5,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -156,10 +157,24 @@ public class AddAndSubTestView extends RelativeLayout {
                 } else {
                     //设置EditText光标位置 为文本末端
                     etNum.setSelection(etNum.getText().toString().length());
-                    num = numInt;
-                    if (onNumChangeListener != null) {
-                        onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
+                    int len = etNum.getText().toString().length();
+                    Log.d("OnTextChangeListener", "AddAndSubTestView" + numString);
+                    if (len == 2 & numString.equals("00")) {
+                        num = 0;
+                        etNum.setText(String.valueOf(0));
+                        if (onNumChangeListener != null) {
+                            onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
+                        }
+                        Toast.makeText(mContext, "请输入在正确会范围内的数字",
+                                Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        num = numInt;
+                        if (onNumChangeListener != null) {
+                            onNumChangeListener.onNumChange(AddAndSubTestView.this, num);
+                        }
                     }
+
                 }
             }
         }
@@ -186,7 +201,8 @@ public class AddAndSubTestView extends RelativeLayout {
          * @param view 整个AddAndSubView
          * @param num  输入框的数值
          */
-         void onNumChange(View view, int num);
+        void onNumChange(View view, int num);
+
     }
 
     /**
