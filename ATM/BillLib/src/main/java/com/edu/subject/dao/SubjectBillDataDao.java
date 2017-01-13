@@ -184,7 +184,19 @@ public class SubjectBillDataDao extends BaseDataDao {
 				values.put("TEMPLATE_ID", subject.getTemplateId());
 				values.put("QUESTION", question);
 				if (subject.getPic() != null){
-				values.put("PIC", BASE_URL.getBaseImageUrl() + subject.getPic());}
+					//附件初始化
+					String pic = "";
+					String[] pics = null;
+						pics = subject.getPic().split(SubjectConstant.SEPARATOR_ITEM);
+					for (int i = 0; i < pics.length; i++) {
+						if (i<1){
+							pic += BASE_URL.getBaseImageUrl()  + pics[i];
+						}else {
+							pic +=SubjectConstant.SEPARATOR_ITEM +  BASE_URL.getBaseImageUrl()  + pics[i];
+						}
+					}
+						values.put("PIC",pic);
+				}
 				values.put("LABELS", subject.getLabel());
 				values.put("BLANKS", subject.getAnswer());
 				values.put("SCORE", subject.getScore());

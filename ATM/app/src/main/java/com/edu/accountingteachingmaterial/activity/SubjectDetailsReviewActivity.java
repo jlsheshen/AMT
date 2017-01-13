@@ -147,6 +147,7 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
                     viewPager.setCurrentItem(mCurrentIndex, true);
                 } else {
                     ToastUtil.showToast(this, "已经是第一页");
+
                 }
                 break;
 
