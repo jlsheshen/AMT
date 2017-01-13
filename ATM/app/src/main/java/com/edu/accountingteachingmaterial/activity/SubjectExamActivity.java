@@ -259,7 +259,12 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
         UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
         int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
-        UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
+        int cost = 0;
+        if (timer != null) {
+            cost = timer.getUsedTime();
+        }
+        UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, cost);
+        //UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
         //EventBus.getDefault().post(userId);
         ToastUtil.showToast(this, "score:" + score);
     }
