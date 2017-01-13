@@ -142,7 +142,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
             ExamOnLineListDao.getInstance(mContext).updateData("" + examId, contentValues);
             resultsListener.onSuccess();
-
+            ToastUtil.showToast(mContext, "成绩上传成功!");
             EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
         } else {
             ToastUtil.showToast(mContext, "成绩上传失败：" + message);
