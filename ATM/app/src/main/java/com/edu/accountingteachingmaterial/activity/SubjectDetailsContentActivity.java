@@ -145,6 +145,8 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
                 if (mCurrentIndex != 0) {
                     mCurrentIndex--;
                     viewPager.setCurrentItem(mCurrentIndex, true);
+                } else {
+                    ToastUtil.showToast(this, "已经是第一页");
                 }
                 break;
 
@@ -152,6 +154,8 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
                 if (mCurrentIndex != mSubjectAdapter.getCount() - 1) {
                     mCurrentIndex++;
                     viewPager.setCurrentItem(mCurrentIndex, true);
+                } else {
+                    ToastUtil.showToast(this, "已经是最后一页");
                 }
                 break;
             case R.id.class_aty_back_iv:
