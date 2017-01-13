@@ -44,7 +44,6 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
     private RelativeLayout layout;
 
 
-
     /**
      * 处理延时自动翻页
      */
@@ -76,7 +75,7 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
         layout = (RelativeLayout) this.findViewById(R.id.layout_parent);
         layout.setOnClickListener(this);
         tvQestion = (TextView) this.findViewById(R.id.tv_question);
-        tvQestion.setText( data.getQuestion());
+        tvQestion.setText(data.getQuestion());
         tvAnswer = (TextView) this.findViewById(R.id.tv_answer);
         tvSubjectType = (TextView) this.findViewById(R.id.tv_subject_type);
         tvSubjectType.setOnClickListener(this);
@@ -99,7 +98,8 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
             answer = "对";
         }
         tvAnswer.setText("正确答案：" + answer);
-        tvAnalysis.setText("解析：" + data.getAnalysis());
+        //tvAnalysis.setText("解析：" + data.getAnalysis());
+        tvAnalysis.setText(data.getAnalysis());
     }
 
     /**
@@ -118,14 +118,14 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
 //                tvSubjectType.setVisibility(View.GONE);
 //                disableOption();
             }
-        } else if(testMode == TEST_MODE_TEST){
+        } else if (testMode == TEST_MODE_TEST) {
             showCorrectAnswer(state == SubjectState.STATE_CORRECT);
             tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
         } else if (testMode == TEST_MODE_LOOK) {
             tvSubjectType.setVisibility(View.VISIBLE);
             disableOption();
-        }else {
+        } else {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
                 showCorrectAnswer(state == SubjectState.STATE_CORRECT);
                 tvSubjectType.setVisibility(View.GONE);
@@ -180,7 +180,7 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
             tvAnswer.setTextColor(getResources().getColor(R.color.colorBlueBackground));
 
         } else {
-           tvAnswer.setTextColor(Color.parseColor("#cc0000"));
+            tvAnswer.setTextColor(Color.parseColor("#cc0000"));
 
         }
     }
