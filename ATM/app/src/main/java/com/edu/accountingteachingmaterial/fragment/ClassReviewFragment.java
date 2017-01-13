@@ -340,13 +340,13 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             addAndSubTestView6.refresh(reviewTopicData.getOrdinary().getComp() + reviewTopicData.getEasy().getComp());
             addAndSubTestView7.refresh(reviewTopicData.getOrdinary().getTable() + reviewTopicData.getEasy().getTable());
         } else if (cbEasy.isChecked() && !cbNormal.isChecked() && cbHard.isChecked()) {
-            addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne() + reviewTopicData.getHard().getOne());
-            addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti() + reviewTopicData.getHard().getMulti());
-            addAndSubTestView3.refresh(reviewTopicData.getOrdinary().getJudge() + reviewTopicData.getHard().getJudge());
-            addAndSubTestView4.refresh(reviewTopicData.getOrdinary().getFilling() + reviewTopicData.getHard().getFilling());
-            addAndSubTestView5.refresh(reviewTopicData.getOrdinary().getAsk() + reviewTopicData.getHard().getAsk());
-            addAndSubTestView6.refresh(reviewTopicData.getOrdinary().getComp() + reviewTopicData.getHard().getComp());
-            addAndSubTestView7.refresh(reviewTopicData.getOrdinary().getTable() + reviewTopicData.getHard().getTable());
+            addAndSubTestView1.refresh(reviewTopicData.getEasy().getOne() + reviewTopicData.getHard().getOne());
+            addAndSubTestView2.refresh(reviewTopicData.getEasy().getMulti() + reviewTopicData.getHard().getMulti());
+            addAndSubTestView3.refresh(reviewTopicData.getEasy().getJudge() + reviewTopicData.getHard().getJudge());
+            addAndSubTestView4.refresh(reviewTopicData.getEasy().getFilling() + reviewTopicData.getHard().getFilling());
+            addAndSubTestView5.refresh(reviewTopicData.getEasy().getAsk() + reviewTopicData.getHard().getAsk());
+            addAndSubTestView6.refresh(reviewTopicData.getEasy().getComp() + reviewTopicData.getHard().getComp());
+            addAndSubTestView7.refresh(reviewTopicData.getEasy().getTable() + reviewTopicData.getHard().getTable());
         } else if (!cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
             addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne() + reviewTopicData.getHard().getOne());
             addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti() + reviewTopicData.getHard().getMulti());
@@ -356,7 +356,6 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
             addAndSubTestView6.refresh(reviewTopicData.getOrdinary().getComp() + reviewTopicData.getHard().getComp());
             addAndSubTestView7.refresh(reviewTopicData.getOrdinary().getTable() + reviewTopicData.getHard().getTable());
         } else if (cbEasy.isChecked() && cbNormal.isChecked() && cbHard.isChecked()) {
-
             addAndSubTestView1.refresh(reviewTopicData.getOrdinary().getOne() + reviewTopicData.getEasy().getOne() + reviewTopicData.getHard().getOne());
             addAndSubTestView2.refresh(reviewTopicData.getOrdinary().getMulti() + reviewTopicData.getEasy().getMulti() + reviewTopicData.getHard().getMulti());
             addAndSubTestView3.refresh(reviewTopicData.getOrdinary().getJudge() + reviewTopicData.getEasy().getJudge() + reviewTopicData.getHard().getJudge());
