@@ -238,8 +238,18 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         tvForm.setText(testPaperListData.getTb() + "道");
         tvTotal.setText(testPaperListData.getSum() + "道");
         tvSubmittingTime.setText(testPaperListData.getUpload_time() + "");
-        tvUsedTime.setText(testPaperListData.getStu_last_time() + "");
+//        tvUsedTime.setText(testPaperListData.getStu_last_time() + "");
+        setTime(testPaperListData.getStu_last_time());
         tvScore.setText(testPaperListData.getStu_score() + "");
+    }
+
+    //设置用时
+    private void setTime(int time) {
+        int usedTime = time * 1000;
+        long hour = (usedTime / 1000) / 60 / 60;
+        long minute = (usedTime / 1000) / 60 - hour * 60;
+        long second = usedTime / 1000 - minute * 60 - hour * 60 * 60;
+        tvUsedTime.setText((hour < 10 ? "0" : "") + hour + ":" + (minute < 10 ? "0" : "") + minute + ":" + (second < 10 ? "0" : "") + second);
     }
 
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
