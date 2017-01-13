@@ -196,7 +196,7 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
 //        UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
             float score = mSubjectAdapter.submit(mCurrentIndex);
-            ToastUtil.showToast(this, "score:" + score);
+            //ToastUtil.showToast(this, "score:" + score);
 
 //            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         }
