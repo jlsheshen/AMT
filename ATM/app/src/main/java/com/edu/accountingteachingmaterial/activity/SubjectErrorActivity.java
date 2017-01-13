@@ -55,7 +55,7 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 完成/重做按钮，印章，闪电符按钮
-    private ImageView btnDone, btnSign;
+    private ImageView btnDone, btnSign,done;
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
@@ -99,6 +99,7 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
         viewPager.setOnPageChangeListener(mPageChangeListener);
         btnDone = (ImageView) findViewById(R.id.btnFlash);
         btnSign = (ImageView) findViewById(R.id.btnSign);
+        done = (ImageView) findViewById(R.id.btnDone);
         Bundle bundle = getIntent().getExtras();
         int item = bundle.getInt(ERRORS_ITEM,0);
         datas = (List<BaseTestData>) bundle.get(ERRORS_DATAS);
@@ -109,6 +110,12 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
 
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
         mCardDialog.showRedo();
+
+        if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
+            done.setImageResource(R.mipmap.icon_fasong_n);
+        }else {
+            done.setImageResource(R.mipmap.icon_congzuo_n);
+        }
 
     }
 
@@ -162,6 +169,7 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
             case R.id.btnDone:
 
                 handleDoneClicked();
+                finish();
 
                 break;
 

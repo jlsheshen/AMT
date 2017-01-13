@@ -69,7 +69,7 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
     /**
      * 更改数据库表TB_TEST中单多判答题状态
      */
-    private void updateState(String answer) {
+    protected void updateState(String answer) {
         mTestData.setuAnswer(answer);
 
         if (answer.equals(mData.getAnswer())) {
@@ -114,7 +114,7 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
             gradeAnswer(answer);
         } else if (testMode == TEST_MODE_INCLASS) {
             // 更新数据库答题状态
-            updateState(answer);
+//            updateState(answer);
 //		showCorrectAnswer(answer.equals(mData.getAnswer()));
 //			disableOption();
             gradeAnswer(answer);

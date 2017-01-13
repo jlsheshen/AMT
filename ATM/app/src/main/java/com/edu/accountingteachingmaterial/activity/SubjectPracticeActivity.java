@@ -58,7 +58,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 完成/重做按钮，印章，闪电符按钮
-    private ImageView btnDone, btnSign;
+    private ImageView btnDone, btnSign,done;
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
@@ -102,6 +102,8 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         viewPager.setOnPageChangeListener(mPageChangeListener);
         btnDone = (ImageView) findViewById(R.id.btnFlash);
         btnSign = (ImageView) findViewById(R.id.btnSign);
+        done = (ImageView) findViewById(R.id.btnDone);
+
         Bundle bundle = getIntent().getExtras();
         examListData = (ExamListData) bundle.get("ExamListData");
         int item = bundle.getInt("ExamListDataItem",0);
@@ -113,6 +115,12 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
         mCardDialog.showRedo();
+
+        if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
+            done.setImageResource(R.mipmap.icon_fasong_n);
+        }else {
+            done.setImageResource(R.mipmap.icon_congzuo_n);
+        }
 
     }
 
@@ -194,22 +202,23 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      * 处理完成/重做按钮点击事件
      */
     private void handleDoneClicked() {
-        float score = mSubjectAdapter.submit(mCurrentIndex);
-        UploadResultsManager.getSingleton(this).setResultsListener(this);
-        UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
-        UserData user = UserCenterHelper.getUserInfo(this);
-        UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
 
 
-        ToastUtil.showToast(this, "score:" + score);
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
-
+            float score = mSubjectAdapter.submit(mCurrentIndex);
+            UploadResultsManager.getSingleton(this).setResultsListener(this);
+            UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
+            UserData user = UserCenterHelper.getUserInfo(this);
+            UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
+            ToastUtil.showToast(this, "score:" + score);
 //            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         }
-//        else {
-//            mSubjectAdapter.reset(mCurrentIndex);
+        else {
+            mSubjectAdapter.reset(mCurrentIndex);
+            finish();
 //            btnDone.setImageResource(R.mipmap.icon_fasong_n);
-//        }
+        }
+
     }
 
     /**

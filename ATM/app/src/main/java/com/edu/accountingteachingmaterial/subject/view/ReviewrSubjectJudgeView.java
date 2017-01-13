@@ -82,7 +82,8 @@ public class ReviewrSubjectJudgeView extends ReviewBaseScrollView implements ISu
         tvSubjectType.setOnClickListener(this);
         tvAnalysis = (TextView) this.findViewById(R.id.tv_analysis);
 //		tvSubjectType.setText("错误" + mTestData.getErrorCount() + "次");
-        tvSubjectType.setText("判断 - " + data.getSubjectIndex());
+        tvSubjectType.setText("判断 - " + mTestData.getSubjectIndex());
+
         rbTrue = (RadioButton) this.findViewById(R.id.rb_A);
         rbFalse = (RadioButton) this.findViewById(R.id.rb_B);
 
