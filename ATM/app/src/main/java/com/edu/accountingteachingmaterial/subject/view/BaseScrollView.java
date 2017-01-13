@@ -102,7 +102,7 @@ public abstract class BaseScrollView extends RelativeLayout {
      * @param answer
      */
     protected void handleOnClick(String answer) {
-        if (testMode == TEST_MODE_NORMAL) {// 选择答案后则显示正确答案，且不能进行修改,及时判分
+        if (testMode == TEST_MODE_NORMAL) {// 选择答案后则显示正确答案，且不能进行修改,及时判分,
             // 更新数据库答题状态
             updateState(answer);
 //			showCorrectAnswer(answer.equals(mData.getAnswer()));
