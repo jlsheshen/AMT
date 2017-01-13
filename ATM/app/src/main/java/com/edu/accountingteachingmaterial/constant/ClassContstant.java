@@ -42,6 +42,8 @@ public final class ClassContstant {
     public static final int EXAM_NOT = 4;
     //试卷下载中
     public static final int EXAM_DOWNLOADING = 5;
+    //试卷下载中
+    public static final int EXAM_FAILD = 6;
 
     //练习类型
     //课前预习

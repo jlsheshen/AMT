@@ -285,7 +285,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
             bundle.putInt("textMode", textMode);
             startActivity(UnitTestActivity.class, bundle);
             finish();
-        } else {
+        } else if (datas != null && state == ClassContstant.EXAM_FAILD) {
             Bundle bundle = new Bundle();
             bundle.putInt("examId", examId);
             bundle.putInt("textMode", textMode);
