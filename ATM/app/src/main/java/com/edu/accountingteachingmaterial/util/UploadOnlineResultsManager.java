@@ -142,11 +142,12 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
             ExamOnLineListDao.getInstance(mContext).updateData("" + examId, contentValues);
             resultsListener.onSuccess();
-
+            ToastUtil.showToast(mContext, "成绩上传成功!");
             EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
         } else {
             ToastUtil.showToast(mContext, "成绩上传失败：" + message);
             Log.e(TAG, "uploadResult:" + json);
+            EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
         }
     }
 
@@ -157,7 +158,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
         if (resultsListener != null) {
             resultsListener.onFialure();
         }
-
+        EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
     }
 
     @Override
@@ -167,6 +168,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
         resultsListener.onFialure();
 
         ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);
+        EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
     }
 
 }

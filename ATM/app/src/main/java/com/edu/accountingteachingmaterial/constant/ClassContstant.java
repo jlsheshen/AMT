@@ -42,6 +42,8 @@ public final class ClassContstant {
     public static final int EXAM_NOT = 4;
     //试卷下载中
     public static final int EXAM_DOWNLOADING = 5;
+    //试卷下载中
+    public static final int EXAM_FAILD = 6;
 
     //练习类型
     //课前预习
@@ -72,7 +74,6 @@ public final class ClassContstant {
      * 自测页面跳转传值
      */
     public static final String SUBJECT_REVIEW_ID = "SUBJECT_REVIEW_ID";
-
 
 
     //题型
@@ -114,9 +115,9 @@ public final class ClassContstant {
 
     //题型难易程度
     //容易
-    public static final float LEVEL_ORDINARY = 0f;
+    public static final float LEVEL_EASY = 0f;
     //正常
-    public static final float LEVEL_EASY = 0.5f;
+    public static final float LEVEL_ORDINARY = 0.5f;
     //困难
     public static final float LEVEL_HARD = 1f;
 
