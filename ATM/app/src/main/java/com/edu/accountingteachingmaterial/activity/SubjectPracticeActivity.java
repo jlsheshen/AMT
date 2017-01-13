@@ -43,7 +43,7 @@ import java.util.List;
 
 
 /**
- * 页面内有重做功能
+ * 随堂练习
  * Created by Administrator on 2016/11/18.
  */
 

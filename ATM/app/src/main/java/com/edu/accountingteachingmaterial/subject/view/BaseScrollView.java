@@ -68,7 +68,7 @@ public abstract class BaseScrollView extends RelativeLayout {
     /**
      * 更改数据库表TB_TEST中单多判答题状态
      */
-    private void updateState(String answer) {
+    protected void updateState(String answer) {
         mTestData.setuAnswer(answer);
 
         if (answer.equals(mData.getAnswer())) {

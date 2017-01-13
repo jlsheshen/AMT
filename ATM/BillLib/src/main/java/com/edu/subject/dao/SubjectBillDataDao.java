@@ -186,7 +186,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 				if (subject.getPic() != null){
 					//附件初始化
 					String pic = "";
-					String[] pics = null;
+					String[] pics ;
 						pics = subject.getPic().split(SubjectConstant.SEPARATOR_ITEM);
 					for (int i = 0; i < pics.length; i++) {
 						if (i<1){
