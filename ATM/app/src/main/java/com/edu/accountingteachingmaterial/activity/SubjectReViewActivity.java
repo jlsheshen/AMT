@@ -105,7 +105,7 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
         Bundle bundle = getIntent().getExtras();
         chapterId = bundle.getInt(ClassContstant.SUBJECT_REVIEW_ID);
-        datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, chapterId);
+        datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);

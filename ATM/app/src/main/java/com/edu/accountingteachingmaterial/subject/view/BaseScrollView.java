@@ -112,7 +112,7 @@ public abstract class BaseScrollView extends RelativeLayout {
             gradeAnswer(answer);
         } else if (testMode == TEST_MODE_INCLASS) {
             // 更新数据库答题状态
-            updateState(answer);
+//            updateState(answer);
 //		showCorrectAnswer(answer.equals(mData.getAnswer()));
 //			disableOption();
             gradeAnswer(answer);

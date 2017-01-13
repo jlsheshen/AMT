@@ -137,7 +137,7 @@ public class ClassReviewFragment extends BaseFragment implements View.OnClickLis
     //获取题数总数量接口
     private void loadAllTopicList() {
 
-        Log.d("ClassReviewFragment", "getGetReviewList");
+        Log.d("ClassReviewFragment", "getGetReviewList" + NetUrlContstant.getGetReviewList() + chapterId);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getGetReviewList() + chapterId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);

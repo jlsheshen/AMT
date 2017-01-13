@@ -176,9 +176,12 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
         findViewById(R.id.rl_analysis).setVisibility(VISIBLE);
 
         if (correct) {
-            tvAnswer.setTextColor(Color.parseColor("#6766cc"));
+//            tvAnswer.setTextColor(Color.parseColor("#6766cc"));
+            tvAnswer.setTextColor(getResources().getColor(R.color.colorBlueBackground));
+
         } else {
             tvAnswer.setTextColor(Color.parseColor("#cc0000"));
+
         }
     }
 
