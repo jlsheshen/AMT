@@ -204,39 +204,39 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //设置显示测验信息，试题信息
     private void refreshView() {
-        int single = 0, multiple = 0, judge = 0, fillin = 0, shortin = 0, comprehensive = 0, form = 0;
-        for (int i = 0; i < topicsBeen.size(); i++) {
-            if (topicsBeen.get(i).getType() == ClassContstant.SUB_SINGLE) {
-                single += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_MULTI) {
-                multiple += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_JUDGE) {
-                judge += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FILLIN) {
-                fillin += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_SHORTIN) {
-                shortin += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_COMPREHENSIVE) {
-                comprehensive += 1;
-            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FORM) {
-                form += 1;
-            }
-
-        }
+//        int single = 0, multiple = 0, judge = 0, fillin = 0, shortin = 0, comprehensive = 0, form = 0;
+//        for (int i = 0; i < topicsBeen.size(); i++) {
+//            if (topicsBeen.get(i).getType() == ClassContstant.SUB_SINGLE) {
+//                single += 1;
+//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_MULTI) {
+//                multiple += 1;
+//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_JUDGE) {
+//                judge += 1;
+//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FILLIN) {
+//                fillin += 1;
+//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_SHORTIN) {
+//                shortin += 1;
+//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_COMPREHENSIVE) {
+//                comprehensive += 1;
+//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FORM) {
+//                form += 1;
+//            }
+//
+//        }
         testTitle.setText(testPaperListData.getExam_name());
         tvPublisher.setText(testPaperListData.getCreator_name());
         tvReleaseTime.setText(testPaperListData.getCreate_date());
         tvStartTime.setText(testPaperListData.getStart_time() + "");
         tvEndTime.setText(testPaperListData.getEnd_time() + "");
         tvChallengeTime.setText(testPaperListData.getLast_time() + "分钟");
-        tvSingle.setText(single + "道");
-        tvMultiple.setText(multiple + "道");
-        tvJudge.setText(judge + "道");
-        tvFillIn.setText(fillin + "道");
-        tvShort.setText(shortin + "道");
-        tvComprehensive.setText(comprehensive + "道");
-        tvForm.setText(form + "道");
-        tvTotal.setText(testPaperListData.getTopic_num() + "道");
+        tvSingle.setText(testPaperListData.getOne() + "道");
+        tvMultiple.setText(testPaperListData.getMulti() + "道");
+        tvJudge.setText(testPaperListData.getJudge() + "道");
+        tvFillIn.setText(testPaperListData.getFilling() + "道");
+        tvShort.setText(testPaperListData.getAsk() + "道");
+        tvComprehensive.setText(testPaperListData.getComp() + "道");
+        tvForm.setText(testPaperListData.getTb() + "道");
+        tvTotal.setText(testPaperListData.getSum() + "道");
         tvSubmittingTime.setText(testPaperListData.getUpload_time() + "");
         tvUsedTime.setText(testPaperListData.getStu_last_time() + "");
         tvScore.setText(testPaperListData.getStu_score() + "");

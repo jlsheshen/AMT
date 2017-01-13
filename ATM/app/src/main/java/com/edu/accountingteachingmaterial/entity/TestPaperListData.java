@@ -12,32 +12,42 @@ public class TestPaperListData extends BaseData {
 
 
     /**
+     * ask : 0
      * chapter_id : null
+     * comp : 0
      * course_id : null
-     * create_date : 2017-01-11 15:41:31
+     * create_date : 2017-01-12 13:10:01
      * creator : 151
      * creator_name : 测试专用
-     * end_time : 2017-01-11 20:42:00
-     * exam_name : 第3道题
+     * end_time : 2017-01-12 13:16:00
+     * exam_name : No.12_06
      * exam_type : 3
-     * is_send : 1
-     * last_time : 300
+     * filling : 0
+     * is_send : 0
+     * judge : 2
+     * last_time : 5
      * major_id : 377
      * modifier : null
      * modify_date : null
+     * multi : 2
+     * one : 2
      * paper_id : 266
+     * paper_name : 单多判表格题_试卷
      * score : null
      * show_answer : 0
-     * start_time : 2017-01-11 15:42:00
+     * start_time : 2017-01-12 13:11:00
      * status : 1
      * stu_last_time : 10000
-     * stu_score : 6.0
-     * topic_num : 7
+     * stu_score : 0.0
+     * sum : 7
+     * tb : 1
      * topics : [{"id":950,"oid":1706,"order":1,"score":2,"status":1,"type":1},{"id":951,"oid":1707,"order":2,"score":2,"status":1,"type":1},{"id":952,"oid":1714,"order":1,"score":2,"status":1,"type":2},{"id":934,"oid":1710,"order":2,"score":2,"status":1,"type":2},{"id":953,"oid":1718,"order":1,"score":2,"status":1,"type":3},{"id":954,"oid":1717,"order":2,"score":2,"status":1,"type":3},{"id":949,"oid":1738,"order":1,"score":16,"status":1,"type":22}]
-     * upload_time : 2017-01-11 15:44:37
+     * upload_time : 2017-01-13 08:59:02
      */
 
+    private int ask;
     private Object chapter_id;
+    private int comp;
     private Object course_id;
     private String create_date;
     private int creator;
@@ -45,21 +55,35 @@ public class TestPaperListData extends BaseData {
     private String end_time;
     private String exam_name;
     private int exam_type;
+    private int filling;
     private int is_send;
+    private int judge;
     private int last_time;
     private int major_id;
     private Object modifier;
     private Object modify_date;
+    private int multi;
+    private int one;
     private int paper_id;
+    private String paper_name;
     private Object score;
     private int show_answer;
     private String start_time;
     private int status;
     private int stu_last_time;
     private double stu_score;
-    private int topic_num;
+    private int sum;
+    private int tb;
     private String upload_time;
     private List<TopicsBean> topics;
+
+    public int getAsk() {
+        return ask;
+    }
+
+    public void setAsk(int ask) {
+        this.ask = ask;
+    }
 
     public Object getChapter_id() {
         return chapter_id;
@@ -67,6 +91,14 @@ public class TestPaperListData extends BaseData {
 
     public void setChapter_id(Object chapter_id) {
         this.chapter_id = chapter_id;
+    }
+
+    public int getComp() {
+        return comp;
+    }
+
+    public void setComp(int comp) {
+        this.comp = comp;
     }
 
     public Object getCourse_id() {
@@ -125,12 +157,28 @@ public class TestPaperListData extends BaseData {
         this.exam_type = exam_type;
     }
 
+    public int getFilling() {
+        return filling;
+    }
+
+    public void setFilling(int filling) {
+        this.filling = filling;
+    }
+
     public int getIs_send() {
         return is_send;
     }
 
     public void setIs_send(int is_send) {
         this.is_send = is_send;
+    }
+
+    public int getJudge() {
+        return judge;
+    }
+
+    public void setJudge(int judge) {
+        this.judge = judge;
     }
 
     public int getLast_time() {
@@ -165,12 +213,36 @@ public class TestPaperListData extends BaseData {
         this.modify_date = modify_date;
     }
 
+    public int getMulti() {
+        return multi;
+    }
+
+    public void setMulti(int multi) {
+        this.multi = multi;
+    }
+
+    public int getOne() {
+        return one;
+    }
+
+    public void setOne(int one) {
+        this.one = one;
+    }
+
     public int getPaper_id() {
         return paper_id;
     }
 
     public void setPaper_id(int paper_id) {
         this.paper_id = paper_id;
+    }
+
+    public String getPaper_name() {
+        return paper_name;
+    }
+
+    public void setPaper_name(String paper_name) {
+        this.paper_name = paper_name;
     }
 
     public Object getScore() {
@@ -221,12 +293,20 @@ public class TestPaperListData extends BaseData {
         this.stu_score = stu_score;
     }
 
-    public int getTopic_num() {
-        return topic_num;
+    public int getSum() {
+        return sum;
     }
 
-    public void setTopic_num(int topic_num) {
-        this.topic_num = topic_num;
+    public void setSum(int sum) {
+        this.sum = sum;
+    }
+
+    public int getTb() {
+        return tb;
+    }
+
+    public void setTb(int tb) {
+        this.tb = tb;
     }
 
     public String getUpload_time() {
