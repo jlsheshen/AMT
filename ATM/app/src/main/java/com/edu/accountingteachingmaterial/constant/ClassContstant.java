@@ -74,7 +74,6 @@ public final class ClassContstant {
     public static final String SUBJECT_REVIEW_ID = "SUBJECT_REVIEW_ID";
 
 
-
     //题型
     //单选
     public static final int SUBJECT_SINGLE_CHOSE = 1;
@@ -114,9 +113,9 @@ public final class ClassContstant {
 
     //题型难易程度
     //容易
-    public static final float LEVEL_ORDINARY = 0f;
+    public static final float LEVEL_EASY = 0f;
     //正常
-    public static final float LEVEL_EASY = 0.5f;
+    public static final float LEVEL_ORDINARY = 0.5f;
     //困难
     public static final float LEVEL_HARD = 1f;
 
