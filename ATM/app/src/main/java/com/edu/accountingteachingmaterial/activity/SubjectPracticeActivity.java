@@ -47,7 +47,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/18.
  */
 
-public class SubjectPracticeActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener,ResultsListener {
+public class SubjectPracticeActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
@@ -106,8 +106,8 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
         Bundle bundle = getIntent().getExtras();
         examListData = (ExamListData) bundle.get("ExamListData");
-        int item = bundle.getInt("ExamListDataItem",0);
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData .getId());
+        int item = bundle.getInt("ExamListDataItem", 0);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_INCLASS);
         viewPager.setAdapter(mSubjectAdapter);
@@ -150,6 +150,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
         }
     }
+
     /**
      * 刷新完成/重做按钮状态
      */
@@ -198,10 +199,12 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
                 break;
         }
     }
+
     /**
      * 处理完成/重做按钮点击事件
      */
     private void handleDoneClicked() {
+
 
 
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
@@ -210,7 +213,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
             UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
             UserData user = UserCenterHelper.getUserInfo(this);
             UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
-            ToastUtil.showToast(this, "score:" + score);
+//            ToastUtil.showToast(this, "score:" + score);
 //            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
         }
         else {

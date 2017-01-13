@@ -155,16 +155,16 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
             case R.id.btnDone:
                 float score = mSubjectAdapter.submit();
-                ToastUtil.showToast(this, "score:" + score);
+                //ToastUtil.showToast(this, "score:" + score);
 //                UploadResultsManager.getSingleton(this).setResultsListener(this);
 //                UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
 //                int user = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
 //                UploadResultsManager.getSingleton(this).uploadResult(user, examListData.getId(), 10000);
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-                contentValues.put(ReviewExamListDao.SCORE,score);
+                contentValues.put(ReviewExamListDao.SCORE, score);
                 ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
-               EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+                EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
                 finish();
 
                 break;
