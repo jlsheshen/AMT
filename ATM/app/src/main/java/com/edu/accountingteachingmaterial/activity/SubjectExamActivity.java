@@ -259,15 +259,40 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
         UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
         int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
-        UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
-        EventBus.getDefault().post(userId);
+        int cost = 0;
+        if (timer != null) {
+            cost = timer.getUsedTime();
+        }
+        UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, cost);
+        //UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, 10000);
+        //EventBus.getDefault().post(userId);
         ToastUtil.showToast(this, "score:" + score);
+    }
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("examId", examId);
-        bundle.putInt("textMode", textMode);
-        startActivity(UnitTestActivity.class, bundle);
-        finish();
+    /**
+     * 根据发来的状态,来刷新列表
+     *
+     * @param state
+     */
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getData(Integer state) {
+        Log.d("SubjectExamActivity", "----13  走过了EventBus");
+
+        if (datas != null && state == ClassContstant.EXAM_COMMIT) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("examId", examId);
+            bundle.putInt("textMode", textMode);
+            startActivity(UnitTestActivity.class, bundle);
+            finish();
+        } else {
+            Bundle bundle = new Bundle();
+            bundle.putInt("examId", examId);
+            bundle.putInt("textMode", textMode);
+            startActivity(UnitTestActivity.class, bundle);
+            finish();
+        }
+
     }
 
     /**
