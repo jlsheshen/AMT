@@ -205,8 +205,6 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      */
     private void handleDoneClicked() {
 
-
-
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
             float score = mSubjectAdapter.submit(mCurrentIndex);
             UploadResultsManager.getSingleton(this).setResultsListener(this);

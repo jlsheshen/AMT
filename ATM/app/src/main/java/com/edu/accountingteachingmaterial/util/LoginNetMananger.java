@@ -53,7 +53,11 @@ public class LoginNetMananger extends JsonNetReqManager {
      */
     public static LoginNetMananger getSingleton(Context context) {
         if (mSingleton == null) {
-            mSingleton = new LoginNetMananger(context);
+            synchronized (LoginNetMananger.class) {
+                if (mSingleton == null) {
+                    mSingleton = new LoginNetMananger(context);
+                }
+            }
         }
         return mSingleton;
     }
