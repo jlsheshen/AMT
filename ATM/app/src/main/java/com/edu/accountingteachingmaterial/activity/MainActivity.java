@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -38,7 +39,8 @@ import static com.edu.subject.BASE_URL.TEMP_URL;
 public class MainActivity extends BaseActivity implements OnClickListener, DrawerListener {
 
 
-    RadioButton classButton, examButton, myButton, settingButton;
+    RadioButton classButton, examButton, myButton;
+    Button settingButton;
     Fragment examFragment, myFragment;
     ClassFragment classFragment;
     DrawerLayout drawerLayout;

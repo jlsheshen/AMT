@@ -82,6 +82,8 @@ public class SignView extends ProgressImageView implements IScaleable {
 			}
 		} else if (mTestMode == TestMode.MODE_EXAM) {// 测试模式
 			showUAnswer(true);
+		}else if (mTestMode == TestMode.MODE_LOOK) {// 测试模式
+			showUAnswer(true);
 		}
 
 		return isBmLoaded();

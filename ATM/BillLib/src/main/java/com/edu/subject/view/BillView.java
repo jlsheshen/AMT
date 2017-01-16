@@ -115,6 +115,7 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
         }
         if (mData.getTestMode() == TestMode.MODE_SHOW_DETAILS || (mData.getTestMode() == TestMode.MODE_PRACTICE && (mData.getState() == SubjectState.STATE_CORRECT || mData.getState() == SubjectState.STATE_WRONG))
                 ) {
+
             showSwitch(true);
         }
 

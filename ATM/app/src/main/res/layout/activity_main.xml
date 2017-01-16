@@ -49,10 +49,12 @@
                 style="@style/SizeBarButtonStyle"
                 android:drawableTop="@drawable/selector_main_my" />
 
-            <RadioButton
+            <Button
                 android:id="@+id/main_setting_iv"
                 style="@style/SizeBarButtonStyle"
-                android:drawableTop="@drawable/selector_main_setting" />
+                android:drawableTop="@drawable/selector_main_setting"
+                android:background="@null"
+                />
         </RadioGroup>
         </FrameLayout>
 

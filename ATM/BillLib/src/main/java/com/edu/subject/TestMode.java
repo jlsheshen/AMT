@@ -19,4 +19,8 @@ public class TestMode {
 	 * 显示详情模式，该模式会显示出正确答案，用户答案，解析等信息
 	 */
 	public static final int MODE_SHOW_DETAILS = 2;
+	/**
+	 * 查看我的作答模式
+	 */
+	public static final int MODE_LOOK = 4;
 }

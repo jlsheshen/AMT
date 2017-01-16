@@ -28,7 +28,6 @@ import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectType;
-import com.edu.subject.TestMode;
 import com.edu.subject.common.SubjectCardAdapter;
 import com.edu.subject.common.SubjectCardDialog;
 import com.edu.subject.dao.SignDataDao;
@@ -118,7 +117,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         totalTime = bundle.getInt("totalTime");
         Log.d("SubjectExamActivity", "totalTime:" + totalTime);
 
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, examId);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(textMode, examId);
 
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
@@ -161,15 +160,12 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL && textMode == ClassContstant.TEST_MODE_NORMAL) {
             btnSign.setVisibility(View.VISIBLE);
             btnFlash.setVisibility(View.VISIBLE);
-            tvBillQuestion.setText(subject.getQuestion());
-            tvBillQuestion.setVisibility(View.VISIBLE);
-
-
+//            tvBillQuestion.setText(subject.getQuestion());
+//            tvBillQuestion.setVisibility(View.VISIBLE);
         } else {
             btnSign.setVisibility(View.GONE);
             btnFlash.setVisibility(View.GONE);
             tvBillQuestion.setVisibility(View.GONE);
-
         }
     }
 
