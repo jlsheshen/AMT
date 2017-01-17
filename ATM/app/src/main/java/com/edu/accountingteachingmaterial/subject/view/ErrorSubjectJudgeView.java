@@ -129,7 +129,7 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
         } else {
             if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
                 showCorrectAnswer(state == SubjectState.STATE_CORRECT);
-                tvSubjectType.setVisibility(View.GONE);
+//                tvSubjectType.setVisibility(View.GONE);
                 disableOption();
             }
         }

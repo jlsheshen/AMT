@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
@@ -164,11 +165,10 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
                 contentValues.put(ReviewExamListDao.STATE, ClassContstant.EXAM_COMMIT);
                 contentValues.put(ReviewExamListDao.SCORE, score);
                 ReviewExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
+                Toast.makeText(this, "自测提交完成", Toast.LENGTH_SHORT).show();
                 EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
                 finish();
-
                 break;
-
             case R.id.btnCard:
                 if (!mCardDialog.isShowing()) {
                     mCardDialog.show(mSubjectAdapter.getData(mCurrentIndex).getId());

@@ -359,16 +359,16 @@ public class SubjectTestDataDao extends BaseDataDao {
         data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
         data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
         data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
-        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
-            data.setuAnswer(null);
-            data.setuScore(0);
-            data.setState(SubjectState.STATE_INIT);
-            if (data instanceof TestBillData) {
-                ((TestBillData) data).setuSigns(null);
-            } else if (data instanceof TestGroupBillData) {
-                ((TestGroupBillData) data).setuSigns(null);
-            }
-        } else {
+//        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
+//            data.setuAnswer(null);
+//            data.setuScore(0);
+//            data.setState(SubjectState.STATE_INIT);
+//            if (data instanceof TestBillData) {
+//                ((TestBillData) data).setuSigns(null);
+//            } else if (data instanceof TestGroupBillData) {
+//                ((TestGroupBillData) data).setuSigns(null);
+//            }
+//        } else {
             data.setuScore(curs.getInt(curs.getColumnIndex(USCORE)));
             data.setState(curs.getInt(curs.getColumnIndex(STATE)));
             if (index == -1) {// group
@@ -392,7 +392,7 @@ public class SubjectTestDataDao extends BaseDataDao {
                 }
             }
         }
-    }
+//    }
 
     /**
      * 更新指定的测试数据

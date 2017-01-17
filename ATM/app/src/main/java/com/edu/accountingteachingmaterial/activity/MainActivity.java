@@ -132,7 +132,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                             return;
                         }
                             showIp(s);
-
                         //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
