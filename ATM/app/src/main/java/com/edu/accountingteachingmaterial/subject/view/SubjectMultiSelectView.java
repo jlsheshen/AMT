@@ -349,6 +349,8 @@ public class SubjectMultiSelectView extends BaseScrollView implements ISubject, 
             // 将答案实时存入数据库
 //			SubjectModel.getInstance(getContext()).updateUserAnswer(mData.getId(), answer);
         }
+        handleOnClick(answer);
+
         gradeAnswer(answer);
     }
 

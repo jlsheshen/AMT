@@ -174,6 +174,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
 
     private void showIp(String s) {
         TEMP_URL = "http://" + s;
+        Log.d("MainActivity", NetUrlContstant.getSettingIpUrl());
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getSettingIpUrl());
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);

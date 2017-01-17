@@ -19,6 +19,7 @@ import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
 
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_INCLASS;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_LOOK;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
@@ -267,6 +268,9 @@ public class ReviewSubjectMultiSelectView extends ReviewBaseScrollView implement
     public float submit() {
 //       showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
 //        disableOption();
+        if(testMode == TEST_MODE_INCLASS||testMode == TEST_MODE_NORMAL){
+            updateState(mTestData.getuAnswer());
+        }
         return 0;
     }
 
@@ -345,7 +349,9 @@ public class ReviewSubjectMultiSelectView extends ReviewBaseScrollView implement
             // 将答案实时存入数据库
 //			SubjectModel.getInstance(getContext()).updateUserAnswer(mData.getId(), answer);
         }
+        handleOnClick(answer);
         gradeAnswer(answer);
+
     }
 
 }

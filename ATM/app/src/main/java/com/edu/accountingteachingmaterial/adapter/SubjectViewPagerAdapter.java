@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.ViewGroup;
 
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.entity.Answer;
 import com.edu.accountingteachingmaterial.fragment.SubjectViewPagerFragment;
 import com.edu.subject.SubjectListener;
@@ -280,9 +281,35 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 			@Override
 			public void run() {
 				Log.i(TAG, "save answer start:" + index);
-				if (mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
+				if (
+						mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
 //					return;
 				}
+				mPagerList.get(index).saveAnswer();
+				if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
+					mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);
+				}
+				SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index));
+				Log.i(TAG, "save answer over:" + index);
+			}
+		}.run();
+	}
+	/**
+	 * 保存答案
+	 * @param index
+	 */
+	public void saveAnswer(final int index, final int modle) {
+		new Runnable() {
+			@Override
+			public void run() {
+				Log.i(TAG, "save answer start:" + index);
+				if (modle == ClassContstant.TEST_MODE_INCLASS){
+					if (
+							mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
+					return;
+					}
+				}
+
 				mPagerList.get(index).saveAnswer();
 				if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
 					mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);

@@ -135,12 +135,12 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
         // 刷新题目数据
 //        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
-            btnDone.setVisibility(View.VISIBLE);
+//            btnDone.setVisibility(View.VISIBLE);
             btnSign.setVisibility(View.VISIBLE);
             refreshDoneState();
 
         } else {
-            btnDone.setVisibility(View.GONE);
+//            btnDone.setVisibility(View.GONE);
             btnSign.setVisibility(View.GONE);
 
         }
@@ -150,9 +150,9 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
      */
     private void refreshDoneState() {
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
-            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
+            done.setImageResource(R.mipmap.icon_congzuo_n);
         } else {
-            btnDone.setImageResource(R.mipmap.icon_fasong_n);
+            done.setImageResource(R.mipmap.icon_fasong_n);
         }
     }
 

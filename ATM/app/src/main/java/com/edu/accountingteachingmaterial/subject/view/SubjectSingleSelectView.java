@@ -236,7 +236,7 @@ public class SubjectSingleSelectView extends BaseScrollView implements OnClickLi
     public float submit() {
 //        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
 //        disableOption();
-        if(testMode == TEST_MODE_INCLASS){
+        if(testMode == TEST_MODE_INCLASS||testMode == TEST_MODE_NORMAL){
             updateState(mTestData.getuAnswer());
         }
         // TODO Auto-generated method stub

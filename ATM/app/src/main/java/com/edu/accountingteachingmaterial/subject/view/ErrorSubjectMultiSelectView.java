@@ -268,7 +268,7 @@ public class ErrorSubjectMultiSelectView extends ErrorBaseScrollView implements 
     public float submit() {
 //        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
 //        disableOption();
-        if(testMode == TEST_MODE_INCLASS){
+        if(testMode == TEST_MODE_INCLASS||testMode == TEST_MODE_NORMAL){
             updateState(mTestData.getuAnswer());
         }
         return 0;
@@ -349,6 +349,7 @@ public class ErrorSubjectMultiSelectView extends ErrorBaseScrollView implements 
             // 将答案实时存入数据库
 //			SubjectModel.getInstance(getContext()).updateUserAnswer(mData.getId(), answer);
         }
+        handleOnClick(answer);
         gradeAnswer(answer);
     }
 

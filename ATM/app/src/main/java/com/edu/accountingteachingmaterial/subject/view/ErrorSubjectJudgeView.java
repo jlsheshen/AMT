@@ -159,7 +159,7 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
 
     @Override
     public float submit() {
-        if(testMode == TEST_MODE_INCLASS){
+        if(testMode == TEST_MODE_INCLASS||testMode == TEST_MODE_NORMAL){
             updateState(mTestData.getuAnswer());
         }
 //        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));

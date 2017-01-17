@@ -159,13 +159,13 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 //        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL && textMode == ClassContstant.TEST_MODE_NORMAL) {
             btnSign.setVisibility(View.VISIBLE);
-            btnFlash.setVisibility(View.VISIBLE);
+//            btnFlash.setVisibility(View.VISIBLE);
 //            tvBillQuestion.setText(subject.getQuestion());
 //            tvBillQuestion.setVisibility(View.VISIBLE);
         } else {
             btnSign.setVisibility(View.GONE);
-            btnFlash.setVisibility(View.GONE);
-            tvBillQuestion.setVisibility(View.GONE);
+//            btnFlash.setVisibility(View.GONE);
+//            tvBillQuestion.setVisibility(View.GONE);
         }
     }
 

@@ -153,10 +153,10 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
 
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnSign.setVisibility(View.VISIBLE);
-            btnFlash.setVisibility(View.VISIBLE);
+//            btnFlash.setVisibility(View.VISIBLE);
         } else {
             btnSign.setVisibility(View.GONE);
-            btnFlash.setVisibility(View.GONE);
+//            btnFlash.setVisibility(View.GONE);
         }
     }
 

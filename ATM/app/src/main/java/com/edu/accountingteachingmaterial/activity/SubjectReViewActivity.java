@@ -101,7 +101,6 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
         btnSign = (ImageView) findViewById(R.id.btnSign);
-        btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
 
         Bundle bundle = getIntent().getExtras();
@@ -137,10 +136,10 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
             btnSign.setVisibility(View.VISIBLE);
-            btnFlash.setVisibility(View.VISIBLE);
+//            btnFlash.setVisibility(View.VISIBLE);
         } else {
             btnSign.setVisibility(View.GONE);
-            btnFlash.setVisibility(View.GONE);
+//            btnFlash.setVisibility(View.GONE);
         }
     }
 

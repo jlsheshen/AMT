@@ -81,7 +81,7 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
             contentValues.put(ErrorTestDataDao.UANSWER, answer);
             contentValues.put(ErrorTestDataDao.USCORE, mData.getScore());
             contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-            contentValues.put(ErrorTestDataDao.REMARK, "0");
+            contentValues.put(ErrorTestDataDao.REMARK, mTestData.getRemark());
             ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
         } else {
             // 2是错误
@@ -92,7 +92,7 @@ public abstract class ErrorBaseScrollView extends RelativeLayout {
             contentValues.put(ErrorTestDataDao.UANSWER, answer);
             contentValues.put(ErrorTestDataDao.USCORE, 0);
             contentValues.put(ErrorTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-            contentValues.put(ErrorTestDataDao.REMARK, "0");
+            contentValues.put(ErrorTestDataDao.REMARK, mTestData.getRemark());
             ErrorTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
 
         }

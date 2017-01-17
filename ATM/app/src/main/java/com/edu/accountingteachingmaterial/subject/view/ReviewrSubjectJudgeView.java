@@ -17,6 +17,7 @@ import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
 
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_INCLASS;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_LOOK;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
@@ -161,6 +162,9 @@ public class ReviewrSubjectJudgeView extends ReviewBaseScrollView implements ISu
     public float submit() {
 //        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
 //        disableOption();
+        if(testMode == TEST_MODE_INCLASS||testMode == TEST_MODE_NORMAL){
+            updateState(mTestData.getuAnswer());
+        }
         // TODO Auto-generated method stub
         return 0;
     }

@@ -161,8 +161,8 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
     public float submit() {
 //        showCorrectAnswer(mTestData.getuAnswer().equals(mData.getAnswer()));
 //        disableOption();
-        if(testMode == TEST_MODE_INCLASS){
-        updateState(mTestData.getuAnswer());
+        if(testMode == TEST_MODE_INCLASS||testMode == TEST_MODE_NORMAL){
+            updateState(mTestData.getuAnswer());
         }
         // TODO Auto-generated method stub
         return 0;

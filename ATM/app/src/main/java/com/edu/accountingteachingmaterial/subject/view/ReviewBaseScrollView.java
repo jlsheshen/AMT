@@ -69,7 +69,7 @@ public abstract class ReviewBaseScrollView extends RelativeLayout {
     /**
      * 更改数据库表TB_TEST中单多判答题状态
      */
-    private void updateState(String answer) {
+    public void updateState(String answer) {
         mTestData.setuAnswer(answer);
 
         if (answer.equals(mData.getAnswer())) {
@@ -92,7 +92,7 @@ public abstract class ReviewBaseScrollView extends RelativeLayout {
             contentValues.put(ReviewTestDataDao.UANSWER, answer);
             contentValues.put(ReviewTestDataDao.USCORE, 0);
             contentValues.put(ReviewTestDataDao.ERROR_COUNT, mTestData.getErrorCount());
-            contentValues.put(ReviewTestDataDao.REMARK, "0");
+            contentValues.put(ReviewTestDataDao.REMARK, mTestData.getRemark());
             ReviewTestDataDao.getInstance(getContext()).updateData(String.valueOf(mTestData.getId()), contentValues);
 
         }

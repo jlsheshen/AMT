@@ -140,12 +140,12 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         // 刷新题目数据
 //        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
-            btnDone.setVisibility(View.VISIBLE);
+//            btnDone.setVisibility(View.VISIBLE);
             btnSign.setVisibility(View.VISIBLE);
             refreshDoneState();
 
         } else {
-            btnDone.setVisibility(View.GONE);
+//            btnDone.setVisibility(View.GONE);
             btnSign.setVisibility(View.GONE);
 
         }
@@ -156,9 +156,9 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      */
     private void refreshDoneState() {
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
-            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
+           done.setImageResource(R.mipmap.icon_congzuo_n);
         } else {
-            btnDone.setImageResource(R.mipmap.icon_fasong_n);
+            done.setImageResource(R.mipmap.icon_fasong_n);
         }
     }
 
@@ -169,7 +169,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
                 break;
 
             case R.id.btnFlash:
-                mSubjectAdapter.showFlash(mCurrentIndex);
+//                mSubjectAdapter.showFlash(mCurrentIndex);
                 break;
 
             case R.id.btnDone:
@@ -248,7 +248,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      */
     private void scrollToLeft() {
         if (mCurrentIndex != 0) {
-            mSubjectAdapter.saveAnswer(mCurrentIndex);
+            mSubjectAdapter.saveAnswer(mCurrentIndex,ClassContstant.TEST_MODE_INCLASS);
             mCurrentIndex--;
             viewPager.setCurrentItem(mCurrentIndex, true);
         } else {
@@ -261,7 +261,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      */
     private void scrollToRight() {
         if (mCurrentIndex != mSubjectAdapter.getCount() - 1) {
-            mSubjectAdapter.saveAnswer(mCurrentIndex);
+            mSubjectAdapter.saveAnswer(mCurrentIndex,ClassContstant.TEST_MODE_INCLASS);
             mCurrentIndex++;
             viewPager.setCurrentItem(mCurrentIndex, true);
         } else {
@@ -288,7 +288,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
     @Override
     public int onItemClicked(BaseTestData data) {
-        mSubjectAdapter.saveAnswer(mCurrentIndex);
+        mSubjectAdapter.saveAnswer(mCurrentIndex,ClassContstant.TEST_MODE_INCLASS);
         mCardDialog.dismiss();
         int index = mSubjectAdapter.getDatas().indexOf(data);
         viewPager.setCurrentItem(index);
@@ -315,7 +315,7 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
     @Override
     public void onBackPressed() {
-        mSubjectAdapter.saveAnswer(mCurrentIndex);
+        mSubjectAdapter.saveAnswer(mCurrentIndex,ClassContstant.TEST_MODE_INCLASS);
         super.onBackPressed();
     }
 
