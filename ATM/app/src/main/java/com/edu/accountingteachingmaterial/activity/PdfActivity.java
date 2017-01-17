@@ -74,12 +74,54 @@ public class PdfActivity extends BaseActivity {
      * 开始下载
      */
     public void start() {
-        String downUrl = mUrl + exampleBeans.getUrl() + "-1";
         String path = SdcardPathUtil.getExternalSdCardPath() + "/EduResources/AccCourse/pdf/";
-        //String path = UriConstant.PDF_PATH;
+        checkPath(path);
+        fileIsExists(path);
+    }
+
+    /**
+     * 检查该路径是否存在，不存在则创建
+     *
+     * @param path
+     */
+    public void checkPath(String path) {
+        File f = new File(path);
+        if (!f.exists()) {
+            if (!f.getParentFile().exists()) {
+                if (f.getParentFile().mkdirs()) {
+                    f.mkdirs();
+                }
+            } else {
+                f.mkdirs();
+            }
+        }
+    }
+
+    /**
+     * 检查文件是否存在，存在直接读取，不进行下载
+     */
+    public void fileIsExists(String path) {
+        String downUrl = mUrl + exampleBeans.getUrl() + "-1";
         String[] tmp = downUrl.split("/");
         target = path + tmp[tmp.length - 1];
-        checkPath(path);
+        Log.d("PdfActivity2", downUrl);
+        Log.d("PdfActivity3", target);
+        File f = new File(target);
+        if (!f.exists()) {
+            down();
+        } else {
+            show();
+        }
+    }
+
+    /**
+     * 开始下载
+     */
+    public void down() {
+        String downUrl = mUrl + exampleBeans.getUrl() + "-1";
+        String path = SdcardPathUtil.getExternalSdCardPath() + "/EduResources/AccCourse/pdf/";
+        String[] tmp = downUrl.split("/");
+        target = path + tmp[tmp.length - 1];
         Log.d("PdfActivity2", downUrl);
         Log.d("PdfActivity3", target);
 
@@ -109,23 +151,5 @@ public class PdfActivity extends BaseActivity {
                 }
             }
         });
-    }
-
-    /**
-     * 检查该路径是否存在，不存在则创建
-     *
-     * @param path
-     */
-    public void checkPath(String path) {
-        File f = new File(path);
-        if (!f.exists()) {
-            if (!f.getParentFile().exists()) {
-                if (f.getParentFile().mkdirs()) {
-                    f.mkdirs();
-                }
-            } else {
-                f.mkdirs();
-            }
-        }
     }
 }
