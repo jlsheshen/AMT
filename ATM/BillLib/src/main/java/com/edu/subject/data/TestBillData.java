@@ -146,7 +146,7 @@ public class TestBillData extends BaseTestData {
 	 *
 	 * @param result
 	 */
-	private void judgeAnswer(AnswerResult result) {
+	public void judgeAnswer(AnswerResult result) {
 		// 存放需要分组的空，key-分组id，value-对应组的组件
 		HashMap<Integer, List<BlankResult>> groups = new HashMap<Integer, List<BlankResult>>(1);
 

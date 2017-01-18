@@ -510,6 +510,8 @@ public class BlankEditText extends EditText implements IScaleable {
 
 		// 人民币符号
 		private String rmbSymbol = "￥";
+		// 负号
+		private String minusSymbol = "-";
 		// 金额格式化
 		private DecimalFormat dFormat = new DecimalFormat("###,###,###,###,###.##########");
 		// 当前字符
@@ -541,14 +543,22 @@ public class BlankEditText extends EditText implements IScaleable {
 		private String formatStr(String str) {
 			String result = null;
 			boolean containsRmb = false;
+			boolean containsMinus = false;
+
 			if (str.equals("")) {
 				return "";
 			}
 			if (str.equals(rmbSymbol)) {
 				return rmbSymbol;
 			}
+			if (str.equals(minusSymbol)) {
+				return minusSymbol;
+			}
 			if (str.startsWith(rmbSymbol)) {
 				containsRmb = true;
+				str = str.substring(1, str.length());
+			}else if (str.startsWith(minusSymbol)) {
+				containsMinus = true;
 				str = str.substring(1, str.length());
 			}
 
@@ -570,8 +580,9 @@ public class BlankEditText extends EditText implements IScaleable {
 			// 以人民币开头情况
 			if (containsRmb && !result.startsWith(rmbSymbol)) {
 				result = rmbSymbol + result;
+			}else if(containsMinus && !result.startsWith(minusSymbol)){
+				result = minusSymbol + result;
 			}
-
 			return result;
 		}
 	}

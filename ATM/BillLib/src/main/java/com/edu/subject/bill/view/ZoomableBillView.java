@@ -13,6 +13,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
 import com.edu.subject.bill.BatchOperateHelper;
@@ -857,6 +858,8 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
             cancelSign();
         }
         mAnswerHandler.submit();
+        Log.d("ZoomableBillView", JSONObject.toJSONString(mTestData));
+        Log.d("ZoomableBillView", "----" + mTestData.getuScore());
         return mTestData.getuScore();
     }
 
@@ -887,7 +890,6 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 
     /**
      * 切换用户/正确答案
-     *
      * @param user
      */
     private void switchAnswer(boolean user) {

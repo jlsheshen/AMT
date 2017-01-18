@@ -18,8 +18,6 @@ import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
-import com.edu.library.usercenter.UserCenterHelper;
-import com.edu.library.usercenter.UserData;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
@@ -139,10 +137,11 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         ;
         // 刷新题目数据
 //        tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
+        refreshDoneState();
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
 //            btnDone.setVisibility(View.VISIBLE);
             btnSign.setVisibility(View.VISIBLE);
-            refreshDoneState();
+
 
         } else {
 //            btnDone.setVisibility(View.GONE);
@@ -156,9 +155,11 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
      */
     private void refreshDoneState() {
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
-           done.setImageResource(R.mipmap.icon_congzuo_n);
+          done.setImageResource(R.mipmap.icon_fasong_n);
+
         } else {
-            done.setImageResource(R.mipmap.icon_fasong_n);
+            done.setImageResource(R.mipmap.icon_congzuo_n);
+
         }
     }
 
@@ -209,7 +210,6 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
             float score = mSubjectAdapter.submit(mCurrentIndex);
             UploadResultsManager.getSingleton(this).setResultsListener(this);
             UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
-            UserData user = UserCenterHelper.getUserInfo(this);
             UploadResultsManager.getSingleton(this).uploadResult(Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID)), examListData.getId());
 //            ToastUtil.showToast(this, "score:" + score);
 //            btnDone.setImageResource(R.mipmap.icon_congzuo_n);

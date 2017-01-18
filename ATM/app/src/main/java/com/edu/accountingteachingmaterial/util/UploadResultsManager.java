@@ -60,7 +60,11 @@ public class UploadResultsManager extends JsonNetReqManager {
      */
     public static UploadResultsManager getSingleton(Context context) {
         if (mSingleton == null) {
-            mSingleton = new UploadResultsManager(context);
+            synchronized (UploadResultsManager.class){
+                if (mSingleton == null){
+                    mSingleton = new UploadResultsManager(context);
+                }
+            }
         }
         return mSingleton;
     }
@@ -105,11 +109,11 @@ public class UploadResultsManager extends JsonNetReqManager {
             ToastUtil.showToast(mContext, "发送结果为空");
             return;
         }
-        Log.d("UploadResultsManager", JSON.toJSONString(mAnswerResults));
+        Log.d("UploadResultsManager", "-----------" + JSON.toJSONString(mAnswerResults));
         String url = NetUrlContstant.getSubjectSubmitUrl() + studentId + "-" + examId + "-" + seconds;
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
         sendRequest(entity, "正在拼命上传成绩");
-        Log.d(TAG, "uploadResult:" + JSON.toJSONString(mAnswerResults));
+        Log.d("UploadResultsManager", "uploadResult:" + JSON.toJSONString(mAnswerResults));
     }
 
     /**
@@ -126,9 +130,10 @@ public class UploadResultsManager extends JsonNetReqManager {
         }
         String url = NetUrlContstant.getSubjectSingleSubmitUrl() + studentId + "-" + examId;
         Log.d("UploadResultsManager", "mAnswerResults.get(0):" + mAnswerResults.get(0) + "--" + url);
+        Log.d("UploadResultsManager", "-----------" + JSON.toJSONString(mAnswerResults));
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
         sendRequest(entity, "正在拼命上传成绩");
-        Log.d(TAG, "uploadResult:" + JSON.toJSONString(mAnswerResults));
+        Log.d("UploadResultsManager", "uploadResult:" + JSON.toJSONString(mAnswerResults));
     }
 
     @Override

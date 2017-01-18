@@ -127,11 +127,9 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
             @Override
             public void onOpen() {
             }
-
             @Override
             public void onDrag(float percent) {
             }
-
             @Override
             public void onClose() {
                 checkScrollBorder();
@@ -279,6 +277,7 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
         } else {
             return mData.getuScore();
         }
+
     }
 
     @Override

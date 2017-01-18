@@ -150,9 +150,9 @@ public class SubjectErrorActivity extends BaseActivity implements AdapterView.On
      */
     private void refreshDoneState() {
         if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
-            done.setImageResource(R.mipmap.icon_congzuo_n);
+//            done.setImageResource(R.mipmap.icon_congzuo_n);
         } else {
-            done.setImageResource(R.mipmap.icon_fasong_n);
+//            done.setImageResource(R.mipmap.icon_fasong_n);
         }
     }
 

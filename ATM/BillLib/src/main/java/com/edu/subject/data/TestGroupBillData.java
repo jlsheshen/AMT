@@ -1,8 +1,11 @@
 package com.edu.subject.data;
 
 
+import com.edu.subject.SubjectType;
 import com.edu.subject.net.AnswerResult;
+import com.edu.subject.net.BlankResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +51,24 @@ public class TestGroupBillData extends BaseTestData {
 	}
 	@Override
 	public AnswerResult toResult() {
-		return null;
+		AnswerResult result = new AnswerResult();
+		ArrayList<BlankResult> blankResults = new ArrayList<>();
+		for (TestBillData testBill : testDatas) {
+			AnswerResult result1 = new AnswerResult();
+			testBill.judgeAnswer(result1);
+			blankResults.addAll(result1.getBlankResult());
+		}
+
+		result.setBlankResult(blankResults);
+		result.setAnswer(uAnswer);
+		result.setFlag(getSubjectData().getFlag());
+		result.setType(SubjectType.SUBJECT_BILL);
+		if (uAnswer == null) {
+			result.setAnswer("null");
+		} else {
+			result.setAnswer(uAnswer);
+		}
+		result.setScore(uScore);
+		return result;
 	}
 }
