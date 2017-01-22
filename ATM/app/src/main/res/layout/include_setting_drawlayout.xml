@@ -29,6 +29,16 @@
         android:paddingLeft="@dimen/middle_interval"
         android:paddingRight="@dimen/middle_interval"
         >
+        <TextView
+            android:id="@+id/my_head_student_name_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/item_title_text_size"
+            />
 
         <com.edu.accountingteachingmaterial.view.CircleImageView
             android:id="@+id/my_head_civ"
@@ -37,7 +47,8 @@
             android:src="@mipmap/touxiang_setting"
             android:layout_gravity="center_vertical"
             app:civ_border_overlay="false"
-            app:civ_border_width="0dp" />
+            app:civ_border_width="0dp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/main_relogin"
@@ -50,12 +61,14 @@
             android:paddingRight="15px"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/content_text_size"
+            android:visibility="gone"
             />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/icon_go"
+            android:visibility="gone"
             />
     </LinearLayout>
 
@@ -90,6 +103,8 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/middle_interval"
         android:paddingRight="@dimen/middle_interval"
+        android:visibility="invisible"
+
         >
         <TextView
             android:layout_width="0dp"
@@ -100,6 +115,7 @@
             android:text="清除缓存"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/item_title_text_size"
+
             />
         <TextView
             android:layout_width="wrap_content"
@@ -112,13 +128,16 @@
 
             />
     </LinearLayout>
-    <View style="@style/HorizontalLine" />
+    <View style="@style/HorizontalLine"
+        android:visibility="invisible"
+        />
 
     <LinearLayout
         style="@style/SettingItem"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/middle_interval"
         android:paddingRight="@dimen/middle_interval"
+        android:visibility="invisible"
 
         >
 
@@ -139,12 +158,16 @@
             android:src="@mipmap/icon_go"
             />
     </LinearLayout>
-    <View style="@style/HorizontalLine" />
+    <View style="@style/HorizontalLine"
+        android:visibility="invisible"
+
+        />
     <LinearLayout
         style="@style/SettingItem"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/middle_interval"
         android:paddingRight="@dimen/middle_interval"
+        android:visibility="invisible"
 
         >
 
@@ -157,6 +180,7 @@
             android:text="关于产品"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/item_title_text_size"
+
             />
         <ImageView
             android:layout_width="wrap_content"
@@ -165,7 +189,9 @@
             android:src="@mipmap/icon_go"
             />
     </LinearLayout>
-    <View style="@style/HorizontalLine" />
+    <View style="@style/HorizontalLine"
+        android:visibility="invisible"
+        />
 
 
 </LinearLayout>

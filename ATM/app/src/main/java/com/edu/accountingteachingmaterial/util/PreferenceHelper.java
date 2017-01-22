@@ -15,6 +15,11 @@ public class PreferenceHelper {
      */
 
     public static final String URL_NAME = "URL_NAME";
+    /**
+     * 学生姓名
+     */
+    public static final String STUDENT_NAME = "STUDENT_NAME";
+
 
     /**
      * 用户id

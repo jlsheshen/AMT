@@ -83,7 +83,11 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     public static GetBillTemplatesManager newInstance(Context context) {
 
         if (instance == null) {
-            instance = new GetBillTemplatesManager(context);
+            synchronized (GetBillTemplatesManager.class){
+                if (instance == null){
+                    instance = new GetBillTemplatesManager(context);
+                }
+            }
         }
         return instance;
     }

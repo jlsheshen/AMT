@@ -61,7 +61,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
     protected void initData() {
         adapter = new ErrorAdapter(context);
         datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE);
-        if (datas == null) {
+        if (datas == null||datas.size() <1) {
             listView.setVisibility(View.GONE);
             noErrorsLayout.setVisibility(View.VISIBLE);
         } else {

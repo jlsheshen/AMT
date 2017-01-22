@@ -33,28 +33,32 @@
             style="@style/SizeBarStyle"
             
             >
+
             <RadioButton
                 android:id="@+id/main_class_iv"
                 style="@style/SizeBarButtonStyle"
                 android:checked="true"
                 android:drawableTop="@drawable/selector_main_class" />
 
+
+
             <RadioButton
                 android:id="@+id/main_exam_iv"
                 style="@style/SizeBarButtonStyle"
                 android:drawableTop="@drawable/selector_main_exam" />
-
             <RadioButton
                 android:id="@+id/main_my_iv"
                 style="@style/SizeBarButtonStyle"
                 android:drawableTop="@drawable/selector_main_my" />
-
             <Button
                 android:id="@+id/main_setting_iv"
                 style="@style/SizeBarButtonStyle"
                 android:drawableTop="@drawable/selector_main_setting"
                 android:background="@null"
                 />
+
+
+
         </RadioGroup>
         </FrameLayout>
 

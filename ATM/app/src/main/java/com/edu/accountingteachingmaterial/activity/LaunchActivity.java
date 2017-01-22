@@ -1,7 +1,10 @@
 package com.edu.accountingteachingmaterial.activity;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
@@ -45,7 +48,12 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
 
     @Override
     public void initData() {
-
+        TextView textView = (TextView) findViewById(R.id.version_name_tv);
+        try {
+            textView.setText(getVersionName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         presenter.loadData(this);
     }
 
@@ -84,6 +92,15 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
 
         isSuccess = false;
 
+    }
+    private String getVersionName() throws Exception
+    {
+        // 获取packagemanager的实例
+        PackageManager packageManager = getPackageManager();
+        // getPackageName()是你当前类的包名，0代表是获取版本信息
+        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),0);
+        String versionName = packInfo.versionName;
+        return versionName;
     }
 //public class LaunchActivity extends BaseActivity {
 //    CountDownTimer timer;

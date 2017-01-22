@@ -6,9 +6,17 @@
 <ImageView 
     android:layout_width="1365dp"
     android:layout_height="736dp"
-    android:src="@drawable/luanch"
+    android:src="@mipmap/launch"
     android:scaleType="fitXY"
-
-    />    
+    />
+    <TextView
+        android:id="@+id/version_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/title_text_size"
+        android:textColor="@color/white"
+        android:layout_marginLeft="540px"
+        android:layout_marginTop="60px"
+        />
 
 </RelativeLayout>

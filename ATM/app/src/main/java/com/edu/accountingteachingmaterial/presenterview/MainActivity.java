@@ -60,7 +60,7 @@ public class MainActivity extends BaseMvpActivity<MainView,MainPresenter> implem
         drawerLayout = bindView(R.id.main_aty_seeting);
         bindAndListener(changeIpLy, R.id.change_ip_ly);
         // TODO Auto-generated method stub
-        findViewById(R.id.main_my_iv).bringToFront();
+//        findViewById(R.id.main_my_iv).bringToFront();
     }
 
     @Override

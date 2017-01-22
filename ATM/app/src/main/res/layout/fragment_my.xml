@@ -15,7 +15,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="185px"
-            android:background="@color/colorBlueBackground">
+            android:background="@color/colorBlueBackground"
+            android:visibility="gone"
+            >
 
             <com.edu.accountingteachingmaterial.view.CircleImageView
                 android:id="@+id/my_head_civ"

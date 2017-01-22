@@ -33,6 +33,7 @@ import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.library.util.DoubleClickExitUtil;
 import com.lucher.net.req.RequestMethod;
 
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDENT_NAME;
 import static com.edu.subject.BASE_URL.BASE_URL;
 import static com.edu.subject.BASE_URL.TEMP_URL;
 
@@ -45,7 +46,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     ClassFragment classFragment;
     DrawerLayout drawerLayout;
     LinearLayout changeIpLy;
-    TextView reLoginTv;
+    TextView reLoginTv,studentName;
     AlertDialog alertDialog;
     int drawerLayoutIsShow = 0;
 
@@ -61,17 +62,21 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     public void initView(Bundle savedInstanceState) {
         bindAndListener(classButton, R.id.main_class_iv);
         bindAndListener(examButton, R.id.main_exam_iv);
-        bindAndListener(myButton, R.id.main_my_iv);
+       bindAndListener(myButton, R.id.main_my_iv);
         bindAndListener(settingButton, R.id.main_setting_iv);
         bindAndListener(reLoginTv,R.id.main_relogin);
         drawerLayout = bindView(R.id.main_aty_seeting);
         bindAndListener(changeIpLy, R.id.change_ip_ly);
+        studentName = bindView(R.id.my_head_student_name_tv);
+
         // TODO Auto-generated method stub
-        findViewById(R.id.main_my_iv).bringToFront();
+//        findViewById(R.id.main_my_iv).bringToFront();
     }
 
     @Override
     public void initData() {
+        String stuName = PreferenceHelper.getInstance(this).getStringValue(STUDENT_NAME);
+        studentName.setText(stuName);
         if (null == classFragment) {
             classFragment = new ClassFragment();
         }
@@ -186,7 +191,6 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                     PreferenceHelper.getInstance(MainActivity.this).setStringValue(PreferenceHelper.URL_NAME, BASE_URL);
                     Toast.makeText(MainActivity.this, "Ip设置成功", Toast.LENGTH_SHORT).show();
                     alertDialog.dismiss();
-
                 }
             }
 

@@ -18,8 +18,6 @@
         android:persistent="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--android:name="com.edu.accountingteachingmaterial.activity.LaunchActivity"-->
-        <!--android:name="com.edu.accountingteachingmaterial.util.UnitTestActivity"-->
 
         <activity
             android:name="com.edu.accountingteachingmaterial.activity.LaunchActivity"

@@ -18,6 +18,7 @@ import java.util.List;
 
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.COURSE_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.KEY_LOGIN_STATE;
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDENT_NAME;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 
@@ -93,6 +94,7 @@ public class LoginNetMananger extends JsonNetReqManager {
             PreferenceHelper.getInstance(context).setStringValue(STUDNET_NUMBER, studentNumber);
             PreferenceHelper.getInstance(context).setStringValue(STUDNET_PASSWORD, studentPassword);
             PreferenceHelper.getInstance(context).setStringValue(TOKEN, accToken.getLoginToken());
+            PreferenceHelper.getInstance(context).setStringValue(STUDENT_NAME, accToken.getStuName());
             PreferenceHelper.getInstance(context).setStringValue(PreferenceHelper.USER_ID, String.valueOf(accToken.getStuId()));
             uploadHomepageInfo();
             PreferenceHelper.getInstance(context).setBooleanValue(KEY_LOGIN_STATE, true);
