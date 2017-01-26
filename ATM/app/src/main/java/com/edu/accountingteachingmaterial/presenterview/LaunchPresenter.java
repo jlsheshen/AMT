@@ -17,8 +17,10 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
 
 public class LaunchPresenter extends BasePresenter<LaunchView> {
     CountDownTimer timer;
+    Context context;
 
     public void loadData(final Context context) {
+        this.context = context;
         String s = PreferenceHelper.getInstance(context).getStringValue(URL_NAME);
         Log.d("LaunchActivity", "--------------" + s);
         mView.launchLogin();
@@ -34,11 +36,13 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
                 public void onSuccess() {
                     mView.jumpMain();
                 }
+
                 @Override
                 public void onFailure(String message) {
-                    ToastUtil.showToast(context,"登录出错" + message);
-                    if (mView != null){
-                    mView.jumpLogin();}else {
+                    ToastUtil.showToast(context, "登录出错" + message);
+                    if (mView != null) {
+                        mView.jumpLogin();
+                    } else {
 
 
                     }
@@ -54,13 +58,15 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
 
             @Override
             public void onFinish() {
-                if (mView !=null){
-                mView.startActivity();
+                if (mView != null) {
+                    mView.startActivity();
                 }
             }
         }.start();
 
     }
 
-
+    public void destroy() {
+        LoginNetMananger.getSingleton(context).cancelRequest();
+    }
 }

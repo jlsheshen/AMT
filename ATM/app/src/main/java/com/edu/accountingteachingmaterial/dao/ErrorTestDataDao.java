@@ -64,9 +64,7 @@ public class ErrorTestDataDao extends BaseDataDao {
     public static final String REMARK = "REMARK";
 
 
-    /**
-     * 自身引用
-     */
+
     private static ErrorTestDataDao instance = null;
 
     private ErrorTestDataDao(Context context) {
@@ -467,6 +465,28 @@ public class ErrorTestDataDao extends BaseDataDao {
         values.put("USCORE", 0);
         values.put("STATE", 0);
         db.replace(TABLE_NAME, null, values);
+    }
+    public void insertTest(int subjectType, int subjectId,int chapterid) {
+        Cursor curs = null;
+        DBHelper helper = new DBHelper(mContext, dbName, null);
+        mDb = helper.getWritableDatabase();
+        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + SUBJECT_ID + " = " + subjectId;
+        curs = mDb.rawQuery(sql, null);
+        if (curs.getCount()>0){
+            curs.close();
+            mDb.close();
+            return;
+        }
+        ContentValues values = new ContentValues();
+        values.put("FLAG", -1);
+        values.put("SUBJECT_TYPE", subjectType);
+        values.put("SUBJECT_ID", subjectId);
+        values.put(CHAPTER_ID,chapterid);
+        values.put("USCORE", 0);
+        values.put("STATE", 0);
+        mDb.replace(TABLE_NAME, null, values);
+        curs.close();
+        mDb.close();
     }
 
 

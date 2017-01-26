@@ -23,7 +23,8 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 
     // 重点难点,经典实例,精选练习,自我检测
     RadioButton classEmphasisButton, classExampleButton, classExerciseButton, classReviewButton;
-    Fragment classEmphasisFragment, classExampleFragment, classExerciseFragment, classReviewFragment;
+    Fragment  classExampleFragment, classExerciseFragment, classReviewFragment;
+    ClassEmphasisFragment classEmphasisFragment;
     ImageView backIv, imgZhangjie, imgReviewHy;
     TextView textView;
     ClassChapterData.SubChaptersBean data;
@@ -56,16 +57,18 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 
     @Override
     public void initData() {
-        if (null == classEmphasisFragment) {
-            classEmphasisFragment = new ClassEmphasisFragment();
-        }
-        replaceFragment(classEmphasisFragment);
+
         Bundle bundle = getIntent().getExtras();
         data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
         chapterId = bundle.getInt("ChapterId");
         if (data != null) {
             textView.setText(data.getTitle());
         }
+        if (null == classEmphasisFragment) {
+            classEmphasisFragment = new ClassEmphasisFragment();
+        }
+        classEmphasisFragment.setChapter(chapterId);
+        replaceFragment(classEmphasisFragment);
         // TODO Auto-generated method stub
 
     }
@@ -88,6 +91,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                 if (null == classEmphasisFragment) {
                     classEmphasisFragment = new ClassEmphasisFragment();
                 }
+                classEmphasisFragment.setChapter(chapterId);
                 replaceFragment(classEmphasisFragment);
                 imgReviewHy.setVisibility(View.GONE);
                 break;

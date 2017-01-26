@@ -76,12 +76,10 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     /**
      * 创建实例
-     *
      * @param context
      * @return
      */
     public static GetBillTemplatesManager newInstance(Context context) {
-
         if (instance == null) {
             synchronized (GetBillTemplatesManager.class){
                 if (instance == null){
@@ -91,8 +89,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         }
         return instance;
     }
-
-
     /**
      * 发送请求
      */
@@ -103,13 +99,9 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity, "耐心等待");
         Log.d("GetBillTemplatesManager", "uploadResult:" + JSON.toJSONString(datas));
-
-
     }
-
     /**
      * 获取本地模板数据
-     *
      * @return
      */
     private List<BillTemplateListBean> getTemplates() {
@@ -158,13 +150,14 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             myDialog.setMessage("第一次加载时间会比较久^-^");
             myDialog.setCancelable(false);
             myDialog.show();
-            // myDialog = ProgressDialog.show(mContext,"正在加载模板..", "第一次加载时间会比较久^-^", true, false);
             Log.d(TAG, "------" + message + "---");
             Log.d("GetBillTemplatesManager", "context:2" + mContext);
 
             Observable.create(new Observable.OnSubscribe<List<TemplateData>>() {
                 @Override
                 public void call(Subscriber<? super List<TemplateData>> subscriber) {
+                    Log.d("GetBillTemplatesManager", "插入数据");
+
                     List<TemplateData> billTemplates = JSON.parseArray(message, TemplateData.class);
                     saveTemplates(billTemplates);
                     subscriber.onCompleted();
@@ -175,13 +168,17 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                     .subscribe(new Observer<List<TemplateData>>() {
                         @Override
                         public void onNext(List<TemplateData> data) {
+                            Log.d("GetBillTemplatesManager", "插入数据完成一点");
+
+                            myDialog.dismiss();
+
                         }
                         @Override
                         public void onCompleted() {
+                            Log.d("GetBillTemplatesManager", "插入数据完成");
+
                             myDialog.dismiss();
                             EventBus.getDefault().post("1");
-//                            Intent i = new Intent(mContext, MainActivity.class);
-//                            mContext.startActivity(i);
                         }
                         @Override
                         public void onError(Throwable e) {
@@ -247,6 +244,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         try {
             DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
             mDb = helper.getWritableDatabase();
+            mDb.beginTransaction();
             curs = mDb.rawQuery(sql, null);
 
             if (curs != null) {

@@ -159,9 +159,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
             Log.d("ExerciseExLvAdapter", "没有支持的题型");
             return view;
         }
-        Log.d("ExerciseExLvAdapter", "exercisePracticeBean.getId():" + exercisePracticeBean.getId());
-        Log.d("ExerciseExLvAdapter", "exercisePracticeBean.getSubjectData().getId():" + exercisePracticeBean.getSubjectData().getId());
-        Log.d("ExerciseExLvAdapter", exercisePracticeBean.getSubjectData().getQuestion());
         childViewHolder.contentTv.setText(exercisePracticeBean.getSubjectData().getQuestion());
         String s = null;
         switch (exercisePracticeBean.getSubjectType()) {

@@ -18,6 +18,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.CountryTestTimer;
@@ -27,6 +28,7 @@ import com.edu.accountingteachingmaterial.view.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
+import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
 import com.edu.subject.common.SubjectCardAdapter;
 import com.edu.subject.common.SubjectCardDialog;
@@ -119,12 +121,13 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
 
         datas = SubjectTestDataDao.getInstance(this).getSubjects(textMode, examId);
 
+
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
 
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(textMode);
-
+        mSubjectAdapter.setOnlineExam(true);
         viewPager.setAdapter(mSubjectAdapter);
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
 

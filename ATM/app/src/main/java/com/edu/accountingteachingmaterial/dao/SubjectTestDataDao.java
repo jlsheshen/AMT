@@ -399,7 +399,7 @@ public class SubjectTestDataDao extends BaseDataDao {
      *
      * @param data
      */
-    public synchronized void updateTestData(BaseTestData data) {
+    public synchronized void updateTestData(BaseTestData data,boolean onLineExam) {
         try {
             Log.d(TAG, TABLE_NAME + "-updateData");
             DBHelper helper = new DBHelper(mContext, dbName, null);
@@ -415,9 +415,10 @@ public class SubjectTestDataDao extends BaseDataDao {
                 values.put(USIGNS, ((TestGroupBillData) data).getuSigns());
             }
             mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
-            if (data.getState() == SubjectState.STATE_WRONG){
-                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
-            }
+//            if (data.getState() == SubjectState.STATE_WRONG){
+//                if (!onLineExam){
+//                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
+//            }}
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -431,7 +432,7 @@ public class SubjectTestDataDao extends BaseDataDao {
      *
      * @param datas
      */
-    public synchronized void updateTestDatas(List<BaseTestData> datas) {
+    public synchronized void updateTestDatas(List<BaseTestData> datas,boolean onLineExam) {
         try {
             Log.d(TAG, TABLE_NAME + "-updateDatas");
             DBHelper helper = new DBHelper(mContext, dbName, null);
@@ -450,8 +451,10 @@ public class SubjectTestDataDao extends BaseDataDao {
                     values.put(USIGNS, ((TestGroupBillData) data).getuSigns());
                 }
                 mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
-                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
-
+//                if (data.getState() == SubjectState.STATE_WRONG){
+//                    if (!onLineExam){
+//                        ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
+//                    }}
             }
             mDb.setTransactionSuccessful();
         } catch (Exception e) {

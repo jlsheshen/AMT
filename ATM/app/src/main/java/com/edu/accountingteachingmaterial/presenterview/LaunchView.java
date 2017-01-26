@@ -26,4 +26,11 @@ public interface LaunchView {
 	 */
 	void jumpLogin();
 
+	/**
+	 *获取当前版本号
+	 * @return
+	 * @throws Exception
+     */
+	String getVersionName() throws Exception;
+
 }

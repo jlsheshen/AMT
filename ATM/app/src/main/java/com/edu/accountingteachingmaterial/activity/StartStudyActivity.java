@@ -90,7 +90,13 @@ public class StartStudyActivity extends BaseActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                login();
+
+                try {
+                    login();
+                } catch (Exception e) {
+                    Toast.makeText(mContext, "登录失败:" + e, Toast.LENGTH_SHORT).show();
+
+                }
 //                startActivity(MainActivity.class);
 //                finish();
 //                uploadHomepageInfo();
@@ -211,7 +217,7 @@ public class StartStudyActivity extends BaseActivity {
     //线程类型
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(String date) {
-        if (date == "1"){
+        if ( "1".equals(date)){
             Log.d("StartStudyActivity", "走过activity");
             startActivity(MainActivity.class);
         }

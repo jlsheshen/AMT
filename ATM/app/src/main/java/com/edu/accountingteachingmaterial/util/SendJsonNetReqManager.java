@@ -13,13 +13,14 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
  * SendJsonNetReqManager网络访问管理类
  */
 public class SendJsonNetReqManager extends JsonNetReqManager {
+    static SendJsonNetReqManager instance;
 
     private JsonResponseListener mListener;
 
     public SendJsonNetReqManager() {
         initAsyncClient();
         initSyncClient();
-        mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
+        mAsyncClient.addHeader(TOKEN, PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
         mAsyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
         mSyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
     }
@@ -46,7 +47,7 @@ public class SendJsonNetReqManager extends JsonNetReqManager {
     @Override
     public void onConnectionError(String errorInfo) {
         if (mListener != null) {
-            mListener.onFailure( "链接错误,可能当前章节并没有练习题");
+            mListener.onFailure("链接错误,可能当前章节并没有练习题");
         }
     }
 

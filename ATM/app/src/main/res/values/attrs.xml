@@ -11,6 +11,9 @@
         <attr name="primary_text" format="string" />
         <attr name="secondary_text" format="string" />
     </declare-styleable>
+    <declare-styleable name="RefreshView">
+        <attr name="refresh_iamge" format="reference"/>
+    </declare-styleable>
 
 
 </resources>

@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.Answer;
 import com.edu.accountingteachingmaterial.fragment.SubjectViewPagerFragment;
 import com.edu.subject.SubjectListener;
@@ -19,7 +21,6 @@ import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.SignData;
 import com.edu.subject.data.TestBillData;
 import com.edu.subject.data.TestGroupBillData;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 	private ArrayList<BaseTestData> mSubjectList = new ArrayList<BaseTestData>();
 	private Context mContext;
 	private SubjectListener mListener;
+	private boolean onlineExam = false;
 
 	int testMode;
 
@@ -58,6 +60,14 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 				mSubjectList.add(subject);
 			}
 		}
+	}
+
+	public boolean isOnlineExam() {
+		return onlineExam;
+	}
+
+	public void setOnlineExam(boolean onlineExam) {
+		this.onlineExam = onlineExam;
 	}
 
 	@Override
@@ -131,8 +141,6 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 	 * 
 	 * @param index
 	 *            题目索引
-	 * @param sign
-	 *            印章数据
 	 */
 	public void sign(int index, SignData signData) {
 		mPagerList.get(index).sign(signData);
@@ -158,7 +166,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 		submitSubject(index);
 		float totalScore = mSubjectList.get(index).getuScore();
 		Log.d(TAG, "totalScore:" + totalScore);
-		SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index));
+		SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index),onlineExam);
 
 		return totalScore;
 
@@ -181,7 +189,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 //			mSubjectList.get(i).setuScore(0);
 		}
 		Log.d(TAG, "totalScore:" + totalScore);
-		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList);
+		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList,onlineExam);
 
 		return totalScore;
 	}
@@ -202,7 +210,11 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 
 		} else {
 			mSubjectList.get(index).setState(SubjectState.STATE_WRONG);
+			if (!onlineExam) {
+				ErrorTestDataDao.getInstance(mContext).insertTest(mSubjectList.get(index).getSubjectType(), Integer.parseInt(mSubjectList.get(index).getSubjectId()), mSubjectList.get(index).getSubjectData().getChapterId());
+			}
 		}
+
 	}
 
 	/**
@@ -215,7 +227,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 			mSubjectList.get(i).setState(SubjectState.STATE_INIT);
 			mSubjectList.get(i).setuScore(0);
 		}
-		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList);
+		SubjectTestDataDao.getInstance(mContext).updateTestDatas(mSubjectList,onlineExam);
 	}
 
 	/**
@@ -225,7 +237,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 	 */
 	public void reset(int index) {
 		resetSubject(index);
-		SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index));
+		SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index),onlineExam);
 	}
 
 	/**
@@ -289,7 +301,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 				if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
 					mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);
 				}
-				SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index));
+				SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index),onlineExam);
 				Log.i(TAG, "save answer over:" + index);
 			}
 		}.run();
@@ -314,7 +326,7 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 				if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
 					mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);
 				}
-				SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index));
+				SubjectTestDataDao.getInstance(mContext).updateTestData(mSubjectList.get(index),onlineExam);
 				Log.i(TAG, "save answer over:" + index);
 			}
 		}.run();

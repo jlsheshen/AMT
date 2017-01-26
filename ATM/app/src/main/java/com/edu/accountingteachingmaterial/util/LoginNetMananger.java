@@ -81,6 +81,12 @@ public class LoginNetMananger extends JsonNetReqManager {
     }
 
     @Override
+    public void cancelRequest() {
+        SendJsonNetReqManager.newInstance().cancelRequest();
+        super.cancelRequest();
+    }
+
+    @Override
     public void onConnectionSuccess(JSONObject json, Header[] arg1) {
 
         boolean result = json.getBoolean("result");

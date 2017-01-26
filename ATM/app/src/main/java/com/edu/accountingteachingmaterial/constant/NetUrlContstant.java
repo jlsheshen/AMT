@@ -59,6 +59,12 @@ public class NetUrlContstant {
     public static final String uploadingReviewList = INTERCACE + "course/createPaperForSelfTest/";
     //获取试卷答题时间
     public static final String uploadingTestTime = INTERCACE + "exam/findRemainingByExamId/";
+    //获取重点难点
+    public static final String EMPHASIS_URL =  "/eduExam/guest/learn/";
+
+    public static String getEmphasisUrl() {
+        return  BASE_URL +EMPHASIS_URL;
+    }
 
     public static String getSettingIpUrl() {
         return TEMP_URL + settingIpUrl;

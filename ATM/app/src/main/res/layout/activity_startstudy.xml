@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="欢迎登陆会计基础"
+        android:text="欢迎登录会计基础"
         android:textColor="@color/white"
         android:textSize="@dimen/title_text_size"
         android:layout_marginTop="50px"
@@ -91,6 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="跳过"
-        android:textSize="@dimen/item_title_text_size" />
+        android:textSize="@dimen/item_title_text_size"
+        android:visibility="gone"/>
 
 </RelativeLayout>

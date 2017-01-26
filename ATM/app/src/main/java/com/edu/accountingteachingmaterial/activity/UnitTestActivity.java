@@ -109,7 +109,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                     //ExamListData考试数据（测试）
                     Bundle bundle = new Bundle();
                     bundle.putInt(ClassContstant.SUBJECT_DETAIL_ID, examId);
-                    startActivity(SubjectDetailsContentActivity.class, bundle);
+                    startActivity(OnlineExamDetailsContentActivity.class, bundle);
                 } else {
 //                    //ExamListData考试数据（测试）
 //                    Bundle bundle = new Bundle();

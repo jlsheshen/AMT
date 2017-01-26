@@ -46,10 +46,9 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     ClassFragment classFragment;
     DrawerLayout drawerLayout;
     LinearLayout changeIpLy;
-    TextView reLoginTv,studentName;
+    TextView reLoginTv, studentName;
     AlertDialog alertDialog;
     int drawerLayoutIsShow = 0;
-
 
 
     @Override
@@ -62,12 +61,14 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
     public void initView(Bundle savedInstanceState) {
         bindAndListener(classButton, R.id.main_class_iv);
         bindAndListener(examButton, R.id.main_exam_iv);
-       bindAndListener(myButton, R.id.main_my_iv);
+        bindAndListener(myButton, R.id.main_my_iv);
         bindAndListener(settingButton, R.id.main_setting_iv);
-        bindAndListener(reLoginTv,R.id.main_relogin);
+        bindAndListener(reLoginTv, R.id.main_relogin);
         drawerLayout = bindView(R.id.main_aty_seeting);
         bindAndListener(changeIpLy, R.id.change_ip_ly);
-        studentName = bindView(R.id.my_head_student_name_tv);
+//        bindAndListener(studentName,R.id.my_head_student_name_tv);
+       studentName = bindView(R.id.my_head_student_name_tv);
+        studentName.setOnClickListener(this);
 
         // TODO Auto-generated method stub
 //        findViewById(R.id.main_my_iv).bringToFront();
@@ -132,11 +133,11 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                         EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                         String s = editText.getText().toString();
                         Log.d("MainActivity", "-------------" + s);
-                        if (s.length()<4){
+                        if (s.length() < 4) {
                             Toast.makeText(MainActivity.this, "请输入正确IP地址", Toast.LENGTH_SHORT).show();
                             return;
                         }
-                            showIp(s);
+                        showIp(s);
                         //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -154,6 +155,10 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
                 startActivity(StartStudyActivity.class);
                 finish();
                 break;
+            case R.id.my_head_student_name_tv:
+                startActivity(StartStudyActivity.class);
+                finish();
+                break;
 
         }
         // TODO Auto-generated method stub
@@ -162,13 +167,13 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
 
     @Override
     public void onBackPressed() {
-        if (classFragment != null){
+        if (classFragment != null) {
             if (classFragment.isPpwShowing()) {
                 classFragment.showPpw();
                 return;
             }
         }
-        if (drawerLayout != null){
+        if (drawerLayout != null) {
             if (drawerLayoutIsShow == 1) {
                 drawerLayout.closeDrawers();
                 return;

@@ -61,9 +61,8 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
     protected void initData() {
         adapter = new ErrorAdapter(context);
         datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE);
-        if (datas == null||datas.size() <1) {
-            listView.setVisibility(View.GONE);
-            noErrorsLayout.setVisibility(View.VISIBLE);
+        if (shouBackground()) {
+
         } else {
             adapter.setDatas(datas);
             listView.setAdapter(adapter);
@@ -156,7 +155,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
         adapter.setDatas(datas);
     }
     void dismissLayout(){
-        if (datas==null||datas.size()<1){
+        if (shouBackground()){
             layout.setVisibility(View.GONE);
             compileTv.setVisibility(View.GONE);
             layoutShow = false;
@@ -191,7 +190,15 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                 adapter.setAllchecked();
                 break;
         }
-
     }
-
+    boolean shouBackground(){
+        if (datas == null||datas.size() <1) {
+            listView.setVisibility(View.GONE);
+            noErrorsLayout.setVisibility(View.VISIBLE);
+        }else {
+            noErrorsLayout.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
+        }
+return datas == null||datas.size() <1;
+    }
 }
