@@ -9,6 +9,7 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true" />
 
+
     <SeekBar
         android:id="@+id/media_sb"
         android:layout_width="match_parent"

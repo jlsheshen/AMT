@@ -9,8 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,7 +20,7 @@ import com.edu.accountingteachingmaterial.R;
  * Created by Administrator on 2017/1/25.
  */
 
-public class RefreshListView extends ListView implements AbsListView.OnScrollListener{
+public class RefreshExListView extends ExpandableListView implements AbsListView.OnScrollListener{
     private static final int REFRESH_DONE = 0;//下拉刷新完成
     private static final int PULL_TO_REFRESH = 1;//下拉中（下拉高度未超出headview高度）
     private static final int RELEASE_TO_REFRESH = 2;//下拉中（下拉高度超出headview高度）
@@ -63,7 +63,7 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
 
     private ProgressBar refreshLoadingView;
 
-    public RefreshListView(Context context, AttributeSet attrs) {
+    public RefreshExListView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }

@@ -2,6 +2,7 @@ package com.edu.accountingteachingmaterial.fragment;
 
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
@@ -10,7 +11,6 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.SubjectDetailsContentActivity;
 import com.edu.accountingteachingmaterial.activity.SubjectPracticeActivity;
@@ -19,6 +19,7 @@ import com.edu.accountingteachingmaterial.adapter.ExerciseExLvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
@@ -27,6 +28,7 @@ import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.util.SubjectsDownloadManager;
+import com.edu.accountingteachingmaterial.view.RefreshExListView;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
@@ -45,13 +47,21 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.EXAM_ID;
  * 练习界面,包括课前,随堂,课后练习
  * Created by Administrator on 2016/11/9.
  */
-public class ClassExerciseFragment extends BaseFragment {
-    ExpandableListView expandableListView;
+public class ClassExerciseFragment extends BaseFragment implements RefreshExListView.OnListMoveListener {
+    RefreshExListView expandableListView;
     List<ExamListData> datas;
     ExerciseExLvAdapter adapter;
     ImageView stateIv;
     ExamListData data1;
     Bundle b = new Bundle();
+    /**
+     * 下拉刷新完成
+     */
+    private final static int REFRESH_COMPLETE = 0;
+    /**
+     * 上拉加载完成
+     */
+    private final static int LOAD_COMPLETE = 1;
     ClassChapterData.SubChaptersBean data;
     public static final String ERRORS_ITEM = "ErrorsItem";
     public static final String ERRORS_DATAS = "ErrorsDatas";
@@ -74,6 +84,24 @@ public class ClassExerciseFragment extends BaseFragment {
         PreferenceHelper.getInstance(BaseApplication.getContext()).setStringValue(EXAM_ID, "" + i);
 
     }
+    private Handler mHandler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case REFRESH_COMPLETE:
+                    expandableListView.setOnRefreshComplete();
+                    adapter.notifyDataSetChanged();
+                    expandableListView.setSelection(0);
+                    break;
+                case LOAD_COMPLETE:
+                    expandableListView.setOnLoadMoreComplete();
+                    adapter.notifyDataSetChanged();
+                    expandableListView.setSelection(datas.size());
+                    break;
+                default:
+                    break;
+            }
+        };
+    };
 
     @Override
     protected void initData() {
@@ -128,6 +156,7 @@ public class ClassExerciseFragment extends BaseFragment {
                 return false;
             }
         });
+        expandableListView.setOnListMoveListener(this);
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
@@ -157,7 +186,6 @@ public class ClassExerciseFragment extends BaseFragment {
                 datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
             }
             adapter.setDatas(datas);
-
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
         }
@@ -215,5 +243,39 @@ public class ClassExerciseFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
 
         super.onDestroy();
+    }
+
+    @Override
+    public void refreshView() {
+        uploadChapterList();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    mHandler.sendEmptyMessage(REFRESH_COMPLETE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    @Override
+    public void loadMoreView() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    mHandler.sendEmptyMessage(LOAD_COMPLETE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 }

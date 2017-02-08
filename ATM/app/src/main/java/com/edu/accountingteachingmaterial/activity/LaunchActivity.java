@@ -20,11 +20,7 @@ import com.edu.testbill.Constant;
  */
 
 public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter> implements LaunchView {
-
     boolean isSuccess;
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +60,7 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
 
     @Override
     public void launchLogin() {
+
     }
 
     @Override
@@ -81,20 +78,17 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
         startActivity(StartStudyActivity.class);
         }else {
             startActivity(MainActivity.class);
-
         }
         finish();
     }
 
     @Override
     public void jumpMain() {
-
         isSuccess = true;
     }
 
     @Override
     public void jumpLogin() {
-
         isSuccess = false;
 
     }

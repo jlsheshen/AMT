@@ -23,6 +23,7 @@ import com.edu.accountingteachingmaterial.util.LoginNetMananger;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.library.util.DoubleClickExitUtil;
 import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
@@ -48,7 +49,7 @@ public class StartStudyActivity extends BaseActivity {
     EditText numEt, passwerEt;
     ImageView bgIv;
     TextView settingIpTv;
-     AlertDialog alertDialog;
+    AlertDialog alertDialog;
     boolean inpassword = false;
     private Context mContext;
     // 需要上传答题结果的所有数据
@@ -71,7 +72,6 @@ public class StartStudyActivity extends BaseActivity {
         bgIv = bindView(R.id.startstudy_bg_iv);
         passwerEt = bindView(R.id.startstudy_pw_et);
         passwerEt.setText(PreferenceHelper.getInstance(this).getStringValue(STUDNET_PASSWORD));
-        numEt.setText("13301223");
         passwerEt.setText("123456");
 
         passwerEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -130,22 +130,31 @@ public class StartStudyActivity extends BaseActivity {
 //        }
     }
 
+    @Override
+    public void onBackPressed() {
+        DoubleClickExitUtil.doubleClickExit(this);
+
+    }
+
     /**
      * 登陆操作
      */
     private void login() {
-         String num = numEt.getText().toString();
-         String pw = passwerEt.getText().toString();
+        String num = numEt.getText().toString();
+        String pw = passwerEt.getText().toString();
         LoginNetMananger.getSingleton(context).login(num, pw, new LoginNetMananger.loginListener() {
             @Override
             public void onSuccess() {
                 Log.d("StartStudyActivity", "登陆操作成功");
             }
+
             @Override
             public void onFailure(String message) {
                 Log.d("StartStudyActivity", "登陆操作失败" + message);
 
-            }});}
+            }
+        });
+    }
 
     /**
      * 弹出设置ipdialog
@@ -167,7 +176,7 @@ public class StartStudyActivity extends BaseActivity {
             public void onClick(View view) {
                 EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                 String s = editText.getText().toString();
-                if (s.length()<4){
+                if (s.length() < 4) {
                     Toast.makeText(StartStudyActivity.this, "请输入正确IP地址", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -217,7 +226,7 @@ public class StartStudyActivity extends BaseActivity {
     //线程类型
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(String date) {
-        if ( "1".equals(date)){
+        if ("1".equals(date)) {
             Log.d("StartStudyActivity", "走过activity");
             startActivity(MainActivity.class);
         }

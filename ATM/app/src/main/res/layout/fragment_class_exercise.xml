@@ -4,12 +4,13 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="100px"
     style="@style/FragmentPadding"
-
     >
 
-    <ExpandableListView
+    <com.edu.accountingteachingmaterial.view.RefreshExListView
         android:id="@+id/exercise_exlv"
-        style="@style/ExpandableLvStyle"></ExpandableListView>
+        style="@style/ExpandableLvStyle"
+        android:layout_marginTop="-1px"
+        />
 
 
 </LinearLayout>

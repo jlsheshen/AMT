@@ -53,8 +53,9 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
         timer = new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                if (mView != null) {
                 mView.loadData();
-            }
+            }}
 
             @Override
             public void onFinish() {

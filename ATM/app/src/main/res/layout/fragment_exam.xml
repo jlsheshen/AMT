@@ -21,12 +21,12 @@
 
     <View style="@style/HorizontalLine"></View>
 
-    <ListView
+    <com.edu.accountingteachingmaterial.view.RefreshListView
         android:id="@+id/exam_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/colorBlueContent"
         android:dividerHeight="1dp"
-        ></ListView>
+        ></com.edu.accountingteachingmaterial.view.RefreshListView>
 
 </LinearLayout>

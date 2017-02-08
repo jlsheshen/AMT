@@ -50,6 +50,7 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
 
         videoView = bindView(R.id.media_vv);
         mController = new MediaController(this);
+
         // presenter.start();
         // 设置播放视频源的路径
         //videoView.setVideoPath(UriConstant.VIDEO_PATH + "aaa.mp4");
@@ -66,11 +67,13 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
 
             @Override
             public void onClick(View v) {
+
             }
         }, new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
+
             }
         });
 

@@ -9,7 +9,7 @@
         android:id="@+id/class_aty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="71px"></FrameLayout>
+        android:layout_marginTop="69px"></FrameLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"

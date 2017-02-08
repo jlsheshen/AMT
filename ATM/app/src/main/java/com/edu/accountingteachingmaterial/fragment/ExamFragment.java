@@ -3,12 +3,10 @@ package com.edu.accountingteachingmaterial.fragment;
 import android.content.ContentValues;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
@@ -24,6 +22,7 @@ import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.OnLineExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.view.RefreshListView;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 
@@ -36,14 +35,39 @@ import java.util.List;
 /**
  * 试卷页面
  */
-public class ExamFragment extends BaseFragment {
+public class ExamFragment extends BaseFragment implements RefreshListView.OnListMoveListener {
 
-    ListView listView;
+    RefreshListView listView;
     List<OnLineExamListData> datas;
     ExamAdapter examAdapter;
-    private Handler mHandler = new Handler(Looper.getMainLooper());
     int item;
     OnLineExamData onLineExamData;
+    /**
+     * 下拉刷新完成
+     */
+    private final static int REFRESH_COMPLETE = 0;
+    /**
+     * 上拉加载完成
+     */
+    private final static int LOAD_COMPLETE = 1;
+    private Handler mHandler = new Handler(){
+        public void handleMessage(android.os.Message msg) {
+            switch (msg.what) {
+                case REFRESH_COMPLETE:
+                    listView.setOnRefreshComplete();
+                    examAdapter.notifyDataSetChanged();
+                    listView.setSelection(0);
+                    break;
+                case LOAD_COMPLETE:
+                    listView.setOnLoadMoreComplete();
+                    examAdapter.notifyDataSetChanged();
+                    listView.setSelection(datas.size());
+                    break;
+                default:
+                    break;
+            }
+        };
+    };
 
     @Override
     protected int initLayout() {
@@ -63,26 +87,31 @@ public class ExamFragment extends BaseFragment {
         uploadExamList();
 //        loadData();
         examAdapter = new ExamAdapter(context);
-        examAdapter.setDatas(datas);
 
         listView.setAdapter(examAdapter);
+
+        listView.setOnListMoveListener(this);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
-                item = i;
-                if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
+                int pos = 0;
+                if (i>1){
+                     pos = i- 1;
+
+                }
+                item = pos;
+                if (datas.get(pos).getState() == ClassContstant.EXAM_DOWNLOADING) {
                     return;
-                } else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
+                } else if (datas.get(pos).getState() == ClassContstant.EXAM_NOT) {
                     final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
                     imageView.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
-                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getExam_id(), datas.get(i).getExam_id());
+                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(pos).getExam_id(), datas.get(pos).getExam_id());
 
                 } else {
-
                     Bundle b = new Bundle();
-                    b.putInt("examId", datas.get(i).getExam_id());
+                    b.putInt("examId", datas.get(pos).getExam_id());
                     startActivity(UnitTestActivity.class, b);
                 }
             }
@@ -176,4 +205,37 @@ public class ExamFragment extends BaseFragment {
         super.onDestroy();
     }
 
+    @Override
+    public void refreshView() {
+        uploadExamList();
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    mHandler.sendEmptyMessage(REFRESH_COMPLETE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+
+    @Override
+    public void loadMoreView() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                    mHandler.sendEmptyMessage(LOAD_COMPLETE);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }
