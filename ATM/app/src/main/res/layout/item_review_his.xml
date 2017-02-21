@@ -32,7 +32,6 @@
         android:drawableLeft="@mipmap/icon_shitishu_n"
         android:text="@string/test_number"
         android:textSize="@dimen/item_text_size"
-
         />
 
     <TextView
