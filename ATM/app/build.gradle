@@ -35,5 +35,6 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
     compile 'com.netflix.feign:feign-gson:8.16.2'
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
 
 }
