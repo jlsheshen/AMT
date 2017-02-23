@@ -1,7 +1,5 @@
 package com.edu.library.upgrade;
 
-import java.util.LinkedHashMap;
-
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,6 +9,8 @@ import android.util.Log;
 import com.edu.library.superonekey.SuperOneKeyHelper;
 import com.edu.library.superonekey.UserInfo;
 import com.edu.library.util.NetworkUtil;
+
+import java.util.LinkedHashMap;
 
 /**
  * apk版本升级管理类，如果检测到新版本，弹出对话框，然后可进行下载操作,下载完毕后弹出安装确认界面,用于webservice类型

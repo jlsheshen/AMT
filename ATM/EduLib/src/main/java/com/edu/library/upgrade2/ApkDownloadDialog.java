@@ -1,7 +1,5 @@
 package com.edu.library.upgrade2;
 
-import java.io.File;
-
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.edu.library.R;
+
+import java.io.File;
 
 /**
  * apk版本更新下载对话框

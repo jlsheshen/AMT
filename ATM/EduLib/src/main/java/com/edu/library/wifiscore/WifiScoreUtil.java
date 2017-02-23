@@ -1,8 +1,8 @@
 package com.edu.library.wifiscore;
 
-import android.content.Context;
-
 import com.edu.library.util.ApplicationUtil;
+
+import android.content.Context;
 
 public class WifiScoreUtil {
 

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="700dp"
+    android:layout_height="430dp"
+    android:background="@color/white" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="一级科目"
+        android:textSize="@dimen/txt_size_half_medium" />
+
+    <View
+        android:id="@+id/iv_split"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_title"
+        android:background="@drawable/iv_split_line" />
+
+    <RelativeLayout
+        android:id="@+id/rl_range_holder"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/iv_split"
+        android:background="#d8d8d8" >
+
+        <ListView
+            android:id="@+id/lv_subjects"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="-10dp"
+            android:layout_toRightOf="@+id/rg_subjects"
+            android:background="@color/white"
+            android:cacheColorHint="@android:color/transparent" />
+
+        <RadioGroup
+            android:id="@+id/rg_subjects"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:orientation="vertical" >
+        </RadioGroup>
+    </RelativeLayout>
+
+</RelativeLayout>

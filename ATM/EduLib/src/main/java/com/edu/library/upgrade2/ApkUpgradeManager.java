@@ -5,8 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import org.apache.http.Header;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.library.usercenter.UserCenterHelper;
@@ -15,6 +13,8 @@ import com.edu.library.util.NetworkUtil;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
+
+import org.apache.http.Header;
 
 import java.util.ArrayList;
 import java.util.List;

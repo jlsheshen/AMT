@@ -4,10 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
-    android:orientation="horizontal"
-    tools:context="${relativePackage}.${activityClass}">
-
-
+    android:orientation="horizontal">
 
     <com.zhy.autolayout.AutoRelativeLayout
         android:layout_width="match_parent"
@@ -56,9 +53,6 @@
                 android:drawableTop="@drawable/selector_main_setting"
                 android:background="@null"
                 />
-
-
-
         </RadioGroup>
         </FrameLayout>
 

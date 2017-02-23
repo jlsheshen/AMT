@@ -1,10 +1,10 @@
 package com.edu.library.upgrade2;
 
-import java.text.DecimalFormat;
-
 import android.os.Environment;
 
 import com.alibaba.fastjson.JSON;
+
+import java.text.DecimalFormat;
 
 /**
  * 升级工具类

@@ -57,7 +57,7 @@ public class ShowPicWindow extends PopupWindow implements OnImageTouchedListener
 		this.setHeight(LayoutParams.WRAP_CONTENT);
 		// 设置SelectPicPopupWindow弹出窗体动画效果
 		this.setAnimationStyle(R.style.popupWindowAnim);
-
+		this.setBackgroundDrawable(null);
 		zoomableImage = (ZoomableImageView) mView.findViewById(R.id.image);
 		zoomableImage.setOnImageTouchedListener(this);
 		

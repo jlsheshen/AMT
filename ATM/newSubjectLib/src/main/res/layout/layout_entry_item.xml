@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="3dp" >
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/txt_size_small" />
+
+    <com.edu.subject.entry.view.EntrySubjectEditText
+        android:id="@+id/etPrimary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="@drawable/shape_entry_edittext_normal"
+        android:hint="一级科目"
+        android:padding="5dp"
+        android:textSize="@dimen/txt_size_small" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="@color/trans_gray" />
+
+    <com.edu.subject.entry.view.EntrySubjectEditText
+        android:id="@+id/etSecondary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:background="@drawable/shape_entry_edittext_normal"
+        android:hint="二级科目"
+        android:padding="5dp"
+        android:textSize="@dimen/txt_size_small" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_weight="1"
+        android:background="@color/trans_gray" />
+
+    <com.edu.subject.entry.view.EntryEditText
+        android:id="@+id/etAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:background="@drawable/shape_entry_edittext_normal"
+        android:gravity="right|center_vertical"
+        android:hint="输入金额"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textSize="@dimen/txt_size_small" />
+
+    <ImageButton
+        android:id="@+id/btnAddOrRemove"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:background="@null" />
+
+</LinearLayout>

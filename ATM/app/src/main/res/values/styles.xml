@@ -13,14 +13,14 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:layout_marginTop">76px</item>
-        <item name="android:layout_marginBottom">16px</item>
-        <item name="android:layout_marginLeft">16px</item>
+        <item name="android:layout_marginTop">76dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
     </style>
 
     <style name="SizeBarButtonStyle">
         <item name="android:layout_height">0dp</item>
-        <item name="android:layout_width">40px</item>
+        <item name="android:layout_width">40dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:button">@null</item>
 

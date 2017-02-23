@@ -1,5 +1,7 @@
 package com.edu.library.authorize;
 
+import org.apache.http.Header;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,14 +23,11 @@ import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
 import com.lucher.net.util.NetworkUtil;
 
-import org.apache.http.Header;
-
-
 /**
  * apk授权工具
- *
+ * 
  * @author lucher
- *
+ * 
  */
 public class ApkAuthUtil {
 
@@ -42,7 +41,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 检测授权
-	 *
+	 * 
 	 * @param context
 	 * @return
 	 */
@@ -87,7 +86,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 获取用户中心共享的包名是否包含当前应用
-	 *
+	 * 
 	 * @param context
 	 * @param locationCode
 	 * @return
@@ -117,7 +116,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 申请授权
-	 *
+	 * 
 	 * @param context
 	 * @param code
 	 */
@@ -171,7 +170,7 @@ public class ApkAuthUtil {
 
 	/**
 	 * 获取当前系统版本号
-	 *
+	 * 
 	 * @param context
 	 * @return
 	 */

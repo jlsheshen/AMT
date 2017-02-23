@@ -1,5 +1,10 @@
 package com.edu.library.html;
 
+import java.io.InputStream;
+
+import com.edu.library.util.SdcardPathUtil;
+import com.edu.library.util.ToastUtil;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,13 +12,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Html.ImageGetter;
 import android.util.Log;
-
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import com.edu.library.R;
-import com.edu.library.util.ImageUtil;
-import com.edu.library.util.ToastUtil;
 
 /**
  * html图片资源提取，目前支持：保存在res，保存在assets，保存在本地文件，从网络获取的图片
@@ -76,7 +74,10 @@ public class EduImageGetter implements ImageGetter {
 		} else if (source.startsWith(IMG_ASSETS)) {
 			ToastUtil.showToastWithLog(mContext, "目前不支持该格式的图片：" + source);
 		} else if (source.startsWith(IMG_FILE)) {
-			ToastUtil.showToastWithLog(mContext, "目前不支持该格式的图片：" + source);
+			imgName = source.substring(IMG_FILE.length(), source.length());
+			String filePath = SdcardPathUtil.getExternalSdCardPath() + "/EduChineseClassQuality";
+			drawable =DrawableUtils.getInstance(mContext).getInSDBy(filePath+"/"+imgName);
+//			ToastUtil.showToastWithLog(mContext, "目前不支持该格式的图片：" + source);
 		} else if (source.startsWith(IMG_HTTP)) {
 			ToastUtil.showToastWithLog(mContext, "目前不支持该格式的图片：" + source);
 		} else {

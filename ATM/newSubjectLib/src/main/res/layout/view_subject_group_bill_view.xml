@@ -1,0 +1,63 @@
+<com.edu.subject.common.SlidingDragLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sliding_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center" >
+
+    <!-- 菜单,必须为viewgroup -->
+
+    <com.edu.subject.common.PicBrowseView
+        android:id="@+id/picBrowseView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- 主页面 -->
+
+    <com.edu.subject.common.SlidingMainLayout
+        android:id="@+id/menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:gravity="center" >
+
+        <LinearLayout
+            android:id="@+id/layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ibtnPic"
+            android:tag="" >
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none" >
+
+                <RadioGroup
+                    android:id="@+id/tabs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" >
+                </RadioGroup>
+            </HorizontalScrollView>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/billContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layout"
+            android:background="#F2F1F0"
+            android:gravity="center" >
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/ibtnPic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/ibtn_selector_badge"
+            android:visibility="gone" />
+    </com.edu.subject.common.SlidingMainLayout>
+
+</com.edu.subject.common.SlidingDragLayout>

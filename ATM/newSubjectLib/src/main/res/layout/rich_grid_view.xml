@@ -1,0 +1,13 @@
+<com.edu.library.view.FixedGridView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/download_grid"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:cacheColorHint="@color/trans_parent"
+    android:choiceMode="singleChoice"
+    android:columnWidth="80dp"
+    android:horizontalSpacing="10dp"
+    android:listSelector="@color/trans_parent"
+    android:numColumns="auto_fit"
+    android:padding="3dp"
+    android:verticalSpacing="10dp" />
+

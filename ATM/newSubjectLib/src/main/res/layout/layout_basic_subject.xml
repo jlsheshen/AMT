@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="10dp" >
+
+    <TextView
+        android:id="@+id/tvSubjectType"
+        style="@style/subject_type"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="5dp" />
+
+    <TextView
+        android:id="@+id/tvUscore"
+        style="@style/subject_uscore"
+        android:layout_alignBottom="@+id/tvSubjectType"
+        android:layout_toRightOf="@+id/tvSubjectType"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/layoutQuestion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvSubjectType" >
+
+        <com.edu.subject.common.rich.RichContentView
+            android:id="@+id/tvQuestion"
+            style="@style/subject_question"
+            android:layout_marginTop="3dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutQuestion"
+        android:layout_marginTop="5dp" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutAnalysis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutContent"
+        android:layout_marginTop="15dp"
+        android:visibility="gone" >
+
+        <View
+            android:id="@+id/splitLine"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/trans_black" />
+
+        <com.edu.subject.common.rich.RichContentView
+            android:id="@+id/tvAnswer"
+            style="@style/subject_question"
+            android:layout_below="@+id/splitLine" />
+
+        <TextView
+            android:id="@+id/tvAnalysisLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAnswer"
+            android:text="解析：" />
+
+        <com.edu.subject.common.rich.RichContentView
+            android:id="@+id/tvAnalysis"
+            style="@style/subject_question"
+            android:layout_below="@+id/tvAnalysisLabel" />
+    </RelativeLayout>
+
+</RelativeLayout>

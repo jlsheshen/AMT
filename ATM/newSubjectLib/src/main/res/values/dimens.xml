@@ -1,0 +1,10 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- 选择题选项字体大小 -->
+    <dimen name="select_item_size">20sp</dimen>
+    <!-- 贷方视图与借方视图间距 -->
+    <dimen name="entry_loan_margin">30dp</dimen>
+
+</resources>

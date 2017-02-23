@@ -1,0 +1,55 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 分组单据标签样式 -->
+    <style name="rb_label_style">
+        <item name="android:textColor">@drawable/rb_selector_label_text_color</item>
+        <item name="android:background">@drawable/rb_selector_label_bg</item>
+        <item name="android:button">@null</item>
+        <item name="android:textSize"> @dimen/txt_size_small</item>
+    </style>
+
+    <!-- *****************************题型相关start********************** -->
+    <!-- 所有题型textview的parent -->
+    <style name="subject_textview_parent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/txt_size_half_medium</item>
+    </style>
+
+    <!-- 题目类别控件样式 -->
+    <style name="subject_type" parent="@style/subject_textview_parent">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <!-- 得分控件样式 -->
+    <style name="subject_uscore" parent="@style/subject_textview_parent">
+        <item name="android:textColor">@color/red</item>
+    </style>
+
+    <!-- 问题控件样式 -->
+    <style name="subject_question" parent="@style/subject_textview_parent">
+    </style>
+
+    <!-- 正确答案控件样式 -->
+    <style name="subject_answer" parent="@style/subject_textview_parent">
+    </style>
+
+    <!-- 解析控件样式 -->
+    <style name="subject_analysis" parent="@style/subject_textview_parent">
+    </style>
+    <!-- *****************************题型相关end********************** -->
+    
+     <!-- 一级科目单项按钮样式 -->
+    <style name="PSubjectStyle">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@drawable/rb_selector_psubject_text_color</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/txt_size_small</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@drawable/rb_selector_psubject_bg</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+</resources>

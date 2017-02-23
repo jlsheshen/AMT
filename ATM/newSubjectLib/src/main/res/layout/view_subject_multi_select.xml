@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="15dp"
+    android:paddingRight="10dp"
+    android:paddingTop="10dp" >
+
+    <TextView
+        android:id="@+id/tv_subject_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_error_count"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:text="多选题"
+        android:textColor="@color/white"
+        android:textSize="@dimen/txt_size_small"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/sl_option"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_subject_type"
+        android:layout_marginTop="-15dp"
+        android:scrollbars="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@+id/ll_option_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingRight="10dp" >
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_answer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_option_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="120dp"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="@dimen/txt_size_half_medium"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_analysis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_answer"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="120dp"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/txt_size_half_medium"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/ll_option_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:text="确定"
+                android:textColor="@color/white"
+                android:textSize="@dimen/txt_size_half_medium"
+                android:visibility="visible" />
+        </RelativeLayout>
+    </ScrollView>
+
+    <!-- <Button -->
+    <!-- android:id="@+id/btn_submit" -->
+    <!-- android:layout_width="320dp" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_below="@+id/sl_option" -->
+    <!-- android:layout_centerHorizontal="true" -->
+    <!-- android:layout_marginBottom="60dp" -->
+    <!-- android:layout_marginTop="20dp" -->
+    <!-- android:text="确定" -->
+    <!-- android:textColor="@color/white" -->
+    <!-- android:textSize="@dimen/txt_size_half_medium" -->
+    <!-- android:visibility="visible" /> -->
+
+</RelativeLayout>

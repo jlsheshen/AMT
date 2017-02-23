@@ -75,13 +75,13 @@ public class UserCenterHelper {
 				int province = cursor.getColumnIndex("PROVINCE");
 				int cityName = cursor.getColumnIndex("CITY_NAME");
 				int schoolName = cursor.getColumnIndex("SCHOOL_NAME");
-				// int className = cursor.getColumnIndex("CLASS_NAME");
+				int className = cursor.getColumnIndex("CLASS_NAME");
 				int category = cursor.getColumnIndex("CATEGORY");
 				int phone = cursor.getColumnIndex("PHONE");
 				int mail = cursor.getColumnIndex("MAIL");
 				int state = cursor.getColumnIndex("STATE");
-				// int startYear = cursor.getColumnIndex("START_YEAR");
-				// int major = cursor.getColumnIndex("MAJOR_NAME");
+				int startYear = cursor.getColumnIndex("START_YEAR");
+				int major = cursor.getColumnIndex("MAJOR_NAME");
 				user.setId(cursor.getInt(idIndex));
 				user.setUserId(cursor.getInt(userId));
 				user.setAidingNum(cursor.getString(aidingNum));
@@ -92,13 +92,16 @@ public class UserCenterHelper {
 				user.setProvince(cursor.getString(province));
 				user.setCityName(cursor.getString(cityName));
 				user.setSchoolName(cursor.getString(schoolName));
-				// user.setClassName(cursor.getString(className));
 				user.setCategory(cursor.getInt(category));
 				user.setPhone(cursor.getString(phone));
 				user.setMail(cursor.getString(mail));
 				user.setState(cursor.getInt(state));
-				// user.setStartYear(cursor.getString(startYear));
-				// user.setMajorName(cursor.getString(major));
+				// 下列信息在我的爱丁V1.2.1及以后版本提供
+				if (className != -1) {
+					user.setClassName(cursor.getString(className));
+					user.setStartYear(cursor.getString(startYear));
+					user.setMajorName(cursor.getString(major));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -1,8 +1,8 @@
 package com.edu.library.upgrade;
 
-import java.text.DecimalFormat;
-
 import com.alibaba.fastjson.JSON;
+
+import java.text.DecimalFormat;
 
 /**
  * 升级工具类

@@ -51,7 +51,7 @@ public class EduImageLoader {
 	 */
 	public Builder getDefaultBuilder() {
 		if (mBuilder == null) {
-			mBuilder = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.ic_default).showImageForEmptyUri(R.drawable.ic_empty)
+			mBuilder = new Builder().showImageOnLoading(R.drawable.ic_default).showImageForEmptyUri(R.drawable.ic_empty)
 					.showImageOnFail(R.drawable.ic_error).cacheInMemory(true).cacheOnDisk(true).considerExifParams(true);
 		}
 		return mBuilder;

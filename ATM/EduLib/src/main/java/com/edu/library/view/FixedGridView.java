@@ -13,6 +13,10 @@ import android.widget.GridView;
  */
 public class FixedGridView extends GridView {
 
+	public FixedGridView(Context context) {
+		super(context);
+	}
+
 	public FixedGridView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
