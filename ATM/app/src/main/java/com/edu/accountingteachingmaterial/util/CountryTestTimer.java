@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.util;
 
-import android.content.Context;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -25,7 +24,7 @@ public class CountryTestTimer extends EduBaseTimer {
         super(countDownInterval);
     }
 
-    public CountryTestTimer(TextView tvTimer, long countDownInterval, long totalTime, Context context) {
+    public CountryTestTimer(TextView tvTimer, long countDownInterval, long totalTime) {
         super(countDownInterval, totalTime);
         this.tvTimer = tvTimer;
         updataTime();

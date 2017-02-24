@@ -8,11 +8,11 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
+import com.edu.accountingteachingmaterial.constant.Constant;
 import com.edu.accountingteachingmaterial.presenterview.LaunchPresenter;
 import com.edu.accountingteachingmaterial.presenterview.LaunchView;
 import com.edu.library.util.DBCopyUtil;
 import com.edu.subject.util.SoundPoolUtil;
-import com.edu.testbill.Constant;
 
 
 /**

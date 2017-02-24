@@ -1,0 +1,150 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/navibar_top"
+        android:gravity="center"
+        android:padding="3dp">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="25px"
+            android:background="@null"
+            android:onClick="onClick"
+            android:src="@mipmap/icon_fanhui_n"
+
+            />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:singleLine="true"
+            android:text="会计基础"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/title_text_size" />
+
+        <LinearLayout
+            android:id="@+id/buttonBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnFlash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25px"
+                android:background="@null"
+                android:focusable="false"
+                android:onClick="onClick"
+                android:src="@mipmap/icon_fuhao_n"
+                android:visibility="gone"
+
+                />
+
+            <ImageButton
+                android:id="@+id/btnSign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                android:focusable="false"
+                android:onClick="onClick"
+                android:src="@mipmap/icon_yinzhang_n"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/btnCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                android:layout_toLeftOf="@+id/btnCard"
+                android:focusable="false"
+                android:onClick="onClick"
+                android:src="@mipmap/icon_tika_n"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25px"
+                android:layout_toLeftOf="@+id/btnSign"
+                android:background="@null"
+                android:focusable="false"
+                android:onClick="onClick"
+                android:src="@mipmap/icon_fasong_n"
+                android:visibility="gone"
+
+                />
+        </LinearLayout>
+        <!--android:drawableLeft="@drawable/icon_timer"-->
+
+        <TextView
+            android:id="@+id/tvTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="2dp"
+            android:gravity="center"
+            android:text="00:00"
+            android:textColor="@color/white"
+            android:textSize="@dimen/txt_size_small"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolBar">
+
+        <com.edu.accountingteachingmaterial.view.UnTouchableViewPager
+            android:id="@+id/vp_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"></com.edu.accountingteachingmaterial.view.UnTouchableViewPager>
+
+        <ImageButton
+            android:id="@+id/btnLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"
+            android:background="@null"
+            android:focusable="false"
+            android:onClick="onClick"
+            android:src="@mipmap/btn_left"
+            />
+
+        <ImageButton
+            android:id="@+id/btnRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
+            android:background="@null"
+            android:focusable="false"
+            android:onClick="onClick"
+            android:src="@mipmap/btn_right" />
+    </RelativeLayout>
+
+</RelativeLayout>
