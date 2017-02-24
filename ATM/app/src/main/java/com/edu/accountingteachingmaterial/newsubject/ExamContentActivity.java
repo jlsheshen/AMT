@@ -1,17 +1,17 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import java.util.List;
-
 import android.content.Intent;
 import android.view.View;
 
 import com.edu.accountingteachingmaterial.base.BaseSubjectsContentActivity;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectTestDataDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.CommonSubjectData;
-import com.edu.testsubject.dao.SubjectTestDataDao;
+
+import java.util.List;
 
 /**
  * 

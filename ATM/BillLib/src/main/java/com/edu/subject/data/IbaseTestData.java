@@ -7,7 +7,7 @@ package com.edu.subject.data;
 
 public interface IbaseTestData {
 
-      BaseSubjectData getSubjectData();
+    BaseTestData getSubjectData();
     //获取基础数据
       void setSubjectData(BaseSubjectData subjectData);
 

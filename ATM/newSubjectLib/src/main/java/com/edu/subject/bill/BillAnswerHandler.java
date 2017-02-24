@@ -161,7 +161,7 @@ public class BillAnswerHandler {
 
 		// 存放需要分组的空答案，key-分组id，value-对应组的组件
 		HashMap<Integer, List<BlankResult>> groups = new HashMap<Integer, List<BlankResult>>(1);
-		List<BlankResult> blanks = new ArrayList<BillAnswerData.BlankResult>(mEtBlanks.size());
+		List<BlankResult> blanks = new ArrayList<BlankResult>(mEtBlanks.size());
 		// 所有控件进行内容正误判断，并计算不分组类别控件的分数
 		for (BlankEditText etBlank : mEtBlanks) {
 			//创建结果数据
@@ -250,7 +250,7 @@ public class BillAnswerHandler {
 		float totalScore = 0;
 		// 对印章控件进行判断
 		if (mSignViews != null) {
-			List<SignResult> signResults = new ArrayList<BillAnswerData.SignResult>(mSignViews.size());
+			List<SignResult> signResults = new ArrayList<SignResult>(mSignViews.size());
 			// 印章分类
 			List<SignView> correctSignViews = new ArrayList<SignView>(mSignViews.size());
 			List<SignView> userSignViews = new ArrayList<SignView>(mSignViews.size());

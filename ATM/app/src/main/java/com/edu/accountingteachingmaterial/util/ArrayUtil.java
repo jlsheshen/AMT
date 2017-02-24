@@ -1,8 +1,6 @@
 package com.edu.accountingteachingmaterial.util;
 
 
-import com.edu.accountingteachingmaterial.subject.view.EntryView;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,8 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.edu.subject.bill.SignData;
+import com.edu.accountingteachingmaterial.R;
+import com.edu.subject.data.SignData;
 import com.edu.subject.common.ProgressImageView;
-import com.edu.testsubject.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 印章选择表格的adapter

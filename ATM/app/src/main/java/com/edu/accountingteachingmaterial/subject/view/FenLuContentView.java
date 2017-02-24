@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.EntryViewAdapter;
-import com.edu.accountingteachingmaterial.bean.BillDataModel;
 import com.edu.accountingteachingmaterial.bean.SubjectEntryData;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;

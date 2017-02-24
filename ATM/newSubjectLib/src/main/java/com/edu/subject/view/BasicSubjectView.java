@@ -116,14 +116,14 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 		int state = mTestData.getState();
 		//查看详情或者练习模式下已提交的题目，直接显示作答详情
 		if (mTestMode == TestMode.MODE_SHOW_DETAILS || (mTestMode == TestMode.MODE_PRACTICE && (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG))) {
-			initUAnswer();
+			initUAnswer(true);
 			showDetails();
 		} else if (mTestMode == TestMode.MODE_EXAM) {
 		} else if (mTestMode == TestMode.MODE_SHOW_UANSWER) {
-			initUAnswer();
+			initUAnswer(false);
 			disableSubject();
 		} else if (state == SubjectState.STATE_UNFINISH) {
-			initUAnswer();
+			initUAnswer(false);
 		}
 	}
 
@@ -141,8 +141,9 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 
 	/**
 	 * 初始化用户答案
+	 * @param judge 是否需要判断答案正误
 	 */
-	public abstract void initUAnswer();
+	public abstract void initUAnswer(boolean judge);
 
 	/**
 	 * 判断答案正误

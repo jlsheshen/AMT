@@ -32,13 +32,13 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.BASE_URL;
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.TEMP_URL;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.COURSE_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_NUMBER;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_PASSWORD;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
-import static com.edu.subject.BASE_URL.BASE_URL;
-import static com.edu.subject.BASE_URL.TEMP_URL;
 
 /**
  * Created by Administrator on 2016/11/11.

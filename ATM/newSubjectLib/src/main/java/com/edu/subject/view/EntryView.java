@@ -1,8 +1,5 @@
 package com.edu.subject.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +21,9 @@ import com.edu.subject.entry.view.EntryItemView;
 import com.edu.subject.entry.view.EntryItemView.EntryItemListener;
 import com.edu.subject.entry.view.GroupEntryItemData;
 import com.edu.subject.entry.view.GroupEntryItemView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 分录题型控件
@@ -62,19 +62,21 @@ public class EntryView extends BasicSubjectView implements OnClickListener, Entr
 
 	@Override
 	public void saveAnswer() {
-		//获取每个组里每个条目的答案
-		int groupCount = entryContainer.getChildCount();
-		EntryAnswerData entryAnswer = new EntryAnswerData();
-		List<GroupEntryItemData> groupAnswer = new ArrayList<GroupEntryItemData>(groupCount);
-		entryAnswer.setAnswers(groupAnswer);
-		for (int i = 0; i < groupCount; i++) {
-			GroupEntryItemView groupEntry = (GroupEntryItemView) entryContainer.getChildAt(i);
-			GroupEntryItemData entryGroupAnswer = groupEntry.getUserAnswer();
-			entryGroupAnswer.setOrder(i);
-			groupAnswer.add(entryGroupAnswer);
+		if (inited) {
+			//获取每个组里每个条目的答案
+			int groupCount = entryContainer.getChildCount();
+			EntryAnswerData entryAnswer = new EntryAnswerData();
+			List<GroupEntryItemData> groupAnswer = new ArrayList<GroupEntryItemData>(groupCount);
+			entryAnswer.setAnswers(groupAnswer);
+			for (int i = 0; i < groupCount; i++) {
+				GroupEntryItemView groupEntry = (GroupEntryItemView) entryContainer.getChildAt(i);
+				GroupEntryItemData entryGroupAnswer = groupEntry.getUserAnswer();
+				entryGroupAnswer.setOrder(i);
+				groupAnswer.add(entryGroupAnswer);
+			}
+			((TestEntryData) mTestData).setUAnswerData(entryAnswer);
+			Log.d(TAG, "uanswer:" + mTestData.getUAnswer());
 		}
-		((TestEntryData) mTestData).setUAnswerData(entryAnswer);
-		Log.d(TAG, "uanswer:" + mTestData.getUAnswer());
 	}
 
 	@Override
@@ -115,7 +117,7 @@ public class EntryView extends BasicSubjectView implements OnClickListener, Entr
 	}
 
 	@Override
-	public void initUAnswer() {
+	public void initUAnswer(boolean judge) {
 		if (inited) {
 			EntryAnswerData answer = ((TestEntryData) mTestData).getUAnswerData();
 			if (answer != null) {
@@ -123,9 +125,6 @@ public class EntryView extends BasicSubjectView implements OnClickListener, Entr
 				List<GroupEntryItemData> groupDatas = answer.getAnswers();
 				for (GroupEntryItemData groupItemData : groupDatas) {
 					GroupEntryItemView groupEntry = new GroupEntryItemView(getContext(), groupId, this);
-					int state = mTestData.getState();
-					//是否需要判断是否答对，答对或者答错对应不同的状态
-					boolean judge = mTestMode == TestMode.MODE_SHOW_DETAILS || (mTestMode == TestMode.MODE_PRACTICE && (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG));
 					groupEntry.initUAnswer(groupItemData, judge);
 					addGroupEntry(groupEntry);
 				}

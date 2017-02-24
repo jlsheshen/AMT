@@ -197,11 +197,12 @@ public class SubjectsAdapter extends PagerAdapter {
 
 	/**
 	 * 初始化子题用户答案
+	 * @param judge
 	 */
-	public void initUAnswer() {
+	public void initUAnswer(boolean judge) {
 		for (int i = 0; i < mViews.size(); i++) {
 			BasicSubjectView subject = mViews.get(i);
-			subject.initUAnswer();
+			subject.initUAnswer(judge);
 		}
 	}
 

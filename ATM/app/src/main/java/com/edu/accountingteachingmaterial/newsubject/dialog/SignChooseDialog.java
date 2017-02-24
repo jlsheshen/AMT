@@ -1,7 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject.dialog;
 
-import java.util.List;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
@@ -11,9 +9,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 
-import com.edu.subject.bill.SignData;
-import com.edu.testsubject.R;
-import com.edu.testsubject.adapter.SignsAdapter;
+import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.newsubject.adapter.SignsAdapter;
+import com.edu.subject.data.SignData;
+
+import java.util.List;
+
 
 /**
  * 印章选择对话框

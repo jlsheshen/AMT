@@ -3,6 +3,7 @@ package com.edu.subject.basic;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 

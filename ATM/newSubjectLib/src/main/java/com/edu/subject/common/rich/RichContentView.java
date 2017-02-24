@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -55,6 +56,7 @@ public class RichContentView extends LinearLayout {
 		//富文本控件
 		richText = new RichTextView(mContext);
 		addView(richText);
+		setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.rich_text_size));
 		//图片表格
 		imgGrid = (FixedGridView) View.inflate(mContext, R.layout.rich_grid_view, null);
 		addView(imgGrid);
@@ -102,13 +104,13 @@ public class RichContentView extends LinearLayout {
 	 * @param data
 	 */
 	public void setRichData(RichTextData data) {
-		if(TextUtils.isEmpty(data.getText())) {
+		if (TextUtils.isEmpty(data.getText())) {
 			richText.setVisibility(View.GONE);
 		} else {
 			richText.setVisibility(View.VISIBLE);
 			richText.setRichText(data.getText());
 		}
-		
+
 		//图片表格
 		List<String> imgs = data.getImgSrc();
 		if (imgs != null) {

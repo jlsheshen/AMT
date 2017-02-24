@@ -46,7 +46,7 @@ public abstract class BaseSelectView extends BasicSubjectView implements SelectL
 	}
 
 	@Override
-	public void initUAnswer() {
+	public void initUAnswer(boolean judge) {
 		BasicAnswerData answerData = ((TestBasicData) mTestData).getUAnswerData();
 		if (answerData != null) {
 			mAdapter.setUAnswer(answerData.getUanswer());

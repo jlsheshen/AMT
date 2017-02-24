@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseCheckAdapter;
-import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.subject.data.BaseTestData;
 
 import java.util.List;
@@ -60,31 +59,31 @@ public class ErrorAdapter extends BaseCheckAdapter {
             holder = (ErrorViewHolder) convertView.getTag();
         }
         String s = null;
-        switch (datas.get(position).getSubjectType()){
-            case ClassContstant.SUBJECT_SINGLE_CHOSE:
-                s = ClassContstant.SUBJECT_SINGLE_CHOSE_STRING;
-                break;
-            case ClassContstant.SUBJECT_MULITI_CHOSE:
-                s = ClassContstant.SUBJECT_MULITI_CHOSE_STRING;
-                break;
-            case ClassContstant.SUBJECT_JUDGE:
-                s = ClassContstant.SUBJECT_JUDGE_STRING;
-                break;
-            case ClassContstant.SUBJECT_PRACTIAL:
-                s = ClassContstant.SUBJECT_PRACTIAL_STRING;
-                break;
-            case ClassContstant.SUBJECT_ENTRY:
-                s = ClassContstant.SUBJECT_ENTRY_STRING;
-                break;
-            case ClassContstant.SUBJECT_BILL:
-                s = ClassContstant.SUBJECT_BILL_STRING;
-                break;
-            case ClassContstant.SUBJECT_GROUP_BILL:
-                s = ClassContstant.SUBJECT_GROUP_BILL_STRING;
-                break;
-        }
-        holder.typeTv.setText(s);
-        holder.contentTv.setText(datas.get(position).getSubjectData().getQuestion());
+//        switch (datas.get(position).getSubjectType()){
+//            case ClassContstant.SUBJECT_SINGLE_CHOSE:
+//                s = ClassContstant.SUBJECT_SINGLE_CHOSE_STRING;
+//                break;
+//            case ClassContstant.SUBJECT_MULITI_CHOSE:
+//                s = ClassContstant.SUBJECT_MULITI_CHOSE_STRING;
+//                break;
+//            case ClassContstant.SUBJECT_JUDGE:
+//                s = ClassContstant.SUBJECT_JUDGE_STRING;
+//                break;
+//            case ClassContstant.SUBJECT_PRACTIAL:
+//                s = ClassContstant.SUBJECT_PRACTIAL_STRING;
+//                break;
+//            case ClassContstant.SUBJECT_ENTRY:
+//                s = ClassContstant.SUBJECT_ENTRY_STRING;
+//                break;
+//            case ClassContstant.SUBJECT_BILL:
+//                s = ClassContstant.SUBJECT_BILL_STRING;
+//                break;
+//            case ClassContstant.SUBJECT_GROUP_BILL:
+//                s = ClassContstant.SUBJECT_GROUP_BILL_STRING;
+//                break;
+//        }
+//        holder.typeTv.setText(s);
+//        holder.contentTv.setText(datas.get(position).getSubjectData().getQuestion());
 
         if (checkIsShow){
             holder.checkBox.setVisibility(View.VISIBLE);

@@ -25,7 +25,7 @@ import com.edu.accountingteachingmaterial.newsubject.dialog.SignChooseDialog;
 import com.edu.accountingteachingmaterial.util.CountryTestTimer;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
-import com.edu.subject.bill.SignData;
+import com.edu.subject.data.SignData;
 import com.edu.subject.bill.SignDataDao;
 import com.edu.subject.data.BaseTestData;
 

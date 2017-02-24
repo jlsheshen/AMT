@@ -34,10 +34,10 @@ public class EntryEditText extends EditText {
 	 */
 	public void setJudgeStyle(boolean right) {
 		if(right) {
-			setBackgroundResource(R.drawable.shape_entry_edittext_right);
+			setBackgroundResource(R.drawable.shape_edittext_right);
 			setTextColor(Color.BLUE);
 		} else {
-			setBackgroundResource(R.drawable.shape_entry_edittext_wrong);
+			setBackgroundResource(R.drawable.shape_edittext_wrong);
 			setTextColor(Color.RED);
 		}
 	}

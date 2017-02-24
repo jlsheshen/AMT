@@ -102,7 +102,7 @@ public class EntryAnswerHandler {
 	 * @return
 	 */
 	private String getItemAnswer(EntryItemData item) {
-		return checkEmpty(item.getPrimary()) + "--" + checkEmpty(item.getSecondary()) + "--" + checkEmpty(item.getAmount());
+		return checkEmpty(item.getPrimary()) + "--" + checkEmpty(item.getSecondary()) + "    " + checkEmpty(item.getAmount());
 	}
 
 	/**

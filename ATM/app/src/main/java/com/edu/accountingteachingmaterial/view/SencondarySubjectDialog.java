@@ -8,9 +8,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.adapter.SencondarySubjectAdapter;
-import com.edu.accountingteachingmaterial.bean.SecondSubjectData;
-import com.edu.accountingteachingmaterial.bean.SecondSubjectDataModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

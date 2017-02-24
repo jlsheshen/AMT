@@ -54,7 +54,7 @@ public class SimpleAnswerView extends BasicSubjectView implements ISubject {
 	}
 
 	@Override
-	public void initUAnswer() {
+	public void initUAnswer(boolean judge) {
 		BasicAnswerData answerData = ((TestBasicData) mTestData).getUAnswerData();
 		if (answerData != null) {
 			etBlank.setText(answerData.getUanswer());

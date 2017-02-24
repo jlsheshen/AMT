@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.edu.accountingteachingmaterial.newsubject.common.SubjectViewPagerFragment;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
-import com.edu.subject.bill.SignData;
+import com.edu.subject.data.SignData;
 import com.edu.subject.bill.element.info.BaseElementInfo;
 import com.edu.subject.bill.element.info.BlankInfo;
 import com.edu.subject.data.BaseTestData;
