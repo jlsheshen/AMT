@@ -34,7 +34,8 @@ import com.lucher.net.req.RequestMethod;
 
 import java.util.List;
 
-import static com.edu.subject.BASE_URL.BASE_URL;
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.BASE_URL;
+
 
 public class MainActivity extends BaseMvpActivity<MainView,MainPresenter> implements OnClickListener, DrawerListener {
 

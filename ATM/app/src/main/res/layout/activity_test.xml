@@ -12,7 +12,7 @@
         android:background="@mipmap/navibar_top">
 
         <ImageView
-            android:id="@+id/class_aty_back_iv"
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -32,7 +32,7 @@
             android:textSize="32sp" />
 
         <TextView
-            android:id="@+id/c"
+            android:id="@+id/activity_test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -43,7 +43,7 @@
             android:textSize="24sp" />
 
         <ImageView
-            android:id="@+id/btnDone"
+            android:id="@+id/btnSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -107,7 +107,6 @@
             <!--/>-->
 
         <com.edu.accountingteachingmaterial.view.UnTouchableViewPager
-            android:layout_below="@id/tv_bill_question"
             android:id="@+id/vp_content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

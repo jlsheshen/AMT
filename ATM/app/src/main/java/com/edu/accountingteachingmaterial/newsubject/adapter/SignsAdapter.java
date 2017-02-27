@@ -8,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.subject.data.SignData;
+import com.edu.subject.bill.SignData;
 import com.edu.subject.common.ProgressImageView;
 
 import java.util.ArrayList;

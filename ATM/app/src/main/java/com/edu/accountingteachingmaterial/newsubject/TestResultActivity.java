@@ -1,9 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import java.util.List;
-
-import org.apache.http.Header;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,14 +10,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.net.UploadResultsManager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
-import com.edu.testsubject.dao.SubjectOnlineTestDataDao;
-import com.edu.testsubject.net.UploadResultsManager;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
+
+import org.apache.http.Header;
+
+import java.util.List;
 
 /**
  * 测试结果界面

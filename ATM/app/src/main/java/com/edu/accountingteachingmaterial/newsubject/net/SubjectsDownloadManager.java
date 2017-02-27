@@ -1,21 +1,21 @@
 package com.edu.accountingteachingmaterial.newsubject.net;
 
-import java.util.List;
-
-import org.apache.http.Header;
-
 import android.content.Context;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.subject.SubjectType;
 import com.edu.subject.dao.CommonSubjectDataDao;
 import com.edu.subject.data.CommonSubjectData;
-import com.edu.testsubject.dao.SubjectOnlineTestDataDao;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
+
+import org.apache.http.Header;
+
+import java.util.List;
 
 /**
  * 题目下载管理类

@@ -12,7 +12,7 @@ import com.edu.library.util.ToastUtil;
 import com.edu.subject.ISubject;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectType;
-import com.edu.subject.data.SignData;
+import com.edu.subject.bill.SignData;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.TestBillData;
 import com.edu.subject.data.TestComprehensiveData;

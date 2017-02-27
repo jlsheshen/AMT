@@ -1,8 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -10,18 +7,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.newsubject.data.MenuItemData;
+import com.edu.accountingteachingmaterial.newsubject.net.SubjectsDownloadManager;
 import com.edu.library.EduBaseActivity;
 import com.edu.library.adapter.EduArrayAdapter;
 import com.edu.library.data.BaseListItemData;
 import com.edu.library.util.DoubleClickExitUtil;
 import com.edu.library.util.ToastUtil;
-import com.edu.subject.TestMode;
-import com.edu.subject.data.BaseTestData;
-import com.edu.testsubject.dao.SubjectTestDataDao;
-import com.edu.testsubject.data.MenuItemData;
-import com.edu.testsubject.net.SubjectsDownloadManager;
-import com.edu.testsubject.net.SubjectsDownloadManager.SubjectDownloadListener;
-import com.edu.testsubject.net.UploadResultsManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 公用控件演示主界面
@@ -29,7 +25,7 @@ import com.edu.testsubject.net.UploadResultsManager;
  * @author lucher
  * 
  */
-public class MainActivity extends EduBaseActivity implements OnItemClickListener, SubjectDownloadListener {
+public class MainActivity extends EduBaseActivity implements OnItemClickListener, SubjectsDownloadManager.SubjectDownloadListener {
 
 	// 功能列表
 	private ListView listView;

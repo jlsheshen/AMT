@@ -44,7 +44,6 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/item_exam_below_ly"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/item_exam_above_ly"

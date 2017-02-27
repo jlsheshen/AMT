@@ -31,7 +31,7 @@ public class TestGroupBillData extends BaseTestData {
 	}
 
 	@Override
-	public BaseSubjectData getSubjectData() {
+	public SubjectBillData getSubjectData() {
 		return testDatas.get(0).getSubjectData();
 	}
 

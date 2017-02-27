@@ -18,7 +18,6 @@
             android:src="@mipmap/icon_fanhui_n" />
 
         <TextView
-            android:id="@+id/test_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -200,9 +199,7 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <include
-        android:id="@+id/item_u"
-        layout="@layout/item_unit_text_info" />
+    <include layout="@layout/item_unit_text_info" />
 
     <Button
         android:id="@+id/btn_start"

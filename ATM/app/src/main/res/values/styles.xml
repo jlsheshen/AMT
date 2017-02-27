@@ -71,10 +71,6 @@
         <item name="android:paddingRight">10px</item>
     </style>
 
-    <style name="ItemPadding">
-        <item name="android:paddingTop">10px</item>
-        <item name="android:paddingBottom">10px</item>
-    </style>
     <!-- 选项多项按钮样式 -->
     <style name="cb_option_style">
         <item name="android:paddingBottom">10px</item>
@@ -100,8 +96,4 @@
     </style>
 
 
-    <style name="AnimationPreview">
-        <item name="android:windowEnterAnimation">@anim/fade_in</item>
-        <item name="android:windowExitAnimation">@anim/fade_out</item>
-    </style>
 </resources>

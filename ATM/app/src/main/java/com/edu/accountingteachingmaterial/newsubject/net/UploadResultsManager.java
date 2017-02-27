@@ -1,22 +1,22 @@
 package com.edu.accountingteachingmaterial.newsubject.net;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.Header;
-
 import android.content.Context;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.edu.accountingteachingmaterial.newsubject.Constant;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.net.SubjectAnswerResult;
-import com.edu.testsubject.Constant;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
+
+import org.apache.http.Header;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 发送答题结果到服务器管理类

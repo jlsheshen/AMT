@@ -11,7 +11,7 @@ import android.widget.GridView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.newsubject.adapter.SignsAdapter;
-import com.edu.subject.data.SignData;
+import com.edu.subject.bill.SignData;
 
 import java.util.List;
 

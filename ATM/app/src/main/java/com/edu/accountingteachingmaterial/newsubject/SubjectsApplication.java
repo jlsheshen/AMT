@@ -5,8 +5,7 @@ import com.edu.library.util.DBCopyUtil;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.net.SubjectImageLoader;
 import com.edu.subject.util.SoundPoolUtil;
-import com.edu.testsubject.net.SubjectsDownloadManager;
-import com.edu.testsubject.net.UploadResultsManager;
+
 import com.lucher.net.req.LogUtil;
 
 /**

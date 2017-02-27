@@ -8,7 +8,6 @@
     android:orientation="horizontal">
 
     <Button
-        android:id="@+id/btn_rmovegroup"
         android:layout_width="32px"
         android:layout_height="32px"
         android:background="@mipmap/jiayizu"
@@ -16,7 +15,6 @@
         android:visibility="invisible" />
 
     <TextView
-        android:id="@+id/tv_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -24,7 +22,6 @@
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/tv_primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/entry_item_subject_correct"
@@ -43,7 +40,6 @@
         android:background="@color/colorGray" />
 
     <TextView
-        android:id="@+id/tv_secondary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/entry_item_subject_correct"
@@ -62,7 +58,6 @@
         android:background="@color/colorGray" />
 
     <EditText
-        android:id="@+id/et_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@mipmap/entry_item_subject_correct"
@@ -74,7 +69,6 @@
         android:textSize="24sp" />
 
     <Button
-        android:id="@+id/btn_add_or_remove"
         android:layout_width="32px"
         android:layout_height="32px"
         android:layout_marginLeft="15px"
