@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/item_task_title_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/item_task_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/item_task_title_iv"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/item_title_text_size" />
+    <TextView
+        android:id="@+id/item_task_author_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_task_title_tv"
+        android:layout_toRightOf="@id/item_task_title_iv"
+        android:textColor="@color/colorHalfWhite"
+        android:textSize="@dimen/item_text_size" />
+    <TextView
+        android:id="@+id/item_task_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_task_title_tv"
+        android:layout_toRightOf="@id/item_task_author_tv"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:textColor="@color/colorHalfWhite"
+        android:textSize="@dimen/item_text_size" />
+
+    <TextView
+        android:id="@+id/item_task_group_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_task_title_tv"
+        android:layout_toRightOf="@id/item_task_time_tv"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:textColor="@color/colorHalfWhite"
+        android:textSize="@dimen/item_text_size" />
+
+
+
+
+</RelativeLayout>

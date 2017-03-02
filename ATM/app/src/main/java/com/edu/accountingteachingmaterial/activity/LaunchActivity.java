@@ -77,7 +77,7 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
         if (!isSuccess){
         startActivity(StartStudyActivity.class);
         }else {
-            startActivity(MainActivity.class);
+            startActivity(MainChoseActivity.class);
         }
         finish();
     }

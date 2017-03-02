@@ -9,19 +9,37 @@
 
 
     
-
+    <!--标题字大小-->
     <dimen name="title_text_size">32sp</dimen>
+    <!--item标题字大小-->
     <dimen name="item_title_text_size">24sp</dimen>
+    <!--普通内容字大小-->
     <dimen name="content_text_size">20sp</dimen>
+    <!--item中字大小-->
     <dimen name="item_text_size">16sp</dimen>
-    <dimen name="title_layout_height">70px</dimen>
-    <dimen name="side_bar_width">80dp</dimen>
-    <dimen name="gv_card_imageview">200dp</dimen>
-    <dimen name="card_width_padding">20dp</dimen>
-    <dimen name="drawlayout_width">280dp</dimen>
-    <dimen name="my_head_card_height">180dp</dimen>
-    <dimen name="my_item_height">80dp</dimen>
-    <dimen name="horizontal_lin_padding">10dp</dimen>
     <dimen name="ppw__title_item_height">55px</dimen>
+
+
+    <!--上方title的高度-->
+    <dimen name="title_layout_height">70dp</dimen>
+    <!--侧边bar的宽度-->
+    <dimen name="side_bar_width">80dp</dimen>
+    <!--经典示例中图片的尺寸-->
+    <dimen name="gv_card_imageview">200dp</dimen>
+
+    <dimen name="card_width_padding">20dp</dimen>
+    <!--设置弹出宽度-->
+    <dimen name="drawlayout_width">280dp</dimen>
+    <!--我的头像高度-->
+    <dimen name="my_head_card_height">180dp</dimen>
+    <!--我的item高度-->
+    <dimen name="my_item_height">80dp</dimen>
+    <!--线view 的内边距-->
+    <dimen name="horizontal_lin_padding">10dp</dimen>
+    <!--二级菜单中,fragment距左边的边距-->
+    <dimen name="class_deail_padding_left">75dp</dimen>
+    <!--任务页面图片宽高-->
+    <dimen name="task_content_height">180dp</dimen>
+
 
 </resources>

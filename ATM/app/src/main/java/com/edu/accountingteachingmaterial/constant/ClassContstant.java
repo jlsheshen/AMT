@@ -30,6 +30,28 @@ public final class ClassContstant {
      * 查看我的作答模式
      */
     public static final int TEST_MODE_LOOK = 4;
+    /**
+     * 状态-没有
+     */
+    public static final int STATE_NONE = 1;
+    /**
+     * 状态-准备中
+     */
+    public static final int STATE_UNDONE = 1;
+    /**
+     * 状态-进行中
+     */
+    public static final int STATE_RUNING = 2;
+    /**
+     * 状态-第一阶段做完,准备第二阶段
+     */
+    public static final int STATE_AFTER = 3;
+    /**
+     * 状态全部完成
+     */
+    public static final int STATE_FINSH = 4;
+
+
 
     //试卷当前状态
     //试卷已提交

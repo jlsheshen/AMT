@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginLeft="75px"
+    android:layout_marginLeft="@dimen/class_deail_padding_left"
     >
     <WebView 
         android:id="@+id/emphasis_wv"

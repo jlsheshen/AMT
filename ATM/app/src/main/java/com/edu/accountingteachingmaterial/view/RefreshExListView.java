@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 
 /**
+ * 带刷新的ExpandableListView
  * Created by Administrator on 2017/1/25.
  */
 

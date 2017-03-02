@@ -24,22 +24,24 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:label="@string/app_name"
             android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.edu.accountingteachingmaterial.activity.MainActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:screenOrientation="landscape"
             android:windowSoftInputMode="adjustResize">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
+        </activity>
+        <activity
+            android:name="com.edu.accountingteachingmaterial.activity.MainChoseActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activity.StartStudyActivity"
@@ -50,7 +52,9 @@
             android:name="com.edu.accountingteachingmaterial.activity.ClassDetailActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape" >
+
+        </activity>
         <activity
             android:name=".activity.SubjectPracticeActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
@@ -91,7 +95,8 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity android:name=".activity.OnlineExamDetailsContentActivity"
+        <activity
+            android:name=".activity.OnlineExamDetailsContentActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
@@ -99,24 +104,37 @@
             android:name=".activity.ReviewHistoryActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SubjectErrorActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".activity.SubjectDetailsReviewActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape"/>
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.AddGroupActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.TaskDetailActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" >
+
+
+        </activity>
 
         <meta-data
             android:name="design_width"
-            android:value="1024"/>
+            android:value="1024" />
         <meta-data
             android:name="design_height"
-            android:value="552"/>
+            android:value="552" />
 
     </application>
 

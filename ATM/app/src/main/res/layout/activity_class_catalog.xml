@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="110px"
-    android:layout_marginRight="10px"
-    android:orientation="vertical">
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <RelativeLayout
         android:id="@+id/main_aty_title_layout"
         style="@style/TitleBarStyle"
@@ -18,14 +16,22 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/main_study_history_iv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/icon_history_n"
+            android:visibility="visible" />
     </RelativeLayout>
 
     <View style="@style/HorizontalLine" />
-    <GridView
-        android:id="@+id/class_gv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:numColumns="3"></GridView>
 
+    <ExpandableListView
+        android:id="@+id/class_classchapter_exlv"
+        style="@style/ExpandableLvStyle"></ExpandableListView>
 
 </LinearLayout>

@@ -122,19 +122,10 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getId(), datas.get(i).getId());
-
-                    //  datas.get(i).setState(ClassContstant.EXAM_UNDONE);
-                    //    downloadChildExercise(view, i);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectTestActivity.class, b);
-//                    if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_BEFORE_CLASS || datas.get(i).getLesson_type() == ClassContstant.EXERCISE_AFTER_CLASS) {
-//                        b.putSerializable("ExamListData", datas.get(i));
-//                        startActivity(SubjectTestActivity.class, b);
-//
-//                    } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
-//                    }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
@@ -143,7 +134,6 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     startActivity(SubjectDetailsContentActivity.class, b);
 
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
-
                     if (datas.get(i) == null){
                         Toast.makeText(context, "请重新下载", Toast.LENGTH_SHORT).show();
                         stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);

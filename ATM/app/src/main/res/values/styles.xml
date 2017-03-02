@@ -34,28 +34,28 @@
 
     <style name="LeftDrawlayoutStyle">
         <item name="android:layout_height">match_parent</item>
-        <item name="android:layout_width">300px</item>
+        <item name="android:layout_width">300dp</item>
     </style>
-
+    <!--横线样式-->
     <style name="HorizontalLine">
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorBlueContent</item>
     </style>
-
+<!--竖线样式-->
     <style name="VerticalLine">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">1dp</item>
         <item name="android:background">@color/colorBlueContent</item>
-        <item name="android:layout_marginLeft">15px</item>
-        <item name="android:layout_marginRight">15px</item>
+        <item name="android:layout_marginLeft">15dp</item>
+        <item name="android:layout_marginRight">15dp</item>
     </style>
 
     <style name="SettingItem">
-        <item name="android:layout_height">60px</item>
+        <item name="android:layout_height">60dp</item>
         <item name="android:layout_width">match_parent</item>
     </style>
-
+    <!---->
     <style name="ExpandableLvStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -65,41 +65,67 @@
         <item name="android:layout_margin">@dimen/little_interval</item>
         <item name="android:childDivider">@color/colorBlueContent</item>
     </style>
-
+    <!--fragment的padding-->
     <style name="FragmentPadding">
-        <item name="android:paddingLeft">10px</item>
-        <item name="android:paddingRight">10px</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
     </style>
 
     <style name="ItemPadding">
-        <item name="android:paddingTop">10px</item>
-        <item name="android:paddingBottom">10px</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
     </style>
     <!-- 选项多项按钮样式 -->
     <style name="cb_option_style">
-        <item name="android:paddingBottom">10px</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:textColor">@drawable/rb_selector_subject_text_color</item>
-        <item name="android:paddingTop">10px</item>
+        <item name="android:paddingTop">10dp</item>
         <item name="android:button">@null</item>
         <item name="android:textSize">@dimen/txt_size_half_medium</item>
         <item name="android:focusable">true</item>
-        <item name="android:drawablePadding">5px</item>
-        <item name="android:paddingLeft">25px</item>
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:paddingLeft">25dp</item>
     </style>
 
     <!-- ppw的item样式 -->
     <style name="ppw_title_item_style">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">55px</item>
+        <item name="android:layout_height">55dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">10px</item>
+        <item name="android:paddingLeft">10dp</item>
         <item name="android:textColor">@color/colorBlueBackground</item>
         <item name="android:textSize">@dimen/item_title_text_size</item>
         <item name="android:background">#8823c8be</item>
-        <item name="android:layout_marginTop">1px</item>
+        <item name="android:layout_marginTop">1dp</item>
+    </style>
+    <!--中大号字-->
+    <style name="item_title_text" >
+        <item name="android:textSize">@dimen/item_title_text_size</item>
+    </style>
+    <!--中大号蓝色字-->
+    <style name="item_title_blue_text" parent="item_title_text">
+        <item name="android:textColor">@color/colorBlueBackground</item>
+    </style>
+
+    <!--中大号黑色字-->
+    <style name="item_title_black_text" parent="item_title_text">
+        <item name="android:textColor">@color/colorTextBlack</item>
+    </style>
+    <!--中大号灰色字-->
+    <style name="item_title_gray_text" parent="item_title_text">
+        <item name="android:textColor">@color/colorGray</item>
+    </style>
+    <!--小号字-->
+    <style name="item_text" >
+        <item name="android:textSize">@dimen/item_text_size</item>
+    </style>
+    <!--小号字灰色字-->
+    <style name="item_gray_text" parent="item_text">
+        <item name="android:textColor">@color/colorGray</item>
     </style>
 
 
+    <!--下拉刷新动画-->
     <style name="AnimationPreview">
         <item name="android:windowEnterAnimation">@anim/fade_in</item>
         <item name="android:windowExitAnimation">@anim/fade_out</item>

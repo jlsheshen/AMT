@@ -69,7 +69,6 @@ public class HistoryClickManager extends JsonNetReqManager {
         JsonReqEntity entity = new JsonReqEntity(context, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity);
         Log.d(TAG, "uploadResult:" + JSON.toJSONString(datas));
-
     }
 
     @Override
@@ -78,9 +77,6 @@ public class HistoryClickManager extends JsonNetReqManager {
         String message = jsonObject.getString("message");
         if (result) {
             ToastUtil.showToast(context, "上传历史记录");
-//            ContentValues contentValues = new ContentValues();
-//            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-//            ExamListDao.getInstance(mContext).updateData("" + examId, contentValues);
             EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
         } else {
             ToastUtil.showToast(context, "上传历史记录失败：" + message);
@@ -90,14 +86,11 @@ public class HistoryClickManager extends JsonNetReqManager {
 
     @Override
     public void onConnectionFailure(String s, Header[] headers) {
-        ToastUtil.showToast(context, "上传历史记录失败：" + s);
-
+            ToastUtil.showToast(context, "上传历史记录失败：" + s);
 
     }
-
     @Override
     public void onConnectionError(String s) {
         ToastUtil.showToast(context, "上传历史记录失败：" + s);
-
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/colorWhite"
+    android:layout_height="180dp">
+
+    <ImageView
+        android:id="@+id/item_textbook_bg_iv"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        />
+    <TextView
+        android:id="@+id/item_textbook_name_tv"
+        android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="基础会计"
+        style="@style/item_title_black_text"
+        />
+    <TextView
+        android:id="@+id/item_textbook_organization_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:layout_below="@id/item_textbook_name_tv"
+        style="@style/item_gray_text"
+        />
+    <TextView
+        android:id="@+id/item_textbook_publisher_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/item_textbook_name_tv"
+        style="@style/item_gray_text"
+        />
+    <TextView
+        android:id="@+id/item_textbook_intro_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:layout_below="@id/item_textbook_organization_tv"
+        style="@style/item_gray_text"
+        />
+
+
+
+
+
+</RelativeLayout>

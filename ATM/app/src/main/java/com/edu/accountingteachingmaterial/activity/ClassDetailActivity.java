@@ -16,7 +16,7 @@ import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
-import com.edu.accountingteachingmaterial.fragment.ClassReviewFragment;
+import com.edu.accountingteachingmaterial.fragment.GroupTaskFragment;
 import com.edu.accountingteachingmaterial.view.ChapterPopupWindow;
 
 public class ClassDetailActivity extends BaseActivity implements OnClickListener {
@@ -59,16 +59,17 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     public void initData() {
 
         Bundle bundle = getIntent().getExtras();
-        data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
-        chapterId = bundle.getInt("ChapterId");
+//        data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
+//        chapterId = bundle.getInt("ChapterId");
         if (data != null) {
             textView.setText(data.getTitle());
         }
-        if (null == classEmphasisFragment) {
-            classEmphasisFragment = new ClassEmphasisFragment();
-        }
-        classEmphasisFragment.setChapter(chapterId);
-        replaceFragment(classEmphasisFragment);
+//        设置显示也,因测,c暂时注销
+//        if (null == classEmphasisFragment) {
+//            classEmphasisFragment = new ClassEmphasisFragment();
+//        }
+//        classEmphasisFragment.setChapter(chapterId);
+//        replaceFragment(classEmphasisFragment);
         // TODO Auto-generated method stub
 
     }
@@ -114,8 +115,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                 break;
             case R.id.class_review_iv:
                 if (null == classReviewFragment) {
-                    classReviewFragment = new ClassReviewFragment();
-                    ((ClassReviewFragment) classReviewFragment).setData(chapterId);
+                    classReviewFragment = new GroupTaskFragment();
                 }
                 replaceFragment(classReviewFragment);
                 imgReviewHy.setVisibility(View.VISIBLE);
