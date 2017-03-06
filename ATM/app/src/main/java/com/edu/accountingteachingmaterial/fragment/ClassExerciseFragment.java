@@ -129,16 +129,12 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectTestActivity.class, b);
-//                    if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_BEFORE_CLASS || datas.get(i).getLesson_type() == ClassContstant.EXERCISE_AFTER_CLASS) {
-//                        b.putSerializable("ExamListData", datas.get(i));
-//                        startActivity(SubjectTestActivity.class, b);
-//
-//                    } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
-//                    }
+
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
+
                     b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
 

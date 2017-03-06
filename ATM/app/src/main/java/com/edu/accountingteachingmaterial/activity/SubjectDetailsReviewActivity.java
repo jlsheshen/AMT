@@ -108,7 +108,6 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
     private void init() {
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
-
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
 //		tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
@@ -136,11 +135,9 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
                 }
                 break;
             case R.id.btnDone:
-
 //				mSubjectAdapter.reset();
 //				finish();
                 break;
-
             case R.id.btnLeft:
                 if (mCurrentIndex != 0) {
                     mCurrentIndex--;
