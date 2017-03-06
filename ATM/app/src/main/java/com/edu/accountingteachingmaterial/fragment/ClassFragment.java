@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -8,9 +9,17 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassCatalogActivity;
 import com.edu.accountingteachingmaterial.adapter.ClassGvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
+import com.edu.accountingteachingmaterial.bean.ClassBean;
+import com.edu.accountingteachingmaterial.util.ClassListManager;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 
-public class ClassFragment extends BaseFragment implements AdapterView.OnItemClickListener {
-  GridView gridView ;
+import java.util.List;
+
+/**
+ * 课堂fragment
+ */
+public class ClassFragment extends BaseFragment implements AdapterView.OnItemClickListener, ClassListManager.ClassListener {
+     GridView gridView ;
     ClassGvAdapter adapter;
     @Override
     protected int initLayout() {
@@ -24,15 +33,30 @@ public class ClassFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     protected void initData() {
         adapter = new ClassGvAdapter();
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(this);
+        ClassListManager.getSingleton(getContext()).getClassList(this);
+
+
+
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        startActivity(ClassCatalogActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(PreferenceHelper.CLASS_ID, "" + adapter.getData(position).getId());
+        startActivity(ClassCatalogActivity.class,bundle);
+    }
+
+    @Override
+    public void onSuccess(List<ClassBean> books) {
+        adapter.setDatas(books);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(this);
 
     }
 
+    @Override
+    public void onFailure(String message) {
+
+    }
 }
 

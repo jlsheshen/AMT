@@ -22,6 +22,7 @@ import java.util.List;
 public class ExamAdapter extends BaseAdapter {
     private Context context;
     private List<OnLineExamListData> datas;
+    private boolean isExercise;
 
     public ExamAdapter(Context context) {
         this.context = context;
@@ -30,6 +31,11 @@ public class ExamAdapter extends BaseAdapter {
     public void setDatas(List<OnLineExamListData> datas) {
         this.datas = datas;
         notifyDataSetChanged();
+    }
+
+    public ExamAdapter setExercise(boolean exercise) {
+        isExercise = exercise;
+        return this;
     }
 
     @Override
@@ -63,14 +69,19 @@ public class ExamAdapter extends BaseAdapter {
         setContent(viewHolder.timeTv, String.valueOf(examBean.getLast_time()));
         setContent(viewHolder.publisherTv, examBean.getCreator_name());
         setContent(viewHolder.itemNumTv, examBean.getTopic_count() + "道");
-        setContent(viewHolder.startTimeTv, String.valueOf(examBean.getStart_time()));
-        setContent(viewHolder.durationTv, String.valueOf(examBean.getLast_time()) + "分钟");
+        if (isExercise){
+            viewHolder.startTimeTv.setVisibility(View.GONE);
+            viewHolder.durationTv.setVisibility(View.GONE);
+        }else {
+            setContent(viewHolder.startTimeTv, String.valueOf(examBean.getStart_time()));
+            setContent(viewHolder.durationTv, String.valueOf(examBean.getLast_time()) + "分钟");
+        }
+
         switch (examBean.getState()) {
             case ClassContstant.EXAM_COMMIT:
                 viewHolder.imageView.setImageResource(R.mipmap.btn_yituijiao_n);
                 viewHolder.progressBar.setVisibility(View.GONE);
                 viewHolder.imageView.setVisibility(View.VISIBLE);
-
 
                 break;
             case ClassContstant.EXAM_DOWNLOADING:

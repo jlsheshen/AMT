@@ -31,7 +31,7 @@ import java.util.List;
 /**
  * 经典示例
  *
- * @author xd
+ * @author jilin
  */
 public class ClassExampleFragment extends BaseFragment implements AdapterView.OnItemClickListener {
     GridView gridView;
@@ -144,7 +144,6 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
                     loadData();
                 }
             }
-
             @Override
             public void onFailure(String errorInfo) {
                 Log.d("LaunchActivity", errorInfo);

@@ -62,6 +62,13 @@ public class NetUrlContstant {
     //获取重点难点
     public static final String EMPHASIS_URL =  "/eduExam/guest/learn/";
 
+    //获得教材列表
+    public static final String TEXTBOOK_URL = INTERCACE +  "course/getTextRoom/";
+    //获取课堂列表
+    public static final String CLASS_URL = INTERCACE +  "course/getClassRoom/";
+    //获取课堂/教材详情列表
+    public static final String CLASS_INFO = INTERCACE +  "course/getCourseInfoByCourseId/";
+
     public static String getEmphasisUrl() {
         return  BASE_URL +EMPHASIS_URL;
     }
@@ -141,4 +148,17 @@ public class NetUrlContstant {
     public static String getUploadingTestTime() {
         return BASE_URL + uploadingTestTime;
     }
+
+    public static String getTextBookList() {
+        return BASE_URL + TEXTBOOK_URL;
+    }
+
+    public static String getClassList() {
+        return BASE_URL + CLASS_URL;
+    }
+
+    public static String getClassInfo() {
+        return BASE_URL + CLASS_URL;
+    }
+
 }

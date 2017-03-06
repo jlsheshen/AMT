@@ -8,15 +8,32 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.bean.ClassBean;
+import com.edu.library.imageloader.EduImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/3/2.
  */
 
 public class ClassGvAdapter extends BaseAdapter{
+    //数据集合
+    List<ClassBean> datas;
+    TextBookGvAdapter.ViewHolder viewHolder = null;
+
+    public ClassGvAdapter setDatas(List<ClassBean> datas) {
+        this.datas = datas;
+        return this;
+    }
+    public ClassBean etDtaa(int pos){
+        return datas.get(pos);
+    }
+
     @Override
     public int getCount() {
-        return 3;
+        return datas == null ? 0 : datas.size();
     }
 
     @Override
@@ -33,17 +50,23 @@ public class ClassGvAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_example_gv, parent, false);
+            convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_class_gv, parent, false);
 
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.nameTv.setText("会计基础");
-        viewHolder.bgIv.setImageResource(R.mipmap.ic_launcher);
-        viewHolder.authorTv.setText("taiyoucai");
+        ClassBean data = datas.get(position);
+        viewHolder.nameTv.setText(data.getTitle());
+        ImageLoader.getInstance().displayImage(data.getPicture(), viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+//        viewHolder.bgIv.setImageResource(R.mipmap.ic_launcher);
+        viewHolder.authorTv.setText(data.getName());
         return convertView;
+    }
+
+    public ClassBean getData(int position) {
+        return datas.get(position);
     }
 
     class ViewHolder {

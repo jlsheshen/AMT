@@ -30,6 +30,10 @@ public class PreferenceHelper {
      */
     public static final String COURSE_ID = "COURSE_ID";
     /**
+     * 班级id
+     */
+    public static final String CLASS_ID = "CLASS_ID";
+    /**
      * 学号
      */
     public static final String STUDNET_NUMBER = "STUDNET_NUMBER";

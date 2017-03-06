@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.BaseAdapter;
@@ -20,10 +19,10 @@ import com.edu.accountingteachingmaterial.view.NoRvScrollManager;
 
 public class TaskDetailActivity extends BaseActivity {
 
-    GridView taskContentGv,groupsGv;//任务图片表,组员列表
+    GridView taskContentGv, groupsGv;//任务图片表,组员列表
     RecyclerView accessoryRv;//上传图片列表
     RvMultiTypeAdapter accessotyAdapter;
-    BaseAdapter taskContentAdapter,groupsAdapter;
+    BaseAdapter taskContentAdapter, groupsAdapter;
     private int taskModel;
 
     @Override
@@ -33,9 +32,9 @@ public class TaskDetailActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        Intent intent = new Intent();
-        Bundle bundle = intent.getBundleExtra("");
-        taskModel = bundle.getInt("");
+//        Intent intent = new Intent();
+//        Bundle bundle = intent.getBundleExtra("");
+//        taskModel = bundle.getInt("");
 
 
         taskContentGv = bindView(R.id.task_content_gv);
@@ -49,7 +48,7 @@ public class TaskDetailActivity extends BaseActivity {
         accessotyAdapter = new RvMultiTypeAdapter();
         accessoryRv.setAdapter(accessotyAdapter);
         accessotyAdapter.setRvModel(taskModel);
-        accessoryRv.setLayoutManager(new NoRvScrollManager(this,6));
+        accessoryRv.setLayoutManager(new NoRvScrollManager(this, 6));
 
         taskContentAdapter = new TaskContentAdapter();
         taskContentGv.setAdapter(taskContentAdapter);

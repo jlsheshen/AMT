@@ -11,12 +11,21 @@
     <LinearLayout style="@style/TitleBarStyle">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/exam"
+            android:layout_weight="1"
+            android:gravity="start"
+            android:text="评测"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size" />
+        <CheckBox
+            android:id="@+id/exam_chose_cb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:checked="false"
+            />
+
     </LinearLayout>
 
     <View style="@style/HorizontalLine"></View>

@@ -151,7 +151,6 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-//                datas.get(i).getTestList().clear();
                 b.putInt("ExamListDataItem", i1);
                 b.putSerializable("ExamListData", datas.get(i));
                 startActivity(SubjectPracticeActivity.class, b);

@@ -60,18 +60,14 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
             mCurrentIndex = item;
             refreshToolBar();
             viewPager.setType(datas.get(item).getSubjectType());
-
         }
-
         @Override
         public void onPageScrolled(int arg0, float arg1, int arg2) {
         }
-
         @Override
         public void onPageScrollStateChanged(int item) {
         }
     };
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -90,13 +86,9 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
         if (mCurrentIndex < 0 || mCurrentIndex > mSubjectAdapter.getCount() - 1)
             return;
         BaseSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
-        // 刷新题目数据
-        //tvQuestion.setText(mSubjectAdapter.getData(mCurrentIndex).getSubjectIndex() + "." + subject.getQuestion());
         if (subject.getSubjectType() == SubjectType.SUBJECT_BILL) {
-//			tvBillQuestion.setText(subject.getQuestion());
-//			tvBillQuestion.setVisibility(View.VISIBLE);
+
         } else {
-//			tvBillQuestion.setVisibility(View.GONE);
         }
     }
 
@@ -111,12 +103,10 @@ public class SubjectDetailsReviewActivity extends FragmentActivity implements On
 
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
-//		tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
-//		btnReturn= (ImageView) findViewById(R.id.btnDone);
+
         findViewById(R.id.btnDone).setVisibility(View.GONE);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
-//		btnReturn.setImageResource(R.mipmap.icon_congzuo_n);
-//		btnReturn.setVisibility(View.GONE);
+
         Bundle bundle = getIntent().getExtras();
         int chapterId = bundle.getInt(ClassContstant.SUBJECT_REVIEW_ID);
         datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, chapterId);

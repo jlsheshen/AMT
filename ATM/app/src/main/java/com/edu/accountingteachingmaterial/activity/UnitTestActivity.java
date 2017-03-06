@@ -111,12 +111,6 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                     bundle.putInt(ClassContstant.SUBJECT_DETAIL_ID, examId);
                     startActivity(OnlineExamDetailsContentActivity.class, bundle);
                 } else {
-//                    //ExamListData考试数据（测试）
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("examId", examId);
-//                    bundle.putInt("textMode", textMode);
-//                    bundle.putInt("totalTime", testPaperListData.getLast_time());
-//                    startActivity(SubjectExamActivity.class, bundle);
                     uploadTestTime();
                 }
 
@@ -204,25 +198,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //设置显示测验信息，试题信息
     private void refreshView() {
-//        int single = 0, multiple = 0, judge = 0, fillin = 0, shortin = 0, comprehensive = 0, form = 0;
-//        for (int i = 0; i < topicsBeen.size(); i++) {
-//            if (topicsBeen.get(i).getType() == ClassContstant.SUB_SINGLE) {
-//                single += 1;
-//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_MULTI) {
-//                multiple += 1;
-//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_JUDGE) {
-//                judge += 1;
-//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FILLIN) {
-//                fillin += 1;
-//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_SHORTIN) {
-//                shortin += 1;
-//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_COMPREHENSIVE) {
-//                comprehensive += 1;
-//            } else if (topicsBeen.get(i).getType() == ClassContstant.SUB_FORM) {
-//                form += 1;
-//            }
-//
-//        }
+
         testTitle.setText(testPaperListData.getExam_name());
         tvPublisher.setText(testPaperListData.getCreator_name());
         tvReleaseTime.setText(testPaperListData.getCreate_date());

@@ -12,6 +12,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -20,43 +21,43 @@ import com.edu.accountingteachingmaterial.adapter.ClassChapterExLvAdapter;
 import com.edu.accountingteachingmaterial.adapter.HistoryPpwAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
+import com.edu.accountingteachingmaterial.bean.ClassInfoBean;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.HistoryListData;
 import com.edu.accountingteachingmaterial.entity.StudyHistoryVO;
+import com.edu.accountingteachingmaterial.util.ClassInfoManager;
 import com.edu.accountingteachingmaterial.util.HistoryClickManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.library.imageloader.EduImageLoader;
 import com.edu.library.util.ToastUtil;
+import com.edu.subject.BASE_URL;
 import com.lucher.net.req.RequestMethod;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 课堂目录界面
  * Created by Administrator on 2017/3/2.
  */
 
-public class ClassCatalogActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener{
+public class ClassCatalogActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener, ClassInfoManager.ClassInfoListener {
 
     ExpandableListView expandableListView;
     List<ClassChapterData> datas;
     ClassChapterExLvAdapter chapterExLvAdapter;
-    //    HistoryPpwAdapter todayAdapter, yestodayAdapter, agoAdapter;
     HistoryPpwAdapter ppwAdapter;
     PopupWindow popupWindow;
     ListView ppwList;
-    //    NoScrollListView todayLv, yesterdayLv, agoLv;
-//    TextView todayTv, yesterdayTv, agoTv;
     boolean ppwShowing = false;
-
-
-
-
-    ImageView imgHistory;
+    ImageView imgHistory,infoHead;
+    TextView infoName,infoAuthor;
 
 
     @Override
@@ -69,16 +70,26 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         expandableListView = (ExpandableListView) bindView(R.id.class_classchapter_exlv);
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
+        setInfoView();
+    }
+
+    private void setInfoView() {
+        infoHead = bindView(R.id.catalog_name_tv);
+        infoAuthor = bindView(R.id.catalog_author_tv);
+        infoName = bindView(R.id.catalog_name_tv);
     }
 
     @Override
     public void initData() {
-
-//		loadData();
         chapterExLvAdapter = new ClassChapterExLvAdapter(this);
         uploadChapter();
-        expandableListView.setAdapter(chapterExLvAdapter);
 
+        Bundle bundle = getIntent().getExtras();
+        String classId = bundle.getString(PreferenceHelper.CLASS_ID);
+        ClassInfoManager.getSingleton(this).getClassInfo(classId,this);
+
+
+        expandableListView.setAdapter(chapterExLvAdapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -87,7 +98,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
                 bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
                 bundle.putInt("ChapterId", datas.get(groupPosition).getId());
                 startActivity(ClassDetailActivity.class, bundle);
-
                 // TODO Auto-generated method stub
                 return false;
             }
@@ -106,9 +116,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         });
         showPopupWindow(expandableListView);
         ppwAdapter = new HistoryPpwAdapter(this);
-//        todayAdapter = new HistoryPpwAdapter(this);
-//        yestodayAdapter = new HistoryPpwAdapter(this);
-//        agoAdapter = new HistoryPpwAdapter(this);
+
     }
 
     private void uploadChapter() {
@@ -140,8 +148,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         } else {
             popupWindow.showAsDropDown(imgHistory, 50, 50);
             ppwShowing = true;
-//          expandableListView.setEnabled(false);
-//          expandableListView.setAlpha(0.5f);
         }
 
     }
@@ -165,9 +171,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         ppwList.setOnItemClickListener(this);
 
         loadHistoryDatas();
-
         popupWindow = new PopupWindow(ViewGroup.LayoutParams.WRAP_CONTENT, view.getLayoutParams().height);
-
         popupWindow.setContentView(contentView);
         popupWindow.setTouchable(true);
         popupWindow.setOutsideTouchable(true);
@@ -195,16 +199,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         Bundle bundle = new Bundle();
         bundle.putSerializable("exampleBeans", exampleBean);
         Log.d("ClassFragment", "exampleBean:" + exampleBean);
-//        switch (aData.get(i).getFile_type()) {
-//            case ClassContstant.MEADIA_TYPE:
-//                startActivity(MediaActivity.class, bundle);
-//
-//                break;
-//            default:
-//                startActivity(PdfActivity.class, bundle);
-//                break;
-//
-//        }
 
         int totalHeight = 0;
         for (int i1 = 0, len = listAdapter.getCount(); i1 < len; i++) {
@@ -309,6 +303,19 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     }
     public boolean isPpwShowing() {
         return ppwShowing;
+    }
+
+
+    @Override
+    public void onSuccess(ClassInfoBean data) {
+        ImageLoader.getInstance().displayImage(BASE_URL.BASE_URL + data.getPicture() , infoHead, EduImageLoader.getInstance().getDefaultBuilder().build());
+        infoAuthor.setText(data.getPublish());
+        infoName.setText(data.getTitle());
+    }
+
+    @Override
+    public void onFailure(String message) {
+
     }
 }
 

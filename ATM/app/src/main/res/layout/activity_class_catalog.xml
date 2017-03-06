@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg"
+    >
 
     <RelativeLayout
         android:id="@+id/main_aty_title_layout"
@@ -28,10 +30,41 @@
             android:visibility="visible" />
     </RelativeLayout>
 
-    <View style="@style/HorizontalLine" />
+    <View style="@style/HorizontalLine"
+        android:id="@+id/aty_horizontal_line"
+        android:layout_below="@id/main_aty_title_layout"
+        />
+
+    <RelativeLayout
+        android:id="@+id/catalog_sizebar"
+        android:layout_width="270dp"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/catalog_bg_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/catalog_name_tv"
+            android:layout_below="@id/catalog_bg_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/item_title_white_text"
+            />
+        <TextView
+            android:id="@+id/catalog_author_tv"
+            android:layout_below="@id/catalog_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/item_white_text"
+            />
+    </RelativeLayout>
 
     <ExpandableListView
         android:id="@+id/class_classchapter_exlv"
-        style="@style/ExpandableLvStyle"></ExpandableListView>
+        android:layout_below="@id/aty_horizontal_line"
+        android:layout_toRightOf="@id/catalog_sizebar"
+        style="@style/ExpandableLvStyle">
 
-</LinearLayout>
+    </ExpandableListView>
+
+</RelativeLayout>

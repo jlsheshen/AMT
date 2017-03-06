@@ -88,10 +88,10 @@ public class MainChoseActivity extends BaseActivity implements OnClickListener, 
     public void initData() {
         String stuName = PreferenceHelper.getInstance(this).getStringValue(STUDENT_NAME);
         studentName.setText(stuName);
-        if (null == classFragment) {
-            classFragment = new ClassFragment();
+        if (null == textBookFragment) {
+            textBookFragment = new TextbookFragment();
         }
-        replaceFragment(classFragment);
+        replaceFragment(textBookFragment);
     }
 
     @Override
@@ -180,12 +180,7 @@ public class MainChoseActivity extends BaseActivity implements OnClickListener, 
 
     @Override
     public void onBackPressed() {
-        if (classFragment != null) {
-            if (classFragment.isPpwShowing()) {
-                classFragment.showPpw();
-                return;
-            }
-        }
+
         if (drawerLayout != null) {
             if (drawerLayoutIsShow == 1) {
                 drawerLayout.closeDrawers();

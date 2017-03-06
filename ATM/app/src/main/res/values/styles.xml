@@ -42,7 +42,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:background">@color/colorBlueContent</item>
     </style>
-<!--竖线样式-->
+    <!--竖线样式-->
     <style name="VerticalLine">
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">1dp</item>
@@ -99,7 +99,7 @@
         <item name="android:layout_marginTop">1dp</item>
     </style>
     <!--中大号字-->
-    <style name="item_title_text" >
+    <style name="item_title_text">
         <item name="android:textSize">@dimen/item_title_text_size</item>
     </style>
     <!--中大号蓝色字-->
@@ -115,13 +115,21 @@
     <style name="item_title_gray_text" parent="item_title_text">
         <item name="android:textColor">@color/colorGray</item>
     </style>
+    <!--中大号白色字-->
+    <style name="item_title_white_text" parent="item_title_text">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
     <!--小号字-->
-    <style name="item_text" >
+    <style name="item_text">
         <item name="android:textSize">@dimen/item_text_size</item>
     </style>
     <!--小号字灰色字-->
     <style name="item_gray_text" parent="item_text">
         <item name="android:textColor">@color/colorGray</item>
+    </style>
+    <!--中大号白色字-->
+    <style name="item_white_text" parent="item_text">
+        <item name="android:textColor">@color/colorWhite</item>
     </style>
 
 

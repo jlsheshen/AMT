@@ -59,17 +59,17 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     public void initData() {
 
         Bundle bundle = getIntent().getExtras();
-//        data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
-//        chapterId = bundle.getInt("ChapterId");
+        data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
+        chapterId = bundle.getInt("ChapterId");
         if (data != null) {
             textView.setText(data.getTitle());
         }
 //        设置显示也,因测,c暂时注销
-//        if (null == classEmphasisFragment) {
-//            classEmphasisFragment = new ClassEmphasisFragment();
-//        }
-//        classEmphasisFragment.setChapter(chapterId);
-//        replaceFragment(classEmphasisFragment);
+        if (null == classEmphasisFragment) {
+            classEmphasisFragment = new ClassEmphasisFragment();
+        }
+        classEmphasisFragment.setChapter(chapterId);
+        replaceFragment(classEmphasisFragment);
         // TODO Auto-generated method stub
 
     }

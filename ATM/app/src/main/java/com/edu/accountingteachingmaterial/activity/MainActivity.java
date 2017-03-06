@@ -167,12 +167,7 @@ public class MainActivity extends BaseActivity implements OnClickListener, Drawe
 
     @Override
     public void onBackPressed() {
-        if (classFragment != null) {
-            if (classFragment.isPpwShowing()) {
-                classFragment.showPpw();
-                return;
-            }
-        }
+
         if (drawerLayout != null) {
             if (drawerLayoutIsShow == 1) {
                 drawerLayout.closeDrawers();

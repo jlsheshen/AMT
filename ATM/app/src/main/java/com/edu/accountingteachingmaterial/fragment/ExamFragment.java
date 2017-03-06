@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -30,18 +32,22 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 试卷页面
  */
-public class ExamFragment extends BaseFragment implements RefreshListView.OnListMoveListener {
+public class ExamFragment extends BaseFragment implements RefreshListView.OnListMoveListener, CompoundButton.OnCheckedChangeListener {
 
     RefreshListView listView;
     List<OnLineExamListData> datas;
     ExamAdapter examAdapter;
     int item;
     OnLineExamData onLineExamData;
+    private CheckBox examOrExercise;//
+    private boolean isExercise;//当前状态,当为练习时值为ture
+
     /**
      * 下拉刷新完成
      */
@@ -50,7 +56,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
      * 上拉加载完成
      */
     private final static int LOAD_COMPLETE = 1;
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
@@ -66,7 +72,9 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                 default:
                     break;
             }
-        };
+        }
+
+        ;
     };
 
     @Override
@@ -78,6 +86,8 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     @Override
     protected void initView(View view) {
         listView = bindView(R.id.exam_lv);
+        examOrExercise = bindView(R.id.exam_chose_cb);
+        examOrExercise.setOnCheckedChangeListener(this);
         EventBus.getDefault().register(this);
     }
 
@@ -93,29 +103,30 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
         listView.setOnListMoveListener(this);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
-                int pos = 0;
-                if (i>1){
-                     pos = i- 1;
+                                            @Override
+                                            public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
+                                                int pos = 0;
+                                                if (i > 1) {
+                                                    pos = i - 1;
+                                                }
+                                                item = pos;
+                                                if (datas.get(pos).getState() == ClassContstant.EXAM_DOWNLOADING) {
+                                                    return;
+                                                } else if (datas.get(pos).getState() == ClassContstant.EXAM_NOT) {
+                                                    final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
+                                                    imageView.setVisibility(View.GONE);
+                                                    view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
+                                                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(pos).getExam_id(), datas.get(pos).getExam_id());
 
-                }
-                item = pos;
-                if (datas.get(pos).getState() == ClassContstant.EXAM_DOWNLOADING) {
-                    return;
-                } else if (datas.get(pos).getState() == ClassContstant.EXAM_NOT) {
-                    final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
-                    imageView.setVisibility(View.GONE);
-                    view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
-                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(pos).getExam_id(), datas.get(pos).getExam_id());
+                                                } else {
 
-                } else {
-                    Bundle b = new Bundle();
-                    b.putInt("examId", datas.get(pos).getExam_id());
-                    startActivity(UnitTestActivity.class, b);
-                }
-            }
-        });
+                                                    Bundle b = new Bundle();
+                                                    b.putInt("examId", datas.get(pos).getExam_id());
+                                                    startActivity(UnitTestActivity.class, b);
+                                                }
+                                            }
+                                        }
+        );
 
     }
 
@@ -132,8 +143,10 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                 if (jsonObject.getString("success").equals("true")) {
                     onLineExamData = JSONObject.parseObject(jsonObject.getString("message"), OnLineExamData.class);
                     datas = onLineExamData.getList();
+                    List<OnLineExamListData> showDatas = new ArrayList<OnLineExamListData>();
                     ToastUtil.showToast(context, "" + onLineExamData.getList().get(0).getExam_name());
                     Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
+
                     for (OnLineExamListData data : datas) {
                         OnLineExamListData data1 = (OnLineExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getExam_id());
                         int state = ExamOnLineListDao.getInstance(context).getState(data.getExam_id());
@@ -161,9 +174,19 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                             ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
                             data.setState(data1.getState());
                         }
+                        if (isExercise) {
+                            if (data.getExam_type() != 3) {
+                                showDatas.add(data);
+                            }
+                        } else {
+                            if (data.getExam_type() == 3) {
+                                showDatas.add(data);
+                            }
+                        }
                     }
-                    examAdapter.setDatas(datas);
-//                    loadData();
+//                    examAdapter.setDatas(datas);
+                    examAdapter.setDatas(showDatas);
+                    examAdapter.setExercise(isExercise);
                 }
             }
 
@@ -237,5 +260,26 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                 }
             }
         }).start();
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        isExercise = isChecked;
+        List<OnLineExamListData> showDatas = new ArrayList<OnLineExamListData>();
+        //刷新adapter
+        for (OnLineExamListData data : datas) {
+            if (isExercise) {
+                if (data.getExam_type() != 3) {
+                    showDatas.add(data);
+                }
+            } else {
+                if (data.getExam_type() == 3) {
+                    showDatas.add(data);
+                }
+            }
+        }
+        examAdapter.setDatas(showDatas);
+        examAdapter.setExercise(isChecked);
+
     }
 }

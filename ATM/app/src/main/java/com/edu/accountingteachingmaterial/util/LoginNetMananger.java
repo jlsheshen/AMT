@@ -16,6 +16,7 @@ import org.apache.http.Header;
 
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.CLASS_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.COURSE_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.KEY_LOGIN_STATE;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDENT_NAME;
@@ -40,15 +41,12 @@ public class LoginNetMananger extends JsonNetReqManager {
 
     public static final String TOKEN = "TOKEN";
 
-
-
     private LoginNetMananger(Context context) {
        this.context = context;
     }
 
     /**
      * 单例模式获取实例
-     *
      * @param context
      * @return
      */
@@ -57,6 +55,7 @@ public class LoginNetMananger extends JsonNetReqManager {
             synchronized (LoginNetMananger.class) {
                 if (mSingleton == null) {
                     mSingleton = new LoginNetMananger(context);
+
                 }
             }
         }
@@ -101,7 +100,9 @@ public class LoginNetMananger extends JsonNetReqManager {
             PreferenceHelper.getInstance(context).setStringValue(STUDNET_PASSWORD, studentPassword);
             PreferenceHelper.getInstance(context).setStringValue(TOKEN, accToken.getLoginToken());
             PreferenceHelper.getInstance(context).setStringValue(STUDENT_NAME, accToken.getStuName());
+            PreferenceHelper.getInstance(context).setStringValue(CLASS_ID, ""  + accToken.getClazzId());
             PreferenceHelper.getInstance(context).setStringValue(PreferenceHelper.USER_ID, String.valueOf(accToken.getStuId()));
+            //班级,
             uploadHomepageInfo();
             PreferenceHelper.getInstance(context).setBooleanValue(KEY_LOGIN_STATE, true);
         } else {

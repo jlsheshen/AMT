@@ -120,7 +120,7 @@ public class StartStudyActivity extends BaseActivity {
         findViewById(R.id.jump_up_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(MainActivity.class);
+                startActivity(MainChoseActivity.class);
                 finish();
 
             }
@@ -153,6 +153,7 @@ public class StartStudyActivity extends BaseActivity {
                 Log.d("StartStudyActivity", "登陆操作失败" + message);
 
             }
+
         });
     }
 
@@ -228,7 +229,7 @@ public class StartStudyActivity extends BaseActivity {
     public void getData(String date) {
         if ("1".equals(date)) {
             Log.d("StartStudyActivity", "走过activity");
-            startActivity(MainActivity.class);
+            startActivity(MainChoseActivity.class);
         }
 
     }
