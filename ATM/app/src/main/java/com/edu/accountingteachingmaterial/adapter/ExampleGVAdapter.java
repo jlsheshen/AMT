@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,24 +60,26 @@ public class ExampleGVAdapter extends BaseAdapter {
         }
         viewHolder = (ViewHolder) convertView.getTag();
         viewHolder.titleView.setText(beans.get(position).getName());
+        Log.d("ExampleGVAdapter", "beans.get(position).getType():" + beans.get(position).getType());
+
         switch (beans.get(position).getType()) {
             case ClassContstant.MEADIA_TYPE:
+            //从本地视频获取截图,现无此功能
 //			Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(UriConstant.VIDEO_PATH + beans.get(position).getUrl(), MediaStore.Images.Thumbnails.MINI_KIND);
-
-                //Bitmap bitmap = ThumbnailUtils.createVideoThumbnail("android.resource://aaa.mp4/raw/starttv", MediaStore.Images.Thumbnails.MINI_KIND);
-
+//          Bitmap bitmap = ThumbnailUtils.createVideoThumbnail("android.resource://aaa.mp4/raw/starttv", MediaStore.Images.Thumbnails.MINI_KIND);
 //			bitmap = ThumbnailUtils.extractThumbnail(bitmap, 100, 60, ThumbnailUtils.OPTIONS_RECYCLE_INPUT);
 //			viewHolder.cardIv.setImageBitmap(bitmap);
                 viewHolder.cardIv.setImageResource(R.mipmap.video);
                 viewHolder.typeIv.setImageResource(R.mipmap.icon_shipin_n);
                 break;
             case ClassContstant.PDF_TYPE:
-
                 viewHolder.cardIv.setImageResource(R.mipmap.ppt);
                 viewHolder.typeIv.setImageResource(R.mipmap.icon_word_n);
                 break;
-
-
+            case ClassContstant.HTML_TYPE:
+                viewHolder.cardIv.setImageResource(R.mipmap.ppt);
+                viewHolder.typeIv.setImageResource(R.mipmap.icon_tuwen_n);
+                break;
             default:
                 viewHolder.cardIv.setImageResource(R.drawable.ic_launcher);
                 viewHolder.typeIv.setImageResource(R.drawable.ic_launcher);

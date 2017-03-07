@@ -62,7 +62,19 @@ public class ExamListData extends BaseData {
     private int topic_num;
 
     private List<BaseTestData> testList;
+    /**
+     * end_time : null
+     * exam_status : 0
+     * last_time : null
+     * major_id : null
+     * modifier : null
+     * modify_date : null
+     * score : null
+     * start_time : null
+     * submit_state : 0
+     */
 
+    private int submit_state;
 
 
     public int getState() {
@@ -232,5 +244,13 @@ public class ExamListData extends BaseData {
 
     public void setTestList(List<BaseTestData> testList) {
         this.testList = testList;
+    }
+
+    public int getSubmit_state() {
+        return submit_state;
+    }
+
+    public void setSubmit_state(int submit_state) {
+        this.submit_state = submit_state;
     }
 }

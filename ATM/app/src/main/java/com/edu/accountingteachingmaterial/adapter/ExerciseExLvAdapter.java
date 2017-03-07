@@ -93,7 +93,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
 
         switch (exerciseBean.getLesson_type()) {
             case ClassContstant.EXERCISE_BEFORE_CLASS:
-
                 groupViewHolder.headIv.setImageResource(R.mipmap.touxiang_keqian);
                 groupViewHolder.titleTv.setText("课前预习:" + exerciseBean.getExam_name());
                 break;

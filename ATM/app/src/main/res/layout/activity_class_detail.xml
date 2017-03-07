@@ -22,15 +22,16 @@
 
         <RadioGroup style="@style/SizeBarStyle">
 
-            <RadioButton
-                android:id="@+id/class_emphasis_iv"
-                style="@style/SizeBarButtonStyle"
-                android:checked="true"
-                android:drawableTop="@drawable/selector_class_detail_emphasis" />
+            <!--<RadioButton-->
+                <!--android:id="@+id/class_emphasis_iv"-->
+                <!--style="@style/SizeBarButtonStyle"-->
+                <!--android:checked="true"-->
+                <!--android:drawableTop="@drawable/selector_class_detail_emphasis" />-->
 
             <RadioButton
                 android:id="@+id/class_example_iv"
                 style="@style/SizeBarButtonStyle"
+                android:checked="true"
                 android:drawableTop="@drawable/selector_class_detail_example" />
 
             <RadioButton

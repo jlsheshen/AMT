@@ -12,6 +12,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ImageActivity;
 import com.edu.accountingteachingmaterial.activity.MediaActivity;
 import com.edu.accountingteachingmaterial.activity.PdfActivity;
+import com.edu.accountingteachingmaterial.activity.WebActivity;
 import com.edu.accountingteachingmaterial.adapter.ExampleGVAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
@@ -71,18 +72,25 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     private void loadData() {
         exampleBeans = new ArrayList<>();
         for (int i = 0; i < cData.size(); i++) {
-            if (cData.get(i).getFile_type() == 1) {
+            if (cData.get(i).getFile_type() == 1) {//meadia
                 ExampleBean exampleBean = new ExampleBean();
                 exampleBean.setName(cData.get(i).getTitle());
                 exampleBean.setUrl(String.valueOf(cData.get(i).getUri()));
                 exampleBean.setType(ClassContstant.MEADIA_TYPE);
                 exampleBeans.add(exampleBean);
-            } else if (cData.get(i).getFile_type() == 3 || cData.get(i).getFile_type() == 4 || cData.get(i).getFile_type() == 5) {
+            } else if (cData.get(i).getFile_type() == 3 || cData.get(i).getFile_type() == 4) {//pdf
                 ExampleBean exampleBean1 = new ExampleBean();
                 exampleBean1.setName(cData.get(i).getTitle());
                 exampleBean1.setUrl(String.valueOf(cData.get(i).getUri()));
                 exampleBean1.setType(ClassContstant.PDF_TYPE);
                 exampleBeans.add(exampleBean1);
+            }else if(cData.get(i).getFile_type() == 5){//html
+                ExampleBean exampleBean1 = new ExampleBean();
+                exampleBean1.setName(cData.get(i).getTitle());
+                exampleBean1.setUrl(String.valueOf(cData.get(i).getUri()));
+                exampleBean1.setType(ClassContstant.HTML_TYPE);
+                exampleBeans.add(exampleBean1);
+
             }
 
 //        ExampleBean exampleBean = new ExampleBean();
@@ -123,6 +131,10 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
             case ClassContstant.DOC_TYPE:
                 startActivity(ImageActivity.class);
                 break;
+            case ClassContstant.HTML_TYPE:
+                Bundle bundle2 = new Bundle();
+                bundle2.putSerializable("exampleBeans", exampleBeans.get(i));
+                startActivity(WebActivity.class, bundle2);
         }
     }
 

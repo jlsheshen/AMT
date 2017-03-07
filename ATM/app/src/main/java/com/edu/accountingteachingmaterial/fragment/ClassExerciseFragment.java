@@ -126,10 +126,12 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
                     startActivity(SubjectTestActivity.class, b);
+
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
+
                     b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
 
@@ -203,7 +205,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                             contentValues.put(ExamListDao.CHAPTER_ID, data.getChapter_id());
                             ExamListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
-                        } else if (data.getIs_send() == 1){
+                        } else if (data.getIs_send() == 1&&data.getSubmit_state() == 1&&data.getState() == ClassContstant.EXAM_COMMIT){
                             ContentValues contentValues = new ContentValues();
                             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_READ);
                             ExamListDao.getInstance(context).updateData(String.valueOf(data.getId()),contentValues);
