@@ -38,7 +38,8 @@
     <RelativeLayout
         android:id="@+id/catalog_sizebar"
         android:layout_width="270dp"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_aty_title_layout">
         <ImageView
             android:id="@+id/catalog_bg_iv"
             android:layout_width="wrap_content"

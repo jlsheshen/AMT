@@ -158,7 +158,7 @@ public class NetUrlContstant {
     }
 
     public static String getClassInfo() {
-        return BASE_URL + CLASS_URL;
+        return BASE_URL + CLASS_INFO;
     }
 
 }

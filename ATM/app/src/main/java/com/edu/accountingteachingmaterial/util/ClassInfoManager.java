@@ -47,7 +47,7 @@ public class ClassInfoManager extends BaseNetManager {
     public void getClassInfo(String courseId,ClassInfoListener classInfoListener) {
         String url = NetUrlContstant.getClassInfo() + courseId;
         NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
-        Log.d(TAG, "url");
+        Log.d(TAG, "url" + url);
         sendRequest(entity);
         this.classInfoListener = classInfoListener;
 

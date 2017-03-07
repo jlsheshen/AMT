@@ -74,7 +74,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void setInfoView() {
-        infoHead = bindView(R.id.catalog_name_tv);
+        infoHead = bindView(R.id.catalog_bg_iv);
         infoAuthor = bindView(R.id.catalog_author_tv);
         infoName = bindView(R.id.catalog_name_tv);
     }
@@ -309,7 +309,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void onSuccess(ClassInfoBean data) {
         ImageLoader.getInstance().displayImage(BASE_URL.BASE_URL + data.getPicture() , infoHead, EduImageLoader.getInstance().getDefaultBuilder().build());
-        infoAuthor.setText(data.getPublish());
+        infoAuthor.setText(data.getSchool());
         infoName.setText(data.getTitle());
     }
 
