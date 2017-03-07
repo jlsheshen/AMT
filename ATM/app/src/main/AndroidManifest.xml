@@ -110,6 +110,11 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.WebActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
 
         <meta-data
             android:name="design_width"

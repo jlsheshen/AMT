@@ -210,7 +210,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                             contentValues.put(ExamListDao.CHAPTER_ID, data.getChapter_id());
                             ExamListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
-                        } else if (data.getIs_send() == 1){
+                        } else if (data.getIs_send() == 1&&data.getSubmit_state() == 1&&data.getState() == ClassContstant.EXAM_COMMIT){
                             ContentValues contentValues = new ContentValues();
                             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_READ);
                             ExamListDao.getInstance(context).updateData(String.valueOf(data.getId()),contentValues);

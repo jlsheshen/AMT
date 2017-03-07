@@ -83,22 +83,17 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
 
     @Override
     protected void initData() {
-
         uploadExamList();
 //        loadData();
         examAdapter = new ExamAdapter(context);
-
         listView.setAdapter(examAdapter);
-
         listView.setOnListMoveListener(this);
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
                 int pos = 0;
                 if (i>1){
                      pos = i- 1;
-
                 }
                 item = pos;
                 if (datas.get(pos).getState() == ClassContstant.EXAM_DOWNLOADING) {
@@ -116,9 +111,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                 }
             }
         });
-
     }
-
 
     private void uploadExamList() {
         Log.d("ClassExerciseFragment", NetUrlContstant.getExamInfoUrlList() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID));
@@ -163,10 +156,8 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                         }
                     }
                     examAdapter.setDatas(datas);
-//                    loadData();
                 }
             }
-
             @Override
             public void onFailure(String errorInfo) {
 
