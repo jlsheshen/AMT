@@ -11,6 +11,7 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.util.GetWebViewUrlManager;
 
 /**
+ * 文图界面
  * Created by Administrator on 2017/3/6.
  */
 
@@ -46,7 +47,7 @@ public class WebActivity extends BaseActivity implements GetWebViewUrlManager.Ge
         String encoding = "UTF-8";
         String mimeType = "text/html";
 //        String html = "<p>请问图片中是否有红色？<img src=\\\"http://www.2cto.com/uploadfile/2011/0811/20110811112952212.jpg\\\" title=\\\"1488849962905013463.jpg\\\" alt=\\\"8901974_45_thumb.jpg\\\"/></p>";
-//        Log.d("WebActivity", " ++++ " + html);
+        Log.d("WebActivity", " ++++ " + text);
         webView.loadDataWithBaseURL("file://", text,mimeType, encoding, "about:blank");
 
 
