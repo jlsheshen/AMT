@@ -37,7 +37,7 @@
     <!--线view 的内边距-->
     <dimen name="horizontal_lin_padding">10dp</dimen>
     <!--二级菜单中,fragment距左边的边距-->
-    <dimen name="class_deail_padding_left">75dp</dimen>
+    <dimen name="class_deail_padding_left">100dp</dimen>
     <!--任务页面图片宽高-->
     <dimen name="task_content_height">180dp</dimen>
 

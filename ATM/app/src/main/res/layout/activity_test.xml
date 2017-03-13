@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="95px"
+            android:layout_marginRight="95dp"
             android:layout_alignParentRight="true"
             android:background="@mipmap/icon_tika_n"
             android:focusable="false"
@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="25px"
+            android:layout_marginRight="25dp"
             android:layout_toLeftOf="@+id/btnCard"
             android:background="@mipmap/icon_yinzhang_n"
             android:focusable="false"
@@ -82,7 +82,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="25px"
+            android:layout_marginRight="25dp"
             android:layout_toLeftOf="@+id/btnSign"
             android:background="@mipmap/icon_fuhao_n"
             android:focusable="false"
@@ -99,7 +99,7 @@
             <!--android:id="@+id/tv_bill_question"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginLeft="25px"-->
+            <!--android:layout_marginLeft="25dp"-->
             <!--android:singleLine="false"-->
             <!--android:textColor="@color/colorBlueBackground"-->
             <!--android:textSize="@dimen/content_text_size"-->

@@ -34,17 +34,17 @@
                 android:id="@+id/textbook_iv"
                 style="@style/SizeBarButtonStyle"
                 android:checked="true"
-                android:drawableTop="@drawable/selector_main_class" />
+                android:drawableTop="@drawable/selector_textbook" />
 
             <RadioButton
                 android:id="@+id/class_iv"
                 style="@style/SizeBarButtonStyle"
-                android:drawableTop="@drawable/selector_main_class" />
+                android:drawableTop="@drawable/selector_class" />
 
             <RadioButton
                 android:id="@+id/exam_iv"
                 style="@style/SizeBarButtonStyle"
-                android:drawableTop="@drawable/selector_main_exam" />
+                android:drawableTop="@drawable/selector_exam" />
             <RadioButton
                 android:id="@+id/my_iv"
                 style="@style/SizeBarButtonStyle"

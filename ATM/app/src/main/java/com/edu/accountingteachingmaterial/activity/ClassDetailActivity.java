@@ -12,12 +12,17 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
 import com.edu.accountingteachingmaterial.fragment.GroupTaskFragment;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.view.ChapterPopupWindow;
 
+/**
+ * 课程详情
+ */
 public class ClassDetailActivity extends BaseActivity implements OnClickListener {
 
     // 重点难点,经典实例,精选练习,自我检测
@@ -29,6 +34,8 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     ClassChapterData.SubChaptersBean data;
     int chapterId;
     View vLine;
+    //当前是否是教材入口
+    private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
 
     @Override
     public int setLayout() {
@@ -46,11 +53,11 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         bindAndListener(imgZhangjie, R.id.class_aty_zhangjie_iv);
         imgReviewHy = (ImageView) findViewById( R.id.class_review_hy);
         imgReviewHy.setOnClickListener(this);
-//        bindAndListener(imgReviewHy, R.id.class_review_hy);
+        if (isBook){
+            findViewById(R.id.class_review_iv).setVisibility(View.GONE);
+        }
         textView = bindView(R.id.class_id_title_tv);
         imgZhangjie = (ImageView) findViewById(R.id.class_aty_zhangjie_iv);
-//        bindAndListener(imgReviewHy,R.id.class_review_hy);
-
         vLine = (View) findViewById(R.id.view);
     }
 
@@ -63,16 +70,13 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         if (data != null) {
             textView.setText(data.getTitle());
         }
-
         if (null == classExampleFragment) {
             classExampleFragment = new ClassExampleFragment();
         }
         ((ClassExampleFragment) classExampleFragment).setData(data);
         replaceFragment(classExampleFragment);
         // TODO Auto-generated method stub
-
     }
-
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.class_aty_view, fragment);
@@ -117,7 +121,9 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                     classReviewFragment = new GroupTaskFragment();
                 }
                 replaceFragment(classReviewFragment);
-                imgReviewHy.setVisibility(View.VISIBLE);
+                imgReviewHy.setVisibility(View.GONE);
+                imgZhangjie.setVisibility(View.GONE);
+
                 break;
             case R.id.class_aty_back_iv:
                 finish();

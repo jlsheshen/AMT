@@ -51,7 +51,7 @@ import java.util.List;
  * Created by Administrator on 2016/11/18.
  */
 
-public class SubjectTestActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener,ResultsListener {
+public class SubjectTestActivity extends BaseActivity implements AdapterView.OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, ResultsListener {
 
     // 显示题目的viewpager控件
     private UnTouchableViewPager viewPager;
@@ -113,13 +113,13 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
         Bundle bundle = getIntent().getExtras();
         examListData = (ExamListData) bundle.get("ExamListData");
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, examListData.getId());
-        if (datas == null || datas.size() == 0){
+        if (datas == null || datas.size() == 0) {
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.ID, examListData.getId());
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
             contentValues.put(ExamListDao.TYPE, examListData.getExam_type());
             contentValues.put(ExamListDao.CHAPTER_ID, examListData.getChapter_id());
-            ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()),contentValues);
+            ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()), contentValues);
             Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
             finish();
             return;
@@ -195,24 +195,7 @@ public class SubjectTestActivity extends BaseActivity implements AdapterView.OnI
                 scrollToRight();
                 break;
             case R.id.class_aty_back_iv:
-//                exitDialog = new ExitDialog(this);
-//                if (!exitDialog.isShowing()) {
-//                    exitDialog.show();
-//                }
-//                exitDialog.setDialogListener(new ExitDialog.SetDialogListener() {
-//                    @Override
-//                    public void onOkClicked() {
-                        finish();
-//                    }
-//
-//                    @Override
-//                    public void onCancelClicked() {
-//                        if (exitDialog.isShowing()) {
-//                            exitDialog.dismiss();
-//                        }
-//                    }
-//                });
-
+                finish();
                 break;
             default:
                 break;

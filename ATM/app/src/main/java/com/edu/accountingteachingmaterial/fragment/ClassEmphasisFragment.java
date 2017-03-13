@@ -44,7 +44,7 @@ public class ClassEmphasisFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        int courseId = PreferenceHelper.getInstance(context).getIntValue(COURSE_ID);
+        String courseId = PreferenceHelper.getInstance(context).getStringValue(COURSE_ID);
         String url = NetUrlContstant.getEmphasisUrl() + courseId + "-" + 289;
         Log.d("ClassEmphasisFragment", url);
         wView.loadUrl(UriConstant.ASSETS_PATH + "index.html");

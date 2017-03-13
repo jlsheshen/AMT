@@ -6,8 +6,6 @@
     style="@style/FragmentPadding"
     android:layout_marginTop="30dp"
     android:paddingTop="30dp"
-
-
      >
 
     <ImageView

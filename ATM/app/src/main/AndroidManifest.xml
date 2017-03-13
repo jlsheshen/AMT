@@ -55,14 +55,28 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
-            android:name="com.edu.accountingteachingmaterial.activity.ClassDetailActivity"
+            android:name=".activity.ClassDetailActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" >
-
         </activity>
         <activity
             android:name=".activity.SubjectPracticeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SubjectLocalActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SubjectLocalPracticeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape" />
+        <activity
+            android:name=".activity.SubjectDetailsLocalActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
@@ -131,8 +145,6 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" >
-
-
         </activity>
 
         <activity

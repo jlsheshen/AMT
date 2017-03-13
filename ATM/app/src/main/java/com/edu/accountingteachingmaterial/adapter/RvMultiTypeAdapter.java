@@ -14,6 +14,7 @@ import com.edu.library.data.BaseData;
 import java.util.List;
 
 /**
+ * 横向recycleView
  * Created by Administrator on 2017/3/1.
  */
 

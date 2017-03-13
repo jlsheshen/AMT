@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="180dp">
+    android:orientation="vertical" android:layout_width="435dp"
+    android:background="@mipmap/textbook_item_bg"
+    android:paddingRight="22dp"
+
+    android:layout_height="185dp">
 
     <ImageView
         android:id="@+id/item_textbook_bg_iv"
         android:layout_height="match_parent"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
+        android:layout_margin="10dp"
+
         />
     <TextView
         android:id="@+id/item_textbook_name_tv"
         android:layout_toRightOf="@id/item_textbook_bg_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:text="基础会计"
-        style="@style/item_title_black_text"
-        />
+        style="@style/item_title_blue_text" />
     <TextView
         android:id="@+id/item_textbook_organization_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/item_textbook_name_tv"
-        style="@style/item_gray_text"
+        style="@style/content_blue_text"
+        android:drawableLeft="@mipmap/organization"
+        android:ellipsize="end"
         />
     <TextView
         android:id="@+id/item_textbook_publisher_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_alignParentRight="true"
         android:layout_below="@id/item_textbook_name_tv"
-        style="@style/item_gray_text"
+        android:drawableLeft="@mipmap/publisher"
+        style="@style/content_blue_text"
+        android:ellipsize="end"
         />
     <TextView
         android:id="@+id/item_textbook_intro_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/item_textbook_bg_iv"
         android:layout_below="@id/item_textbook_organization_tv"
         style="@style/item_gray_text"
+        android:ellipsize="end"
         />
 
 

@@ -20,6 +20,10 @@ public class PreferenceHelper {
      */
     public static final String STUDENT_NAME = "STUDENT_NAME";
 
+    /**
+     *是否是教材入口
+     */
+    public static final String IS_TEXKBOOK = "IS_TEXKBOOK";
 
     /**
      * 用户id

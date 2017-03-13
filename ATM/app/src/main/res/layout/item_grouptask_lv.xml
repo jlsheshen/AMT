@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="80dp"
+    >
 
     <ImageView
         android:id="@+id/item_task_title_iv"
-        android:layout_width="wrap_content"
+        android:layout_width="95dp"
         android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_centerVertical="true"
+        />
 
     <TextView
         android:id="@+id/item_task_title_tv"
@@ -15,36 +20,49 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/item_task_title_iv"
         android:textColor="@color/colorWhite"
-        android:textSize="@dimen/item_title_text_size" />
+        android:textSize="@dimen/item_title_text_size"
+        android:layout_marginTop="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_toRightOf="@id/item_task_title_iv"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        >
     <TextView
         android:id="@+id/item_task_author_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_task_title_tv"
-        android:layout_toRightOf="@id/item_task_title_iv"
         android:textColor="@color/colorHalfWhite"
+        android:drawableLeft="@mipmap/icon_mingzi_n"
         android:textSize="@dimen/item_text_size" />
+
+        <View
+            style="@style/VerticalLine"/>
     <TextView
         android:id="@+id/item_task_time_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_task_title_tv"
-        android:layout_toRightOf="@id/item_task_author_tv"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@mipmap/icon_time_n"
         android:textColor="@color/colorHalfWhite"
         android:textSize="@dimen/item_text_size" />
-
+        <View
+            style="@style/VerticalLine"/>
     <TextView
         android:id="@+id/item_task_group_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/item_task_title_tv"
-        android:layout_toRightOf="@id/item_task_time_tv"
-        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawableLeft="@mipmap/publisher"
         android:textColor="@color/colorHalfWhite"
         android:textSize="@dimen/item_text_size" />
-
-
-
-
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/item_groups_state"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        />
 </RelativeLayout>

@@ -146,7 +146,7 @@ public class LoginNetMananger extends JsonNetReqManager {
                     HomepageInformationData data = hData.get(0);
                     PreferenceHelper.getInstance(context).setStringValue(STUDNET_NUMBER, studentNumber);
                     PreferenceHelper.getInstance(context).setStringValue(STUDNET_PASSWORD, studentPassword);
-                    PreferenceHelper.getInstance(context).setIntValue(COURSE_ID, data.getCourse_id());
+                    PreferenceHelper.getInstance(context).setStringValue(COURSE_ID, "" + data.getCourse_id());
                     GetBillTemplatesManager.newInstance(context).sendLocalTemplates();
                     loginListener.onSuccess();
                 }

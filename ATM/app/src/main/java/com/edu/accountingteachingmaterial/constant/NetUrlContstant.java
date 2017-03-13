@@ -31,7 +31,6 @@ public class NetUrlContstant {
     //经典示例
     public static final String classicCaseUrl = INTERCACE + "course/findContentsByTypenChapterId/";
     //在线考试信息列表
-//    public static final String examInfoUrl = INTERCACE+"exam/findExamPaperBriefById/";
     public static final String examInfoUrl = INTERCACE + "exam/findExamPaperNResultById/";
     //{examId}
     //获取每道题目信息
@@ -63,11 +62,16 @@ public class NetUrlContstant {
     public static final String EMPHASIS_URL =  "/eduExam/guest/learn/";
 
     //获得教材列表
-    public static final String TEXTBOOK_URL = INTERCACE +  "course/getTextRoom/";
+    public static final String TEXTBOOK_URL = INTERCACE +  "course/getTextBook/";
     //获取课堂列表
     public static final String CLASS_URL = INTERCACE +  "course/getClassRoom/";
     //获取课堂/教材详情列表
     public static final String CLASS_INFO = INTERCACE +  "course/getCourseInfoByCourseId/";
+    //获取分组任务列表
+    public static final String GROUP_TASK_LIST = INTERCACE +  "grouptask/findGroupTaskList/";
+    //获取任务详细信息
+    public static final String TASK_DETAIL = INTERCACE +  "grouptask/joinGroup/";//{{studentId}}-{{taskId}}
+
 
     public static String getEmphasisUrl() {
         return  BASE_URL +EMPHASIS_URL;
@@ -160,5 +164,13 @@ public class NetUrlContstant {
     public static String getClassInfo() {
         return BASE_URL + CLASS_INFO;
     }
+    public static String getGroupTaskList() {
+        return BASE_URL + GROUP_TASK_LIST;
+    }
+    public static String getTaskDetail() {
+        return BASE_URL + TASK_DETAIL;
+    }
+
+
 
 }

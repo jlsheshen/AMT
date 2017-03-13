@@ -13,6 +13,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.SubjectDetailsContentActivity;
+import com.edu.accountingteachingmaterial.activity.SubjectDetailsLocalActivity;
+import com.edu.accountingteachingmaterial.activity.SubjectLocalActivity;
+import com.edu.accountingteachingmaterial.activity.SubjectLocalPracticeActivity;
 import com.edu.accountingteachingmaterial.activity.SubjectPracticeActivity;
 import com.edu.accountingteachingmaterial.activity.SubjectTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExerciseExLvAdapter;
@@ -54,6 +57,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
     ImageView stateIv;
     ExamListData data1;
     Bundle b = new Bundle();
+    private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
     /**
      * 下拉刷新完成
      */
@@ -82,9 +86,12 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         this.data = data;
         int i = data.getId();
         PreferenceHelper.getInstance(BaseApplication.getContext()).setStringValue(EXAM_ID, "" + i);
-
     }
-    private Handler mHandler = new Handler(){
+
+    /**
+     * 判断刷新加载相应的动作
+     */
+    private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
@@ -100,7 +107,9 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                 default:
                     break;
             }
-        };
+        }
+
+        ;
     };
 
     @Override
@@ -116,7 +125,6 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                 item = i;
                 if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
                     return false;
-
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
@@ -125,18 +133,23 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
-                    startActivity(SubjectTestActivity.class, b);
-
+                    if (isBook) {
+                        startActivity(SubjectLocalActivity.class, b);
+                    } else {
+                        startActivity(SubjectTestActivity.class, b);
+                    }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
-                    startActivity(SubjectDetailsContentActivity.class, b);
+                    b.putInt(SUBJECT_DETAIL_ID, datas.get(i).getId());
+                    if (isBook) {
+                        startActivity(SubjectDetailsLocalActivity.class, b);
+                    } else {
+                        startActivity(SubjectDetailsContentActivity.class, b);
+                    }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
-
-                    b.putInt(SUBJECT_DETAIL_ID,datas.get(i).getId());
+                    b.putInt(SUBJECT_DETAIL_ID, datas.get(i).getId());
                     startActivity(SubjectDetailsContentActivity.class, b);
-
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
-                    if (datas.get(i) == null){
+                    if (datas.get(i) == null) {
                         Toast.makeText(context, "请重新下载", Toast.LENGTH_SHORT).show();
                         stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                         stateIv.setVisibility(View.GONE);
@@ -149,13 +162,18 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
             }
         });
         expandableListView.setOnListMoveListener(this);
-
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
                 b.putInt("ExamListDataItem", i1);
                 b.putSerializable("ExamListData", datas.get(i));
-                startActivity(SubjectPracticeActivity.class, b);
+                if (isBook) {
+                    startActivity(SubjectLocalPracticeActivity.class, b);
+
+                } else {
+                    startActivity(SubjectPracticeActivity.class, b);
+
+                }
                 return false;
             }
         });
@@ -180,7 +198,6 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
         }
-
     }
 
     private void uploadChapterList() {
@@ -205,12 +222,12 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                             contentValues.put(ExamListDao.CHAPTER_ID, data.getChapter_id());
                             ExamListDao.getInstance(context).insertData(contentValues);
                             data.setState(ClassContstant.EXAM_NOT);
-                        } else if (data.getIs_send() == 1&&data.getSubmit_state() == 1&&data.getState() == ClassContstant.EXAM_COMMIT){
+                        } else if (data.getIs_send() == 1 && data.getSubmit_state() == 1 && data.getState() == ClassContstant.EXAM_COMMIT) {
                             ContentValues contentValues = new ContentValues();
                             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_READ);
-                            ExamListDao.getInstance(context).updateData(String.valueOf(data.getId()),contentValues);
+                            ExamListDao.getInstance(context).updateData(String.valueOf(data.getId()), contentValues);
                             data.setState(ClassContstant.EXAM_READ);
-                        }else {
+                        } else {
 
                             data.setState(data1.getState());
                         }
@@ -222,6 +239,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     adapter.setDatas(datas);
                 }
             }
+
             @Override
             public void onFailure(String errorInfo) {
                 Toast.makeText(context, errorInfo, Toast.LENGTH_SHORT).show();

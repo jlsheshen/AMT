@@ -257,7 +257,7 @@ public class StartStudyActivity extends BaseActivity {
                     data = hData.get(0);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_NUMBER, num);
                     PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(STUDNET_PASSWORD, pw);
-                    PreferenceHelper.getInstance(StartStudyActivity.this).setIntValue(COURSE_ID, data.getCourse_id());
+                    PreferenceHelper.getInstance(StartStudyActivity.this).setStringValue(COURSE_ID, "" + data.getCourse_id());
                     GetBillTemplatesManager.newInstance(context).sendLocalTemplates();
                 }
             }

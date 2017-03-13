@@ -121,7 +121,7 @@ public class ChapterPopupWindow extends PopupWindow {
     }
 
     private void uploadChapter() {
-        int courseId = PreferenceHelper.getInstance(mContext).getIntValue(PreferenceHelper.COURSE_ID);
+        String courseId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.COURSE_ID);
         Log.d("ChapterPopupWindow", "courseId" + "courseId" + courseId);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
 

@@ -36,6 +36,8 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_width">300dp</item>
     </style>
+
+
     <!--横线样式-->
     <style name="HorizontalLine">
         <item name="android:layout_height">1dp</item>
@@ -98,6 +100,14 @@
         <item name="android:background">#8823c8be</item>
         <item name="android:layout_marginTop">1dp</item>
     </style>
+    <!--最大号字-->
+    <style name="title_text">
+        <item name="android:textSize">@dimen/title_text_size</item>
+    </style>
+    <!--白色标题字-->
+    <style name="title_white_text">
+        <item name="android:textColor">@color/white</item>
+    </style>
     <!--中大号字-->
     <style name="item_title_text">
         <item name="android:textSize">@dimen/item_title_text_size</item>
@@ -106,7 +116,6 @@
     <style name="item_title_blue_text" parent="item_title_text">
         <item name="android:textColor">@color/colorBlueBackground</item>
     </style>
-
     <!--中大号黑色字-->
     <style name="item_title_black_text" parent="item_title_text">
         <item name="android:textColor">@color/colorTextBlack</item>
@@ -127,11 +136,18 @@
     <style name="item_gray_text" parent="item_text">
         <item name="android:textColor">@color/colorGray</item>
     </style>
-    <!--中大号白色字-->
+    <!--小号号白色字-->
     <style name="item_white_text" parent="item_text">
         <item name="android:textColor">@color/colorWhite</item>
     </style>
-
+    <!--普通字-->
+    <style name="content_text">
+        <item name="android:textSize">@dimen/content_text_size</item>
+    </style>
+    <!--蓝色普通字-->
+    <style name="content_blue_text" parent="content_text">
+        <item name="android:textColor">@color/colorBlueBackground</item>
+    </style>
 
     <!--下拉刷新动画-->
     <style name="AnimationPreview">

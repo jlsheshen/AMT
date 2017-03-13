@@ -39,13 +39,14 @@ public class TextbookFragment extends BaseFragment implements AdapterView.OnItem
     protected void initData() {
         TextBookListManager.getSingleton(getContext()).getTextBookList(this);
         adapter = new TextBookGvAdapter();
-
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Bundle bundle = new Bundle();
-        bundle.putString(PreferenceHelper.CLASS_ID, "" + adapter.getDtaa(position).getId());
+        bundle.putString(PreferenceHelper.CLASS_ID, "" + adapter.getData(position).getId());
+        PreferenceHelper.getInstance(getContext()).setBooleanValue(PreferenceHelper.IS_TEXKBOOK,true);
+        PreferenceHelper.getInstance(getContext()).setStringValue(PreferenceHelper.COURSE_ID,"" + adapter.getData(position).getId());
         startActivity(ClassCatalogActivity.class,bundle);
     }
 
@@ -54,7 +55,6 @@ public class TextbookFragment extends BaseFragment implements AdapterView.OnItem
         adapter.setData(books);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(this);
-
     }
 
     @Override

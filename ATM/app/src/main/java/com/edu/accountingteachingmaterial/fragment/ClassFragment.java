@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.fragment;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -34,16 +33,13 @@ public class ClassFragment extends BaseFragment implements AdapterView.OnItemCli
     protected void initData() {
         adapter = new ClassGvAdapter();
         ClassListManager.getSingleton(getContext()).getClassList(this);
-
-
-
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Bundle bundle = new Bundle();
-        bundle.putString(PreferenceHelper.CLASS_ID, "" + adapter.getData(position).getId());
-        startActivity(ClassCatalogActivity.class,bundle);
+        PreferenceHelper.getInstance(getContext()).setBooleanValue(PreferenceHelper.IS_TEXKBOOK,false);
+        PreferenceHelper.getInstance(getContext()).setStringValue(PreferenceHelper.COURSE_ID,"" + adapter.getData(position).getId());
+        startActivity(ClassCatalogActivity.class);
     }
 
     @Override
@@ -51,12 +47,10 @@ public class ClassFragment extends BaseFragment implements AdapterView.OnItemCli
         adapter.setDatas(books);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(this);
-
     }
 
     @Override
     public void onFailure(String message) {
-
     }
 }
 

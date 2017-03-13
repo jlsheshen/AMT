@@ -7,6 +7,9 @@
     <com.edu.accountingteachingmaterial.view.RefreshListView
         android:id="@+id/grouptask_lv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></com.edu.accountingteachingmaterial.view.RefreshListView>
+        android:layout_height="match_parent"
+        android:divider="@color/colorBlueContent"
+        android:dividerHeight="1dp"
+        ></com.edu.accountingteachingmaterial.view.RefreshListView>
 
 </LinearLayout>

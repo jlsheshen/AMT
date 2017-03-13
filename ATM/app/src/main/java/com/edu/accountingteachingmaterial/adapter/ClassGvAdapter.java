@@ -60,7 +60,6 @@ public class ClassGvAdapter extends BaseAdapter{
         ClassBean data = datas.get(position);
         viewHolder.nameTv.setText(data.getTitle());
         ImageLoader.getInstance().displayImage(data.getPicture(), viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
-//        viewHolder.bgIv.setImageResource(R.mipmap.ic_launcher);
         viewHolder.authorTv.setText(data.getName());
         return convertView;
     }

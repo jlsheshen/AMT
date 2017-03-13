@@ -58,7 +58,8 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     boolean ppwShowing = false;
     ImageView imgHistory,infoHead;
     TextView infoName,infoAuthor;
-
+    //当前是否是教材入口
+    private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
 
     @Override
     public int setLayout() {
@@ -71,6 +72,9 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
         setInfoView();
+        if (isBook){
+            imgHistory.setVisibility(View.GONE);
+        }
     }
 
     private void setInfoView() {
@@ -84,9 +88,8 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         chapterExLvAdapter = new ClassChapterExLvAdapter(this);
         uploadChapter();
 
-        Bundle bundle = getIntent().getExtras();
-        String classId = bundle.getString(PreferenceHelper.CLASS_ID);
-        ClassInfoManager.getSingleton(this).getClassInfo(classId,this);
+        String courseId = PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.COURSE_ID);
+        ClassInfoManager.getSingleton(this).getClassInfo(courseId,this);
 
 
         expandableListView.setAdapter(chapterExLvAdapter);
@@ -120,7 +123,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void uploadChapter() {
-        int courseId = PreferenceHelper.getInstance(this).getIntValue(PreferenceHelper.COURSE_ID);
+        String courseId = PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.COURSE_ID);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         Log.d("ClassFragment", NetUrlContstant.getChapterUrl() + courseId);
         NetSendCodeEntity entity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getChapterUrl() + courseId);
@@ -134,7 +137,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
                     chapterExLvAdapter.setDatas(datas);
                 }
             }
-
             @Override
             public void onFailure(String errorInfo) {
                 ToastUtil.showToast(ClassCatalogActivity.this, errorInfo + "请联网哟");
@@ -295,9 +297,13 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
             case ClassContstant.MEADIA_TYPE:
                 startActivity(MediaActivity.class, bundle);
                 break;
-            default:
+            case ClassContstant.PDF_TYPE:
                 startActivity(PdfActivity.class, bundle);
                 break;
+            case ClassContstant.HTML_TYPE:
+                startActivity(WebActivity.class, bundle);
+                break;
+
         }
 
     }

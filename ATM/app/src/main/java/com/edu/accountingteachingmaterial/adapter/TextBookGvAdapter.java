@@ -30,7 +30,7 @@ public class TextBookGvAdapter extends BaseAdapter {
     public void setData(List<TextbookBean> datas) {
         this.datas = datas;
     }
-    public TextbookBean getDtaa(int pos){
+    public TextbookBean getData(int pos){
         return datas.get(pos);
     }
 

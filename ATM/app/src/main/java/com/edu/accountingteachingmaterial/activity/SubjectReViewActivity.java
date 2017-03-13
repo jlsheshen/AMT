@@ -94,27 +94,20 @@ public class SubjectReViewActivity extends BaseActivity implements AdapterView.O
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
-
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
         btnSign = (ImageView) findViewById(R.id.btnSign);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
-
         Bundle bundle = getIntent().getExtras();
         chapterId = bundle.getInt(ClassContstant.SUBJECT_REVIEW_ID);
         datas = ReviewTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
-
         String s = JSONObject.toJSONString(datas);
         Log.d("SubjectTestActivity", s);
-
         mSubjectAdapter = new ReviewSubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_NORMAL);
-
         viewPager.setAdapter(mSubjectAdapter);
-
         mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
     }
 

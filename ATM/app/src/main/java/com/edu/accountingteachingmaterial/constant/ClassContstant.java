@@ -35,23 +35,23 @@ public final class ClassContstant {
     /**
      * 状态-没有
      */
-    public static final int STATE_NONE = 1;
+    public static final int STATE_NONE = 0;
     /**
      * 状态-准备中
      */
-    public static final int STATE_UNDONE = 1;
+    public static final int STATE_UNDONE = 4;
     /**
      * 状态-进行中
      */
-    public static final int STATE_RUNING = 2;
+    public static final int STATE_RUNING = 1;
     /**
      * 状态-第一阶段做完,准备第二阶段
      */
-    public static final int STATE_AFTER = 3;
+    public static final int STATE_AFTER = 2;
     /**
      * 状态全部完成
      */
-    public static final int STATE_FINSH = 4;
+    public static final int STATE_FINSH = 3;
 
 
 
@@ -93,6 +93,23 @@ public final class ClassContstant {
     public static final String SUBJECT_EXAM_ID = "SUBJECT_EXAM_ID";
 
     public static final String SUBJECT_DETAIL_ID = "SUBJECT_DETAIL_ID";
+    /**
+     * 小组任务状态
+     */
+    public static final String TASK_STATE = "TASK_STATE";
+    /**
+     * 小组任务详情
+     */
+    public static final String TASK_DETAIL = "TASK_DETAIL";
+    /**
+     * 添加小组
+     */
+    public static final String GROUPS = "GROUPS";
+    /**
+     * 任务名称
+     */
+    public static final String TASK_TITLE = "TASK_TITLE";
+
 
     /**
      * 自测页面跳转传值

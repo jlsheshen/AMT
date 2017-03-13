@@ -41,7 +41,7 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
     private SubjectViewPagerAdapter mSubjectAdapter;
     List<BaseTestData> datas;
     private int mCurrentIndex;
-    private ImageView backIv;
+    private ImageView backIv,restBtn;
 //	private TextView tvBillQuestion;
 
     // 印章选择对话框
@@ -110,14 +110,10 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
 
         viewPager = (UnTouchableViewPager) findViewById(R.id.vp_content);
         viewPager.setOnPageChangeListener(mPageChangeListener);
-//		tvBillQuestion = (TextView) findViewById(R.id.tv_bill_question);
-//		btnReturn= (ImageView) findViewById(R.id.btnDone);
-        findViewById(R.id.btnDone).setVisibility(View.GONE);
+        restBtn = (ImageView) findViewById(R.id.btnDone);
+        restBtn.setVisibility(View.GONE);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
-//		btnReturn.setImageResource(R.mipmap.icon_congzuo_n);
-//		btnReturn.setVisibility(View.GONE);
         Bundle bundle = getIntent().getExtras();
-//        ExamListData data = (ExamListData) bundle.get("ExamListData");
         int dataId = bundle.getInt(ClassContstant.SUBJECT_DETAIL_ID);
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, dataId);
 
@@ -137,8 +133,8 @@ public class SubjectDetailsContentActivity extends FragmentActivity implements O
                 break;
             case R.id.btnDone:
 
-//				mSubjectAdapter.reset();
-//				finish();
+				mSubjectAdapter.reset();
+				finish();
                 break;
 
             case R.id.btnLeft:

@@ -4,9 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     style="@style/FragmentPadding"
-    android:layout_marginLeft="100px"
-
-
+    android:layout_marginLeft="100dp"
     >
     <LinearLayout style="@style/TitleBarStyle">
 
@@ -24,6 +22,8 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:checked="false"
+            android:button="@null"
+            android:background="@drawable/selector_exam_model"
             />
 
     </LinearLayout>
