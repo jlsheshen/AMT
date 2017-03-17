@@ -7,7 +7,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -32,7 +31,7 @@ import com.edu.accountingteachingmaterial.util.ClassInfoManager;
 import com.edu.accountingteachingmaterial.util.HistoryClickManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.imageloader.EduImageLoader;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.BASE_URL;
@@ -99,7 +98,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
 //				String id1 = String.valueOf(datas.get(groupPosition).getSubChapters().get(childPosition).getId());
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
-                bundle.putInt("ChapterId", datas.get(groupPosition).getId());
+                bundle.putInt("ChapterId", datas.get(groupPosition).getSubChapters().get(childPosition).getId());
                 startActivity(ClassDetailActivity.class, bundle);
                 // TODO Auto-generated method stub
                 return false;
@@ -187,36 +186,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
                 // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
             }
         });
-
-    }
-
-    private void itemClick(List<HistoryListData> data, int i, ListView listView, BaseAdapter listAdapter) {
-        List<StudyHistoryVO> historyVOs = new ArrayList<>();
-        ExampleBean exampleBean = new ExampleBean();
-
-        historyVOs.add(data.get(i).getUpLoadingData(this));
-        exampleBean.setUrl(data.get(i).getUri());
-
-        HistoryClickManager.getHisInstance(this).setStudyHistoryVOList(historyVOs).sendHistory();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("exampleBeans", exampleBean);
-        Log.d("ClassFragment", "exampleBean:" + exampleBean);
-
-        int totalHeight = 0;
-        for (int i1 = 0, len = listAdapter.getCount(); i1 < len; i++) {
-            // listAdapter.getCount()返回数据项的数目
-            View listItem = listAdapter.getView(i1, null, listView);
-            // 计算子项View 的宽高
-            listItem.measure(0, 0);
-            // 统计所有子项的总高度
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        // listView.getDividerHeight()获取子项间分隔符占用的高度
-        // params.height最后得到整个ListView完整显示需要的高度
-        listView.setLayoutParams(params);
 
     }
 
@@ -314,7 +283,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onSuccess(ClassInfoBean data) {
-        ImageLoader.getInstance().displayImage(BASE_URL.BASE_URL + data.getPicture() , infoHead, EduImageLoader.getInstance().getDefaultBuilder().build());
+        ImageLoader.getInstance().displayImage(BASE_URL.getBaseImageUrl() + data.getPicture() , infoHead, EduImageLoader.getInstance().getDefaultBuilder().build());
         infoAuthor.setText(data.getSchool());
         infoName.setText(data.getTitle());
     }

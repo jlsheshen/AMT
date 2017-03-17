@@ -11,7 +11,7 @@ import com.edu.accountingteachingmaterial.adapter.TextBookGvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.TextbookBean;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.TextBookListManager;
+import com.edu.accountingteachingmaterial.util.net.TextBookListManager;
 
 import java.util.List;
 

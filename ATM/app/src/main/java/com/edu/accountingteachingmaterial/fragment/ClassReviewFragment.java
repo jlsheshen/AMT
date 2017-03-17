@@ -18,9 +18,9 @@ import com.edu.accountingteachingmaterial.entity.ReviewTopicData;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.ReviewExamDownloadManager;
+import com.edu.accountingteachingmaterial.util.net.ReviewExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.ReviewTopicManager;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.view.AddAndSubTestView;
 import com.lucher.net.req.RequestMethod;
 

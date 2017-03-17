@@ -17,8 +17,7 @@ import com.edu.accountingteachingmaterial.bean.GroupsListBean;
 import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.util.AddTasktManager;
-import com.edu.accountingteachingmaterial.util.GroupTaskListManager;
-import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.net.GroupTaskListManager;
 import com.edu.accountingteachingmaterial.view.RefreshListView;
 
 import java.io.Serializable;
@@ -77,8 +76,7 @@ public class GroupTaskFragment extends BaseFragment implements RefreshListView.O
     protected void initData() {
 
         groupTaskAdapter = new GroupTaskAdapter(getContext());
-        String courseId = PreferenceHelper.getInstance(getContext()).getStringValue(PreferenceHelper.COURSE_ID);
-        GroupTaskListManager.getSingleton(getContext()).setCourse(courseId,this);
+        GroupTaskListManager.getSingleton(getContext()).setCourse(this);
         listView.setOnListMoveListener(this);
         listView.setOnItemClickListener(this);
 
@@ -127,7 +125,8 @@ public class GroupTaskFragment extends BaseFragment implements RefreshListView.O
             bundle.clear();
         }
         bundle.putInt(ClassContstant.TASK_STATE,groupTaskAdapter.getItemData(position-1).getStatus());
-        bundle.putString(ClassContstant.TASK_TITLE,groupTaskAdapter.getItemData(position-1).getContent());
+        bundle.putString(ClassContstant.TASK_TITLE,groupTaskAdapter.getItemData(position-1).getName());
+        bundle.putInt(ClassContstant.ID,groupTaskAdapter.getItemData(position-1).getId());
     }
 
     /**

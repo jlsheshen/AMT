@@ -14,6 +14,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
+import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
 import com.edu.accountingteachingmaterial.fragment.GroupTaskFragment;
@@ -27,8 +28,9 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 
     // 重点难点,经典实例,精选练习,自我检测
     RadioButton  classExampleButton, classExerciseButton, classReviewButton;
+    RadioButton classEmphasisButton;
     Fragment  classExampleFragment, classExerciseFragment, classReviewFragment;
-//    ClassEmphasisFragment classEmphasisFragment;
+    ClassEmphasisFragment classEmphasisFragment;
     ImageView backIv, imgZhangjie, imgReviewHy;
     TextView textView;
     ClassChapterData.SubChaptersBean data;
@@ -45,7 +47,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 
     @Override
     public void initView(Bundle savedInstanceState) {
-//        bindAndListener(classEmphasisButton, R.id.class_emphasis_iv);
+        bindAndListener(classEmphasisButton, R.id.class_emphasis_iv);
         bindAndListener(classExampleButton, R.id.class_example_iv);
         bindAndListener(classExerciseButton, R.id.class_exercise_iv);
         bindAndListener(classReviewButton, R.id.class_review_iv);
@@ -70,11 +72,12 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         if (data != null) {
             textView.setText(data.getTitle());
         }
-        if (null == classExampleFragment) {
-            classExampleFragment = new ClassExampleFragment();
+        if (null == classEmphasisFragment) {
+            classEmphasisFragment = new ClassEmphasisFragment();
         }
-        ((ClassExampleFragment) classExampleFragment).setData(data);
-        replaceFragment(classExampleFragment);
+        replaceFragment(classEmphasisFragment);
+        classEmphasisFragment.setChapter(chapterId);
+
         // TODO Auto-generated method stub
     }
     private void replaceFragment(Fragment fragment) {
@@ -91,14 +94,14 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.class_emphasis_iv:
-//                if (null == classEmphasisFragment) {
-//                    classEmphasisFragment = new ClassEmphasisFragment();
-//                }
-//                classEmphasisFragment.setChapter(chapterId);
-//                replaceFragment(classEmphasisFragment);
-//                imgReviewHy.setVisibility(View.GONE);
-//                break;
+            case R.id.class_emphasis_iv:
+                if (null == classEmphasisFragment) {
+                    classEmphasisFragment = new ClassEmphasisFragment();
+                }
+                classEmphasisFragment.setChapter(chapterId);
+                replaceFragment(classEmphasisFragment);
+                imgReviewHy.setVisibility(View.GONE);
+                break;
 
             case R.id.class_example_iv:
                 if (null == classExampleFragment) {

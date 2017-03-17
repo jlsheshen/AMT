@@ -13,7 +13,7 @@ import com.edu.accountingteachingmaterial.adapter.ErrorAdapter;
 import com.edu.accountingteachingmaterial.adapter.ReviewHisAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
-import com.edu.accountingteachingmaterial.view.DeteleDialog;
+import com.edu.accountingteachingmaterial.view.dialog.DeteleDialog;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
 

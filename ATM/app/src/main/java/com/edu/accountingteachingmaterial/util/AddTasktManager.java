@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.bean.GroupsListBean;
 import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.util.net.BaseNetManager;
 import com.lucher.net.req.RequestMethod;
 
 import org.apache.http.Header;
@@ -51,7 +52,7 @@ public class AddTasktManager extends BaseNetManager {
      *
      */
     public void getTaskData(AddTaskListener addTaskListener, int taskId) {
-        String studentId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.STUDNET_NUMBER);
+        String studentId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
         String url = NetUrlContstant.getTaskDetail() + studentId + "-" + taskId;
         NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
         Log.d(TAG, "url");
@@ -64,6 +65,7 @@ public class AddTasktManager extends BaseNetManager {
 
         boolean result = jsonObject.getBoolean("result");
         String message = jsonObject.getString("message");
+        Log.d("onConnectionSuccess","message---------" +  message);
         if (result) {
             if (message == null || message.length() == 0) {
                 Log.d(TAG, "班级号有误");

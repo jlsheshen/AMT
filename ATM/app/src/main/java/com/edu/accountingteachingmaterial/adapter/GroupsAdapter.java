@@ -7,19 +7,31 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
 import com.edu.accountingteachingmaterial.view.CircleImageView;
+import com.edu.library.imageloader.EduImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 /**
  *
- *
+ *  显示学生列表适配器
  * Created by Administrator on 2017/3/1.
  */
 
 public class GroupsAdapter extends BaseAdapter {
 
+    List<TaskDetailBean.StudentlistBean> datas;
+
+    public GroupsAdapter setDatas(List<TaskDetailBean.StudentlistBean> datas) {
+        this.datas = datas;
+        return this;
+    }
+
     @Override
     public int getCount() {
-        return 3;
+        return datas == null?0:datas.size();
     }
 
     @Override
@@ -44,10 +56,12 @@ public class GroupsAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
 
         }
-        viewHolder.headIv.setImageResource(R.mipmap.ic_launcher);
-        viewHolder.nameTv.setText("asd");
+        TaskDetailBean.StudentlistBean data = datas.get(position);
+        ImageLoader.getInstance().displayImage(data.getPicture(),viewHolder.headIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+        viewHolder.nameTv.setText(data.getName());
         return convertView;
     }
+
     class ViewHolder{
         TextView nameTv;
         CircleImageView headIv;

@@ -39,11 +39,21 @@
         android:id="@+id/catalog_sizebar"
         android:layout_width="270dp"
         android:layout_height="match_parent"
-        android:layout_below="@id/main_aty_title_layout">
+        android:layout_below="@id/main_aty_title_layout"
+        android:padding="5dp">
+        <View
+            android:id="@+id/line"
+            style="@style/VerticalLine"
+            android:layout_alignParentRight="true"
+            />
         <ImageView
             android:id="@+id/catalog_bg_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_toLeftOf="@id/line"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitCenter"
+            />
         <TextView
             android:id="@+id/catalog_name_tv"
             android:layout_below="@id/catalog_bg_iv"
@@ -58,6 +68,7 @@
             android:layout_height="wrap_content"
             style="@style/item_white_text"
             />
+
     </RelativeLayout>
 
     <ExpandableListView

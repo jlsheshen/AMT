@@ -16,7 +16,6 @@ import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListene
 
 /**
  * 图片下载显示类，基于universal-image-loader，为了更高效开发而封装
- * 
  * @author lucher
  * 
  */

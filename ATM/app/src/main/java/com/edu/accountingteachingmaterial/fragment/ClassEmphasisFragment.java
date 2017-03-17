@@ -6,15 +6,12 @@ import android.webkit.WebView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.constant.UriConstant;
-import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.net.EmphasisManager;
 
 import java.util.Map;
 
-import static com.edu.accountingteachingmaterial.util.PreferenceHelper.COURSE_ID;
-
-public class ClassEmphasisFragment extends BaseFragment {
+public class ClassEmphasisFragment extends BaseFragment implements EmphasisManager.EmphasisListener {
 
     WebView wView;
     int chapter;
@@ -44,10 +41,12 @@ public class ClassEmphasisFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        String courseId = PreferenceHelper.getInstance(context).getStringValue(COURSE_ID);
-        String url = NetUrlContstant.getEmphasisUrl() + courseId + "-" + 289;
-        Log.d("ClassEmphasisFragment", url);
-        wView.loadUrl(UriConstant.ASSETS_PATH + "index.html");
+        EmphasisManager.getSingleton(context).getEmphasis(this,chapter);
+
+//        String courseId = PreferenceHelper.getInstance(context).getStringValue(COURSE_ID);
+//        String url = NetUrlContstant.getEmphasisUrl() + courseId + "-" + 289;
+//        Log.d("ClassEmphasisFragment", url);
+//        wView.loadUrl(UriConstant.ASSETS_PATH + "index.html");
 //        wView.getSettings().setJavaScriptEnabled(true);
 //        wView.loadUrl("www.baidu.com");
 //        try {
@@ -73,4 +72,17 @@ public class ClassEmphasisFragment extends BaseFragment {
         // TODO Auto-generated method stub
     }
 
+    @Override
+    public void onSuccess(String message) {
+        Log.d("ClassEmphasisFragment", message);
+        String encoding = "UTF-8";
+        String mimeType = "text/html";
+        Log.d("WebActivity", " ++++ " + message);
+        wView.loadDataWithBaseURL("file://", message,mimeType, encoding, "about:blank");
+    }
+
+    @Override
+    public void onFailure(String message) {
+        wView.loadUrl(UriConstant.ASSETS_PATH + "index.html");
+    }
 }

@@ -152,6 +152,12 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape"/>
+        <activity
+            android:name=".activity.OneImageActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:theme="@style/TranslucentBg"
+            android:screenOrientation="landscape"/>
 
         <meta-data
             android:name="design_width"

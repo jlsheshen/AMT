@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/shape_ppw"
+    >
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:layout_gravity="center_horizontal"
+        style="@style/item_title_gray_text"
+        android:textStyle="bold"
+        android:text="提交纪录"
+        />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/task_submit_list"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        />
+
+
+</LinearLayout>

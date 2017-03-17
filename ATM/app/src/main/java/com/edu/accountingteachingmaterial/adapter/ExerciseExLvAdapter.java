@@ -15,7 +15,6 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.subject.SubjectState;
 import com.edu.subject.data.BaseTestData;
-import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
@@ -79,7 +78,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
         GroupViewHolder groupViewHolder = null;
         if (view == null || view.getTag(R.id.tag_group) == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_exercise_exlv, viewGroup, false);
-            AutoUtils.autoSize(view);
 
             groupViewHolder = new GroupViewHolder(view);
             view.setTag(R.id.tag_group,groupViewHolder);
@@ -87,7 +85,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
             groupViewHolder = (GroupViewHolder) view.getTag(R.id.tag_group);
         }
         ExamListData exerciseBean = datas.get(i);
-//        groupViewHolder.titleTv.setText("" + exerciseBean.getExam_name());
         groupViewHolder.testNumTv.setText("" + exerciseBean.getTopic_num());
         groupViewHolder.textimeTv.setText("");
 
@@ -145,7 +142,6 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
         ChildViewHolder childViewHolder = null;
         if (view == null || view.getTag(R.id.tag_child) == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_exercise_practice_exlv, viewGroup, false);
-            AutoUtils.autoSize(view);
 
             childViewHolder = new ChildViewHolder(view);
             view.setTag(R.id.tag_child, childViewHolder);

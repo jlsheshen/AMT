@@ -20,7 +20,7 @@ import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 

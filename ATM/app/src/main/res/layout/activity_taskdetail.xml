@@ -2,12 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    >
 
     <RelativeLayout
         android:id="@+id/aty_title_layout"
         style="@style/TitleBarStyle"
-        android:paddingLeft="10px">
+        android:paddingLeft="10px"
+        android:background="@mipmap/bg"
+        >
 
         <ImageView
             android:id="@+id/aty_title_back_iv"
@@ -15,6 +20,26 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_fanhui_n" />
+
+        <ImageView
+            android:id="@+id/task_submit_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/icon_fasong_n"
+            android:visibility="visible" />
+        <ImageView
+            android:id="@+id/task_history_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/task_submit_iv"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/icon_history_n"
+            android:visibility="visible" />
+
     </RelativeLayout>
 
     <ScrollView
@@ -27,26 +52,33 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
-
             <TextView
-                style="@style/item_title_blue_text"
+                style="@style/item_title_black_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="任务内容" />
-
-            <TextView
-                android:id="@+id/task_content_tv"
-                style="@style/item_title_black_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="这就是内容"
+                android:text="任务内容"
+                android:drawableLeft="@mipmap/icon_taskcontent_n"
                 />
-            <GridView
-                android:id="@+id/task_content_gv"
+            <WebView
+                android:id="@+id/task_content_wv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="6"
-                ></GridView>
+                ></WebView>
+
+
+            <!--<TextView-->
+                <!--android:id="@+id/task_content_tv"-->
+                <!--style="@style/item_title_black_text"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="这就是内容"-->
+                <!--/>-->
+            <!--<GridView-->
+                <!--android:id="@+id/task_content_gv"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:numColumns="6"-->
+                <!--&gt;</GridView>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,29 +97,28 @@
                     android:id="@+id/task_answerman_tv"
                     style="@style/item_title_gray_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="最后提交:氩弧焊" />
-
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <EditText
                 android:id="@+id/task_groupanswer_et"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@drawable/shape_ip_et" />
+                android:background="@drawable/shape_ip_et"
+                android:gravity="top"
+          />
 
             <TextView
                 android:id="@+id/task_accessory_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/item_title_blue_text"
-                android:text="附件"
+                android:text="0 / 9任务附件"
                 />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/task_accessory_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 ></android.support.v7.widget.RecyclerView>
             <TextView
                 android:id="@+id/task_groups_tv"
@@ -99,9 +130,10 @@
                 android:id="@+id/task_groups_gv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="6"
+                android:numColumns="9"
                 ></GridView>
             <TextView
+                android:id="@+id/task_teachersay_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="教师评语"

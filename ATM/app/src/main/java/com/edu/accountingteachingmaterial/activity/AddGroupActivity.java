@@ -1,20 +1,24 @@
 package com.edu.accountingteachingmaterial.activity;
 
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
-import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.AddGroupAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.GroupsListBean;
+import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.edu.accountingteachingmaterial.util.AddTasktManager;
+import com.edu.accountingteachingmaterial.util.net.GroupAddOneManager;
+import com.edu.accountingteachingmaterial.view.dialog.JoinGroupDialog;
 
 import java.util.List;
 
@@ -23,13 +27,15 @@ import java.util.List;
  * Created by Administrator on 2017/2/28.
  */
 
-public class AddGroupActivity extends BaseActivity {
+public class AddGroupActivity extends BaseActivity implements AdapterView.OnItemClickListener, GroupAddOneManager.AddGroupOneListener,  AddTasktManager.AddTaskListener, AddGroupAdapter.ItemFootViewClickListener, JoinGroupDialog.OnButtonClickListener {
     private ListView listView;
     private AddGroupAdapter adapter;
     private TextView titleTv;
     Bitmap bitmap = null;
     Drawable drawable = null;
-   Html.ImageGetter imageGetter;
+    Html.ImageGetter imageGetter;
+    int taskId;
+    JoinGroupDialog dialog;
 
 
     @Override
@@ -46,25 +52,14 @@ public class AddGroupActivity extends BaseActivity {
     @Override
     public void initData() {
         Bundle bundle = getIntent().getExtras();
+
         List<GroupsListBean> datas = (List<GroupsListBean>) bundle.getSerializable(ClassContstant.GROUPS);
-        final String title = bundle.getString(ClassContstant.TASK_TITLE);
-         imageGetter = new Html.ImageGetter() {
-            @Override
-            public Drawable getDrawable(final String source) {
-//                http://d.lanrentuku.com/down/png/1702/50-restaurant/tray.png
-                Log.d("AddGroupActivity", "+++++++++++++++source" + source);
-
-                        Log.d("AddGroupActivity", "线程开始");
-
-                        bitmap = ImageLoader.getInstance().loadImageSync(source);
-                        drawable = new BitmapDrawable(bitmap);
-
-
-                return drawable;
-            }
-        };
-        titleTv.setText(Html.fromHtml(title,imageGetter,null));
+        taskId = bundle.getInt(ClassContstant.ID);
+        String title = bundle.getString(ClassContstant.TASK_TITLE);
+        titleTv.setText(title);
         adapter = new AddGroupAdapter(this);
+        adapter.setItemFootViewClickListener(this);
+        listView.setOnItemClickListener(this);
         adapter.setDatas(datas);
         listView.setAdapter(adapter);
     }
@@ -74,4 +69,55 @@ public class AddGroupActivity extends BaseActivity {
         finish();
         super.onDestroy();
     }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        GroupAddOneManager.getSingleton(this).addGroupOne(this, adapter.getItemId(position));
+    }
+    @Override
+    public void onItemFootClick(int pos) {
+        dialog =  JoinGroupDialog.getIntance(this);
+        dialog.setTitle("只有一次选择小组的机会,\n确定加入小组" + adapter.getData(pos).getTeam_name() + "吗?");
+        dialog.setOnButtonClickListener(this,pos);
+        dialog.show();
+    }
+
+    @Override
+    public void onOkClick(int pos) {
+        GroupAddOneManager.getSingleton(this).addGroupOne(this, adapter.getItemId(pos));
+
+    }
+
+    @Override
+    public void onCancelClick() {
+        dialog.dismiss();
+    }
+    @Override
+    public void onSuccess(String message) {
+        AddTasktManager.getSingleton(this).getTaskData(this,taskId);
+    }
+
+
+    @Override
+    public void goAddGroup(List<GroupsListBean> datas) {
+        Toast.makeText(this, "服务器返回数据错误", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void goTaskDetail(TaskDetailBean data) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ClassContstant.TASK_STATE,ClassContstant.STATE_RUNING);
+        bundle.putInt(ClassContstant.ID,taskId);
+        bundle.putSerializable(ClassContstant.TASK_DETAIL, data);
+        startActivity(TaskDetailActivity.class,bundle);
+        finish();
+    }
+
+
+    @Override
+    public void onFailure(String message) {
+
+    }
+
+
 }

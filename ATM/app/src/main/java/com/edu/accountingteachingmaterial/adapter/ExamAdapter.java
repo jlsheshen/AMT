@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
-import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
@@ -58,7 +57,6 @@ public class ExamAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (view == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_exam_lv, viewGroup, false);
-            AutoUtils.autoSize(view);
             viewHolder = new ViewHolder(view);
             view.setTag(viewHolder);
         } else {

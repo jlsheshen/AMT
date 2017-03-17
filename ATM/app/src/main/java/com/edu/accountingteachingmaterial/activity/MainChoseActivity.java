@@ -30,7 +30,7 @@ import com.edu.accountingteachingmaterial.fragment.MyFragment;
 import com.edu.accountingteachingmaterial.fragment.TextbookFragment;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.util.DoubleClickExitUtil;
 import com.edu.subject.common.UnTouchableViewPager;
 import com.lucher.net.req.RequestMethod;

@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.adapter;
 
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,6 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.bean.TextbookBean;
 import com.edu.library.imageloader.EduImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.List;
 
@@ -64,23 +61,9 @@ public class TextBookGvAdapter extends BaseAdapter {
         viewHolder.publisherTv.setText(data.getName());
         viewHolder.organizationTv.setText(data.getSchool_name());
         viewHolder.nameTv.setText(data.getTitle());
-
-        ImageLoader.getInstance().displayImage(data.getPicture(), viewHolder.bgIv,
-                EduImageLoader.getInstance().getDefaultBuilder().build(), new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-                    }
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        viewHolder.bgIv.setImageResource(R.mipmap.ic_launcher);
-                    }
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    }
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-                    }
-                });
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        imageLoader.displayImage(data.getPicture(), viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+//        ImageLoader.getInstance().displayImage(data.getPicture(), viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
         return convertView;
     }
 

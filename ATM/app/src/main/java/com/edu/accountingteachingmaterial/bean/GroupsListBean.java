@@ -75,7 +75,7 @@ public class GroupsListBean extends BaseData {
         this.studentlist = studentlist;
     }
 
-    public static class StudentlistBean {
+    public static class StudentlistBean extends BaseData{
         /**
          * answer : null
          * create_date : null
@@ -87,6 +87,16 @@ public class GroupsListBean extends BaseData {
         private String create_date;
         private String name;
         private String picture;
+        private boolean isFootView;
+
+        public boolean isFootView() {
+            return isFootView;
+        }
+
+        public StudentlistBean setFootView(boolean footView) {
+            isFootView = footView;
+            return this;
+        }
 
         public String getAnswer() {
             return answer;

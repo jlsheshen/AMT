@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.bean;
 
 import com.edu.library.data.BaseData;
+import com.edu.subject.BASE_URL;
 
 /**
  * 课堂类
@@ -32,7 +33,7 @@ public class ClassBean extends BaseData{
     }
 
     public String getPicture() {
-        return picture;
+        return BASE_URL.getBaseImageUrl() + picture;
     }
 
     public void setPicture(String picture) {

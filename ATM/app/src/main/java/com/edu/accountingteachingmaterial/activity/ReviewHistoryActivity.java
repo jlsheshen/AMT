@@ -16,7 +16,7 @@ import com.edu.accountingteachingmaterial.bean.ReviewHisListBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ReviewExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
-import com.edu.accountingteachingmaterial.view.DeteleDialog;
+import com.edu.accountingteachingmaterial.view.dialog.DeteleDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

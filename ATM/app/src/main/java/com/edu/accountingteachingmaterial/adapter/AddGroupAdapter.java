@@ -19,18 +19,28 @@ import java.util.List;
  * Created by Administrator on 2017/2/28.
  */
 
-public class AddGroupAdapter extends BaseAdapter{
+public class AddGroupAdapter extends BaseAdapter implements RvAddGroupAdapter.FootViewClickListener {
 
     private List<GroupsListBean> datas;
     private Context context;
+    ItemFootViewClickListener itemFootViewClickListener;
+    int ItemPosition;
 
 
     public AddGroupAdapter(Context context) {
         this.context = context;
     }
+    public  GroupsListBean getData(int pos){
+        return datas.get(pos);
+    }
 
     public AddGroupAdapter setDatas(List<GroupsListBean> datas) {
         this.datas = datas;
+        return this;
+    }
+
+    public AddGroupAdapter setItemFootViewClickListener(ItemFootViewClickListener itemFootViewClickListener) {
+        this.itemFootViewClickListener = itemFootViewClickListener;
         return this;
     }
 
@@ -46,7 +56,7 @@ public class AddGroupAdapter extends BaseAdapter{
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return datas.get(position).getId();
     }
 
     @Override
@@ -63,10 +73,27 @@ public class AddGroupAdapter extends BaseAdapter{
         viewHolder.groupNumbereTv.setText(data.getStu_count() + "/" + data.getGroup_sum());
         viewHolder.groupTitleTv.setText(data.getTeam_name());
 
-        viewHolder.groupPeopleRv.setAdapter(new RvAddGroupAdapter(context));
+        if (data.getGroup_sum() > data.getStu_count()){
+            GroupsListBean.StudentlistBean  footData = new GroupsListBean.StudentlistBean();
+            footData.setFootView(true);
+            data.getStudentlist().add(footData);
+        }
+        RvAddGroupAdapter addGroupAdapter = new RvAddGroupAdapter(context);
+        addGroupAdapter.setDatas(data.getStudentlist());
+        viewHolder.groupPeopleRv.setAdapter(addGroupAdapter);
+        addGroupAdapter.setFootViewClickListener(this,position);
         viewHolder.groupPeopleRv.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         return convertView;
     }
+
+    @Override
+    public void onFootClick(int partentPos) {
+        itemFootViewClickListener.onItemFootClick(partentPos);
+    }
+    public interface ItemFootViewClickListener{
+        void onItemFootClick(int pos);
+    }
+
     class ViewHolder{
         TextView groupTitleTv, groupNumbereTv;//小组名
         RecyclerView groupPeopleRv;

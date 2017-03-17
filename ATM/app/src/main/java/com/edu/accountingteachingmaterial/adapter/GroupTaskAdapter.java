@@ -72,12 +72,17 @@ public class GroupTaskAdapter extends BaseAdapter {
         switch (data.getTask_status()) {
             case ClassContstant.STATE_RUNING:
                 viewHolder.stateIv.setImageResource(R.mipmap.task_tast_runing);
+                viewHolder.imageView.setImageResource(R.mipmap.task_head_runing);
                 break;
             case ClassContstant.STATE_FINSH:
-                viewHolder.stateIv.setImageResource(R.mipmap.task_tast_finsh);
+                viewHolder.stateIv.setImageResource(R.mipmap.task_tast_after);
+                viewHolder.imageView.setImageResource(R.mipmap.task_head_after);
+
                 break;
             case ClassContstant.STATE_AFTER:
-                viewHolder.stateIv.setImageResource(R.mipmap.task_tast_after);
+                viewHolder.stateIv.setImageResource(R.mipmap.task_tast_finsh);
+                viewHolder.imageView.setImageResource(R.mipmap.task_head_finsh);
+
                 break;
 
         }

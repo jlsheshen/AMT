@@ -9,7 +9,7 @@ import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.ReviewTopicVo;
-import com.edu.accountingteachingmaterial.view.LoadingDialog;
+import com.edu.accountingteachingmaterial.view.dialog.LoadingDialog;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;

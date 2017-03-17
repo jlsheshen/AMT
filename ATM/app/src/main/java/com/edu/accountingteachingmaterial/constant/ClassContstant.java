@@ -109,6 +109,14 @@ public final class ClassContstant {
      * 任务名称
      */
     public static final String TASK_TITLE = "TASK_TITLE";
+    /**
+     * id
+     */
+    public static final String ID = "ID";
+    /**
+     * DATA
+     */
+    public static final String DATA = "DATA";
 
 
     /**

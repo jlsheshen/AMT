@@ -19,13 +19,17 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:src="@mipmap/navibar" />
-
+        class_emphasis_iv
         <RadioGroup style="@style/SizeBarStyle">
+            <RadioButton
+                android:id="@+id/class_emphasis_iv"
+                style="@style/SizeBarButtonStyle"
+                android:checked="true"
+                android:drawableTop="@drawable/selector_class_detail_emphasis" />
 
             <RadioButton
                 android:id="@+id/class_example_iv"
                 style="@style/SizeBarButtonStyle"
-                android:checked="true"
                 android:drawableTop="@drawable/selector_class_detail_example" />
 
             <RadioButton
@@ -37,7 +41,7 @@
                 android:id="@+id/class_review_iv"
                 style="@style/SizeBarButtonStyle"
                 android:clickable="false"
-                android:drawableTop="@drawable/selector_class_detail_review" />
+                android:drawableTop="@drawable/selector_class_task" />
         </RadioGroup>
     </FrameLayout>
 
@@ -54,7 +58,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:src="@mipmap/icon_fanhui_n"
-
             />
 
         <TextView

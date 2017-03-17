@@ -72,6 +72,17 @@ public class NetUrlContstant {
     //获取任务详细信息
     public static final String TASK_DETAIL = INTERCACE +  "grouptask/joinGroup/";//{{studentId}}-{{taskId}}
 
+    //上传附件
+    public static final String UPLOAD_ACCESSORY = INTERCACE +  "grouptask/uploadImge/";//{{studentId}}-{{taskId}}
+
+    //加入小组
+    public static final String ADD_GROUP = INTERCACE +  "grouptask/joinTeam/";//{{studentId}}-{{teamId}}
+
+    //学生上传答案
+    public static final String UPLOAD_TASK_TEXT = INTERCACE +  "grouptask/studentSubmit/";//{{studentId}}-{{teamId}}-{{taskId}}
+    //删除上传的附件
+    public static final String DELETE_ACCESSORY = INTERCACE +  "grouptask/delFile/";//{{fileId}}
+
 
     public static String getEmphasisUrl() {
         return  BASE_URL +EMPHASIS_URL;
@@ -171,6 +182,19 @@ public class NetUrlContstant {
         return BASE_URL + TASK_DETAIL;
     }
 
+    public static String getUploadAccessory(){
+        return BASE_URL + UPLOAD_ACCESSORY;
+    }
 
+    public static String getAddGroup() {
+        return BASE_URL +ADD_GROUP;
+    }
 
+    public static String getUploadTaskText() {
+         return BASE_URL +UPLOAD_TASK_TEXT;
+    }
+
+    public static String getDeleteAccessory() {
+        return BASE_URL + DELETE_ACCESSORY;
+    }
 }

@@ -23,7 +23,7 @@ import com.edu.accountingteachingmaterial.entity.ClassicCase;
 import com.edu.accountingteachingmaterial.entity.StudyHistoryVO;
 import com.edu.accountingteachingmaterial.util.HistoryClickManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.lucher.net.req.RequestMethod;
 
 import java.util.ArrayList;

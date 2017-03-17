@@ -20,7 +20,7 @@ import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
-import com.edu.accountingteachingmaterial.view.ExitDialog;
+import com.edu.accountingteachingmaterial.view.dialog.ExitDialog;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;

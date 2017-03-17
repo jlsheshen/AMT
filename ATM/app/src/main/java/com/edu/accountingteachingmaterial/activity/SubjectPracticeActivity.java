@@ -16,7 +16,7 @@ import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.UploadResultsManager;
+import com.edu.accountingteachingmaterial.util.net.UploadResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;

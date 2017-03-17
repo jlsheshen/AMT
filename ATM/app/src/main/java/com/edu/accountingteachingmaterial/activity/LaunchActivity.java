@@ -28,6 +28,7 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
             finish();
             return;
         }
+
     }
 
     @Override
@@ -56,6 +57,7 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
         }
         presenter.loadData(this);
     }
+
 
 
     @Override

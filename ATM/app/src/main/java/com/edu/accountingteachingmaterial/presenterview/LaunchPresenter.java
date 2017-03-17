@@ -5,7 +5,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 
 import com.edu.accountingteachingmaterial.base.BasePresenter;
-import com.edu.accountingteachingmaterial.util.LoginNetMananger;
+import com.edu.accountingteachingmaterial.util.net.LoginNetMananger;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.BASE_URL;
@@ -34,6 +34,8 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
             LoginNetMananger.getSingleton(context).login(num, pw, new LoginNetMananger.loginListener() {
                 @Override
                 public void onSuccess() {
+                    Log.d("LaunchPresenter", "起始页登陆成功");
+
                     mView.jumpMain();
                 }
 
@@ -66,6 +68,8 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
         }.start();
 
     }
+
+
 
     public void destroy() {
         LoginNetMananger.getSingleton(context).cancelRequest();

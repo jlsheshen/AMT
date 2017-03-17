@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.zhy.autolayout.utils.AutoUtils;
 
 /**
  * Created by Administrator on 2016/11/10.
@@ -44,7 +43,6 @@ public class ImageAdapter extends RecyclerView.Adapter{
 
         public ImageViewHolder(View itemView) {
             super(itemView);
-            AutoUtils.autoSize(itemView);
             nameTv = (TextView) itemView.findViewById(R.id.item_image_name_tv);
             imageView = (ImageView) imageView.findViewById(R.id.item_image_iv);
         }

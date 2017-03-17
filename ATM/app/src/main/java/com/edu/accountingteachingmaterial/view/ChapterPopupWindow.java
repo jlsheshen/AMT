@@ -21,7 +21,7 @@ import com.edu.accountingteachingmaterial.adapter.ClassChapterDialogAdapter;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
 
@@ -73,7 +73,7 @@ public class ChapterPopupWindow extends PopupWindow {
                 Intent intent = new Intent(mContext, ClassDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
-                bundle.putInt("ChapterId", datas.get(groupPosition).getId());
+                bundle.putInt("ChapterId", datas.get(groupPosition).getSubChapters().get(childPosition).getId());
                 intent.putExtras(bundle);
                 context.finish();
                 mContext.startActivity(intent);

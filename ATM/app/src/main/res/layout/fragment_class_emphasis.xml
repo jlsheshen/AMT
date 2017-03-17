@@ -3,14 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginLeft="@dimen/class_deail_padding_left"
+    android:layout_marginLeft="80dp"
     >
+
     <WebView 
         android:id="@+id/emphasis_wv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        
         />
-    
-
 </LinearLayout>

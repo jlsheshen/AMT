@@ -12,7 +12,6 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.zhy.autolayout.utils.AutoUtils;
 
 import java.util.List;
 
@@ -53,7 +52,6 @@ public class ExampleGVAdapter extends BaseAdapter {
         ViewHolder viewHolder = null;
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_example_gv, parent, false);
-            AutoUtils.autoSize(convertView);
 
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);

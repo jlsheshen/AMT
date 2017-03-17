@@ -3,13 +3,14 @@ package com.edu.accountingteachingmaterial.base;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.zhy.autolayout.AutoLayoutActivity;
 
-public abstract class BaseActivity extends AutoLayoutActivity{
+public abstract class BaseActivity extends AppCompatActivity{
 	TextView scoreTv;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+    <style name="TranslucentBg" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
     <style name="SizeBarStyle">
         <item name="android:layout_height">match_parent</item>
@@ -147,6 +152,9 @@
     <!--蓝色普通字-->
     <style name="content_blue_text" parent="content_text">
         <item name="android:textColor">@color/colorBlueBackground</item>
+    </style>
+    <style name="content_gray_text" parent="content_text">
+        <item name="android:textColor">@color/colorLightGray</item>
     </style>
 
     <!--下拉刷新动画-->

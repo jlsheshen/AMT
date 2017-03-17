@@ -22,8 +22,8 @@ import com.edu.accountingteachingmaterial.bean.SubjectEntryData;
 import com.edu.accountingteachingmaterial.bean.SubjectEntryDataDao;
 import com.edu.accountingteachingmaterial.util.EditTextUtil;
 import com.edu.accountingteachingmaterial.util.StringFormatUtil;
-import com.edu.accountingteachingmaterial.view.PrimarySubjectDialog;
-import com.edu.accountingteachingmaterial.view.SencondarySubjectDialog;
+import com.edu.accountingteachingmaterial.view.dialog.PrimarySubjectDialog;
+import com.edu.accountingteachingmaterial.view.dialog.SencondarySubjectDialog;
 
 import java.util.ArrayList;
 import java.util.Arrays;

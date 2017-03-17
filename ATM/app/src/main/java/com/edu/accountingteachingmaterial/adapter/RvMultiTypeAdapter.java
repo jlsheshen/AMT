@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.library.data.BaseData;
+import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
+import com.edu.library.imageloader.EduImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -18,18 +20,28 @@ import java.util.List;
  * Created by Administrator on 2017/3/1.
  */
 
-public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.MultiViewHolder> {
-    List<BaseData> datas;
+public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.MultiViewHolder> implements View.OnClickListener {
+    List<TaskDetailBean.FileListBean> datas;
+    Context context;
     int rvModel;
-    final static int LAST_ITEM = 1;
+    AccessoryListener accessoryListener;
+    int itemPos;
 
-
-    @Override
-    public int getItemViewType(int position) {
-        if (position == getItemCount() - 1)
-            return LAST_ITEM;
-        return super.getItemViewType(position);
+    public RvMultiTypeAdapter(Context context) {
+        this.context = context;
     }
+
+    public RvMultiTypeAdapter setAccessoryListener(AccessoryListener accessoryListener) {
+        this.accessoryListener = accessoryListener;
+        return this;
+    }
+
+    public RvMultiTypeAdapter setDatas(List<TaskDetailBean.FileListBean> datas) {
+        this.datas = datas;
+        notifyDataSetChanged();
+        return this;
+    }
+
 
     public RvMultiTypeAdapter setRvModel(int rvModel) {
         this.rvModel = rvModel;
@@ -43,42 +55,66 @@ public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.
     }
 
     @Override
-    public void onBindViewHolder(MultiViewHolder holder, int position) {
-        switch (rvModel) {
-            case ClassContstant.STATE_RUNING:
-                int type = getItemViewType(position);
-                if (type == LAST_ITEM) {
-                    holder.bgIv.setImageResource(R.mipmap.ic_launcher);
-                } else {
-                    holder.bgIv.setImageResource(R.mipmap.ic_launcher);
-                    holder.cancelIv.setVisibility(View.VISIBLE);
-                    holder.nameTv.setVisibility(View.VISIBLE);
-                    holder.nameTv.setText("图片一号");
-                }
-                break;
-            case ClassContstant.STATE_AFTER:
-                holder.bgIv.setImageResource(R.mipmap.ic_launcher);
-                break;
-            case ClassContstant.STATE_FINSH:
-                holder.bgIv.setImageResource(R.mipmap.ic_launcher);
-                break;
+    public void onBindViewHolder(MultiViewHolder holder, final int position) {
+         final TaskDetailBean.FileListBean data = datas.get(position);
 
+        if (data.isFoot()) {
+            holder.bgIv.setImageResource(R.mipmap.add_accessory);
+            holder.bgIv.setOnClickListener(this);
+            holder.cancelIv.setVisibility(View.GONE);
+        } else {
+            ImageLoader.getInstance().displayImage(data.getPic(), holder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+            holder.cancelIv.setVisibility(View.VISIBLE);
+            holder.cancelIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    accessoryListener.deteleAccessoryListener(datas.get(position).getId());
+                }
+            });
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    accessoryListener.showAccessoryImage(datas.get(position).getPic());
+                }
+            });
+//                    holder.nameTv.setText();
+        }
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return datas == null ? 0 : datas.size();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.item_accessory_iv:
+                accessoryListener.addAccessoryListener();
+                break;
         }
 
     }
 
 
-    @Override
-    public int getItemCount() {
-        return 3;
+    public interface AccessoryListener {
+        void addAccessoryListener();
+        void deteleAccessoryListener(int fileId);
+        void showAccessoryImage(String url);
+
+
     }
 
     class MultiViewHolder extends RecyclerView.ViewHolder {
         TextView nameTv;
         ImageView bgIv, cancelIv;
+        View view;
 
         public MultiViewHolder(View itemView) {
             super(itemView);
+            view = itemView;
             nameTv = (TextView) itemView.findViewById(R.id.item_accessory_name_tv);
             bgIv = (ImageView) itemView.findViewById(R.id.item_accessory_iv);
             cancelIv = (ImageView) itemView.findViewById(R.id.item_accessory_cancel_iv);

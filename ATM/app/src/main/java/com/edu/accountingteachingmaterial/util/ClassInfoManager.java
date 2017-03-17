@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.bean.ClassInfoBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.util.net.BaseNetManager;
 import com.lucher.net.req.RequestMethod;
 
 import org.apache.http.Header;
