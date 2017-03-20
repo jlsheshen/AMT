@@ -69,7 +69,6 @@ public class JoinGroupDialog extends BaseDialog implements View.OnClickListener 
 		findViewById(R.id.btn_ok).setOnClickListener(this);
         findViewById(R.id.btn_cancel).setOnClickListener(this);
 		tvTitle = (TextView) findViewById(R.id.tv_text);
-		setCanceledOnTouchOutside(false);
 	}
 
 	/**
@@ -80,6 +79,13 @@ public class JoinGroupDialog extends BaseDialog implements View.OnClickListener 
 	public void setOnButtonClickListener(OnButtonClickListener listener, int pos) {
 		this.mListener = listener;
 		this.pos = pos;
+	}
+	/**
+	 * 设置按钮点击监听
+	 * @param listener
+	 */
+	public void setOnButtonClickListener(OnButtonClickListener listener) {
+		this.mListener = listener;
 	}
 
 	@Override

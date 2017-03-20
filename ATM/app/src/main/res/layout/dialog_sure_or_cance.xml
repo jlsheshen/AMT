@@ -29,7 +29,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="25px"
             android:layout_marginLeft="30px"
-            android:src="@drawable/selector_submit" />
+            android:src="@drawable/selector_sure" />
         <ImageView
             android:id="@+id/btn_cancel"
             android:layout_width="wrap_content"

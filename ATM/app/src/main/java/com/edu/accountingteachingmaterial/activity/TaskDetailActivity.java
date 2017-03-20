@@ -34,6 +34,7 @@ import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.DeteleAccessoryManager;
 import com.edu.accountingteachingmaterial.util.net.UploadTaskTxetManager;
 import com.edu.accountingteachingmaterial.view.NoRvScrollManager;
+import com.edu.accountingteachingmaterial.view.dialog.JoinGroupDialog;
 import com.edu.accountingteachingmaterial.view.dialog.SelectPictureDialog;
 import com.edu.accountingteachingmaterial.view.dialog.TaskSubmitHistoryDialog;
 import com.edu.library.util.ToastUtil;
@@ -47,6 +48,8 @@ import org.apache.http.Header;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
+
+import static com.edu.accountingteachingmaterial.R.id.aty_title_back_iv;
 
 
 /**
@@ -67,12 +70,13 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     private int taskModel;
     private TaskDetailBean data;
     int taskId;
-    ImageView historyIv,submitIv;//历史按钮,提交按钮
+    ImageView historyIv,submitIv,backIv;//历史按钮,提交按钮
     SelectPictureDialog pictureDialog;//上传图片
     public static final int ALBUM = 111;//从相册取照片
     public static final int PHOTOGRAPH = 112;//照相
     String fileNmae;//照片路径
     TaskSubmitHistoryDialog historyDialog;//历史提交纪录dialog
+    JoinGroupDialog dialog;
 
 
 
@@ -84,6 +88,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     @Override
     public void initView(Bundle savedInstanceState) {
 //        taskContentGv = bindView(R.id.task_content_gv);
+        backIv = bindView(aty_title_back_iv);
         groupsGv = bindView(R.id.task_groups_gv);
         accessoryRv = bindView(R.id.task_accessory_rv);
         contentWv = bindView(R.id.task_content_wv);
@@ -95,6 +100,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         submitIv = bindView(R.id.task_submit_iv);
         submitIv.setOnClickListener(this);
         historyIv.setOnClickListener(this);
+        backIv.setOnClickListener(this);
     }
 
     @Override
@@ -117,8 +123,6 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         accessotyAdapter.setRvModel(taskModel);
         accessoryRv.setLayoutManager(new NoRvScrollManager(this, 5));
 
-//      taskContentAdapter = new TaskContentAdapter();
-//      taskContentGv.setAdapter(taskContentAdapter);
         showAnswer();
         groupsAdapter = new GroupsAdapter();
         groupsAdapter.setDatas(data.getStudentlist());
@@ -140,11 +144,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
+
     int refreshAccessory(){
         int accessorys = data.getFilelist() == null?0:data.getFilelist().size();
         accessotyTv.setText(accessorys + "/9 任务附件");
@@ -254,6 +254,23 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         }
 
     }
+    @Override
+    public void onBackPressed() {
+        dialog =  JoinGroupDialog.getIntance(this);
+        dialog.setTitle("确定放弃修改并返回吗?");
+        dialog.setOnButtonClickListener(new JoinGroupDialog.OnButtonClickListener() {
+            @Override
+            public void onOkClick(int pos) {
+                finish();
+            }
+
+            @Override
+            public void onCancelClick() {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
     @Override
     public void onClick(View v) {
@@ -271,6 +288,23 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
             case R.id.task_submit_iv:
                 String string = answerEt.getText().toString();
                 UploadTaskTxetManager.getSingleton(this).submitTaskText(this,data.getTeam_id(),taskId,string);
+                break;
+            case R.id.aty_title_back_iv:
+                dialog =  JoinGroupDialog.getIntance(this);
+                dialog.setTitle("确定放弃修改并返回吗?");
+                dialog.setOnButtonClickListener(new JoinGroupDialog.OnButtonClickListener() {
+                    @Override
+                    public void onOkClick(int pos) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancelClick() {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+
                 break;
         }
     }
