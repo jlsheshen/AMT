@@ -116,10 +116,12 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                     OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(pos).getExam_id(), datas.get(pos).getExam_id());
 
                                                 } else {
-                                                    
+                                                    if (isExercise){
+                                                        
+                                                    }else {
                                                     Bundle b = new Bundle();
                                                     b.putInt("examId", datas.get(pos).getExam_id());
-                                                    startActivity(UnitTestActivity.class, b);
+                                                    startActivity(UnitTestActivity.class, b);}
                                                 }
                                             }
                                         }
