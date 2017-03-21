@@ -45,7 +45,7 @@ public class JoinGroupDialog extends BaseDialog implements View.OnClickListener 
 	 * @param
 	 * 
 	 */
-	private JoinGroupDialog(Context context) {
+	public JoinGroupDialog(Context context) {
 		super(context);
 		setContentView(R.layout.dialog_sure_or_cance);
 		init();

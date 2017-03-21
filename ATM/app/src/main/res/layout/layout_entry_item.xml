@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/btn_rmovegroup"
-        android:layout_width="32px"
-        android:layout_height="32px"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:background="@mipmap/jiayizu"
         android:focusable="false"
         android:visibility="invisible" />
@@ -36,10 +36,10 @@
 
 
     <View
-        android:layout_width="30px"
-        android:layout_height="1px"
-        android:layout_marginLeft="15px"
-        android:layout_marginRight="15px"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@color/colorGray" />
 
     <TextView
@@ -55,10 +55,10 @@
 
 
     <View
-        android:layout_width="30px"
-        android:layout_height="1px"
-        android:layout_marginLeft="15px"
-        android:layout_marginRight="15px"
+        android:layout_width="30dp"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@color/colorGray" />
 
     <EditText
@@ -75,9 +75,9 @@
 
     <Button
         android:id="@+id/btn_add_or_remove"
-        android:layout_width="32px"
-        android:layout_height="32px"
-        android:layout_marginLeft="15px"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="15dp"
         android:background="@mipmap/daijia"
         android:focusable="false"
         android:gravity="center" />

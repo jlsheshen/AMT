@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="little_interval">2dp</dimen>
-    <dimen name="middle_interval">10px</dimen>
+    <dimen name="middle_interval">10dp</dimen>
     <dimen name="big_interval">15dp</dimen>
 
 

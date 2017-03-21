@@ -9,17 +9,18 @@
         android:id="@+id/class_aty_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="69px"></FrameLayout>
+        android:layout_marginTop="69dp"></FrameLayout>
 
     <FrameLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@mipmap/navibar" />
-        class_emphasis_iv
+            android:src="@mipmap/navibar"
+            android:scaleType="fitXY"
+            />
         <RadioGroup style="@style/SizeBarStyle">
             <RadioButton
                 android:id="@+id/class_emphasis_iv"
@@ -49,8 +50,8 @@
     <RelativeLayout
         android:id="@+id/main_aty_title_layout"
         style="@style/TitleBarStyle"
-        android:layout_marginLeft="100px"
-        android:paddingLeft="10px">
+        android:layout_marginLeft="100dp"
+        android:paddingLeft="10dp">
 
         <ImageView
             android:id="@+id/class_aty_back_iv"
@@ -75,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/class_aty_zhangjie_iv"
             android:layout_centerVertical="true"
-            android:layout_marginRight="25px"
+            android:layout_marginRight="25dp"
             android:src="@mipmap/icon_history_n"
             android:visibility="gone" />
 
@@ -85,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="25px"
+            android:layout_marginRight="25dp"
             android:src="@mipmap/icon_zhangjieliebiao_n"
             android:visibility="visible" />
     </RelativeLayout>
@@ -93,9 +94,9 @@
     <View
         android:id="@+id/view"
         style="@style/HorizontalLine"
-        android:layout_marginLeft="100px"
-        android:layout_marginRight="10px"
-        android:layout_marginTop="70px" />
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="70dp" />
 
 
 </RelativeLayout>

@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="110px"
-    android:layout_marginRight="10px"
+    android:layout_marginLeft="110dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -20,15 +20,6 @@
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/main_study_history_iv"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="25px"
-            android:src="@mipmap/icon_history_n"
-            android:visibility="visible" />
     </RelativeLayout>
 
     <View style="@style/HorizontalLine" />

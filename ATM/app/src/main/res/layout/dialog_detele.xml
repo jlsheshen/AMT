@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_content"
-    android:layout_width="350px"
+    android:layout_width="350dp"
     android:layout_height="wrap_content"
     >
     <ImageView
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/dialog_detele_bg_iv"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="110px"
+            android:layout_marginBottom="110dp"
             android:text="确定删除自测记录"
             android:textColor="@color/colorBlueBackground"
             android:textSize="24sp"
@@ -25,12 +25,12 @@
 
         <ImageView
             android:id="@+id/btn_ok"
-            android:layout_width="150px"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/dialog_detele_bg_iv"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="25px"
-            android:layout_marginLeft="30px"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="30dp"
             android:src="@drawable/selector_submit" />
         <ImageView
             android:id="@+id/btn_cancel"
@@ -38,8 +38,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/dialog_detele_bg_iv"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30px"
-            android:layout_marginBottom="25px"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="25dp"
             android:src="@drawable/selector_cancel" />
 
 

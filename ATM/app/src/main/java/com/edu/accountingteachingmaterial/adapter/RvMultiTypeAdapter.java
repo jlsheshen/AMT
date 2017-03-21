@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.library.imageloader.EduImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by Administrator on 2017/3/1.
  */
 
-public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.MultiViewHolder> implements View.OnClickListener {
+public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.MultiViewHolder> {
     List<TaskDetailBean.FileListBean> datas;
     Context context;
     int rvModel;
@@ -57,13 +58,24 @@ public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.
     @Override
     public void onBindViewHolder(MultiViewHolder holder, final int position) {
          final TaskDetailBean.FileListBean data = datas.get(position);
-
+        if (rvModel == ClassContstant.STATE_AFTER){
+            holder.cancelIv.setVisibility(View.GONE);
+        }else if (rvModel == ClassContstant.STATE_FINSH){
+            holder.cancelIv.setVisibility(View.GONE);
+        }else {
         if (data.isFoot()) {
             holder.bgIv.setImageResource(R.mipmap.add_accessory);
-            holder.bgIv.setOnClickListener(this);
+            holder.bgIv.setClickable(true);
+            holder.bgIv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    accessoryListener.addAccessoryListener();
+                }
+            });
             holder.cancelIv.setVisibility(View.GONE);
         } else {
             ImageLoader.getInstance().displayImage(data.getPic(), holder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+            holder.bgIv.setClickable(false);
             holder.cancelIv.setVisibility(View.VISIBLE);
             holder.cancelIv.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,6 +89,7 @@ public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.
                     accessoryListener.showAccessoryImage(datas.get(position).getPic());
                 }
             });
+        }
 //                    holder.nameTv.setText();
         }
 
@@ -88,15 +101,7 @@ public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.
         return datas == null ? 0 : datas.size();
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.item_accessory_iv:
-                accessoryListener.addAccessoryListener();
-                break;
-        }
 
-    }
 
 
     public interface AccessoryListener {

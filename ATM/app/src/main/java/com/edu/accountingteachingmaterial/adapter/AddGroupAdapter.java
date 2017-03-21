@@ -70,10 +70,10 @@ public class AddGroupAdapter extends BaseAdapter implements RvAddGroupAdapter.Fo
             viewHolder = (ViewHolder) convertView.getTag();
         }
         GroupsListBean data = datas.get(position);
-        viewHolder.groupNumbereTv.setText(data.getStu_count() + "/" + data.getGroup_sum());
+        viewHolder.groupNumbereTv.setText(data.getStudentlist().size() + "/" + data.getStu_count());
         viewHolder.groupTitleTv.setText(data.getTeam_name());
 
-        if (data.getGroup_sum() > data.getStu_count()){
+        if (data.getStu_count() > data.getStudentlist().size()){
             GroupsListBean.StudentlistBean  footData = new GroupsListBean.StudentlistBean();
             footData.setFootView(true);
             data.getStudentlist().add(footData);

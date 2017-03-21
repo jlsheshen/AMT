@@ -5,8 +5,8 @@
     android:layout_gravity="start"
     android:clickable="true"
     android:orientation="vertical"
-    android:paddingLeft="10px"
-    android:paddingRight="10px"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
     android:background="@mipmap/bg"
     >
 
@@ -42,8 +42,8 @@
 
         <com.edu.accountingteachingmaterial.view.CircleImageView
             android:id="@+id/my_head_civ"
-            android:layout_width="45px"
-            android:layout_height="45px"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:src="@mipmap/touxiang_setting"
             android:layout_gravity="center_vertical"
             app:civ_border_overlay="false"
@@ -58,7 +58,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="right"
             android:text="点击登陆"
-            android:paddingRight="15px"
+            android:paddingRight="15dp"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/content_text_size"
             android:visibility="gone"

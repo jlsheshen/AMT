@@ -79,23 +79,31 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
             adapter.setChecked(new ReviewHisAdapter.OnCheckedListener() {
                 @Override
                 public void onCheckeBoxChecked() {
-                    int i = 0;
-                    for (Boolean aBoolean : checkList) {
-                        if (aBoolean) {
-                            i++;
-                        }
-                    }
-                    if (i > 0) {
-                        deteleTv.setText("删除(" + i + ")");
-                        deteleTv.setAlpha(1);
-                    } else {
-                        deteleTv.setText("删除");
-                        deteleTv.setAlpha(0.5f);
-                    }
-
+                    deteleState();
                 }
             });
         }
+    }
+    void deteleState(){
+        int i = 0;
+        try {
+            for (Boolean aBoolean : checkList) {
+                if (aBoolean) {
+                    i++;
+                }
+            }
+        }catch (NullPointerException e){
+        }
+        if (i > 0) {
+            deteleTv.setText("删除(" + i + ")");
+            deteleTv.setAlpha(1);
+            deteleTv.setClickable(true);
+        } else {
+            deteleTv.setText("删除");
+            deteleTv.setAlpha(0.5f);
+            deteleTv.setClickable(false);
+        }
+
     }
 
     @Override
@@ -168,7 +176,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
             case R.id.error_compile_tv:
                 if (!layoutShow) {
                     compileTv.setText("取消");
-
+                    deteleState();
                     adapter.setClickShow();
                     checkList = adapter.getIsChecked();
                     layout.setVisibility(View.VISIBLE);

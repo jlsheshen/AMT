@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80px"
+    android:layout_height="80dp"
     android:orientation="vertical"
     style="@style/FragmentPadding"
     >
 
     <ImageView
         android:id="@+id/item_exam_head_iv"
-        android:layout_width="60px"
-        android:layout_height="60px"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_centerVertical="true"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="10dp"
         android:src="@mipmap/touxiangexam" />
 
     <LinearLayout
@@ -20,8 +20,8 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/item_exam_head_iv"
         android:orientation="horizontal"
-        android:layout_marginLeft="15px"
-        android:layout_marginTop="10px"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         >
 
         <TextView
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/item_title_text_size"
-            android:layout_marginLeft="15px"
+            android:layout_marginLeft="15dp"
             />
     </LinearLayout>
 
@@ -50,7 +50,7 @@
         android:layout_below="@id/item_exam_above_ly"
         android:layout_toRightOf="@id/item_exam_head_iv"
         android:orientation="horizontal"
-        android:layout_marginLeft="15px"
+        android:layout_marginLeft="15dp"
 
         >
 

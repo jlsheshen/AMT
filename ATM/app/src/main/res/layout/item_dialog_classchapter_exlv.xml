@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60px"
+    android:layout_height="60dp"
     android:background="@color/colorBlueBar"
     android:orientation="horizontal"
-    android:paddingBottom="10px"
-    android:paddingTop="10px">
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/item_classchapter_num_tv"
@@ -37,7 +37,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="5px"
+        android:layout_marginRight="5dp"
         android:src="@drawable/secector_main_chapter_fold" />
 
 

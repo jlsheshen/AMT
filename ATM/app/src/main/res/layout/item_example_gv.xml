@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200px"
+    android:layout_height="200dp"
     android:orientation="vertical"
     style="@style/FragmentPadding"
-    android:layout_marginTop="30px"
-    android:paddingTop="30px"
+    android:layout_marginTop="30dp"
+    android:paddingTop="30dp"
 
 
      >
 
     <ImageView
         android:id="@+id/item_example_card_iv"
-        android:layout_width="240px"
-        android:layout_height="135px"
+        android:layout_width="240dp"
+        android:layout_height="135dp"
         android:scaleType="fitXY" />
 
     <LinearLayout
-        android:layout_width="240px"
-        android:layout_height="35px"
+        android:layout_width="240dp"
+        android:layout_height="35dp"
         android:orientation="horizontal"
         android:background="@mipmap/card_background"
         >
@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             android:src="@drawable/ic_launcher"
             android:scaleType="fitCenter"
-            android:paddingLeft="10px"
+            android:paddingLeft="10dp"
             android:background="@color/colorWhite"
             />
 
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/item_title_text_size"
-            android:paddingLeft="10px"
+            android:paddingLeft="10dp"
 
             />
     </LinearLayout>

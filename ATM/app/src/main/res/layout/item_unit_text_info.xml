@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/ly"
-    android:layout_marginLeft="25px"
-    android:layout_marginRight="25px"
-    android:layout_marginTop="-30px"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp"
+    android:layout_marginTop="-30dp"
     android:orientation="horizontal">
 
     <RelativeLayout
-        android:layout_width="0px"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@mipmap/bg_left">
@@ -18,22 +18,22 @@
             android:id="@+id/ily_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5px"
+            android:layout_marginTop="5dp"
             android:background="@mipmap/bg_left_title"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:layout_marginTop="5px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:src="@mipmap/icon_ceyanxinxi_n" />
 
             <TextView
                 android:id="@+id/class_id_title_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5px"
+                android:layout_marginLeft="5dp"
                 android:text="测验信息"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/item_title_text_size" />
@@ -44,8 +44,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ily_title"
-            android:layout_marginLeft="80px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -59,7 +59,7 @@
                 android:id="@+id/start_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -71,8 +71,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_start_time_ly"
-            android:layout_marginLeft="80px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -86,7 +86,7 @@
                 android:id="@+id/end_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -98,8 +98,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_end_time_ly"
-            android:layout_marginLeft="80px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
@@ -113,7 +113,7 @@
                 android:id="@+id/challeng_time_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -124,8 +124,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_challeng_time_ly"
-            android:layout_marginLeft="80px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:visibility="invisible">
 
@@ -142,8 +142,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ly_null"
-            android:layout_marginLeft="80px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal"
             android:visibility="invisible">
 
@@ -160,12 +160,12 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="0px"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"></RelativeLayout>
 
     <RelativeLayout
-        android:layout_width="0px"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@mipmap/bg_left">
@@ -174,22 +174,22 @@
             android:id="@+id/ly_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5px"
+            android:layout_marginTop="5dp"
             android:background="@mipmap/bg_right_title"
             android:orientation="horizontal">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10px"
-                android:layout_marginTop="5px"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
                 android:src="@mipmap/icon_shitixinxi_n" />
 
             <TextView
                 android:id="@+id/test_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5px"
+                android:layout_marginLeft="5dp"
                 android:text="试题信息"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/item_title_text_size" />
@@ -201,14 +201,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ly_title"
-            android:layout_marginLeft="60px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text="单选题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
@@ -217,7 +217,7 @@
                 android:id="@+id/single_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -225,7 +225,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
+                android:layout_marginLeft="30dp"
                 android:text="多选题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
@@ -234,7 +234,7 @@
                 android:id="@+id/multiple_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -245,14 +245,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_choose_ly"
-            android:layout_marginLeft="60px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text="判断题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
@@ -261,7 +261,7 @@
                 android:id="@+id/judge_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -269,7 +269,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
+                android:layout_marginLeft="30dp"
                 android:text="填空题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
@@ -278,7 +278,7 @@
                 android:id="@+id/fill_in_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -289,14 +289,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_judge_ly"
-            android:layout_marginLeft="60px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text="简答题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
@@ -305,7 +305,7 @@
                 android:id="@+id/short_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -313,7 +313,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30px"
+                android:layout_marginLeft="30dp"
                 android:text="综合题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
@@ -322,7 +322,7 @@
                 android:id="@+id/comprehensive_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -333,14 +333,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_short_ly"
-            android:layout_marginLeft="60px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text="表格题："
                 android:textColor="@color/colorTestInfo"
                 android:textSize="@dimen/content_text_size" />
@@ -349,7 +349,7 @@
                 android:id="@+id/form_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -361,14 +361,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/item_form_ly"
-            android:layout_marginLeft="60px"
-            android:layout_marginTop="5px"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text="合计："
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />
@@ -377,7 +377,7 @@
                 android:id="@+id/total_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15px"
+                android:layout_marginLeft="15dp"
                 android:text=""
                 android:textColor="@color/colorBlueBackground"
                 android:textSize="@dimen/content_text_size" />

@@ -76,7 +76,7 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
     }
     @Override
     public void onItemFootClick(int pos) {
-        dialog =  JoinGroupDialog.getIntance(this);
+        dialog =  new JoinGroupDialog(this);
         dialog.setTitle("只有一次选择小组的机会,\n确定加入小组" + adapter.getData(pos).getTeam_name() + "吗?");
         dialog.setOnButtonClickListener(this,pos);
         dialog.show();
@@ -84,8 +84,8 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
 
     @Override
     public void onOkClick(int pos) {
+        Toast.makeText(this, "点击事件添加", Toast.LENGTH_SHORT).show();
         GroupAddOneManager.getSingleton(this).addGroupOne(this, adapter.getItemId(pos));
-
     }
 
     @Override
@@ -96,7 +96,6 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
     public void onSuccess(String message) {
         AddTasktManager.getSingleton(this).getTaskData(this,taskId);
     }
-
 
     @Override
     public void goAddGroup(List<GroupsListBean> datas) {
@@ -112,7 +111,6 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
         startActivity(TaskDetailActivity.class,bundle);
         finish();
     }
-
 
     @Override
     public void onFailure(String message) {

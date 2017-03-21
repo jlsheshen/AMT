@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.GroupsAdapter;
 import com.edu.accountingteachingmaterial.adapter.RvMultiTypeAdapter;
@@ -153,6 +154,8 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
             fileListBean.setFoot(true);
             data.getFilelist().add(fileListBean);
         }
+        String s = JSONObject.toJSONString(data.getFilelist());
+        Log.d("TaskDetailActivity", "-------------" +s);
         accessotyAdapter.setDatas(data.getFilelist());
 
         return accessorys;
@@ -192,7 +195,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     }
 
     @Override
-    public void addAccessoryListener() {
+    public void addAccessoryListener( ) {
 
         pictureDialog = new SelectPictureDialog(this);
         pictureDialog.setOnButtonClickListener(this);
@@ -256,7 +259,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     }
     @Override
     public void onBackPressed() {
-        dialog =  JoinGroupDialog.getIntance(this);
+        dialog =  new JoinGroupDialog(this);
         dialog.setTitle("确定放弃修改并返回吗?");
         dialog.setOnButtonClickListener(new JoinGroupDialog.OnButtonClickListener() {
             @Override
@@ -290,7 +293,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
                 UploadTaskTxetManager.getSingleton(this).submitTaskText(this,data.getTeam_id(),taskId,string);
                 break;
             case R.id.aty_title_back_iv:
-                dialog =  JoinGroupDialog.getIntance(this);
+                dialog =  new JoinGroupDialog(this);
                 dialog.setTitle("确定放弃修改并返回吗?");
                 dialog.setOnButtonClickListener(new JoinGroupDialog.OnButtonClickListener() {
                     @Override

@@ -9,7 +9,7 @@
     <com.edu.accountingteachingmaterial.view.RefreshExListView
         android:id="@+id/exercise_exlv"
         style="@style/ExpandableLvStyle"
-        android:layout_marginTop="-1px"
+        android:layout_marginTop="-1dp"
         />
 
 

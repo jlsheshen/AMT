@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="65px"
+        android:layout_height="65dp"
         android:padding="3dp">
 
         <TextView
@@ -17,7 +17,7 @@
             android:textStyle="bold"
             android:textColor="@color/colorBlueBackground"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="20px"
+            android:layout_marginLeft="20dp"
             />
 
         <TextView
@@ -29,12 +29,12 @@
             android:textColor="@color/colorBlueBackground"
             android:textSize="@dimen/content_text_size"
             android:layout_centerVertical="true"
-            android:layout_marginRight="20px"
+            android:layout_marginRight="20dp"
             android:visibility="visible"
             />
         <View
-            android:layout_marginRight="20px"
-            android:layout_marginLeft="20px"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:layout_alignParentBottom="true"
             style="@style/HorizontalLine"/>
     </RelativeLayout>
@@ -56,8 +56,8 @@
 
         <ImageView
             android:id="@+id/my_background_iv"
-            android:layout_width="320px"
-            android:layout_height="320px"
+            android:layout_width="320dp"
+            android:layout_height="320dp"
             android:layout_centerInParent="true"
             android:scaleType="fitCenter"
             android:src="@mipmap/my_bacground" />
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/my_background_iv"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="25px"
+            android:layout_marginTop="25dp"
             android:text="我的人生没有错题"
             android:textColor="@color/colorBlueBackground"
             android:textSize="@dimen/item_title_text_size" />

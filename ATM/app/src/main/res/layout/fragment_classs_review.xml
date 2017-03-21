@@ -5,27 +5,27 @@
     style="@style/FragmentPadding"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="100px"
+    android:layout_marginLeft="100dp"
     tools:ignore="ResAuto">
 
     <LinearLayout
         android:id="@+id/ly_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20px"
+        android:layout_marginTop="20dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
+            android:layout_marginLeft="10dp"
             android:src="@mipmap/img_star" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5px"
+            android:layout_marginLeft="5dp"
             android:text="设置测验难度"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
@@ -34,11 +34,11 @@
             android:id="@+id/cb_easy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
+            android:layout_marginLeft="20dp"
             android:button="@null"
             android:checked="true"
             android:drawableLeft="@drawable/bg_selector_checkbox"
-            android:drawablePadding="10px"
+            android:drawablePadding="10dp"
             android:text="容易"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
@@ -47,11 +47,11 @@
             android:id="@+id/cb_normal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
+            android:layout_marginLeft="20dp"
             android:button="@null"
             android:checked="true"
             android:drawableLeft="@drawable/bg_selector_checkbox"
-            android:drawablePadding="10px"
+            android:drawablePadding="10dp"
             android:text="普通"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
@@ -60,11 +60,11 @@
             android:id="@+id/cb_hard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20px"
+            android:layout_marginLeft="20dp"
             android:button="@null"
             android:checked="true"
             android:drawableLeft="@drawable/bg_selector_checkbox"
-            android:drawablePadding="10px"
+            android:drawablePadding="10dp"
             android:text="困难"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
@@ -73,24 +73,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250px"
+        android:layout_height="250dp"
         android:layout_above="@id/btn_start"
         android:layout_below="@id/ly_top"
-        android:layout_marginBottom="20px"
-        android:layout_marginTop="20px"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10px"
-            android:layout_marginTop="10px"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:src="@mipmap/img_star" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5px"
+            android:layout_marginLeft="5dp"
             android:text="设置测验题型"
             android:textColor="@color/colorWhite"
             android:textSize="24sp" />
@@ -100,23 +100,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="50px"
-            android:layout_marginLeft="-45px"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="-45dp"
             android:src="@mipmap/img_xxb" />
 
         <LinearLayout
             android:id="@+id/ly_first"
-            android:layout_width="300px"
-            android:layout_height="250px"
-            android:layout_marginLeft="-25px"
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="-25dp"
             android:background="@drawable/shape_chapter_list"
             android:orientation="vertical" />
 
         <LinearLayout
             android:id="@+id/ly_second"
-            android:layout_width="300px"
-            android:layout_height="250px"
-            android:layout_marginLeft="40px"
+            android:layout_width="300dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="40dp"
             android:background="@drawable/shape_chapter_list"
             android:orientation="vertical" />
     </LinearLayout>
@@ -127,6 +127,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40px"
+        android:layout_marginBottom="40dp"
         android:background="@drawable/bg_selector_ct" />
 </RelativeLayout>

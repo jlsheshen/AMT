@@ -51,6 +51,7 @@ public class RvAddGroupAdapter extends RecyclerView.Adapter<RvAddGroupAdapter.Gr
         if (data.isFootView() == true){
             holder.headIv.setImageResource(R.mipmap.add_one);
             holder.headIv.setOnClickListener(this);
+            holder.nameTv.setVisibility(View.GONE);
         }else {
             ImageLoader.getInstance().displayImage(data.getPicture(), holder.headIv, EduImageLoader.getInstance().getDefaultBuilder().build()) ;
             holder.nameTv.setText(data.getName());

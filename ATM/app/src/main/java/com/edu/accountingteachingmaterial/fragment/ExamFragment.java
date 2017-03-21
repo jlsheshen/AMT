@@ -99,9 +99,9 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
         listView.setAdapter(examAdapter);
         listView.setOnListMoveListener(this);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
+
                                                 int pos = 0;
                                                 if (i > 1) {
                                                     pos = i - 1;
@@ -116,7 +116,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                     OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(pos).getExam_id(), datas.get(pos).getExam_id());
 
                                                 } else {
-
+                                                    
                                                     Bundle b = new Bundle();
                                                     b.putInt("examId", datas.get(pos).getExam_id());
                                                     startActivity(UnitTestActivity.class, b);
@@ -204,7 +204,6 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
         Log.d("ClassExerciseFragment", "走过了EventBus");
-
         if (datas != null) {
             datas.get(item).setState(state);
 //            if (state != ClassContstant.EXAM_NOT) {

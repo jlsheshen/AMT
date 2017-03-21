@@ -17,18 +17,18 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/dialog_detele_bg_iv"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="110px"
+            android:layout_marginBottom="110dp"
             style="@style/item_title_blue_text"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/btn_ok"
-            android:layout_width="150px"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/dialog_detele_bg_iv"
             android:layout_alignParentLeft="true"
-            android:layout_marginBottom="25px"
-            android:layout_marginLeft="30px"
+            android:layout_marginBottom="25dp"
+            android:layout_marginLeft="30dp"
             android:src="@drawable/selector_sure" />
         <ImageView
             android:id="@+id/btn_cancel"
@@ -36,8 +36,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/dialog_detele_bg_iv"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="30px"
-            android:layout_marginBottom="25px"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="25dp"
             android:src="@drawable/selector_cancel" />
 
 
