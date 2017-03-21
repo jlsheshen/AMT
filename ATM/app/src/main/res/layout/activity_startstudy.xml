@@ -22,7 +22,7 @@
         android:text="欢迎登录会计基础"
         android:textColor="@color/white"
         android:textSize="@dimen/title_text_size"
-        android:layout_marginTop="50px"
+        android:layout_marginTop="50dp"
         />
 
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/startstudy_title_tv"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10px"
+        android:layout_marginTop="10dp"
         android:src="@mipmap/login_look_bg" />
 
     <TextView
@@ -41,38 +41,38 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/startstudy_bg_iv"
         android:layout_alignRight="@id/startstudy_bg_iv"
-        android:layout_marginBottom="10px"
-        android:layout_marginRight="35px"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="35dp"
         android:text="服务器IP设置"
         android:textColor="@color/colorBlueBackground"
         android:textSize="16sp" />
     <EditText
         android:id="@+id/startstudy_pw_et"
-        android:layout_width="290px"
-        android:layout_height="50px"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
         android:layout_above="@id/startstudy_setting_ip_iv"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10px"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/selector_login_pw"
         android:textSize="@dimen/item_text_size"
         android:textColor="@color/colorTextBlack"
         android:gravity="center"
         android:inputType="textPassword"
-        android:paddingTop="5px"
+        android:paddingTop="5dp"
         />
 
     <EditText
         android:id="@+id/startstudy_num_et"
-        android:layout_width="290px"
-        android:layout_height="50px"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
         android:layout_above="@id/startstudy_pw_et"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="25px"
+        android:layout_marginBottom="25dp"
         android:background="@drawable/selector_login_num"
         android:textSize="@dimen/item_text_size"
         android:textColor="@color/colorTextBlack"
         android:inputType="number"
-        android:paddingTop="5px"
+        android:paddingTop="5dp"
         android:gravity="center"
         />
 
@@ -82,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/startstudy_bg_iv"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35px"
+        android:layout_marginTop="35dp"
         android:src="@drawable/selector_startstudy"
         />
 

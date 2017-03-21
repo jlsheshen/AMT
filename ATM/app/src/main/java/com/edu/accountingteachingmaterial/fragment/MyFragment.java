@@ -1,5 +1,7 @@
 package com.edu.accountingteachingmaterial.fragment;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
@@ -16,6 +18,12 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     RadioButton errorButton, downloadButton;
     MyErrorsFragment errorView, downloadView;
 
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     protected int initLayout() {
@@ -85,8 +93,8 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void replaceFragment(Fragment fragment) {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.my_view, fragment);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.my_layout_view, fragment);
         // Commit the transaction
         transaction.commit();
         errorView.setData();

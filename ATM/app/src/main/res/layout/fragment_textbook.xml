@@ -8,14 +8,13 @@
 
     <RelativeLayout
         android:id="@+id/main_aty_title_layout"
-        style="@style/TitleBarStyle"
-        android:orientation="horizontal">
+        style="@style/TitleBarStyle">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/class_name"
+            android:text="教材"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />

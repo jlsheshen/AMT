@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +28,11 @@ import java.util.List;
  * Created by Administrator on 2017/2/28.
  */
 
-public class AddGroupActivity extends BaseActivity implements AdapterView.OnItemClickListener, GroupAddOneManager.AddGroupOneListener,  AddTasktManager.AddTaskListener, AddGroupAdapter.ItemFootViewClickListener, JoinGroupDialog.OnButtonClickListener {
+public class AddGroupActivity extends BaseActivity implements AdapterView.OnItemClickListener, GroupAddOneManager.AddGroupOneListener,  AddTasktManager.AddTaskListener, AddGroupAdapter.ItemFootViewClickListener, JoinGroupDialog.OnButtonClickListener, View.OnClickListener {
     private ListView listView;
     private AddGroupAdapter adapter;
     private TextView titleTv;
+    ImageView backBtn;
     Bitmap bitmap = null;
     Drawable drawable = null;
     Html.ImageGetter imageGetter;
@@ -47,6 +49,7 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
     public void initView(Bundle savedInstanceState) {
         listView = bindView(R.id.addgroup_lv);
         titleTv = bindView(R.id.addgroup_tv);
+        backBtn = bindView(R.id.aty_title_back_iv);
     }
 
     @Override
@@ -62,6 +65,7 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
         listView.setOnItemClickListener(this);
         adapter.setDatas(datas);
         listView.setAdapter(adapter);
+        backBtn.setOnClickListener(this);
     }
 
     @Override
@@ -118,4 +122,13 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.aty_title_back_iv:
+                finish();
+                break;
+
+        }
+    }
 }

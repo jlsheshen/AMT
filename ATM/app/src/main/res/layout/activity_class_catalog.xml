@@ -8,7 +8,15 @@
     <RelativeLayout
         android:id="@+id/main_aty_title_layout"
         style="@style/TitleBarStyle"
-        android:orientation="horizontal">
+        >
+        <ImageView
+            android:id="@+id/class_aty_back_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_fanhui_n"
+            />
+
 
         <TextView
             android:layout_width="wrap_content"

@@ -41,6 +41,8 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
 
 
 /**
+ *
+ *
  * Created by Administrator on 2016/12/13.
  */
 
@@ -188,7 +190,10 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         }
                         @Override
                         public void onError(Throwable e) {
+                            Log.d(TAG, "----------e:" + e);
                             getBillListener.onGetBillFail();
+                            myDialog.dismiss();
+
 //                            EventBus.getDefault().post("0");
                         }
                     });

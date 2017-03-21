@@ -53,7 +53,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
         allCheckTv = bindView(R.id.blow_bar_allchecked_tv);
         allCheckTv.setOnClickListener(this);
         layout = bindView(R.id.bolw_bar);
-        noErrorsLayout = bindView(R.id.my_view);
+        noErrorsLayout = bindView(R.id.my_error_view);
 
     }
 

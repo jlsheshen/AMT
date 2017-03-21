@@ -6,27 +6,29 @@
     style="@style/FragmentPadding"
     android:layout_marginLeft="100dp"
     >
-    <LinearLayout style="@style/TitleBarStyle">
+    <RelativeLayout style="@style/TitleBarStyle">
 
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="评测"
+            android:textStyle="bold"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size" />
         <CheckBox
             android:id="@+id/exam_chose_cb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
             android:checked="false"
             android:button="@null"
             android:background="@drawable/selector_exam_model"
             />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View style="@style/HorizontalLine"></View>
 

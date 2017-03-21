@@ -122,32 +122,12 @@
     <!--android:layout_marginLeft="25dp"-->
     <!--android:layout_marginRight="25dp" />-->
 
-    <RelativeLayout
-        android:id="@+id/my_view"
+    <FrameLayout
+        android:id="@+id/my_layout_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!--<ImageView-->
-        <!--android:id="@+id/my_background_iv"-->
-        <!--android:layout_width="320dp"-->
-        <!--android:layout_height="320dp"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:scaleType="fitCenter"-->
-        <!--android:src="@mipmap/my_bacground" />-->
-
-        <!--<TextView-->
-        <!--android:id="@+id/my_noerror_tv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/my_background_iv"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginTop="25dp"-->
-        <!--android:text="我的人生没有错题"-->
-        <!--android:textColor="@color/colorBlueBackground"-->
-        <!--android:textSize="@dimen/item_title_text_size" />-->
-
-
-    </RelativeLayout>
+    </FrameLayout>
 
 
     <!--</LinearLayout>-->

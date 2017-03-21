@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.activity.SubjectLocalActivity;
 import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
@@ -117,7 +118,10 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
 
                                                 } else {
                                                     if (isExercise){
-                                                        
+                                                        Bundle b = new Bundle();
+                                                        b.putSerializable("ExamListData", datas.get(i));
+                                                        startActivity(SubjectLocalActivity.class, b);
+
                                                     }else {
                                                     Bundle b = new Bundle();
                                                     b.putInt("examId", datas.get(pos).getExam_id());

@@ -193,6 +193,7 @@ public class SubjectBillDataDao extends BaseDataDao {
 							pic += BASE_URL.getBaseImageUrl()  + pics[i];
 						}else {
 							pic +=SubjectConstant.SEPARATOR_ITEM +  BASE_URL.getBaseImageUrl()  + pics[i];
+							Log.d(TAG, " --------------------------" + pic);
 						}
 					}
 						values.put("PIC",pic);

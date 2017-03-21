@@ -57,6 +57,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     boolean ppwShowing = false;
     ImageView imgHistory,infoHead;
     TextView infoName,infoAuthor;
+    ImageView backBtn;
     //当前是否是教材入口
     private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
 
@@ -71,15 +72,16 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
         setInfoView();
-        if (isBook){
-            imgHistory.setVisibility(View.GONE);
-        }
+//        if (isBook){
+//            imgHistory.setVisibility(View.GONE);
+//        }
     }
 
     private void setInfoView() {
         infoHead = bindView(R.id.catalog_bg_iv);
         infoAuthor = bindView(R.id.catalog_author_tv);
         infoName = bindView(R.id.catalog_name_tv);
+        backBtn = bindView(R.id.aty_title_back_iv);
     }
 
     @Override
@@ -158,7 +160,9 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.main_study_history_iv:
                 showPpw();
-
+                break;
+            case R.id.aty_title_back_iv:
+                finish();
                 break;
         }
     }

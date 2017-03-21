@@ -234,6 +234,7 @@ public abstract class BaseDataDao {
 	public void closeDb(SQLiteDatabase db, Cursor curs) {
 		closeDb(db);
 		if (curs != null) {
+
 			curs.close();
 			curs = null;
 		}
