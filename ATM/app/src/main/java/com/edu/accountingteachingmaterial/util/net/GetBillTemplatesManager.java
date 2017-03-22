@@ -107,6 +107,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         String url = NetUrlContstant.getLocalTemplates();
         Log.d("GetBillTemplatesManager", url);
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(datas));
+
         sendRequest(entity, "耐心等待");
         Log.d("GetBillTemplatesManager", "uploadResult:" + JSON.toJSONString(datas));
     }
@@ -236,7 +237,14 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             contentValues.put(BACKGROUND, s);
             contentValues.put(FLAG, billTemplate.getFlag());
             contentValues.put(REMARK, billTemplate.getRemark());
-            updateTemplateInfo(contentValues, billTemplate);
+            int i = updateTemplateInfo(contentValues, billTemplate);
+            if (i !=0){
+                insertData(billTemplate);
+
+
+            }else {
+                updateData(billTemplate);
+            }
         }
         SubjectImageLoader.getInstance(mContext).preDownloadAllPic(urls);
 
@@ -249,31 +257,35 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
      * @param billTemplate
      */
 
-    public void updateTemplateInfo(ContentValues values, TemplateData billTemplate) {
+    public int updateTemplateInfo(ContentValues values, TemplateData billTemplate) {
+        int i = 0;
         Cursor curs = null;
         String sql = "SELECT * FROM " + TB_NAME + " WHERE ID = " + values.get(ID);
 
         try {
             DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
             mDb = helper.getWritableDatabase();
-            mDb.beginTransaction();
             curs = mDb.rawQuery(sql, null);
 
             if (curs != null) {
                 if (curs.getCount() == 0) {
-                    mDb.insert("TB_BILL_TEMPLATE", null, values);
-                    insertData(billTemplate);
+
+                    i = (int) mDb.insert(TB_NAME, null, values);
+
                 } else {
-                    mDb.update("TB_BILL_TEMPLATE", values, ID + " =?", new String[]{String.valueOf(values.get(ID))});
+                    mDb.update(TB_NAME, values, ID + " =?", new String[]{String.valueOf(values.get(ID))});
+                    i=0;
                     curs.moveToLast();
-                    updateData(billTemplate);
                 }
             }
+
         } finally {
+
             if (mDb != null) {
                 mDb.close();
             }
         }
+        return i;
     }
 
     /**

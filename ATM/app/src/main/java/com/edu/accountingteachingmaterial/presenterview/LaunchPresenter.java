@@ -72,6 +72,6 @@ public class LaunchPresenter extends BasePresenter<LaunchView> {
 
 
     public void destroy() {
-        LoginNetMananger.getSingleton(context).cancelRequest();
+//        LoginNetMananger.getSingleton(context).cancelRequest();
     }
 }

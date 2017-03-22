@@ -154,6 +154,8 @@ public abstract class BaseDataDao {
 		try {
 			Log.d(TAG, TABLE_NAME + "-insertData");
 			DBHelper helper = new DBHelper(mContext, dbName, null);
+			Log.d(TAG, "values.getAsInteger(ID):" + values.getAsInteger(ID));
+
 			mDb = helper.getWritableDatabase();
 			mDb.insert(TABLE_NAME, null, values);
 
