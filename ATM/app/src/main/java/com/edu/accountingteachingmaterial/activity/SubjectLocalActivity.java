@@ -17,11 +17,14 @@ import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
-import com.edu.accountingteachingmaterial.view.dialog.ExitDialog;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.net.UploadOnlineResultsManager;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
+import com.edu.accountingteachingmaterial.view.dialog.ExitDialog;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectType;
@@ -57,7 +60,7 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
     int dataId;
 
     private int mCurrentIndex;
-
+    int examId;
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 印章，闪电符按钮
@@ -105,8 +108,11 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
         Bundle bundle = getIntent().getExtras();
-        examListData = (ExamListData) bundle.get("ExamListData");
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, examListData.getId());
+          examId = bundle.getInt("examId");
+
+//        examListData = (ExamListData) bundle.get("ExamListData");
+
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,examId);
         if (datas == null || datas.size() == 0) {
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.ID, examListData.getId());
@@ -162,13 +168,20 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
                 break;
 
             case R.id.btnDone:
+//                float score = mSubjectAdapter.submit();
+
+//                ToastUtil.showToast(this, "score:" + score);
                 float score = mSubjectAdapter.submit();
+                UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
+                UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+                int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
+                int cost = 0;
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-                ExamListDao.getInstance(this).updateData("" + examListData.getId(), contentValues);
+                ExamOnLineListDao.getInstance(this).updateData("" + examId, contentValues);
+
                 EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
-                ToastUtil.showToast(this, "score:" + score);
-                finish();
+                UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, cost);
                 break;
 
             case R.id.btnCard:
@@ -292,6 +305,8 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
     public void onSuccess() {
 
         EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+        finish();
+
 
     }
 

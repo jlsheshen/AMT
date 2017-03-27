@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.activity.SubjectDetailsLocalActivity;
 import com.edu.accountingteachingmaterial.activity.SubjectLocalActivity;
 import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
@@ -21,13 +22,12 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.entity.OnLineExamData;
 import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
-import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
-import com.edu.accountingteachingmaterial.util.net.OnLineExamDownloadManager;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.util.net.ExamLocalListManager;
+import com.edu.accountingteachingmaterial.util.net.ExamOnlineListManager;
+import com.edu.accountingteachingmaterial.util.net.OnLineExamDownloadManager;
 import com.edu.accountingteachingmaterial.view.RefreshListView;
 import com.edu.library.util.ToastUtil;
-import com.lucher.net.req.RequestMethod;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -39,12 +39,13 @@ import java.util.List;
 /**
  * 试卷页面
  */
-public class ExamFragment extends BaseFragment implements RefreshListView.OnListMoveListener, CompoundButton.OnCheckedChangeListener {
+public class ExamFragment extends BaseFragment implements RefreshListView.OnListMoveListener, CompoundButton.OnCheckedChangeListener, ExamOnlineListManager.ExamOnlineListener, ExamLocalListManager.ExamLocalListener {
 
     RefreshListView listView;
     List<OnLineExamListData> datas;
     ExamAdapter examAdapter;
     int item;
+    List<OnLineExamListData> showDatas;
     OnLineExamData onLineExamData;
     private CheckBox examOrExercise;//
     private boolean isExercise;//当前状态,当为练习时值为ture
@@ -102,103 +103,53 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                             @Override
                                             public void onItemClick(AdapterView<?> adapterView, final View view, final int i, long l) {
-
                                                 int pos = 0;
                                                 if (i > 1) {
                                                     pos = i - 1;
                                                 }
+                                                Log.d("ExamFragment", "setOnItemClickListener" + JSONObject.toJSON(examAdapter.getItem(pos)));
+
                                                 item = pos;
-                                                if (datas.get(pos).getState() == ClassContstant.EXAM_DOWNLOADING) {
+                                                if (showDatas.get(pos).getState() == ClassContstant.EXAM_DOWNLOADING) {
                                                     return;
-                                                } else if (datas.get(pos).getState() == ClassContstant.EXAM_NOT) {
-                                                    final ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
+                                                } else if (showDatas.get(pos).getState() == ClassContstant.EXAM_NOT) {
+                                                    ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
                                                     imageView.setVisibility(View.GONE);
                                                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
-                                                    OnLineExamDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(pos).getExam_id(), datas.get(pos).getExam_id());
+                                                    OnLineExamDownloadManager.newInstance(context).getSubjects(showDatas.get(pos).getExam_id());
 
                                                 } else {
-                                                    if (isExercise){
-                                                        Bundle b = new Bundle();
-                                                        b.putSerializable("ExamListData", datas.get(i));
-                                                        startActivity(SubjectLocalActivity.class, b);
+                                                    if (isExercise) {
+                                                        if (showDatas.get(pos).getState() != ClassContstant.EXAM_UNDONE) {
+                                                            Bundle b = new Bundle();
+                                                            b.putInt(ClassContstant.SUBJECT_DETAIL_ID, showDatas.get(pos).getExam_id());
+                                                            b.putBoolean("isExam", true);
+//                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
+                                                            startActivity(SubjectDetailsLocalActivity.class, b);
+                                                        } else {
+                                                            Bundle b = new Bundle();
+                                                            b.putInt("examId", showDatas.get(pos).getExam_id());
 
-                                                    }else {
-                                                    Bundle b = new Bundle();
-                                                    b.putInt("examId", datas.get(pos).getExam_id());
-                                                    startActivity(UnitTestActivity.class, b);}
+//                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
+                                                            startActivity(SubjectLocalActivity.class, b);
+                                                        }
+                                                    } else {
+                                                        Bundle b = new Bundle();
+                                                        b.putInt("examId", showDatas.get(pos).getExam_id());
+                                                        startActivity(UnitTestActivity.class, b);
+                                                    }
                                                 }
                                             }
                                         }
+
         );
 
     }
 
     private void uploadExamList() {
-        Log.d("ClassExerciseFragment", NetUrlContstant.getExamInfoUrlList() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID));
+        ExamOnlineListManager.getSingleton(context).getOnlineDatas(this);
+        Log.d("ClassExerciseFragment", NetUrlContstant.getExamOnlineUrlList() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID));
 
-        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getExamInfoUrlList() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID));
-        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        sendJsonNetReqManager.sendRequest(entity);
-        sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
-            @Override
-            public void onSuccess(JSONObject jsonObject) {
-                if (jsonObject.getString("success").equals("true")) {
-                    onLineExamData = JSONObject.parseObject(jsonObject.getString("message"), OnLineExamData.class);
-                    datas = onLineExamData.getList();
-                    List<OnLineExamListData> showDatas = new ArrayList<OnLineExamListData>();
-                    ToastUtil.showToast(context, "" + onLineExamData.getList().get(0).getExam_name());
-                    Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
-
-                    for (OnLineExamListData data : datas) {
-                        OnLineExamListData data1 = (OnLineExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getExam_id());
-                        int state = ExamOnLineListDao.getInstance(context).getState(data.getExam_id());
-                        if (data1 == null) {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put(ExamOnLineListDao.ID, data.getExam_id());
-                            contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_NOT);
-                            contentValues.put(ExamOnLineListDao.TYPE, data.getExam_type());
-                            contentValues.put(ExamOnLineListDao.USER_ID, data.getU_id());
-                            ExamOnLineListDao.getInstance(context).insertData(contentValues);
-                            data.setState(ClassContstant.EXAM_NOT);
-                        } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 0 && data.getIs_send() == 1) {//判断试卷是否已批阅
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
-                            ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
-                            data.setState(ClassContstant.EXAM_READ);
-                        } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 1) {//判断试卷是否已批阅
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
-                            ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
-                            data.setState(ClassContstant.EXAM_READ);
-                        } else {
-                            ContentValues contentValues = new ContentValues();
-                            contentValues.put(ExamOnLineListDao.STATE, data1.getState());
-                            ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
-                            data.setState(data1.getState());
-                        }
-                        if (isExercise) {
-                            if (data.getExam_type() != 3) {
-                                showDatas.add(data);
-                            }
-                        } else {
-                            if (data.getExam_type() == 3) {
-                                showDatas.add(data);
-                            }
-                        }
-                    }
-//                    examAdapter.setDatas(datas);
-                    examAdapter.setDatas(showDatas);
-                    examAdapter.setExercise(isExercise);
-
-                }
-            }
-
-            @Override
-            public void onFailure(String errorInfo) {
-
-                ToastUtil.showToast(context, errorInfo);
-            }
-        });
     }
 
     /**
@@ -210,12 +161,17 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
         Log.d("ClassExerciseFragment", "走过了EventBus");
-        if (datas != null) {
-            datas.get(item).setState(state);
+        if (showDatas != null && datas != null) {
+            for (OnLineExamListData data : datas) {
+                if (data.getExam_id() == showDatas.get(item).getExam_id()) {
+                    data.setState(state);
+                }
+            }
 //            if (state != ClassContstant.EXAM_NOT) {
 //                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
 //            }
-            examAdapter.setDatas(datas);
+            refreshAdapter();
+//            examAdapter.setDatas(datas);
 
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
@@ -267,8 +223,19 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         isExercise = isChecked;
-        List<OnLineExamListData> showDatas = new ArrayList<OnLineExamListData>();
-        //刷新adapter
+        refreshAdapter();
+        examAdapter.setExercise(isChecked);
+
+    }
+
+    /**
+     * 刷新列表
+     */
+    void refreshAdapter() {
+        showDatas = new ArrayList<OnLineExamListData>();
+        if (datas == null || datas.size() < 1) {
+            return;
+        }
         for (OnLineExamListData data : datas) {
             if (isExercise) {
                 if (data.getExam_type() != 3) {
@@ -281,7 +248,76 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
             }
         }
         examAdapter.setDatas(showDatas);
-        examAdapter.setExercise(isChecked);
+        examAdapter.setExercise(isExercise);
 
+    }
+
+    @Override
+    public void onOnlineSuccess(OnLineExamData onLineExamData) {
+        this.onLineExamData = onLineExamData;
+        ExamLocalListManager.getSingleton(context).getLoaclDatas(this);
+        datas = onLineExamData.getList();
+
+    }
+
+    @Override
+    public void onLocalSuccess(OnLineExamData localData) {
+        onLineExamData.getList().addAll(localData.getList());
+        List<OnLineExamListData> showDatas = new ArrayList<OnLineExamListData>();
+        ToastUtil.showToast(context, "" + onLineExamData.getList().get(0).getExam_name());
+        Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
+
+        for (OnLineExamListData data : datas) {
+            OnLineExamListData data1 = (OnLineExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getExam_id());
+            int state = ExamOnLineListDao.getInstance(context).getState(data.getExam_id());
+            if (data1 == null) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(ExamOnLineListDao.ID, data.getExam_id());
+                contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_NOT);
+                contentValues.put(ExamOnLineListDao.TYPE, data.getExam_type());
+                contentValues.put(ExamOnLineListDao.USER_ID, data.getU_id());
+                ExamOnLineListDao.getInstance(context).insertData(contentValues);
+                data.setState(ClassContstant.EXAM_NOT);
+            } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 0 && data.getIs_send() == 1) {//判断试卷是否已批阅
+                if (data.getExam_type() == 3) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
+                    ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
+                    data.setState(ClassContstant.EXAM_READ);
+                }
+            } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 1) {//判断试卷是否已批阅
+                if (data.getExam_type() == 3) {
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
+                    ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
+                    data.setState(ClassContstant.EXAM_READ);
+                }
+            } else {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(ExamOnLineListDao.STATE, data1.getState());
+                ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
+                data.setState(data1.getState());
+            }
+//            if (isExercise) {
+//                if (data.getExam_type() != 3) {
+//                    showDatas.add(data);
+//                }
+//            } else {
+//                if (data.getExam_type() == 3) {
+//                    showDatas.add(data);
+//                }
+//            }
+            Log.d("ExamFragment", "JSONObject.toJSON(datas):" + JSONObject.toJSON(data));
+
+        }
+//                    examAdapter.setDatas(datas);
+        refreshAdapter();
+//        examAdapter.setDatas(showDatas);
+
+    }
+
+    @Override
+    public void onFailure(String message) {
+        Log.d("ExamFragment", message);
     }
 }

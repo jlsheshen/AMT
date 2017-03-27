@@ -19,6 +19,7 @@
 
 
         <TextView
+            android:id="@+id/aty_title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -44,8 +45,8 @@
         />
 
     <RelativeLayout
-        android:id="@+id/catalog_sizebar"
-        android:layout_width="270dp"
+        android:id="@+id/catalog_textbook_sizebar"
+        android:layout_width="350dp"
         android:layout_height="match_parent"
         android:layout_below="@id/main_aty_title_layout"
         android:padding="5dp">
@@ -55,7 +56,7 @@
             android:layout_alignParentRight="true"
             />
         <ImageView
-            android:id="@+id/catalog_bg_iv"
+            android:id="@+id/catalog_textbook_bg_iv"
             android:layout_toLeftOf="@id/line"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
@@ -63,26 +64,32 @@
             android:scaleType="fitCenter"
             />
         <TextView
-            android:id="@+id/catalog_name_tv"
-            android:layout_below="@id/catalog_bg_iv"
+            android:id="@+id/catalog_textbook_name_tv"
+            android:layout_below="@id/catalog_textbook_bg_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/item_title_white_text"
             />
         <TextView
-            android:id="@+id/catalog_author_tv"
-            android:layout_below="@id/catalog_name_tv"
+            android:id="@+id/catalog_textbook_author_tv"
+            android:layout_below="@id/catalog_textbook_name_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/item_white_text"
             />
-
+        <TextView
+            android:id="@+id/catalog_textbook_content_tv"
+            android:layout_below="@id/catalog_textbook_author_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/content_white_text"
+            />
     </RelativeLayout>
 
     <ExpandableListView
         android:id="@+id/class_classchapter_exlv"
         android:layout_below="@id/aty_horizontal_line"
-        android:layout_toRightOf="@id/catalog_sizebar"
+        android:layout_toRightOf="@id/catalog_textbook_sizebar"
         style="@style/ExpandableLvStyle">
 
     </ExpandableListView>

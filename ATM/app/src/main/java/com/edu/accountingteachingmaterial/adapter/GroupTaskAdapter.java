@@ -66,7 +66,7 @@ public class GroupTaskAdapter extends BaseAdapter {
         }
         GroupTaskListBean.ListBean data = datas.get(position);
         viewHolder.authorTv.setText(data.getName());
-        viewHolder.groupTv.setText(data.getStudent_attend() + "/" + data.getGroup_sum() + "组");
+//        viewHolder.groupTv.setText(data.getStudent_attend() + "/" + data.getGroup_sum() + "组");
         viewHolder.timeTv.setText(data.getCreate_date());
         viewHolder.titleTv.setText(data.getTask_name());
         switch (data.getTask_status()) {
@@ -75,14 +75,12 @@ public class GroupTaskAdapter extends BaseAdapter {
                 viewHolder.imageView.setImageResource(R.mipmap.task_head_runing);
                 break;
             case ClassContstant.STATE_FINSH:
-                viewHolder.stateIv.setImageResource(R.mipmap.task_tast_after);
-                viewHolder.imageView.setImageResource(R.mipmap.task_head_after);
-
-                break;
-            case ClassContstant.STATE_AFTER:
                 viewHolder.stateIv.setImageResource(R.mipmap.task_tast_finsh);
                 viewHolder.imageView.setImageResource(R.mipmap.task_head_finsh);
-
+                break;
+            case ClassContstant.STATE_AFTER:
+                viewHolder.stateIv.setImageResource(R.mipmap.task_tast_after);
+                viewHolder.imageView.setImageResource(R.mipmap.task_head_after);
                 break;
 
         }

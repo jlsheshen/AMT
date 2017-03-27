@@ -11,6 +11,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -55,8 +56,9 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     PopupWindow popupWindow;
     ListView ppwList;
     boolean ppwShowing = false;
-    ImageView imgHistory,infoHead;
-    TextView infoName,infoAuthor;
+    ImageView imgHistory, infoTextbookHead,infoClassHead;//历史按钮,教材封面
+    TextView infoTextbookName, infoTextbookAuthor,infotextbookContext,infoClassName, infoClassAuthor,infoClassContext,titleTv;//教材名称,作者,内容//
+    RelativeLayout bookRl,classRl;
     ImageView backBtn;
     //当前是否是教材入口
     private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
@@ -72,16 +74,30 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
         setInfoView();
+//        typeShow();
 //        if (isBook){
 //            imgHistory.setVisibility(View.GONE);
 //        }
     }
 
+    private void typeShow() {
+        if (isBook){
+            titleTv.setText("教材");
+        }
+        else {
+            titleTv.setText("课堂");
+        }
+
+    }
+
     private void setInfoView() {
-        infoHead = bindView(R.id.catalog_bg_iv);
-        infoAuthor = bindView(R.id.catalog_author_tv);
-        infoName = bindView(R.id.catalog_name_tv);
-        backBtn = bindView(R.id.aty_title_back_iv);
+        infoTextbookHead = bindView(R.id.catalog_textbook_bg_iv);
+        infoTextbookAuthor = bindView(R.id.catalog_textbook_author_tv);
+        infoTextbookName = bindView(R.id.catalog_textbook_name_tv);
+        infotextbookContext = bindView(R.id.catalog_textbook_content_tv);
+        backBtn = bindView(R.id.class_aty_back_iv);
+        titleTv = bindView(R.id.aty_title_tv);
+        backBtn.setOnClickListener(this);
     }
 
     @Override
@@ -161,7 +177,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
             case R.id.main_study_history_iv:
                 showPpw();
                 break;
-            case R.id.aty_title_back_iv:
+            case R.id.class_aty_back_iv:
                 finish();
                 break;
         }
@@ -287,9 +303,13 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onSuccess(ClassInfoBean data) {
-        ImageLoader.getInstance().displayImage(BASE_URL.getBaseImageUrl() + data.getPicture() , infoHead, EduImageLoader.getInstance().getDefaultBuilder().build());
-        infoAuthor.setText(data.getSchool());
-        infoName.setText(data.getTitle());
+        ImageLoader.getInstance().displayImage(BASE_URL.getBaseImageUrl() + data.getPicture() , infoTextbookHead, EduImageLoader.getInstance().getDefaultBuilder().build());
+        infoTextbookAuthor.setText(data.getSchool());
+        infoTextbookName.setText(data.getTitle());
+        titleTv.setText(data.getTitle());
+        infotextbookContext.setText(data.getSummary());
+
+
     }
 
     @Override

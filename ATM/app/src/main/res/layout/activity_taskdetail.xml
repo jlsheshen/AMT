@@ -45,7 +45,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:padding="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -59,26 +59,19 @@
                 android:text="任务内容"
                 android:drawableLeft="@mipmap/icon_taskcontent_n"
                 />
-            <WebView
-                android:id="@+id/task_content_wv"
+
+            <TextView
+                android:id="@+id/task_content_tv"
+                style="@style/item_title_black_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                ></WebView>
-
-
-            <!--<TextView-->
-                <!--android:id="@+id/task_content_tv"-->
-                <!--style="@style/item_title_black_text"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="这就是内容"-->
-                <!--/>-->
-            <!--<GridView-->
-                <!--android:id="@+id/task_content_gv"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:numColumns="6"-->
-                <!--&gt;</GridView>-->
+                />
+            <GridView
+                android:id="@+id/task_content_gv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="5"
+                ></GridView>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +96,8 @@
             <EditText
                 android:id="@+id/task_groupanswer_et"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
                 android:background="@drawable/shape_ip_et"
                 android:gravity="top"
           />

@@ -5,55 +5,56 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.bean.EmphasisBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.entity.OnLineExamData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.lucher.net.req.RequestMethod;
 
 import org.apache.http.Header;
 
-import java.util.List;
-
 /**
+ * 评测在线测试列表
  * Created by Administrator on 2017/3/3.
  */
 
-public class EmphasisManager extends BaseNetManager {
-    private static EmphasisManager mSingleton;
-    public EmphasisListener emphasisListener;
+public class ExamOnlineListManager extends BaseNetManager {
+    private static ExamOnlineListManager mSingleton;
+    public ExamOnlineListener examOnlineListener;
 
-    private EmphasisManager(Context context) {
+    private ExamOnlineListManager(Context context) {
         super(context);
     }
-
 
     /**
      * 单例模式获取实例
      * @param context
      * @return
      */
-    public static EmphasisManager getSingleton(Context context) {
+    public static ExamOnlineListManager getSingleton(Context context) {
         if (mSingleton == null) {
-            synchronized (EmphasisManager.class) {
+            synchronized (ExamOnlineListManager.class) {
                 if (mSingleton == null) {
-                    mSingleton = new EmphasisManager(context);
+                    mSingleton = new ExamOnlineListManager(context);
                 }
             }
         }
         return mSingleton;
     }
     /**
-     * 发送答案和密码
-     *
+     * 获取在线试题列表
      * @param
      */
-    public void getEmphasis(EmphasisListener emphasisListener, int chapterId) {
-        String url = NetUrlContstant.getClassicCaseUrl() + chapterId + "-" + 1;
+    public void getOnlineDatas(ExamOnlineListener examOnlineListener) {
+        String url =  NetUrlContstant.getExamOnlineUrlList() + PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
         NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
-        Log.d(TAG, "url");
+        Log.d("GroupTaskListManager", "url" + url);
         sendRequest(entity);
-        this.emphasisListener = emphasisListener;
+        this.examOnlineListener = examOnlineListener;
+
     }
+
+
     @Override
     public void onConnectionSuccess(JSONObject jsonObject, Header[] headers) {
 
@@ -61,28 +62,30 @@ public class EmphasisManager extends BaseNetManager {
         String message = jsonObject.getString("message");
         if (result) {
             if (message == null || message.length() == 0) {
-                Log.d(TAG, "有问题啊");
             }
-            List<EmphasisBean> datas =  JSON.parseArray(jsonObject.getString("message"), EmphasisBean.class);
+                OnLineExamData data = JSON.parseObject(message, OnLineExamData.class);
+                        examOnlineListener.onOnlineSuccess(data);
 
-            emphasisListener.onSuccess(datas.get(0).getContent());
+
         }else {
 
-            emphasisListener.onFailure("链接失败");
+            examOnlineListener.onFailure("数据为空");
         }
     }
 
     @Override
     public void onConnectionFailure(String s, Header[] headers) {
-        emphasisListener.onFailure(s);
+        examOnlineListener.onFailure(s);
+
     }
 
     @Override
     public void onConnectionError(String s) {
-        emphasisListener.onFailure(s);
+        examOnlineListener.onFailure(s);
+
     }
-    public interface EmphasisListener {
-        void onSuccess(String message);
+    public interface ExamOnlineListener {
+        void onOnlineSuccess(OnLineExamData onLineExamData);
         void onFailure(String message);
     }
 }

@@ -132,7 +132,6 @@ public class LoginNetMananger extends JsonNetReqManager implements GetBillTempla
     public interface loginListener{
         void onSuccess();
         void onFailure(String message);
-
     }
 
 }

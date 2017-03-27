@@ -9,6 +9,7 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
@@ -54,10 +55,10 @@ public class OnLineExamDownloadManager extends JsonNetReqManager {
 	/**
 	 * 下载题目数据
 	 *
-	 * @param url
 	 */
-	public void getSubjects(String url, int chatperId) {
-		this.chatperId = chatperId;
+	public void getSubjects(int chapterId) {
+		this.chatperId = chapterId;
+		String url = NetUrlContstant.getSubjectListUrl() + chapterId;
 		UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
 		sendRequest(entity);
 	}

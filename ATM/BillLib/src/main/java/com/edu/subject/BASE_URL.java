@@ -6,6 +6,7 @@ package com.edu.subject;
 
 public class BASE_URL {
     public static String BASE_URL = "http://192.168.1.143:8080";
+
     public static String TEMP_URL;
 
     public static String BASE_IMAGE_URL;

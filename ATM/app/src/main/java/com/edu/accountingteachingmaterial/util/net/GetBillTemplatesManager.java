@@ -41,8 +41,7 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
 
 
 /**
- *
- *
+ *模板下载管理类
  * Created by Administrator on 2016/12/13.
  */
 
@@ -155,6 +154,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         boolean result = json.getBoolean("result");
         final String message = json.getString("message");
         if (result) {
+
             myDialog = new ProgressDialog(mContext);
             myDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
             myDialog.setTitle("正在加载模板..");
@@ -181,6 +181,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         public void onNext(List<TemplateData> data) {
                             Log.d("GetBillTemplatesManager", "插入数据完成一点");
                             myDialog.dismiss();
+
                         }
                         @Override
                         public void onCompleted() {
@@ -202,6 +203,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         } else {
 
         }
+
     }
 
     @Override

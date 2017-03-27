@@ -11,6 +11,7 @@ import com.edu.accountingteachingmaterial.base.BaseMvpActivity;
 import com.edu.accountingteachingmaterial.presenterview.LaunchPresenter;
 import com.edu.accountingteachingmaterial.presenterview.LaunchView;
 import com.edu.library.util.DBCopyUtil;
+import com.edu.library.util.DoubleClickExitUtil;
 import com.edu.subject.util.SoundPoolUtil;
 import com.edu.testbill.Constant;
 
@@ -93,6 +94,10 @@ public class LaunchActivity extends BaseMvpActivity<LaunchView, LaunchPresenter>
     public void jumpLogin() {
         isSuccess = false;
 
+    }
+    @Override
+    public void onBackPressed() {
+        DoubleClickExitUtil.doubleClickExit(this);
     }
 
     @Override

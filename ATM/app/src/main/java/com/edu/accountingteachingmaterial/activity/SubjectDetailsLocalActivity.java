@@ -16,6 +16,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.view.UnTouchableViewPager;
 import com.edu.library.util.ToastUtil;
@@ -46,9 +47,10 @@ public class SubjectDetailsLocalActivity extends FragmentActivity implements OnI
     List<BaseTestData> datas;
     private int mCurrentIndex;
     private ImageView backIv,restBtn;
-int dataId;
+    int dataId;
     // 印章选择对话框
     private SignChooseDialog signDialog;
+    boolean isExam;
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
@@ -115,6 +117,10 @@ int dataId;
         restBtn.setImageResource(R.mipmap.icon_congzuo_n);
         Bundle bundle = getIntent().getExtras();
          dataId = bundle.getInt(ClassContstant.SUBJECT_DETAIL_ID);
+        isExam = bundle.getBoolean("isExam");
+        if (isExam){
+            restBtn.setVisibility(View.GONE);
+        }
         datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, dataId);
         mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, null);
         mSubjectAdapter.setTestMode(ClassContstant.TEST_MODE_TEST);
@@ -131,12 +137,20 @@ int dataId;
                 }
                 break;
             case R.id.btnDone:
+                if (isExam){
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
+                    ExamOnLineListDao.getInstance(this).updateData("" + dataId, contentValues);
+                    EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
+                    mSubjectAdapter.reset();
+                    finish();
+                }else {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
                 ExamListDao.getInstance(this).updateData("" + dataId, contentValues);
                 EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
 				mSubjectAdapter.reset();
-				finish();
+				finish();}
                 break;
 
             case R.id.btnLeft:

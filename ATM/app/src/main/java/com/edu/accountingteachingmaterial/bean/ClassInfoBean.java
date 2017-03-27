@@ -26,6 +26,11 @@ public class ClassInfoBean extends BaseData {
     private String school;
     private int status;
     private String title;
+    /**
+     * summary : asd
+     */
+
+    private String summary;
 
     public int getCourse_type() {
         return course_type;
@@ -81,5 +86,13 @@ public class ClassInfoBean extends BaseData {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
     }
 }

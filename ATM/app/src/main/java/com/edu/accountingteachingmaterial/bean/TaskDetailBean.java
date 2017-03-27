@@ -36,6 +36,14 @@ public class TaskDetailBean  extends BaseData {
     private List<FileListBean> filelist;
     private List<HistoryBean> history;
     private List<StudentlistBean> studentlist;
+    /**
+     * filelist : []
+     * history : [{"create_date":null,"name":"二二"}]
+     * paras : {"text":"会计是以货币为主要计量单位，运用专门的方法，核算和监督一个单位经济活动的一种经济管理工作。单位是国家机关、社会团体、公司、企业、事业单位和其他组织的统称。未特别说明时，本大纲主要以《企业会计准则》为依据介绍企业经济业务的会计处理。会计已经成为现代企业一项重要的管理工作。企业的会计工作主要是通过一系列会计程序，对企业的经济活动和财务收支进行核算和监督，反映企业财务状况、经营成果和现金流量，反映企业管理层受托责任履行情况，为会计信息使用者提供决策有用的信息，并积极参与经营管理决策，提高企业经济效益，促进市场经济的健康有序发展。","imgSrc":["http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490248663424081354.jpg","http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490253849819043694.jpg","http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490253856647087364.jpg","http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490253863008013150.jpg"]}
+     * studentlist : [{"answer":null,"create_date":null,"name":"二二","picture":null,"team_name":"小组 1"}]
+     */
+
+    private ParasBean paras;
 
     public String getAnswer()  {
         return answer;
@@ -115,6 +123,15 @@ public class TaskDetailBean  extends BaseData {
 
     public void setStudentlist(List<StudentlistBean> studentlist) {
         this.studentlist = studentlist;
+    }
+
+    public ParasBean getParas() {
+        return paras;
+    }
+
+    public TaskDetailBean setParas(ParasBean paras) {
+        this.paras = paras;
+        return this;
     }
 
     public static class FileListBean extends BaseData{
@@ -223,6 +240,32 @@ public class TaskDetailBean  extends BaseData {
 
         public void setTeam_name(String team_name) {
             this.team_name = team_name;
+        }
+    }
+
+    public static class ParasBean extends BaseData{
+        /**
+         * text : 会计是以货币为主要计量单位，运用专门的方法，核算和监督一个单位经济活动的一种经济管理工作。单位是国家机关、社会团体、公司、企业、事业单位和其他组织的统称。未特别说明时，本大纲主要以《企业会计准则》为依据介绍企业经济业务的会计处理。会计已经成为现代企业一项重要的管理工作。企业的会计工作主要是通过一系列会计程序，对企业的经济活动和财务收支进行核算和监督，反映企业财务状况、经营成果和现金流量，反映企业管理层受托责任履行情况，为会计信息使用者提供决策有用的信息，并积极参与经营管理决策，提高企业经济效益，促进市场经济的健康有序发展。
+         * imgSrc : ["http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490248663424081354.jpg","http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490253849819043694.jpg","http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490253856647087364.jpg","http://192.168.1.142:8080/eduExam/resources/upload/image/20170323/1490253863008013150.jpg"]
+         */
+
+        private String text;
+        private List<String> imgSrc;
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+        public List<String> getImgSrc() {
+            return imgSrc;
+        }
+
+        public void setImgSrc(List<String> imgSrc) {
+            this.imgSrc = imgSrc;
         }
     }
 }

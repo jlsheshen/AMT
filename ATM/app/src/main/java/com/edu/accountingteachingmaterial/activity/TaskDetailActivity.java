@@ -12,8 +12,7 @@ import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.webkit.WebView;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -24,6 +23,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.GroupsAdapter;
 import com.edu.accountingteachingmaterial.adapter.RvMultiTypeAdapter;
+import com.edu.accountingteachingmaterial.adapter.TaskContentAdapter;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.GroupsListBean;
 import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
@@ -58,27 +58,25 @@ import static com.edu.accountingteachingmaterial.R.id.aty_title_back_iv;
  * Created by Administrator on 2017/2/28.
  */
 
-public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapter.AccessoryListener, View.OnClickListener, UploadTaskTxetManager.SubmitTaskTextListener, DeteleAccessoryManager.DeteleAccessoryListener, AddTasktManager.AddTaskListener, SelectPictureDialog.OnButtonClickListener {
+public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapter.AccessoryListener, View.OnClickListener, UploadTaskTxetManager.SubmitTaskTextListener, DeteleAccessoryManager.DeteleAccessoryListener, AddTasktManager.AddTaskListener, SelectPictureDialog.OnButtonClickListener, AdapterView.OnItemClickListener {
 
-    GridView groupsGv;//任务图片表,组员列表
+    GridView groupsGv, taskContentGv;//任务图片表,组员列表
     RecyclerView accessoryRv;//上传图片列表
-    WebView contentWv;//任务文图内容
     EditText answerEt;//小组回答
-    TextView groupNmaeTv,accessotyTv,teacherCommentTv;//小组组名,附件tv
+    TextView groupNmaeTv, accessotyTv, teacherCommentTv, taskContentTv, answerManTv, groupNumberTv;//小组组名,附件tv,教师评价,任务内容最后一个提交人,小组人数
     RvMultiTypeAdapter accessotyAdapter;
     GroupsAdapter groupsAdapter;
-    BaseAdapter taskContentAdapter ;
+    TaskContentAdapter taskContentAdapter;
     private int taskModel;
     private TaskDetailBean data;
     int taskId;
-    ImageView historyIv,submitIv,backIv;//历史按钮,提交按钮
+    ImageView historyIv, submitIv, backIv;//历史按钮,提交按钮
     SelectPictureDialog pictureDialog;//上传图片
     public static final int ALBUM = 111;//从相册取照片
     public static final int PHOTOGRAPH = 112;//照相
     String fileNmae;//照片路径
     TaskSubmitHistoryDialog historyDialog;//历史提交纪录dialog
     JoinGroupDialog dialog;
-
 
 
     @Override
@@ -88,35 +86,42 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
 
     @Override
     public void initView(Bundle savedInstanceState) {
-//        taskContentGv = bindView(R.id.task_content_gv);
+        taskContentGv = bindView(R.id.task_content_gv);
         backIv = bindView(aty_title_back_iv);
         groupsGv = bindView(R.id.task_groups_gv);
         accessoryRv = bindView(R.id.task_accessory_rv);
-        contentWv = bindView(R.id.task_content_wv);
         answerEt = bindView(R.id.task_groupanswer_et);
         groupNmaeTv = bindView(R.id.task_groupanswer_tv);
+        answerManTv = bindView(R.id.task_answerman_tv);
+        groupNumberTv = bindView(R.id.task_groups_tv);
         accessotyTv = bindView(R.id.task_accessory_tv);
         teacherCommentTv = bindView(R.id.task_teachersay_tv);
         historyIv = bindView(R.id.task_history_iv);
         submitIv = bindView(R.id.task_submit_iv);
+        taskContentTv = bindView(R.id.task_content_tv);
         submitIv.setOnClickListener(this);
         historyIv.setOnClickListener(this);
         backIv.setOnClickListener(this);
+        taskContentGv.setOnItemClickListener(this);
     }
 
     @Override
     public void initData() {
         Bundle bundle = getIntent().getExtras();
         taskModel = bundle.getInt(ClassContstant.TASK_STATE);
+        Log.d("TaskDetailActivity", "taskModel:" + taskModel);
+
         taskId = bundle.getInt(ClassContstant.ID);
         data = (TaskDetailBean) bundle.getSerializable(ClassContstant.TASK_DETAIL);
         answerEt.setText(data.getAnswer());
-
-        String content = data.getContent();
-        String encoding = "UTF-8";
-        String mimeType = "text/html";
-        contentWv.loadDataWithBaseURL("file://", content, mimeType, encoding, "about:blank");
         groupNmaeTv.setText(data.getStudentlist().get(0).getTeam_name() + "作答");
+        groupNumberTv.setText("小组成员(" + data.getStudentlist().size() + "/" +data.getStu_count() + ")");
+
+        taskContentTv.setText(data.getParas().getText());
+        taskContentAdapter = new TaskContentAdapter();
+        taskContentAdapter.setDatas(data.getParas().getImgSrc());
+        taskContentGv.setAdapter(taskContentAdapter);
+
         accessotyAdapter = new RvMultiTypeAdapter(this);
         refreshAccessory();
         accessotyAdapter.setAccessoryListener(this);
@@ -129,90 +134,105 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         groupsAdapter.setDatas(data.getStudentlist());
         groupsGv.setAdapter(groupsAdapter);
 
+
     }
-    void showAnswer(){
-        if (taskModel == ClassContstant.STATE_AFTER){
+
+    void showAnswer() {
+        if (taskModel == ClassContstant.STATE_AFTER) {
             answerEt.setSaveEnabled(false);
             answerEt.setFocusable(false);
-        }else if (taskModel == ClassContstant.STATE_FINSH){
+            answerEt.setFocusableInTouchMode(false);
+            submitIv.setVisibility(View.INVISIBLE);
+        } else if (taskModel == ClassContstant.STATE_FINSH) {
             answerEt.setSaveEnabled(false);
             answerEt.setFocusable(false);
+            answerEt.setFocusableInTouchMode(false);
             teacherCommentTv.setVisibility(View.VISIBLE);
+            submitIv.setVisibility(View.INVISIBLE);
             teacherCommentTv.setText(data.getComment());
             findViewById(R.id.task_teachersay_title_tv).setVisibility(View.VISIBLE);
-        }else {
+        } else {
 
         }
     }
 
-
-    int refreshAccessory(){
-        int accessorys = data.getFilelist() == null?0:data.getFilelist().size();
+    /**
+     * 刷新后改变ui
+     *
+     * @return
+     */
+    int refreshAccessory() {
+        int accessorys = data.getFilelist() == null ? 0 : data.getFilelist().size();
         accessotyTv.setText(accessorys + "/9 任务附件");
-        if (accessorys < 9 && taskModel == ClassContstant.STATE_RUNING){
+        if (accessorys < 9 && taskModel == ClassContstant.STATE_RUNING) {
             TaskDetailBean.FileListBean fileListBean = new TaskDetailBean.FileListBean();
             fileListBean.setFoot(true);
             data.getFilelist().add(fileListBean);
         }
         String s = JSONObject.toJSONString(data.getFilelist());
-        Log.d("TaskDetailActivity", "-------------" +s);
+        Log.d("TaskDetailActivity", "-------------" + s);
         accessotyAdapter.setDatas(data.getFilelist());
+        if (data.getHistory().size() > 0) {
+            answerManTv.setText("最后提交:" + data.getHistory().get(data.getHistory().size() - 1).getName());
+            answerManTv.setVisibility(View.VISIBLE);
+        } else {
+            answerManTv.setVisibility(View.GONE);
+        }
 
         return accessorys;
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            if (requestCode == ALBUM){
-            Uri uri = data.getData();
-            Log.e("uri", uri.toString());
-            ContentResolver cr = this.getContentResolver();
-            try {
-                Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
-                File file = FileUtil.getUriFile(this,data.getData());
-
-                sendBitmap(file);
+            if (requestCode == ALBUM) {
+                Uri uri = data.getData();
+                Log.e("uri", uri.toString());
+                ContentResolver cr = this.getContentResolver();
+                try {
+                    Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
+                    File file = FileUtil.getUriFile(this, data.getData());
+                    sendBitmap(file);
 //
 //                /* 将Bitmap设定到ImageView */
 //                showIv.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                Log.e("Exception", e.getMessage(),e);
-            }
-        }else {
-                File file =new File(fileNmae);
+                } catch (FileNotFoundException e) {
+                    Log.e("Exception", e.getMessage(), e);
+                }
+            } else {
+                File file = new File(fileNmae);
                 sendBitmap(file);
 
-            }}
+            }
+        }
     }
 
     @Override
     protected void onDestroy() {
-        if (pictureDialog!=null&&pictureDialog.isShowing()){
-        pictureDialog.cancel();
-        pictureDialog = null;}
-
+        if (pictureDialog != null && pictureDialog.isShowing()) {
+            pictureDialog.cancel();
+            pictureDialog = null;
+        }
         super.onDestroy();
     }
 
     @Override
-    public void addAccessoryListener( ) {
-
+    public void addAccessoryListener() {
         pictureDialog = new SelectPictureDialog(this);
         pictureDialog.setOnButtonClickListener(this);
         pictureDialog.show();
-
     }
 
     @Override
     public void deteleAccessoryListener(int fileId) {
-        DeteleAccessoryManager.getSingleton(this).deteleAccessory(this,fileId);
+        DeteleAccessoryManager.getSingleton(this).deteleAccessory(this, fileId);
     }
 
     @Override
     public void showAccessoryImage(String url) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(ClassContstant.DATA,url);
-        startActivity(OneImageActivity.class,bundle);
+        bundle.putSerializable(ClassContstant.DATA, url);
+        startActivity(OneImageActivity.class, bundle);
     }
 
     private void sendBitmap(File file) {
@@ -224,7 +244,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
             // 添加文件对象用于上传
             SimpleParamsReqEntity entity = new SimpleParamsReqEntity(this, RequestMethod.POST, NetUrlContstant.getUploadAccessory() + studentId + "-" + teamId + "-" + taskId);
             RequestParams params = new RequestParams();
-            params.put("file",file , contentType);
+            params.put("file", file, contentType);
             params.setHttpEntityIsRepeatable(true);
             params.setUseJsonStreamer(false);
             entity.setRequestParams(params);
@@ -235,16 +255,19 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
                 public void onConnectionFailure(String errorInfo, Header[] headers) {
                     ToastUtil.showToast(mContext, "文件上传失败");
                 }
+
                 @Override
                 public void onConnectionError(String errorInfo) {
                     ToastUtil.showToast(mContext, "文件上传出错");
                 }
+
                 @Override
                 public void onConnectionSuccess(byte[] responseBody, Header[] headers) {
                     ToastUtil.showToast(mContext, "文件上传成功");
-                    AddTasktManager.getSingleton(TaskDetailActivity.this).getTaskData(TaskDetailActivity.this,taskId);
+                    AddTasktManager.getSingleton(TaskDetailActivity.this).getTaskData(TaskDetailActivity.this, taskId);
                     pictureDialog.dismiss();
                 }
+
                 @Override
                 public void onConnectionProgress(long bytesWritten, long totalSize) {
                     ToastUtil.showToast(mContext, "文件上传进度更新：" + bytesWritten + "/" + totalSize);
@@ -257,9 +280,38 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         }
 
     }
+
     @Override
     public void onBackPressed() {
-        dialog =  new JoinGroupDialog(this);
+        goBack();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.task_history_iv:
+                Log.d("TaskDetailActivity", "发生点击事件");
+
+                historyDialog = new TaskSubmitHistoryDialog(this);
+                int[] location = new int[2];
+                historyIv.getLocationOnScreen(location);
+                historyDialog.setDatas(data.getHistory());
+                historyDialog.show(location[0], location[1]);
+
+                break;
+            case R.id.task_submit_iv:
+                String string = answerEt.getText().toString();
+                UploadTaskTxetManager.getSingleton(this).submitTaskText(this, data.getTeam_id(), taskId, string);
+                break;
+            case R.id.aty_title_back_iv:
+                goBack();
+
+                break;
+        }
+    }
+    void goBack(){
+        if (taskModel == 1){
+        dialog = new JoinGroupDialog(this);
         dialog.setTitle("确定放弃修改并返回吗?");
         dialog.setOnButtonClickListener(new JoinGroupDialog.OnButtonClickListener() {
             @Override
@@ -272,44 +324,10 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
                 dialog.dismiss();
             }
         });
-        dialog.show();
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.task_history_iv:
-                Log.d("TaskDetailActivity", "发生点击事件");
-
-                historyDialog = new TaskSubmitHistoryDialog(this);
-                int[] location = new int[2];
-                historyIv.getLocationOnScreen(location);
-                historyDialog.setDatas(data.getHistory());
-                historyDialog.show(location[0],location[1]);
-
-                break;
-            case R.id.task_submit_iv:
-                String string = answerEt.getText().toString();
-                UploadTaskTxetManager.getSingleton(this).submitTaskText(this,data.getTeam_id(),taskId,string);
-                break;
-            case R.id.aty_title_back_iv:
-                dialog =  new JoinGroupDialog(this);
-                dialog.setTitle("确定放弃修改并返回吗?");
-                dialog.setOnButtonClickListener(new JoinGroupDialog.OnButtonClickListener() {
-                    @Override
-                    public void onOkClick(int pos) {
-                        finish();
-                    }
-
-                    @Override
-                    public void onCancelClick() {
-                        dialog.dismiss();
-                    }
-                });
-                dialog.show();
-
-                break;
+        dialog.show();}else {
+            finish();
         }
+
     }
 
     @Override
@@ -321,7 +339,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     @Override
     public void onSuccess() {
         Toast.makeText(this, "删除附件成功", Toast.LENGTH_SHORT).show();
-        AddTasktManager.getSingleton(this).getTaskData(this,taskId);
+        AddTasktManager.getSingleton(this).getTaskData(this, taskId);
 
     }
 
@@ -343,7 +361,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
 
     @Override
     public void onPhotograph() {
-        fileNmae = Environment.getExternalStorageDirectory().getAbsolutePath()+"/filename.jpg";
+        fileNmae = Environment.getExternalStorageDirectory().getAbsolutePath() + "/filename.jpg";
         File temp = new File(fileNmae);
         Uri imageFileUri = Uri.fromFile(temp);//获取文件的Uri
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);//跳转到相机Activity
@@ -362,5 +380,18 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         intent.setType("image/*");
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, ALBUM);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch (parent.getId()) {
+            case R.id.task_content_gv:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(ClassContstant.DATA, taskContentAdapter.getItem(position));
+                startActivity(OneImageActivity.class, bundle);
+
+                break;
+
+        }
     }
 }

@@ -21,6 +21,8 @@ public class NetUrlContstant {
     public static final String chapterTypeUrl = INTERCACE + "exam/findAllPracticeByChapterIdnType/";
     //试题列表
     public static final String subjectListUrl = INTERCACE + "exam/findExamPaperTopicById/";
+
+
     //上传答案 一组题上传
     public static final String subjectSubmitUrl = INTERCACE + "exam/submitPracticeExamByStudentId/";
     //上传答案,单个题上传
@@ -37,7 +39,10 @@ public class NetUrlContstant {
     public static final String simpleTopicUrl = INTERCACE + "exam/findSimpleTopicById/";
     //{topicId}-{paperId}
     //获取在线考试列表
-    public static final String examInfoUrlList = INTERCACE + "exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
+    public static final String EXAM_ONLINE_URL_LIST = INTERCACE + "exam/findPractiseExamByUserIdnSubjectIdnEndDate/";
+    //获取评测练习列表
+    public static final String EXAM_LOCAL_URL_LIST = INTERCACE + "students/practise/findPractiseExamByUserIdnSubjectIdnEndDate/";
+
     //拉取历史信息
     //拉取历史信息
     public static final String findHisUrl = INTERCACE + "exam/findUserStudyHistoryById/";
@@ -128,8 +133,8 @@ public class NetUrlContstant {
         return BASE_URL + simpleTopicUrl;
     }
 
-    public static String getExamInfoUrlList() {
-        return BASE_URL + examInfoUrlList;
+    public static String getExamOnlineUrlList() {
+        return BASE_URL + EXAM_ONLINE_URL_LIST;
     }
 
     public static String getFindHisUrl() {
@@ -196,5 +201,9 @@ public class NetUrlContstant {
 
     public static String getDeleteAccessory() {
         return BASE_URL + DELETE_ACCESSORY;
+    }
+
+    public static String getExamLocalUrlList() {
+        return BASE_URL + EXAM_LOCAL_URL_LIST;
     }
 }

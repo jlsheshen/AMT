@@ -7,7 +7,16 @@
     style="@style/FragmentPadding"
 
     >
-
+    <TextView
+        android:id="@+id/no_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/item_title_white_text"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="此处无内容"
+        android:visibility="gone"
+        />
     <GridView 
         android:id="@+id/exmaple_gv"
         android:layout_width="match_parent"

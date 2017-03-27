@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -56,6 +57,8 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
     ExerciseExLvAdapter adapter;
     ImageView stateIv;
     ExamListData data1;
+    TextView nothingTv;
+
     Bundle b = new Bundle();
     private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
     /**
@@ -80,6 +83,8 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
     protected void initView(View view) {
         expandableListView = bindView(R.id.exercise_exlv);
         EventBus.getDefault().register(this);
+        nothingTv = bindView(R.id.no_content_tv);
+
     }
 
     public void setData(ClassChapterData.SubChaptersBean data) {
@@ -133,6 +138,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
+                    b.putBoolean("isExam",false);
                     if (isBook) {
                         startActivity(SubjectLocalActivity.class, b);
                     } else {
@@ -236,6 +242,10 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                             data.setTestList(tests);
                         }
                     }
+                    if (datas.size() == 0){
+                        nothingTv.setVisibility(View.VISIBLE);
+                        expandableListView.setVisibility(View.GONE);
+                    }
                     adapter.setDatas(datas);
                 }
             }
@@ -243,6 +253,8 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
             @Override
             public void onFailure(String errorInfo) {
                 Toast.makeText(context, errorInfo, Toast.LENGTH_SHORT).show();
+                nothingTv.setVisibility(View.VISIBLE);
+                expandableListView.setVisibility(View.GONE);
             }
         });
     }

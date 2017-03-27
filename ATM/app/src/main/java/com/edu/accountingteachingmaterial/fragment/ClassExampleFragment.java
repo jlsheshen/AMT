@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -40,6 +41,7 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     List<ExampleBean> exampleBeans;
     List<ClassicCase> cData;
     ClassChapterData.SubChaptersBean data;
+    TextView nothingTv;
 
 
 
@@ -55,6 +57,7 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     @Override
     protected void initView(View view) {
         gridView = bindView(R.id.exmaple_gv);
+        nothingTv = bindView(R.id.no_content_tv);
         // TODO Auto-generated method stub
         // start();
     }
@@ -93,16 +96,6 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 
             }
 
-//        ExampleBean exampleBean = new ExampleBean();
-//        exampleBean.setName("第一节视频");
-//        exampleBean.setUrl("aaa.mp4");
-//        exampleBean.setType(ClassContstant.MEADIA_TYPE);
-//        exampleBeans.add(exampleBean);
-//        ExampleBean exampleBean1 = new ExampleBean();
-//        exampleBean1.setName("第二节图片");
-//        exampleBean1.setUrl("aaa.pdf");
-//        exampleBean1.setType(ClassContstant.PDF_TYPE);
-//        exampleBeans.add(exampleBean1);
         }
         exampleGVAdapter.setBeans(exampleBeans);
         exampleGVAdapter.notifyDataSetChanged();
@@ -154,68 +147,19 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
                 if (jsonObject.getString("success").equals("true")) {
                     cData = JSON.parseArray(jsonObject.getString("message"), ClassicCase.class);
                     loadData();
+
+                }else {
+                    nothingTv.setVisibility(View.VISIBLE);
+                    gridView.setVisibility(View.GONE);
                 }
             }
             @Override
             public void onFailure(String errorInfo) {
                 Log.d("LaunchActivity", errorInfo);
-
+                nothingTv.setVisibility(View.VISIBLE);
+                gridView.setVisibility(View.GONE);
             }
         });
     }
 
-//    /**
-//     * 开始下载
-//     */
-//    public void start() {
-//        String path = SdcardPathUtil.getExternalSdCardPath() + "/EduResources/AccCourse/pdf/";
-//        String[] tmp = mUrl.split("/");
-//        String target = path + tmp[tmp.length - 1];
-//        checkPath(path);
-//        // 调用download方法开始下载
-//        mHandler = fHttp.download(mUrl, new AjaxParams(), target, true, new AjaxCallBack<File>() {
-//
-//            public void onStart() {
-//            }
-//
-//            public void onLoading(long count, long current) {
-//                Log.d("", "下载进度：" + current + "/" + count);
-//            }
-//
-//            public void onSuccess(File f) {
-//                Log.d("", f == null ? "null" : f.getAbsoluteFile().toString());
-//                ToastUtil.showToast(context, "下载成功：" + f.getAbsoluteFile().toString());
-//            }
-//
-//            public void onFailure(Throwable t, int errorNo, String strMsg) {
-//
-//                Log.e("", "failure:" + strMsg + ",errorNo:" + errorNo);
-//                if (errorNo == 0) {
-//                } else if (errorNo == 416) {
-//                    ToastUtil.showToast(context, "文件已存在");
-//                } else {
-//                    ToastUtil.showToast(context, "下载失败：" + strMsg);
-//                }
-//
-//            }
-//        });
-//    }
-//
-//    /**
-//     * 检查该路径是否存在，不存在则创建
-//     *
-//     * @param path
-//     */
-//    public void checkPath(String path) {
-//        File f = new File(path);
-//        if (!f.exists()) {
-//            if (!f.getParentFile().exists()) {
-//                if (f.getParentFile().mkdirs()) {
-//                    f.mkdirs();
-//                }
-//            } else {
-//                f.mkdirs();
-//            }
-//        }
-//    }
 }

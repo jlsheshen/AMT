@@ -43,8 +43,8 @@ public class ExamAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
-        return null;
+    public OnLineExamListData getItem(int i) {
+        return datas.get(i);
     }
 
     @Override
@@ -64,14 +64,14 @@ public class ExamAdapter extends BaseAdapter {
         }
         OnLineExamListData examBean = datas.get(i);
         setContent(viewHolder.titleTv, examBean.getExam_name());
-        setContent(viewHolder.timeTv, String.valueOf(examBean.getLast_time()));
+        setContent(viewHolder.timeTv, String.valueOf(examBean.getPublish_time()));
         setContent(viewHolder.publisherTv, examBean.getCreator_name());
         setContent(viewHolder.itemNumTv, examBean.getTopic_count() + "道");
+        setContent(viewHolder.startTimeTv, String.valueOf(examBean.getStart_time()));
+
         if (isExercise){
-            viewHolder.startTimeTv.setVisibility(View.GONE);
-            viewHolder.durationTv.setVisibility(View.GONE);
+            setContent(viewHolder.durationTv, "");
         }else {
-            setContent(viewHolder.startTimeTv, String.valueOf(examBean.getStart_time()));
             setContent(viewHolder.durationTv, String.valueOf(examBean.getLast_time()) + "分钟");
         }
 

@@ -1,4 +1,4 @@
-package com.edu.accountingteachingmaterial.util;
+package com.edu.accountingteachingmaterial.util.net;
 
 
 import android.content.Context;
@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
@@ -29,7 +30,7 @@ public class GetWebViewUrlManager extends JsonNetReqManager {
 	private static GetWebViewUrlManager intance;
 
 	public GetWebViewUrlManager(Context context) {
-		mAsyncClient.addHeader(TOKEN,PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
+		mAsyncClient.addHeader(TOKEN, PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
 		mContext = context;
 	}
 

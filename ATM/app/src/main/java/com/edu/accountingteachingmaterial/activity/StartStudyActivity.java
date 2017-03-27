@@ -41,6 +41,7 @@ public class StartStudyActivity extends BaseActivity {
     ImageView imageView;
     HomepageInformationData data;
     EditText numEt, passwerEt;
+    EditText editText;//ip地址的et
     ImageView bgIv;
     TextView settingIpTv;
     AlertDialog alertDialog;
@@ -57,12 +58,9 @@ public class StartStudyActivity extends BaseActivity {
 
     @Override
     public void initView(Bundle savedInstanceState) {
-
-
         EventBus.getDefault().register(this);
         numEt = bindView(R.id.startstudy_num_et);
         numEt.setText(PreferenceHelper.getInstance(this).getStringValue(STUDNET_NUMBER));
-
         bgIv = bindView(R.id.startstudy_bg_iv);
         passwerEt = bindView(R.id.startstudy_pw_et);
         passwerEt.setText(PreferenceHelper.getInstance(this).getStringValue(STUDNET_PASSWORD));
@@ -89,7 +87,6 @@ public class StartStudyActivity extends BaseActivity {
                 } catch (Exception e) {
                     Toast.makeText(mContext, "登录失败:" + e, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
         settingIpTv = bindView(R.id.startstudy_setting_ip_iv);
@@ -107,13 +104,11 @@ public class StartStudyActivity extends BaseActivity {
                 finish();
             }
         });
-
     }
 
     @Override
     public void onBackPressed() {
         DoubleClickExitUtil.doubleClickExit(this);
-
     }
 
     /**
@@ -147,17 +142,21 @@ public class StartStudyActivity extends BaseActivity {
         alertDialog = builder.create();
         alertDialog.show();
         final Window window = alertDialog.getWindow();
+
         window.setBackgroundDrawableResource(android.R.color.transparent);
 
         // *** 主要就是在这里实现这种效果的.
         // 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
         window.setContentView(R.layout.dialog_changeip);
         alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        editText = (EditText) window.findViewById(R.id.ip_content_et);
 
+        String oldBaseUrl[] = PreferenceHelper.getInstance(StartStudyActivity.this).getStringValue(PreferenceHelper.URL_NAME).split("http://");
+        editText.setText(oldBaseUrl[1]);
         window.findViewById(R.id.ip_save_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
+
                 String s = editText.getText().toString();
                 if (s.length() < 4) {
                     Toast.makeText(StartStudyActivity.this, "请输入正确IP地址", Toast.LENGTH_SHORT).show();

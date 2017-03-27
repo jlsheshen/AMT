@@ -170,5 +170,10 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
         ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);
         EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
     }
+    interface upDateListener{
+        void upDateSuccess();
+        void upDateFail();
+
+    }
 
 }

@@ -76,7 +76,7 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        GroupAddOneManager.getSingleton(this).addGroupOne(this, adapter.getItemId(position));
+        GroupAddOneManager.getSingleton(this).addGroupOne(this, adapter.getItemId(position),taskId);
     }
     @Override
     public void onItemFootClick(int pos) {
@@ -89,7 +89,7 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
     @Override
     public void onOkClick(int pos) {
         Toast.makeText(this, "点击事件添加", Toast.LENGTH_SHORT).show();
-        GroupAddOneManager.getSingleton(this).addGroupOne(this, adapter.getItemId(pos));
+        GroupAddOneManager.getSingleton(this).addGroupOne(this, adapter.getItemId(pos),taskId);
     }
 
     @Override

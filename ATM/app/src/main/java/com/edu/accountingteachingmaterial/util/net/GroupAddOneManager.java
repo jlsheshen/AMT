@@ -45,9 +45,9 @@ public class GroupAddOneManager extends BaseNetManager {
      *
      * @param
      */
-    public void addGroupOne(AddGroupOneListener addGroupOneListener,long teamId) {
+    public void addGroupOne(AddGroupOneListener addGroupOneListener,long teamId,int taskId) {
        String userId =  PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
-        String url = NetUrlContstant.getAddGroup() + userId + "-" + teamId;
+        String url = NetUrlContstant.getAddGroup() + userId + "-" + teamId + "-" + taskId;
         NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
         Log.d(TAG, "url");
         sendRequest(entity);

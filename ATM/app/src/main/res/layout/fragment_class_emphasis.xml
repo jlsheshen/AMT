@@ -5,6 +5,17 @@
     android:orientation="vertical"
     android:layout_marginLeft="80dp"
     >
+    <TextView
+        android:id="@+id/no_content_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/item_title_white_text"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="此处无内容"
+        android:visibility="gone"
+
+        />
 
     <WebView 
         android:id="@+id/emphasis_wv"

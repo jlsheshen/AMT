@@ -15,7 +15,7 @@ import org.apache.http.Header;
 import java.util.List;
 
 /**
- * 教材页面列表网络管理
+ *
  * Created by Administrator on 2017/3/3.
  */
 
@@ -46,7 +46,7 @@ public class AddTasktManager extends BaseNetManager {
     }
 
     /**
-     * 发送答案和密码
+     *
      *
      * @param
      *

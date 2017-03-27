@@ -158,6 +158,9 @@
     <style name="content_gray_text" parent="content_text">
         <item name="android:textColor">@color/colorLightGray</item>
     </style>
+    <style name="content_white_text" parent="content_text">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
 
     <!--下拉刷新动画-->
     <style name="AnimationPreview">

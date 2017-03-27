@@ -7,8 +7,8 @@
 
     <com.edu.accountingteachingmaterial.view.CircleImageView
         android:id="@+id/item_groups_head_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_horizontal" />
 
     <TextView
@@ -17,7 +17,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="王飞"
         android:textColor="@color/colorTestInfo"
         android:textSize="@dimen/item_text_size" />
 

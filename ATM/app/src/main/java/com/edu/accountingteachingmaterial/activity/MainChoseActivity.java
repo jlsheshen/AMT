@@ -51,7 +51,7 @@ public class MainChoseActivity extends BaseActivity implements OnClickListener, 
     private Button settingButton;//设置按钮
     private List<Fragment> fragments;//fragment 列表
     private UnTouchableViewPager viewPager;
-
+    EditText editText;//ip地址的et
     Fragment examFragment, myFragment, textBookFragment;
     ClassFragment classFragment;
     DrawerLayout drawerLayout;//弹出的设置界面
@@ -139,11 +139,12 @@ public class MainChoseActivity extends BaseActivity implements OnClickListener, 
 
                 window.setContentView(R.layout.dialog_changeip);
                 alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-
+                editText = (EditText) window.findViewById(R.id.ip_content_et);
+                String oldBaseUrl[] = PreferenceHelper.getInstance(MainChoseActivity.this).getStringValue(PreferenceHelper.URL_NAME).split("http://");
+                editText.setText(oldBaseUrl[1]);
                 window.findViewById(R.id.ip_save_iv).setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        EditText editText = (EditText) window.findViewById(R.id.ip_content_et);
                         String s = editText.getText().toString();
                         Log.d("MainActivity", "-------------" + s);
                         if (s.length() < 4) {

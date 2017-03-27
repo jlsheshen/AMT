@@ -7,20 +7,32 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.library.imageloader.EduImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoader;
+
+import java.util.List;
 
 /**
+ * 任务内容adapter
  * Created by Administrator on 2017/3/1.
  */
 
 public class TaskContentAdapter extends BaseAdapter {
-    @Override
-    public int getCount() {
-        return 3;
+    List<String> datas;
+
+    public TaskContentAdapter setDatas(List<String> datas) {
+        this.datas = datas;
+        return this;
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public int getCount() {
+        return datas == null?0:datas.size();
+    }
+
+    @Override
+    public String getItem(int position) {
+        return datas.get(position);
     }
 
     @Override
@@ -39,7 +51,7 @@ public class TaskContentAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.bgIv.setImageResource(R.mipmap.ic_launcher);
+        ImageLoader.getInstance().displayImage(datas.get(position),viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
 
         return convertView;
     }

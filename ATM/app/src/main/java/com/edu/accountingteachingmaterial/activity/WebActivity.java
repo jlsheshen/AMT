@@ -8,7 +8,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
-import com.edu.accountingteachingmaterial.util.GetWebViewUrlManager;
+import com.edu.accountingteachingmaterial.util.net.GetWebViewUrlManager;
 
 /**
  * 文图界面
@@ -56,6 +56,7 @@ public class WebActivity extends BaseActivity implements GetWebViewUrlManager.Ge
 
     @Override
     public void onFail() {
+
 
     }
 }

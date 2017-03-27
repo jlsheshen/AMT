@@ -59,6 +59,7 @@ public class TextbookFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     public void onFailure(String message) {
-
+//        /resources/upload/cover/2017-3-23/1490237816221.png
+//        \\\\/resources\\\\/upload\\\\/cover\\\\/temp\\\\/1490335417078.png\
     }
 }

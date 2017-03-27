@@ -30,6 +30,7 @@ import java.util.List;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 
 /**
+ * 考试详情界面
  * Created by Administrator on 2016/11/18.
  */
 
@@ -110,6 +111,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putInt(ClassContstant.SUBJECT_DETAIL_ID, examId);
                     startActivity(OnlineExamDetailsContentActivity.class, bundle);
+                    finish();
                 } else {
                     uploadTestTime();
                 }

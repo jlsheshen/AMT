@@ -47,6 +47,7 @@ public class GroupTaskFragment extends BaseFragment implements RefreshListView.O
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
+                    GroupTaskListManager.getSingleton(getContext()).setCourse(GroupTaskFragment.this);
                     listView.setOnRefreshComplete();
                     groupTaskAdapter.notifyDataSetChanged();
 
@@ -124,7 +125,7 @@ public class GroupTaskFragment extends BaseFragment implements RefreshListView.O
         }else {
             bundle.clear();
         }
-        bundle.putInt(ClassContstant.TASK_STATE,groupTaskAdapter.getItemData(position-1).getStatus());
+        bundle.putInt(ClassContstant.TASK_STATE,groupTaskAdapter.getItemData(position-1).getTask_status());
         bundle.putString(ClassContstant.TASK_TITLE,groupTaskAdapter.getItemData(position-1).getName());
         bundle.putInt(ClassContstant.ID,groupTaskAdapter.getItemData(position-1).getId());
     }
@@ -145,6 +146,11 @@ public class GroupTaskFragment extends BaseFragment implements RefreshListView.O
      */
     @Override
     public void goAddGroup(List<GroupsListBean> datas) {
+        Log.d("GroupTaskFragment", "bundle.getInt(ClassContstant.TASK_STATE):" + bundle.getInt(ClassContstant.TASK_STATE));
+        if (bundle.getInt(ClassContstant.TASK_STATE) != 1) {
+            Toast.makeText(context, "当前小组已经不可加入TASK_STATE = " +bundle.getInt(ClassContstant.TASK_STATE) , Toast.LENGTH_SHORT).show();
+            return;
+        }
         bundle.putSerializable(ClassContstant.GROUPS, (Serializable) datas);
         startActivity(AddGroupActivity.class,bundle);
     }

@@ -18,7 +18,7 @@ import java.util.List;
  * 课堂fragment
  */
 public class ClassFragment extends BaseFragment implements AdapterView.OnItemClickListener, ClassListManager.ClassListener {
-     GridView gridView ;
+    GridView gridView ;
     ClassGvAdapter adapter;
     @Override
     protected int initLayout() {
