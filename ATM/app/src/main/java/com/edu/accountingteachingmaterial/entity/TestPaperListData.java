@@ -76,6 +76,22 @@ public class TestPaperListData extends BaseData {
     private int tb;
     private String upload_time;
     private List<TopicsBean> topics;
+    private int remaining;
+
+    /**
+     * chapter_id : null
+     * course_id : null
+     * exam_status : 1
+     * lesson_type : 0
+     * modifier : null
+     * modify_date : null
+     * remaining : -1
+     * score : null
+     * stu_score : null
+     * topics : [{"id":1580,"oid":3850,"order":1,"score":5,"status":1,"type":1},{"id":1581,"oid":3828,"order":2,"score":5,"status":1,"type":1},{"id":1582,"oid":3833,"order":3,"score":5,"status":1,"type":1},{"id":1583,"oid":3845,"order":4,"score":5,"status":1,"type":1},{"id":1584,"oid":3868,"order":5,"score":5,"status":1,"type":1},{"id":1585,"oid":3869,"order":6,"score":5,"status":1,"type":1},{"id":1586,"oid":3865,"order":7,"score":5,"status":1,"type":1},{"id":1587,"oid":3873,"order":8,"score":5,"status":1,"type":1},{"id":1588,"oid":3831,"order":9,"score":5,"status":1,"type":1},{"id":1589,"oid":3864,"order":10,"score":5,"status":1,"type":1}]
+     * upload_time : null
+     */
+
 
     public int getAsk() {
         return ask;
@@ -325,5 +341,12 @@ public class TestPaperListData extends BaseData {
         this.topics = topics;
     }
 
+    public int getRemaining() {
+        return remaining;
+    }
 
+    public TestPaperListData setRemaining(int remaining) {
+        this.remaining = remaining;
+        return this;
+    }
 }

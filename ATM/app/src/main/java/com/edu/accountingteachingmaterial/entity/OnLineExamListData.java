@@ -49,6 +49,8 @@ public class OnLineExamListData extends BaseData {
     private int sub_status;
     private int topic_count;
     private int u_id;
+    private int remaining;
+
 
     public int getState() {
         return State;
@@ -192,6 +194,13 @@ public class OnLineExamListData extends BaseData {
 
     public void setU_id(int u_id) {
         this.u_id = u_id;
+    }
+    public int getRemaining() {
+        return remaining;
+    }
+
+    public void setRemaining(int remaining) {
+        this.remaining = remaining;
     }
 }
 

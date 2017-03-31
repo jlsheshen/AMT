@@ -13,6 +13,7 @@ import com.edu.accountingteachingmaterial.adapter.ErrorAdapter;
 import com.edu.accountingteachingmaterial.adapter.ReviewHisAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.view.dialog.DeteleDialog;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
@@ -60,7 +61,8 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
     @Override
     protected void initData() {
         adapter = new ErrorAdapter(context);
-        datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE);
+        String userId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID);
+        datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE, userId);
         if (shouBackground()) {
 
         } else {
@@ -84,7 +86,8 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
             });
         }
     }
-    void deteleState(){
+
+    void deteleState() {
         int i = 0;
         try {
             for (Boolean aBoolean : checkList) {
@@ -92,7 +95,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                     i++;
                 }
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
         }
         if (i > 0) {
             deteleTv.setText("删除(" + i + ")");
@@ -113,18 +116,19 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
 
     }
 
-    public void setData(){
-        if (context == null||adapter == null) {
+    public void setData() {
+        if (context == null || adapter == null) {
             return;
-        }else {
-
-        datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE);
-            if (datas.size()>0){
+        } else {
+            String userId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID);
+            datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE, userId);
+            if (datas.size() > 0) {
                 compileTv.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 compileTv.setVisibility(View.GONE);
             }
-        adapter.setDatas(datas);}
+            adapter.setDatas(datas);
+        }
     }
 
     private void showDeteleDialog() {
@@ -162,8 +166,9 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
         dismissLayout();
         adapter.setDatas(datas);
     }
-    void dismissLayout(){
-        if (shouBackground()){
+
+    void dismissLayout() {
+        if (shouBackground()) {
             layout.setVisibility(View.GONE);
             compileTv.setVisibility(View.GONE);
             layoutShow = false;
@@ -199,14 +204,15 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                 break;
         }
     }
-    boolean shouBackground(){
-        if (datas == null||datas.size() <1) {
+
+    boolean shouBackground() {
+        if (datas == null || datas.size() < 1) {
             listView.setVisibility(View.GONE);
             noErrorsLayout.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             noErrorsLayout.setVisibility(View.GONE);
             listView.setVisibility(View.VISIBLE);
         }
-return datas == null||datas.size() <1;
+        return datas == null || datas.size() < 1;
     }
 }

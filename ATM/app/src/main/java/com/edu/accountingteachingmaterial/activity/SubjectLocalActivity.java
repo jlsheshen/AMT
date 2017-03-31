@@ -108,11 +108,11 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
         Bundle bundle = getIntent().getExtras();
-          examId = bundle.getInt("examId");
+        examId = bundle.getInt("examId");
 
 //        examListData = (ExamListData) bundle.get("ExamListData");
 
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,examId);
+        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
         if (datas == null || datas.size() == 0) {
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.ID, examListData.getId());
@@ -176,11 +176,7 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
                 UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
                 int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
                 int cost = 0;
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-                ExamOnLineListDao.getInstance(this).updateData("" + examId, contentValues);
 
-                EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
                 UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, cost);
                 break;
 
@@ -304,6 +300,9 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
     @Override
     public void onSuccess() {
 
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+        ExamOnLineListDao.getInstance(this).updateData("" + examId, contentValues);
         EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
         finish();
 

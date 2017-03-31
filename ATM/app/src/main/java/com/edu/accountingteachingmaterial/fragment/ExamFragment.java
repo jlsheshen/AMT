@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
@@ -27,7 +28,6 @@ import com.edu.accountingteachingmaterial.util.net.ExamLocalListManager;
 import com.edu.accountingteachingmaterial.util.net.ExamOnlineListManager;
 import com.edu.accountingteachingmaterial.util.net.OnLineExamDownloadManager;
 import com.edu.accountingteachingmaterial.view.RefreshListView;
-import com.edu.library.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -49,6 +49,8 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     OnLineExamData onLineExamData;
     private CheckBox examOrExercise;//
     private boolean isExercise;//当前状态,当为练习时值为ture
+    private boolean inUpload = false;
+    ContentValues contentValues;
 
     /**
      * 下拉刷新完成
@@ -128,6 +130,8 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                             startActivity(SubjectDetailsLocalActivity.class, b);
                                                         } else {
                                                             Bundle b = new Bundle();
+
+//                                                            String examId[] = String.valueOf(showDatas.get(pos).getExam_id()).split(String.valueOf(showDatas.get(pos).getU_id()));
                                                             b.putInt("examId", showDatas.get(pos).getExam_id());
 
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
@@ -167,11 +171,8 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                     data.setState(state);
                 }
             }
-//            if (state != ClassContstant.EXAM_NOT) {
-//                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
-//            }
+
             refreshAdapter();
-//            examAdapter.setDatas(datas);
 
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
@@ -264,60 +265,56 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     public void onLocalSuccess(OnLineExamData localData) {
         onLineExamData.getList().addAll(localData.getList());
         List<OnLineExamListData> showDatas = new ArrayList<OnLineExamListData>();
-        ToastUtil.showToast(context, "" + onLineExamData.getList().get(0).getExam_name());
-        Log.d("UnitTestActivity", "uploadChapterList" + "success" + datas);
+        saveExamDatas();
+//                    examAdapter.setDatas(datas);
+        refreshAdapter();
+//        examAdapter.setDatas(showDatas);
+
+    }
+    void saveExamDatas(){
 
         for (OnLineExamListData data : datas) {
+            data.setExam_id(Integer.valueOf("" + data.getExam_id() + data.getU_id()));
             OnLineExamListData data1 = (OnLineExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getExam_id());
-            int state = ExamOnLineListDao.getInstance(context).getState(data.getExam_id());
+                int state = ExamOnLineListDao.getInstance(context).getState(data.getExam_id());
             if (data1 == null) {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(ExamOnLineListDao.ID, data.getExam_id());
+                contentValues = new ContentValues();
+                contentValues.put(ExamOnLineListDao.ID,data.getExam_id() );
                 contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_NOT);
                 contentValues.put(ExamOnLineListDao.TYPE, data.getExam_type());
                 contentValues.put(ExamOnLineListDao.USER_ID, data.getU_id());
                 ExamOnLineListDao.getInstance(context).insertData(contentValues);
                 data.setState(ClassContstant.EXAM_NOT);
-            } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 0 && data.getIs_send() == 1) {//判断试卷是否已批阅
-                if (data.getExam_type() == 3) {
+            } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 0 && data.getIs_send() == 1&&data.getRemaining()<0) {//判断试卷是否已批阅
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
+                    ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
+
+                    data.setState(ClassContstant.EXAM_READ);
+
+            } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 1&&data.getRemaining()<0) {//判断试卷是否已批阅
+
                     ContentValues contentValues = new ContentValues();
                     contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
                     ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
                     data.setState(ClassContstant.EXAM_READ);
-                }
-            } else if (data1 != null && state == ClassContstant.EXAM_COMMIT && data.getShow_answer() == 1) {//判断试卷是否已批阅
-                if (data.getExam_type() == 3) {
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_READ);
-                    ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
-                    data.setState(ClassContstant.EXAM_READ);
-                }
+
             } else {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ExamOnLineListDao.STATE, data1.getState());
                 ExamOnLineListDao.getInstance(context).updateData(String.valueOf(data1.getExam_id()), contentValues);
                 data.setState(data1.getState());
             }
-//            if (isExercise) {
-//                if (data.getExam_type() != 3) {
-//                    showDatas.add(data);
-//                }
-//            } else {
-//                if (data.getExam_type() == 3) {
-//                    showDatas.add(data);
-//                }
-//            }
+
             Log.d("ExamFragment", "JSONObject.toJSON(datas):" + JSONObject.toJSON(data));
 
         }
-//                    examAdapter.setDatas(datas);
-        refreshAdapter();
-//        examAdapter.setDatas(showDatas);
 
     }
 
     @Override
     public void onFailure(String message) {
+        Toast.makeText(context, "当前还没有评测", Toast.LENGTH_SHORT).show();
         Log.d("ExamFragment", message);
     }
 }

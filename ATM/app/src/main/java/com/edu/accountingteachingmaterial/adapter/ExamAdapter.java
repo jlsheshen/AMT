@@ -70,9 +70,13 @@ public class ExamAdapter extends BaseAdapter {
         setContent(viewHolder.startTimeTv, String.valueOf(examBean.getStart_time()));
 
         if (isExercise){
-            setContent(viewHolder.durationTv, "");
+            viewHolder.durationTv.setVisibility(View.GONE);
+            viewHolder.line.setVisibility(View.GONE);
         }else {
+            viewHolder.durationTv.setVisibility(View.VISIBLE);
             setContent(viewHolder.durationTv, String.valueOf(examBean.getLast_time()) + "分钟");
+            viewHolder.line.setVisibility(View.VISIBLE);
+
         }
 
         switch (examBean.getState()) {
@@ -115,6 +119,7 @@ public class ExamAdapter extends BaseAdapter {
         TextView titleTv, timeTv, publisherTv, itemNumTv, startTimeTv, durationTv;
         ImageView imageView;
         ProgressBar progressBar;
+        View line;
 
         public ViewHolder(View view) {
             titleTv = (TextView) view.findViewById(R.id.item_exam_title_tv);
@@ -125,6 +130,7 @@ public class ExamAdapter extends BaseAdapter {
             durationTv = (TextView) view.findViewById(R.id.item_exam_duration_tv);
             imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
             progressBar = (ProgressBar) view.findViewById(R.id.item_exam_type_pb);
+            line = view.findViewById(R.id.item_exam_line_v);
         }
     }
 }

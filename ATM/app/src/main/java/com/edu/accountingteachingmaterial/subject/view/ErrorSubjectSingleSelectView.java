@@ -109,7 +109,7 @@ public class ErrorSubjectSingleSelectView extends ErrorBaseScrollView implements
         }
         // tvAnswer.setText("正确答案：" + data.getAnswer());
         //tvAnalysis.setText("解析：" + data.getAnalysis());
-        tvAnalysis.setText(data.getAnalysis());
+        tvAnalysis.setText(data.showAnalysis());
         parseOption(data.getOption());
     }
 

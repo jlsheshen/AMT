@@ -119,7 +119,7 @@ public class ErrorSubjectMultiSelectView extends ErrorBaseScrollView implements 
 
         tvAnswer.setText("正确答案：" + rightStr);
         //tvAnalysis.setText("解析：" + data.getAnalysis());
-        tvAnalysis.setText(data.getAnalysis());
+        tvAnalysis.setText(data.showAnalysis());
         parseOption(data.getOption());
     }
 

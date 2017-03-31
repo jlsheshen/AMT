@@ -100,7 +100,7 @@ public class ErrorSubjectJudgeView extends ErrorBaseScrollView implements ISubje
         }
         tvAnswer.setText("正确答案：" + answer);
         //tvAnalysis.setText("解析：" + data.getAnalysis());
-        tvAnalysis.setText(data.getAnalysis());
+        tvAnalysis.setText(data.showAnalysis());
     }
 
     /**

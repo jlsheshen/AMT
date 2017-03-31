@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/bg"
-    >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/main_aty_title_layout"
-        style="@style/TitleBarStyle"
-        >
+        style="@style/TitleBarStyle">
+
         <ImageView
             android:id="@+id/class_aty_back_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon_fanhui_n"
-            />
+            android:src="@mipmap/icon_fanhui_n" />
 
 
         <TextView
@@ -39,10 +38,10 @@
             android:visibility="visible" />
     </RelativeLayout>
 
-    <View style="@style/HorizontalLine"
+    <View
         android:id="@+id/aty_horizontal_line"
-        android:layout_below="@id/main_aty_title_layout"
-        />
+        style="@style/HorizontalLine"
+        android:layout_below="@id/main_aty_title_layout" />
 
     <RelativeLayout
         android:id="@+id/catalog_textbook_sizebar"
@@ -50,47 +49,83 @@
         android:layout_height="match_parent"
         android:layout_below="@id/main_aty_title_layout"
         android:padding="5dp">
+
         <View
             android:id="@+id/line"
             style="@style/VerticalLine"
-            android:layout_alignParentRight="true"
-            />
-        <ImageView
+            android:layout_alignParentRight="true" />
+
+        <com.edu.accountingteachingmaterial.view.CircleImageView
             android:id="@+id/catalog_textbook_bg_iv"
-            android:layout_toLeftOf="@id/line"
-            android:layout_alignParentTop="true"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="fitCenter"
-            />
+            android:layout_height="75dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="30dp"
+             />
+
         <TextView
             android:id="@+id/catalog_textbook_name_tv"
-            android:layout_below="@id/catalog_textbook_bg_iv"
+            style="@style/item_title_white_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/item_title_white_text"
-            />
+            android:layout_below="@id/catalog_textbook_bg_iv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="300dp" />
+
         <TextView
             android:id="@+id/catalog_textbook_author_tv"
-            android:layout_below="@id/catalog_textbook_name_tv"
+            style="@style/item_white_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/catalog_textbook_name_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/publisher"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="300dp" />
+
+        <TextView
+            android:id="@+id/catalog_textbook_organization_tv"
             style="@style/item_white_text"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@id/catalog_textbook_author_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@mipmap/organization"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="300dp" />
+
         <TextView
             android:id="@+id/catalog_textbook_content_tv"
-            android:layout_below="@id/catalog_textbook_author_tv"
+            style="@style/content_white_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/content_white_text"
-            />
+            android:layout_below="@id/catalog_textbook_author_tv"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="30dp"
+            android:ellipsize="end"
+            android:maxLines="9"
+            android:maxWidth="300dp" />
     </RelativeLayout>
 
     <ExpandableListView
         android:id="@+id/class_classchapter_exlv"
+        style="@style/ExpandableLvStyle"
         android:layout_below="@id/aty_horizontal_line"
-        android:layout_toRightOf="@id/catalog_textbook_sizebar"
-        style="@style/ExpandableLvStyle">
+        android:layout_toRightOf="@id/catalog_textbook_sizebar">
 
     </ExpandableListView>
 

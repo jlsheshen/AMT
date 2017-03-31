@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.activity;
 
+import android.content.ContentValues;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -86,7 +87,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         Bundle bundle = getIntent().getExtras();
         examId = bundle.getInt("examId");
         uploadTestInfo();
-        refreshState();
+
 
     }
 
@@ -128,7 +129,9 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         Log.d("UnitTestActivity", "uploadTestInfo");
         String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + examId + "-" + useId);
+        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(useId));
+
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + sendExamId[0] + "-" + useId);
 //        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + examId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -163,9 +166,10 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     private void uploadTestTime() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         Log.d("SubjectExamActivity", "uploadTestTime");
-        String useId = PreferenceHelper.getInstance(this).getStringValue(
-                USER_ID);
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + examId);
+        String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
+        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(useId));
+
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + sendExamId[0]  + "-" + useId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
@@ -193,6 +197,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             @Override
             public void onFailure(String errorInfo) {
                 Log.d("SubjectExamActivity", errorInfo);
+                ToastUtil.showToast(UnitTestActivity.this, errorInfo);
+
 
             }
         });
@@ -219,6 +225,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 //        tvUsedTime.setText(testPaperListData.getStu_last_time() + "");
         setTime(testPaperListData.getStu_last_time());
         tvScore.setText(testPaperListData.getStu_score() + "");
+        refreshState();
     }
 
     //设置用时
@@ -232,7 +239,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
     private void refreshState() {
-        int state = ExamOnLineListDao.getInstance(this).getState(examId);
+            int state = ExamOnLineListDao.getInstance(this).getState(examId);
+
         //未提交 state:2
         if (state == ClassContstant.EXAM_UNDONE) {
             imgShow.setBackgroundResource(R.mipmap.weitijao);
@@ -244,6 +252,15 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             textMode = ClassContstant.TEST_MODE_NORMAL;
         } else if (state == ClassContstant.EXAM_COMMIT) {
             //已提交 state:1
+            if (testPaperListData.getIs_send() == 1&&testPaperListData.getRemaining()<0){
+            state = ClassContstant.EXAM_READ;
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(ExamOnLineListDao.STATE, state);
+                ExamOnLineListDao.getInstance(this).updateData(String.valueOf(examId),contentValues);
+                textMode = ClassContstant.TEST_MODE_TEST;
+                refreshState();
+                return;
+            }
             imgShow.setBackgroundResource(R.mipmap.yitijiao);
             rlScore.findViewById(R.id.ly_score).setVisibility(View.GONE);
             rlSubmitting.findViewById(R.id.item_submitting_ly).setVisibility(View.GONE);

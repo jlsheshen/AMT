@@ -33,7 +33,7 @@ public class WebActivity extends BaseActivity implements GetWebViewUrlManager.Ge
     public void initData() {
         Bundle bundle = getIntent().getExtras();
         exampleBeans = (ExampleBean) bundle.getSerializable("exampleBeans");
-        String url = NetUrlContstant.getMediaorPdfUrl() + exampleBeans .getUrl();
+        String url = NetUrlContstant.getHTMLUrl() + exampleBeans .getUrl();
         Log.d("WebActivity", "----------" + url);
         GetWebViewUrlManager.newInstance(this).setGetWebUrlListener(this).getSubjects(url);
 

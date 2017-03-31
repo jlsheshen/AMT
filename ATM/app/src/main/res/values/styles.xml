@@ -143,6 +143,10 @@
     <style name="item_gray_text" parent="item_text">
         <item name="android:textColor">@color/colorGray</item>
     </style>
+    <!--小号字黑色字-->
+    <style name="item_black_text" parent="item_text">
+        <item name="android:textColor">@color/colorTextBlack</item>
+    </style>
     <!--小号号白色字-->
     <style name="item_white_text" parent="item_text">
         <item name="android:textColor">@color/colorWhite</item>
@@ -160,6 +164,10 @@
     </style>
     <style name="content_white_text" parent="content_text">
         <item name="android:textColor">@color/colorWhite</item>
+    </style>
+    <!--小号字黑色字-->
+    <style name="content_black_text" parent="content_text">
+        <item name="android:textColor">@color/colorTextBlack</item>
     </style>
 
     <!--下拉刷新动画-->

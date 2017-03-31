@@ -33,7 +33,6 @@ import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.util.net.SubjectsDownloadManager;
 import com.edu.accountingteachingmaterial.view.RefreshExListView;
-import com.edu.library.util.ToastUtil;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
 import com.lucher.net.req.RequestMethod;
@@ -134,7 +133,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getId(), datas.get(i).getId());
+                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), datas.get(i).getId());
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
@@ -160,7 +159,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                         stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                         stateIv.setVisibility(View.GONE);
                         view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                        SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl() + datas.get(i).getId(), datas.get(i).getId());
+                        SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), datas.get(i).getId());
                     }
                     return false;
                 }
@@ -193,11 +192,13 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
-        Log.d("ClassExerciseFragment", "走过了EventBus");
+        Log.d("ClassExerciseFragment", "走过了1EventBus" + state);
 
         if (datas != null) {
             datas.get(item).setState(state);
             if (datas.get(item).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && state != ClassContstant.EXAM_NOT) {
+                Log.d("ClassExerciseFragment", "走过了2EventBus" + state);
+
                 datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
             }
             adapter.setDatas(datas);
@@ -216,9 +217,11 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
                     datas = JSON.parseArray(jsonObject.getString("message"), ExamListData.class);
-                    ToastUtil.showToast(context, "" + datas.get(0).getExam_name());
                     Log.d("UnitTestActivity", "uploadChapterList" + jsonObject.getString("message"));
                     for (ExamListData data : datas) {
+
+                        data.setId(Integer.valueOf("" + data.getId() + PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID)));
+
                         data1 = (ExamListData) ExamListDao.getInstance(context).getDataById(data.getId());
                         if (data1 == null) {
                             ContentValues contentValues = new ContentValues();
@@ -252,7 +255,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
 
             @Override
             public void onFailure(String errorInfo) {
-                Toast.makeText(context, errorInfo, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "当前还没有练习", Toast.LENGTH_SHORT).show();
                 nothingTv.setVisibility(View.VISIBLE);
                 expandableListView.setVisibility(View.GONE);
             }

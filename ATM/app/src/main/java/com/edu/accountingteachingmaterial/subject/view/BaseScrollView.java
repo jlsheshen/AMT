@@ -3,6 +3,7 @@ package com.edu.accountingteachingmaterial.subject.view;
 import android.content.ContentValues;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -70,8 +71,9 @@ public abstract class BaseScrollView extends RelativeLayout {
      */
     protected void updateState(String answer) {
         mTestData.setuAnswer(answer);
-
+        Log.d("BaseScrollView", "answer  " + answer + "  mData.getAnswer()  " + mData.getAnswer() + "  mTestData.getSubjectIndex() "+  mTestData.getSubjectIndex()) ;
         if (answer.equals(mData.getAnswer())) {
+            Log.d("BaseScrollView", " mTestData.getSubjectIndex()走了正确");
             // 1是正确
             mTestData.setState(SubjectState.STATE_CORRECT);
             mTestData.setuScore(mData.getScore());
@@ -85,6 +87,7 @@ public abstract class BaseScrollView extends RelativeLayout {
         } else {
             // 2是错误
             mTestData.setState(SubjectState.STATE_WRONG);
+            mTestData.setuScore(0);
             mTestData.setErrorCount(mTestData.getErrorCount() + 1);
             contentValues = new ContentValues();
             contentValues.put(SubjectTestDataDao.STATE, SubjectState.STATE_WRONG);

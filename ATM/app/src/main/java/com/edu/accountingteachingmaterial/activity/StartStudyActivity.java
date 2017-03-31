@@ -152,7 +152,8 @@ public class StartStudyActivity extends BaseActivity {
         editText = (EditText) window.findViewById(R.id.ip_content_et);
 
         String oldBaseUrl[] = PreferenceHelper.getInstance(StartStudyActivity.this).getStringValue(PreferenceHelper.URL_NAME).split("http://");
-        editText.setText(oldBaseUrl[1]);
+
+        editText.setText(oldBaseUrl.length>1?oldBaseUrl[1]:"");
         window.findViewById(R.id.ip_save_iv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -379,6 +379,7 @@ public class SubjectExamActivity extends BaseActivity implements AdapterView.OnI
     protected void onDestroy() {
         EventBus.getDefault().unregister(this);
         super.onDestroy();
+
     }
 
     @Override

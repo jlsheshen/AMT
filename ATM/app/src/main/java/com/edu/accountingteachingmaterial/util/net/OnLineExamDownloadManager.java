@@ -13,6 +13,7 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.library.data.DBHelper;
 import com.edu.subject.dao.SubjectBillDataDao;
 import com.edu.subject.data.SubjectData;
@@ -58,7 +59,9 @@ public class OnLineExamDownloadManager extends JsonNetReqManager {
 	 */
 	public void getSubjects(int chapterId) {
 		this.chatperId = chapterId;
-		String url = NetUrlContstant.getSubjectListUrl() + chapterId;
+		String userId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
+		String sendExamId[] = (String.valueOf(chapterId)).split(String.valueOf(userId));
+		String url = NetUrlContstant.getSubjectListUrl() + sendExamId[0];
 		UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
 		sendRequest(entity);
 	}
@@ -69,8 +72,10 @@ public class OnLineExamDownloadManager extends JsonNetReqManager {
 		parseSubjectJson(json);
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_UNDONE);
+		Log.d(TAG, "chatperId:" + chatperId);
 		ExamOnLineListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
-//
+
+
 //		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
 //		stateIv.setImageResource(R.drawable.selector_exam_undown_type);
 //		stateIv.setVisibility(View.VISIBLE);

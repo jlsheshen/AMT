@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="435dp"
     android:background="@mipmap/textbook_item_bg"
     android:paddingRight="22dp"
-
     android:layout_height="185dp">
 
     <ImageView
@@ -11,7 +10,6 @@
         android:layout_height="match_parent"
         android:layout_width="110dp"
         android:layout_margin="10dp"
-
         />
     <TextView
         android:id="@+id/item_textbook_name_tv"
@@ -19,6 +17,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:maxWidth="250dp"
+        android:ellipsize="end"
+        android:lines="1"
         android:text="基础会计"
         style="@style/item_title_blue_text" />
     <TextView
@@ -26,10 +27,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:maxWidth="180dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/item_textbook_name_tv"
         style="@style/content_blue_text"
         android:drawableLeft="@mipmap/organization"
+        android:lines="1"
         android:ellipsize="end"
         />
     <TextView
@@ -41,8 +44,10 @@
         android:layout_below="@id/item_textbook_name_tv"
         android:drawableLeft="@mipmap/publisher"
         style="@style/content_blue_text"
+        android:lines="1"
         android:ellipsize="end"
         />
+
     <TextView
         android:id="@+id/item_textbook_intro_tv"
         android:layout_width="wrap_content"
@@ -51,11 +56,8 @@
         android:layout_toRightOf="@id/item_textbook_bg_iv"
         android:layout_below="@id/item_textbook_organization_tv"
         style="@style/item_gray_text"
+        android:lines="3"
         android:ellipsize="end"
         />
-
-
-
-
 
 </RelativeLayout>

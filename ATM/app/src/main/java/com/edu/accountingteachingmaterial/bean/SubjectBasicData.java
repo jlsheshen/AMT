@@ -1,6 +1,9 @@
 package com.edu.accountingteachingmaterial.bean;
 
+import com.alibaba.fastjson.JSONObject;
 import com.edu.subject.data.BaseSubjectData;
+
+import java.util.List;
 
 /**
  * 基础题型（单多判）数据封装，每个字段的详细信息见doc/EduBasicAccounting_database.xls.xls
@@ -52,10 +55,18 @@ public class SubjectBasicData extends BaseSubjectData {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-
 	public String getAnalysis() {
 		return analysis;
 	}
+	public String showAnalysis() {
+		AnalysisBean analysisBean = JSONObject.parseObject(analysis,AnalysisBean.class);
+		if (analysisBean == null){
+			return "略";
+		}else {
+			return analysisBean.getText();
+		}
+	}
+
 
 	public void setAnalysis(String analysis) {
 		this.analysis = analysis;
@@ -93,4 +104,31 @@ public class SubjectBasicData extends BaseSubjectData {
 	}
 
 
+
+
+	public static class AnalysisBean {
+		/**
+		 * text : 略
+		 * imgSrc : []
+		 */
+
+		private String text;
+		private List<?> imgSrc;
+
+		public String getText() {
+			return text;
+		}
+
+		public void setText(String text) {
+			this.text = text;
+		}
+
+		public List<?> getImgSrc() {
+			return imgSrc;
+		}
+
+		public void setImgSrc(List<?> imgSrc) {
+			this.imgSrc = imgSrc;
+		}
+	}
 }

@@ -85,6 +85,7 @@
             android:drawableLeft="@mipmap/icon_min_n"
             />
         <View
+            android:id="@+id/item_exam_line_v"
             style="@style/VerticalLine"/>
 
         <TextView

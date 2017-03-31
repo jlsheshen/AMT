@@ -9,7 +9,8 @@
         android:id="@+id/item_groups_head_iv"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        />
 
     <TextView
         android:id="@+id/item_groups_name_tv"

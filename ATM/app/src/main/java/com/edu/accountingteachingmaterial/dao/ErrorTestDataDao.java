@@ -11,12 +11,12 @@ import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 import com.edu.accountingteachingmaterial.bean.SubjectEntryDataDao;
 import com.edu.accountingteachingmaterial.bean.TestBasicData;
 import com.edu.accountingteachingmaterial.bean.TestEntryData;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectConstant;
-import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.bill.template.BillTemplate;
@@ -63,12 +63,16 @@ public class ErrorTestDataDao extends BaseDataDao {
     //REMARK
     public static final String REMARK = "REMARK";
 
+    public static final String USERID = "USERID";
+    String userId  = null;
 
 
     private static ErrorTestDataDao instance = null;
 
     private ErrorTestDataDao(Context context) {
+
         super(context, Constant.DATABASE_NAME);
+        userId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID);
     }
 
     @Override
@@ -123,13 +127,13 @@ public class ErrorTestDataDao extends BaseDataDao {
         return datas;
     }
 
-    public List<BaseTestData> getErrors(int testMode) {
+    public List<BaseTestData> getErrors(int testMode ,String userId) {
         Cursor curs = null;
         List<BaseTestData> datas = null;
         try {
             DBHelper helper = new DBHelper(mContext, dbName, null);
             mDb = helper.getWritableDatabase();
-            String sql = "SELECT * FROM " + TABLE_NAME;
+            String sql = "SELECT * FROM " + TABLE_NAME  + " WHERE " + USERID + " = " + userId;
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
             if (curs != null) {
@@ -296,6 +300,7 @@ public class ErrorTestDataDao extends BaseDataDao {
         data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
         data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
         data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
+        data.setRemark(curs.getString(curs.getColumnIndex(USERID)));
 //        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
 //            data.setuAnswer(null);
 //            data.setuScore(0);
@@ -316,7 +321,7 @@ public class ErrorTestDataDao extends BaseDataDao {
     /**
      * 根据chatperid获取对应数据
      *
-     * @param id
+     * @param
      * @return
      */
     public synchronized BaseData getDataByChatperId(int chatperid) {
@@ -357,6 +362,7 @@ public class ErrorTestDataDao extends BaseDataDao {
         data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
         data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
         data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
+        data.setRemark(curs.getString(curs.getColumnIndex(USERID)));
 //        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
 //            data.setuAnswer(null);
 //            data.setuScore(0);
@@ -482,6 +488,7 @@ public class ErrorTestDataDao extends BaseDataDao {
         values.put("SUBJECT_TYPE", subjectType);
         values.put("SUBJECT_ID", subjectId);
         values.put(CHAPTER_ID,chapterid);
+        values.put(USERID,userId);
         values.put("USCORE", 0);
         values.put("STATE", 0);
         mDb.replace(TABLE_NAME, null, values);

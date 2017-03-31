@@ -100,7 +100,7 @@ public class SubjectJudgeView extends BaseScrollView implements ISubject, View.O
         }
         tvAnswer.setText("正确答案：" + answer);
         //tvAnalysis.setText("解析：" + data.getAnalysis());
-        tvAnalysis.setText(data.getAnalysis());
+        tvAnalysis.setText(data.showAnalysis());
     }
 
     /**

@@ -50,7 +50,8 @@
         android:textColor="@color/colorHalfWhite"
         android:textSize="@dimen/item_text_size" />
         <View
-            style="@style/VerticalLine"/>
+            style="@style/VerticalLine"
+            android:visibility="gone"/>
     <TextView
         android:id="@+id/item_task_group_tv"
         android:layout_width="wrap_content"

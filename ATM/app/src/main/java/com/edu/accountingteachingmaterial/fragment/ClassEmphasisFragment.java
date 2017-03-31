@@ -2,8 +2,10 @@ package com.edu.accountingteachingmaterial.fragment;
 
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
@@ -64,6 +66,9 @@ public class ClassEmphasisFragment extends BaseFragment implements EmphasisManag
         String encoding = "UTF-8";
         String mimeType = "text/html";
         Log.d("WebActivity", " ++++ " + message);
+        WebSettings webSettings = wView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        wView.addJavascriptInterface(this, "wx");
         wView.loadDataWithBaseURL("file://", message,mimeType, encoding, "about:blank");
     }
 
@@ -72,5 +77,18 @@ public class ClassEmphasisFragment extends BaseFragment implements EmphasisManag
         nothingTv.setVisibility(View.VISIBLE);
         wView.setVisibility(View.GONE);
 
+    }
+    @android.webkit.JavascriptInterface
+    public void actionFromJsWithParam(final String str) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(context, "actionFromJsWithParam" + str, Toast.LENGTH_SHORT).show();
+
+                Log.d("MainActivity", "触发图片点击事件");
+
+//                showPicture("a1/" + str + ".png");
+            }
+        });
     }
 }

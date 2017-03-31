@@ -142,13 +142,16 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
             answerEt.setSaveEnabled(false);
             answerEt.setFocusable(false);
             answerEt.setFocusableInTouchMode(false);
-            submitIv.setVisibility(View.INVISIBLE);
+            teacherCommentTv.setVisibility(View.VISIBLE);
+            teacherCommentTv.setText(data.getComment());
+            findViewById(R.id.task_teachersay_title_tv).setVisibility(View.VISIBLE);
+            submitIv.setVisibility(View.GONE);
         } else if (taskModel == ClassContstant.STATE_FINSH) {
             answerEt.setSaveEnabled(false);
             answerEt.setFocusable(false);
             answerEt.setFocusableInTouchMode(false);
             teacherCommentTv.setVisibility(View.VISIBLE);
-            submitIv.setVisibility(View.INVISIBLE);
+            submitIv.setVisibility(View.GONE);
             teacherCommentTv.setText(data.getComment());
             findViewById(R.id.task_teachersay_title_tv).setVisibility(View.VISIBLE);
         } else {

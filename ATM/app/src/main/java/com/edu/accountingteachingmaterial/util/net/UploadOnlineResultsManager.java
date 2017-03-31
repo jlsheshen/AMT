@@ -107,7 +107,9 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
             return;
         }
         Log.d("UploadResultsManager", JSON.toJSONString(mAnswerResults));
-        String url = NetUrlContstant.getSubjectSubmitUrl() + studentId + "-" + examId + "-" + seconds;
+        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(studentId));
+
+        String url = NetUrlContstant.getSubjectSubmitUrl() + studentId + "-" + sendExamId[0] + "-" + seconds;
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
         sendRequest(entity, "正在拼命上传成绩");
         Log.d(TAG, "uploadResult:" + JSON.toJSONString(mAnswerResults));

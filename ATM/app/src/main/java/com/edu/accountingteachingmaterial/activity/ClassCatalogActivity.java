@@ -33,6 +33,7 @@ import com.edu.accountingteachingmaterial.util.HistoryClickManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.view.CircleImageView;
 import com.edu.library.imageloader.EduImageLoader;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.BASE_URL;
@@ -56,8 +57,9 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     PopupWindow popupWindow;
     ListView ppwList;
     boolean ppwShowing = false;
-    ImageView imgHistory, infoTextbookHead,infoClassHead;//历史按钮,教材封面
-    TextView infoTextbookName, infoTextbookAuthor,infotextbookContext,infoClassName, infoClassAuthor,infoClassContext,titleTv;//教材名称,作者,内容//
+    ImageView imgHistory,infoClassHead;//历史按钮,教材封面
+    CircleImageView infoTextbookHead;
+    TextView infoTextbookName, infoTextbookAuthor,infoTextbookOrganization,infotextbookContext,titleTv;//教材名称,作者,内容//
     RelativeLayout bookRl,classRl;
     ImageView backBtn;
     //当前是否是教材入口
@@ -87,7 +89,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         else {
             titleTv.setText("课堂");
         }
-
     }
 
     private void setInfoView() {
@@ -95,6 +96,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         infoTextbookAuthor = bindView(R.id.catalog_textbook_author_tv);
         infoTextbookName = bindView(R.id.catalog_textbook_name_tv);
         infotextbookContext = bindView(R.id.catalog_textbook_content_tv);
+        infoTextbookOrganization = bindView(R.id.catalog_textbook_organization_tv);
         backBtn = bindView(R.id.class_aty_back_iv);
         titleTv = bindView(R.id.aty_title_tv);
         backBtn.setOnClickListener(this);
@@ -103,11 +105,11 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void initData() {
         chapterExLvAdapter = new ClassChapterExLvAdapter(this);
-        uploadChapter();
 
         String courseId = PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.COURSE_ID);
         ClassInfoManager.getSingleton(this).getClassInfo(courseId,this);
 
+        uploadChapter();
 
         expandableListView.setAdapter(chapterExLvAdapter);
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
@@ -134,9 +136,19 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
                 }
             }
         });
-        showPopupWindow(expandableListView);
         ppwAdapter = new HistoryPpwAdapter(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        showPopupWindow(expandableListView);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        showPopupWindow(expandableListView);
     }
 
     private void uploadChapter() {
@@ -168,7 +180,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
             popupWindow.showAsDropDown(imgHistory, 50, 50);
             ppwShowing = true;
         }
-
     }
 
     @Override
@@ -184,7 +195,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void showPopupWindow(View view) {
-
         // 一个自定义的布局，作为显示的内容
         View contentView = LayoutInflater.from(this).inflate(
                 R.layout.ppw_his, null);
@@ -208,7 +218,6 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         });
 
     }
-
 
     private void loadHistoryDatas() {
 
@@ -268,6 +277,14 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    public void onBackPressed() {
+        if (ppwShowing ){
+            popupWindow.dismiss();
+        }else {
+        super.onBackPressed();}
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if ( null == ppwAdapter.getData(position)){
             return;
@@ -300,16 +317,14 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         return ppwShowing;
     }
 
-
     @Override
     public void onSuccess(ClassInfoBean data) {
         ImageLoader.getInstance().displayImage(BASE_URL.getBaseImageUrl() + data.getPicture() , infoTextbookHead, EduImageLoader.getInstance().getDefaultBuilder().build());
-        infoTextbookAuthor.setText(data.getSchool());
+        infoTextbookAuthor.setText(data.getCreator());
         infoTextbookName.setText(data.getTitle());
         titleTv.setText(data.getTitle());
         infotextbookContext.setText(data.getSummary());
-
-
+        infoTextbookOrganization.setText(data.getSchool());
     }
 
     @Override

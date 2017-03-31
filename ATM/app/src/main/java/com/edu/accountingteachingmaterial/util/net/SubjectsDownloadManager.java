@@ -62,9 +62,14 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	 *
 	 * @param url
 	 */
-	public void getSubjects(String url, int chatperId) {
-		this.chatperId = chatperId;
-		UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
+	public void getSubjects(String url, int chapterId) {
+		this.chatperId = chapterId;
+
+		String userId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
+		String sendExamId[] = (String.valueOf(chapterId)).split(String.valueOf(userId));
+
+
+		UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url +sendExamId[0] );
 		sendRequest(entity);
 	}
 

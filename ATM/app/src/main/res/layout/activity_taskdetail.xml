@@ -7,9 +7,10 @@
     android:focusableInTouchMode="true"
     >
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/aty_title_layout"
         style="@style/TitleBarStyle"
+        android:orientation="horizontal"
         android:paddingLeft="10px"
         android:background="@mipmap/bg"
         >
@@ -18,29 +19,30 @@
             android:id="@+id/aty_title_back_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
             android:src="@mipmap/icon_fanhui_n" />
-
-        <ImageView
-            android:id="@+id/task_submit_iv"
-            android:layout_width="wrap_content"
+        <View
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="25dp"
-            android:src="@mipmap/icon_fasong_n"
-            android:visibility="visible" />
+            android:layout_weight="1"></View>
         <ImageView
             android:id="@+id/task_history_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@id/task_submit_iv"
-            android:layout_centerVertical="true"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="25dp"
             android:src="@mipmap/icon_history_n"
             android:visibility="visible" />
+        <ImageView
+            android:id="@+id/task_submit_iv"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="25dp"
+            android:src="@mipmap/icon_fasong_n"
+            android:visibility="visible" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"

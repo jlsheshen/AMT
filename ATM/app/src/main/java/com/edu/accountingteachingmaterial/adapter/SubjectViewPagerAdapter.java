@@ -200,10 +200,11 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 	 * @param index
 	 */
 	private void submitSubject(int index) {
+		if (testMode == ClassContstant.TEST_MODE_INCLASS){
 		SubjectViewPagerFragment pager = mPagerList.get(index);
 		if (pager != null) {
 			pager.submit();
-		}
+		}}
 		// 判断正误，在此之前需要把对应的题得分设置到data中
 		if (mSubjectList.get(index).getSubjectData().getScore() == mSubjectList.get(index).getuScore()) {
 			mSubjectList.get(index).setState(SubjectState.STATE_CORRECT);

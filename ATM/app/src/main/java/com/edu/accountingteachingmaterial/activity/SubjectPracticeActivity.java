@@ -33,11 +33,11 @@ import com.edu.testbill.Constant;
 import com.edu.testbill.dialog.SignChooseDialog;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.IOException;
 import java.util.List;
+
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.EXAM_UNDONE;
 
 
 /**
@@ -92,7 +92,6 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
     @Override
     public void initView(Bundle savedInstanceState) {
-        EventBus.getDefault().register(this);
 
         List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
         signDialog = new SignChooseDialog(this, signs, this);
@@ -216,7 +215,10 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
         }
         else {
             mSubjectAdapter.reset(mCurrentIndex);
+            EventBus.getDefault().post(EXAM_UNDONE);
+
             finish();
+
 //            btnDone.setImageResource(R.mipmap.icon_fasong_n);
         }
 
@@ -301,15 +303,10 @@ public class SubjectPracticeActivity extends BaseActivity implements AdapterView
 
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void showDone(String message) {
 
-
-    }
 
     @Override
     protected void onDestroy() {
-        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 

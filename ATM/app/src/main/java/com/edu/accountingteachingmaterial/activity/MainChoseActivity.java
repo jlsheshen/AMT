@@ -141,7 +141,7 @@ public class MainChoseActivity extends BaseActivity implements OnClickListener, 
                 alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
                 editText = (EditText) window.findViewById(R.id.ip_content_et);
                 String oldBaseUrl[] = PreferenceHelper.getInstance(MainChoseActivity.this).getStringValue(PreferenceHelper.URL_NAME).split("http://");
-                editText.setText(oldBaseUrl[1]);
+                editText.setText(oldBaseUrl.length>1?oldBaseUrl[1]:"");
                 window.findViewById(R.id.ip_save_iv).setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View view) {
