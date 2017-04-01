@@ -14,7 +14,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@mipmap/icon_fanhui_n" />
+            android:src="@mipmap/icon_fanhui_n"
+            android:layout_marginLeft="10dp"/>
 
 
         <TextView

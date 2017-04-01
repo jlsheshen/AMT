@@ -107,7 +107,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         Log.d("GetBillTemplatesManager", url);
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(datas));
 
-        sendRequest(entity, "耐心等待");
+        sendRequest(entity);
         Log.d("GetBillTemplatesManager", "uploadResult:" + JSON.toJSONString(datas));
     }
     /**
@@ -156,7 +156,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         if (result) {
 
             myDialog = new ProgressDialog(mContext);
-            myDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT);
+            myDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
             myDialog.setTitle("正在加载模板..");
             myDialog.setMessage("第一次加载时间会比较久^-^");
             myDialog.setCancelable(false);

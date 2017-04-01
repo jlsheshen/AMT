@@ -20,6 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/item_task_title_iv"
         android:textColor="@color/colorWhite"
+        android:maxWidth="400dp"
+        android:lines="1"
+        android:ellipsize="end"
         android:textSize="@dimen/item_title_text_size"
         android:layout_marginTop="10dp"
         />

@@ -299,14 +299,11 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
 
     @Override
     public void onSuccess() {
-
         ContentValues contentValues = new ContentValues();
         contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
         ExamOnLineListDao.getInstance(this).updateData("" + examId, contentValues);
         EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
         finish();
-
-
     }
 
     @Override
