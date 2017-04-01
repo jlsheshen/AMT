@@ -58,10 +58,26 @@ public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.
     @Override
     public void onBindViewHolder(MultiViewHolder holder, final int position) {
          final TaskDetailBean.FileListBean data = datas.get(position);
+
         if (rvModel == ClassContstant.STATE_AFTER){
+            ImageLoader.getInstance().displayImage(data.getPic(), holder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    accessoryListener.showAccessoryImage(datas.get(position).getPic());
+                }
+            });
             holder.cancelIv.setVisibility(View.GONE);
         }else if (rvModel == ClassContstant.STATE_FINSH){
             holder.cancelIv.setVisibility(View.GONE);
+            ImageLoader.getInstance().displayImage(data.getPic(), holder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    accessoryListener.showAccessoryImage(datas.get(position).getPic());
+                }
+            });
+
         }else {
         if (data.isFoot()) {
             holder.bgIv.setImageResource(R.mipmap.add_accessory);
@@ -75,6 +91,7 @@ public class RvMultiTypeAdapter extends RecyclerView.Adapter<RvMultiTypeAdapter.
             holder.cancelIv.setVisibility(View.GONE);
         } else {
             ImageLoader.getInstance().displayImage(data.getPic(), holder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+
             holder.bgIv.setClickable(false);
             holder.cancelIv.setVisibility(View.VISIBLE);
             holder.cancelIv.setOnClickListener(new View.OnClickListener() {

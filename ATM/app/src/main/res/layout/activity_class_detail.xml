@@ -66,6 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:maxWidth="600dp"
+            android:lines="1"
             android:text="第一节 会计要素"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size" />

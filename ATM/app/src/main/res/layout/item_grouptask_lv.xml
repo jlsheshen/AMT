@@ -33,6 +33,7 @@
         android:orientation="horizontal"
         android:layout_toRightOf="@id/item_task_title_iv"
         android:layout_alignParentBottom="true"
+
         android:layout_marginBottom="10dp"
         >
     <TextView
@@ -41,6 +42,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/colorHalfWhite"
         android:drawableLeft="@mipmap/icon_mingzi_n"
+        android:ellipsize="end"
+        android:maxLength="5"
         android:textSize="@dimen/item_text_size" />
 
         <View

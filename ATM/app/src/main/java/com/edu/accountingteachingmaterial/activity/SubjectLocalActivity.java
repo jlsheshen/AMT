@@ -61,10 +61,12 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
 
     private int mCurrentIndex;
     int examId;
+    boolean isExam;
     // 印章选择对话框
     private SignChooseDialog signDialog;
     // 印章，闪电符按钮
     private ImageView btnSign, btnFlash, backIv;
+
 
     // 答题卡对话框
     private SubjectCardDialog mCardDialog;
@@ -108,21 +110,35 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
         btnFlash = (ImageView) findViewById(R.id.btnFlash);
         backIv = (ImageView) findViewById(R.id.class_aty_back_iv);
         Bundle bundle = getIntent().getExtras();
-        examId = bundle.getInt("examId");
+        isExam = bundle.getBoolean("isExam");
+        if (isExam){
+            examId = bundle.getInt("examId");
+            datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
+            if (datas == null || datas.size() == 0) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(ExamOnLineListDao.ID, examId);
+                contentValues.put(ExamOnLineListDao.STATE, ClassContstant.EXAM_NOT);
+                ExamOnLineListDao.getInstance(this).updateData(String.valueOf(examId), contentValues);
+                Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
+                finish();
+                return;}
 
-//        examListData = (ExamListData) bundle.get("ExamListData");
+        }else {
+            examListData = (ExamListData) bundle.get("ExamListData");
+            datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examListData.getId());
+            if (datas == null || datas.size() == 0) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(ExamListDao.ID, examListData.getId());
+                contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
+                contentValues.put(ExamListDao.TYPE, examListData.getExam_type());
+                contentValues.put(ExamListDao.CHAPTER_ID, examListData.getChapter_id());
+                ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()), contentValues);
+                Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
+                finish();
+                return;
+            }
 
-        datas = SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE, examId);
-        if (datas == null || datas.size() == 0) {
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(ExamListDao.ID, examListData.getId());
-            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
-            contentValues.put(ExamListDao.TYPE, examListData.getExam_type());
-            contentValues.put(ExamListDao.CHAPTER_ID, examListData.getChapter_id());
-            ExamListDao.getInstance(this).updateData(String.valueOf(examListData.getId()), contentValues);
-            Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
+
         }
 
         String s = JSONObject.toJSONString(datas);
@@ -168,16 +184,26 @@ public class SubjectLocalActivity extends BaseActivity implements AdapterView.On
                 break;
 
             case R.id.btnDone:
+                float score = mSubjectAdapter.submit();
+
 //                float score = mSubjectAdapter.submit();
 
 //                ToastUtil.showToast(this, "score:" + score);
-                float score = mSubjectAdapter.submit();
-                UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
-                UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
-                int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
-                int cost = 0;
+                if (isExam){
+                    UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
+                    UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+                    int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
+                    int cost = 0;
+                    UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, cost);
+                }else {
+                    Toast.makeText(this, "score:" + score, Toast.LENGTH_SHORT).show();
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+                    ExamListDao.getInstance(this).updateData("" + examListData.getId(), contentValues);
+                    EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+                    finish();
+                }
 
-                UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, examId, cost);
                 break;
 
             case R.id.btnCard:

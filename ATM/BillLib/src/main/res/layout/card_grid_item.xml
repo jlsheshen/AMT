@@ -20,14 +20,14 @@
         android:id="@+id/cardGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8px"
+        android:layout_margin="8dp"
         android:cacheColorHint="@android:color/transparent"
-        android:columnWidth="35px"
+        android:columnWidth="35dp"
         android:gravity="center"
-        android:horizontalSpacing="8px"
+        android:horizontalSpacing="8dp"
         android:listSelector="@android:color/transparent"
         android:numColumns="auto_fit"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="8px"></com.edu.subject.common.CardGridView>
+        android:verticalSpacing="8dp"></com.edu.subject.common.CardGridView>
 
 </LinearLayout>
