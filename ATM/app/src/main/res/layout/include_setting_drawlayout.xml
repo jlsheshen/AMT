@@ -20,6 +20,7 @@
         />
 
     <View style="@style/HorizontalLine"
+        android:visibility="gone"
 
         />
 
@@ -28,6 +29,7 @@
         android:orientation="horizontal"
         android:paddingLeft="@dimen/middle_interval"
         android:paddingRight="@dimen/middle_interval"
+        android:visibility="gone"
         >
         <TextView
             android:id="@+id/my_head_student_name_tv"
@@ -86,7 +88,7 @@
             android:layout_weight="1"
             android:layout_gravity="center_vertical"
             android:gravity="left"
-            android:text="更换IP"
+            android:text="注销"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/item_title_text_size"
             />

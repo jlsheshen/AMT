@@ -96,10 +96,13 @@ public class SelectPictureDialog extends BaseDialog implements View.OnClickListe
 	 */
 	public interface OnButtonClickListener {
 		/**
-		 * 继续按钮点击
+		 * 拍照
 		 */
 		public void onPhotograph();
 
+		/**
+		 * 从相册中选取
+		 */
 		public void onAlbum();
 			
 	}

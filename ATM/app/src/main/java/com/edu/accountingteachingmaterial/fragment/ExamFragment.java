@@ -49,7 +49,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     OnLineExamData onLineExamData;
     private CheckBox examOrExercise;//
     private boolean isExercise;//当前状态,当为练习时值为ture
-    private boolean inUpload = false;
+    private boolean inRefresh = false;
     ContentValues contentValues;
 
     /**
@@ -64,6 +64,9 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
+                    listView.setEnabled(true);
+                    inRefresh = false;
+                    refreshAdapter();
                     listView.setOnRefreshComplete();
                     examAdapter.notifyDataSetChanged();
                     listView.setSelection(0);
@@ -122,18 +125,15 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
 
                                                 } else {
                                                     if (isExercise) {
+                                                        Bundle b = new Bundle();
+                                                        b.putBoolean("isExam", true);
+                                                        b.putInt("examId", showDatas.get(pos).getExam_id());
                                                         if (showDatas.get(pos).getState() != ClassContstant.EXAM_UNDONE) {
-                                                            Bundle b = new Bundle();
                                                             b.putInt(ClassContstant.SUBJECT_DETAIL_ID, showDatas.get(pos).getExam_id());
-                                                            b.putBoolean("isExam", true);
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
                                                             startActivity(SubjectDetailsLocalActivity.class, b);
                                                         } else {
-                                                            Bundle b = new Bundle();
-
 //                                                            String examId[] = String.valueOf(showDatas.get(pos).getExam_id()).split(String.valueOf(showDatas.get(pos).getU_id()));
-                                                            b.putInt("examId", showDatas.get(pos).getExam_id());
-
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
                                                             startActivity(SubjectLocalActivity.class, b);
                                                         }
@@ -189,7 +189,11 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
 
     @Override
     public void refreshView() {
+        inRefresh = true;
+        listView.setEnabled(false);
+
         uploadExamList();
+
         new Thread(new Runnable() {
 
             @Override
@@ -233,6 +237,9 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
      * 刷新列表
      */
     void refreshAdapter() {
+        if (inRefresh){
+            return;
+        }
         showDatas = new ArrayList<OnLineExamListData>();
         if (datas == null || datas.size() < 1) {
             return;
@@ -267,6 +274,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
         List<OnLineExamListData> showDatas = new ArrayList<OnLineExamListData>();
         saveExamDatas();
 //                    examAdapter.setDatas(datas);
+
         refreshAdapter();
 //        examAdapter.setDatas(showDatas);
 

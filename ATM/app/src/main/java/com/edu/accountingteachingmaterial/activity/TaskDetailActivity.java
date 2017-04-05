@@ -1,7 +1,9 @@
 package com.edu.accountingteachingmaterial.activity;
 
+import android.Manifest;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -9,6 +11,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
@@ -77,6 +82,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     String fileNmae;//照片路径
     TaskSubmitHistoryDialog historyDialog;//历史提交纪录dialog
     JoinGroupDialog dialog;
+    int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 37421;
 
 
     @Override
@@ -193,10 +199,14 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
             if (requestCode == ALBUM) {
                 Uri uri = data.getData();
                 Log.e("uri", uri.toString());
+                //content://com.android.providers.media.documents/document/image%3A23
+                //content://com.android.providers.media.documents/document/image%3A33392
                 ContentResolver cr = this.getContentResolver();
                 try {
                     Bitmap bitmap = BitmapFactory.decodeStream(cr.openInputStream(uri));
                     File file = FileUtil.getUriFile(this, data.getData());
+
+
                     sendBitmap(file);
 //
 //                /* 将Bitmap设定到ImageView */
@@ -205,6 +215,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
                     Log.e("Exception", e.getMessage(), e);
                 }
             } else {
+                Log.d("TaskDetailActivity", fileNmae);
                 File file = new File(fileNmae);
                 sendBitmap(file);
 
@@ -223,9 +234,27 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
 
     @Override
     public void addAccessoryListener() {
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE);
+        int camera = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA);
+        if(permissionCheck ==  PackageManager.PERMISSION_GRANTED&& camera == PackageManager.PERMISSION_GRANTED){
+            Log.d("MainActivity", "有权限");
+            pictureDialog = new SelectPictureDialog(this);
+            pictureDialog.setOnButtonClickListener(this);
+            pictureDialog.show();
+        }else {
+            Log.d("MainActivity", "没有权限");
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS){
         pictureDialog = new SelectPictureDialog(this);
         pictureDialog.setOnButtonClickListener(this);
-        pictureDialog.show();
+        pictureDialog.show();}
     }
 
     @Override

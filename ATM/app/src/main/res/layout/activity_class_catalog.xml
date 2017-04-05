@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/class_name"
+            android:maxWidth="300dp"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />

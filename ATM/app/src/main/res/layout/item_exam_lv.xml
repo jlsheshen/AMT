@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:maxWidth="350dp"
+            android:lines="1"
             android:ellipsize="end"
             android:textSize="@dimen/item_title_text_size"
 
@@ -62,6 +63,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/item_text_size"
+            android:lines="1"
+            android:maxLength="5"
+            android:ellipsize="end"
             android:drawableLeft="@mipmap/icon_mingzi_n"
             />
         <View

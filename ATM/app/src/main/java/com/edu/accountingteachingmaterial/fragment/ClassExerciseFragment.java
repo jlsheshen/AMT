@@ -57,6 +57,8 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
     ImageView stateIv;
     ExamListData data1;
     TextView nothingTv;
+    private boolean inRefresh = false;
+
 
     Bundle b = new Bundle();
     private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
@@ -99,6 +101,9 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         public void handleMessage(android.os.Message msg) {
             switch (msg.what) {
                 case REFRESH_COMPLETE:
+                    inRefresh = false;
+                    expandableListView.setEnabled(true);
+                    refreshAdapter();
                     expandableListView.setOnRefreshComplete();
                     adapter.notifyDataSetChanged();
                     expandableListView.setSelection(0);
@@ -137,7 +142,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putSerializable("ExamListData", datas.get(i));
-                    b.putBoolean("isExam",false);
+                    b.putBoolean("isExam", false);
                     if (isBook) {
                         startActivity(SubjectLocalActivity.class, b);
                     } else {
@@ -201,7 +206,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
 
                 datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
             }
-            adapter.setDatas(datas);
+            refreshAdapter();
         } else {
 //            datas= ExamListDao.getInstance(context).getAllDatasByChapter();
         }
@@ -245,11 +250,11 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                             data.setTestList(tests);
                         }
                     }
-                    if (datas.size() == 0){
+                    if (datas.size() == 0) {
                         nothingTv.setVisibility(View.VISIBLE);
                         expandableListView.setVisibility(View.GONE);
                     }
-                    adapter.setDatas(datas);
+                    refreshAdapter();
                 }
             }
 
@@ -271,6 +276,8 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
 
     @Override
     public void refreshView() {
+        inRefresh = true;
+        expandableListView.setEnabled(false);
         uploadChapterList();
         new Thread(new Runnable() {
 
@@ -286,8 +293,19 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         }).start();
     }
 
+    /**
+     * 刷新列表
+     */
+    void refreshAdapter() {
+        if (inRefresh) {
+            return;
+        }
+        adapter.setDatas(datas);
+    }
+
     @Override
     public void loadMoreView() {
+        inRefresh = true;
         new Thread(new Runnable() {
 
             @Override

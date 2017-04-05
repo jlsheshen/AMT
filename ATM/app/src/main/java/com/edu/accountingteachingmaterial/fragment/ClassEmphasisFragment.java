@@ -69,6 +69,7 @@ public class ClassEmphasisFragment extends BaseFragment implements EmphasisManag
         WebSettings webSettings = wView.getSettings();
         webSettings.setJavaScriptEnabled(true);
         wView.addJavascriptInterface(this, "wx");
+        wView.getSettings().setBuiltInZoomControls(true);
         wView.loadDataWithBaseURL("file://", message,mimeType, encoding, "about:blank");
     }
 

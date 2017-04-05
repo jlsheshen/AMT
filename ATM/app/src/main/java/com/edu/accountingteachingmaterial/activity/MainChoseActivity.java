@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -129,39 +127,41 @@ public class MainChoseActivity extends BaseActivity implements OnClickListener, 
                 drawerLayout.openDrawer(Gravity.LEFT);
                 break;
             case R.id.change_ip_ly:
-                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                alertDialog = builder.create();
-                alertDialog.show();
-                final Window window = alertDialog.getWindow();
-                // *** 主要就是在这里实现这种效果的.
-                // 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
-                window.setBackgroundDrawableResource(android.R.color.transparent);
-
-                window.setContentView(R.layout.dialog_changeip);
-                alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
-                editText = (EditText) window.findViewById(R.id.ip_content_et);
-                String oldBaseUrl[] = PreferenceHelper.getInstance(MainChoseActivity.this).getStringValue(PreferenceHelper.URL_NAME).split("http://");
-                editText.setText(oldBaseUrl.length>1?oldBaseUrl[1]:"");
-                window.findViewById(R.id.ip_save_iv).setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        String s = editText.getText().toString();
-                        Log.d("MainActivity", "-------------" + s);
-                        if (s.length() < 4) {
-                            Toast.makeText(MainChoseActivity.this, "请输入正确IP地址", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                        showIp(s);
-                        //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                window.findViewById(R.id.ip_close_iv).setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                alertDialog.show();
+                startActivity(StartStudyActivity.class);
+                finish();
+//                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//                alertDialog = builder.create();
+//                alertDialog.show();
+//                final Window window = alertDialog.getWindow();
+//                // *** 主要就是在这里实现这种效果的.
+//                // 设置窗口的内容页面,shrew_exit_dialog.xml文件中定义view内容
+//                window.setBackgroundDrawableResource(android.R.color.transparent);
+//
+//                window.setContentView(R.layout.dialog_changeip);
+//                alertDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+//                editText = (EditText) window.findViewById(R.id.ip_content_et);
+//                String oldBaseUrl[] = PreferenceHelper.getInstance(MainChoseActivity.this).getStringValue(PreferenceHelper.URL_NAME).split("http://");
+//                editText.setText(oldBaseUrl.length>1?oldBaseUrl[1]:"");
+//                window.findViewById(R.id.ip_save_iv).setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        String s = editText.getText().toString();
+//                        Log.d("MainActivity", "-------------" + s);
+//                        if (s.length() < 4) {
+//                            Toast.makeText(MainChoseActivity.this, "请输入正确IP地址", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                        showIp(s);
+//                        //  Toast.makeText(MainActivity.this, s + "链接失败", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                window.findViewById(R.id.ip_close_iv).setOnClickListener(new OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        alertDialog.dismiss();
+//                    }
+//                });
+//                alertDialog.show();
 
                 break;
             case R.id.main_relogin:
