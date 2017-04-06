@@ -26,7 +26,6 @@ public class WebActivity extends BaseActivity implements GetWebViewUrlManager.Ge
     @Override
     public void initView(Bundle savedInstanceState) {
         webView = bindView(R.id.aty_wv);
-
     }
 
     @Override
@@ -36,12 +35,7 @@ public class WebActivity extends BaseActivity implements GetWebViewUrlManager.Ge
         String url = NetUrlContstant.getHTMLUrl() + exampleBeans .getUrl();
         Log.d("WebActivity", "----------" + url);
         GetWebViewUrlManager.newInstance(this).setGetWebUrlListener(this).getSubjects(url);
-
-
-
     }
-
-
     @Override
     public void onSuccess(String text) {
 
@@ -49,14 +43,13 @@ public class WebActivity extends BaseActivity implements GetWebViewUrlManager.Ge
         String encoding = "UTF-8";
         String mimeType = "text/html";
         Log.d("WebActivity", " ++++ " + text);
+        webView.getSettings().setBuiltInZoomControls(true);
+
         webView.loadDataWithBaseURL("file://", text,mimeType, encoding, "about:blank");
-
-
     }
 
     @Override
     public void onFail() {
-
 
     }
 }
