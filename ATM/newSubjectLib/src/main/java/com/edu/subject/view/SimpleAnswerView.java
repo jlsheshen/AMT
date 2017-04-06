@@ -1,6 +1,7 @@
 package com.edu.subject.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -54,10 +55,27 @@ public class SimpleAnswerView extends BasicSubjectView implements ISubject {
 	}
 
 	@Override
-	public void initUAnswer() {
+	public void initUAnswer(boolean judge) {
 		BasicAnswerData answerData = ((TestBasicData) mTestData).getUAnswerData();
 		if (answerData != null) {
 			etBlank.setText(answerData.getUanswer());
+			if(judge) {
+				if(mTestData.getuScore() == mTestData.getSubjectData().getScore()) {
+					etBlank.setTextColor(Color.BLUE);
+					etBlank.setBackgroundResource(R.drawable.shape_edittext_right);
+				} else {
+					etBlank.setBackgroundResource(R.drawable.shape_edittext_wrong);
+					etBlank.setTextColor(Color.RED);
+				}
+			} else {
+				etBlank.setTextColor(Color.BLACK);
+				etBlank.setBackgroundResource(R.drawable.shape_edittext_normal);
+			}
+		} else {
+			if (judge) {
+				etBlank.setBackgroundResource(R.drawable.shape_edittext_wrong);
+				etBlank.setHint("");
+			}
 		}
 	}
 
@@ -67,9 +85,13 @@ public class SimpleAnswerView extends BasicSubjectView implements ISubject {
 		if (answerData != null && answerData.getUanswer().replace(" ", "").equals(mSubjectData.getAnswer().getText())) {
 			mTestData.setuScore(mSubjectData.getScore());
 			mTestData.setState(SubjectState.STATE_CORRECT);
+			etBlank.setTextColor(Color.BLUE);
+			etBlank.setBackgroundResource(R.drawable.shape_edittext_right);
 		} else {
 			mTestData.setuScore(0);
 			mTestData.setState(SubjectState.STATE_WRONG);
+			etBlank.setBackgroundResource(R.drawable.shape_edittext_wrong);
+			etBlank.setTextColor(Color.RED);
 		}
 	}
 
@@ -78,7 +100,10 @@ public class SimpleAnswerView extends BasicSubjectView implements ISubject {
 		super.reset();
 		if (inited) {
 			etBlank.setEnabled(true);
+			etBlank.setTextColor(Color.BLACK);
+			etBlank.setBackgroundResource(R.drawable.shape_edittext_normal);
 			etBlank.setText("");
+			etBlank.setHint("请在此作答");
 		}
 	}
 }

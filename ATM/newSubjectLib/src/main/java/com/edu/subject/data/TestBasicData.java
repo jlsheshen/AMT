@@ -51,10 +51,14 @@ public class TestBasicData extends BaseTestData {
 		SubjectAnswerResult result = new SubjectAnswerResult();
 		result.setFlag(getSubjectData().getFlag());
 		result.setType(getSubjectData().getSubjectType());
-		if (userAnswer == null) {
+		if (userAnswer == null && answerData == null) {
 			result.setAnswer("");
 		} else {
-			result.setAnswer(userAnswer.toString());
+			if (answerData != null) {
+				result.setAnswer(((BasicAnswerData) answerData).getUanswer());
+			} else if (userAnswer != null) {
+				result.setAnswer(userAnswer.toString());
+			}
 		}
 		result.setScore(uScore);
 

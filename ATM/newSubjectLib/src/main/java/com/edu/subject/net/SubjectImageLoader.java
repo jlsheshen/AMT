@@ -46,13 +46,6 @@ public class SubjectImageLoader {
 		mContext = context;
 		// imageloader配置
 		mImageLoader = ImageLoader.getInstance();
-		if (!mImageLoader.isInited()) {
-			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context).threadPoolSize(3)// 线程池内加载的数量
-					.threadPriority(Thread.NORM_PRIORITY - 2) // 降低线程的优先级保证主UI线程不受太大影响
-					.memoryCache(null) // 建议内存设在5-10M,可以有比较好的表现
-					.tasksProcessingOrder(QueueProcessingType.LIFO).diskCache(null).writeDebugLogs().build();
-			mImageLoader.init(config);
-		}
 	}
 
 	/**

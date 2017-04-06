@@ -166,10 +166,10 @@ public class TestBillData extends BaseTestData {
 		SubjectAnswerResult result = new SubjectAnswerResult();
 		result.setFlag(getSubjectData().getFlag());
 		result.setType(SubjectType.SUBJECT_BILL);
-		if (getUAnswer() == null) {
+		if (answerData == null) {
 			result.setAnswer("null");
 		} else {
-			result.setAnswer(getUAnswer().toString());
+			result.setAnswer(JSON.toJSONString(answerData));
 		}
 		result.setScore(uScore);
 		return result;

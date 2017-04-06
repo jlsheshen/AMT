@@ -6,5 +6,6 @@
     <dimen name="select_item_size">20sp</dimen>
     <!-- 贷方视图与借方视图间距 -->
     <dimen name="entry_loan_margin">30dp</dimen>
-
+    <!-- 富文本字体大小 -->
+    <dimen name="rich_text_size">25sp</dimen>
 </resources>

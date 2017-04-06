@@ -64,7 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvAnswer"
-            android:text="解析：" />
+            android:text="解析："
+            android:textSize="@dimen/txt_size_half_medium" />
 
         <com.edu.subject.common.rich.RichContentView
             android:id="@+id/tvAnalysis"

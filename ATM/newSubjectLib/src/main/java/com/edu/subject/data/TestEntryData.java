@@ -31,7 +31,17 @@ public class TestEntryData extends BaseTestData {
 
 	@Override
 	public SubjectAnswerResult toResult() {
-		return null;
+		SubjectAnswerResult result = new SubjectAnswerResult();
+		result.setFlag(getSubjectData().getFlag());
+		result.setType(getSubjectData().getSubjectType());
+		if (answerData == null) {
+			result.setAnswer("null");
+		} else {
+			result.setAnswer(JSON.toJSONString(answerData));
+		}
+		result.setScore(uScore);
+
+		return result;
 	}
 
 	public EntryAnswerData getUAnswerData() {

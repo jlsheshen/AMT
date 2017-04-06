@@ -114,7 +114,7 @@ public class BitmapParseUtil {
 	}
 
 	/**
-	 * 从本地获取bitmap
+	 * 从本地获取bitmap，若不存在则下载
 	 * 
 	 * @param uri
 	 * @param context

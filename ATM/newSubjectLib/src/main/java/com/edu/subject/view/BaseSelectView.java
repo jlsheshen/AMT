@@ -8,7 +8,6 @@ import android.widget.RelativeLayout;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.R;
 import com.edu.subject.SubjectState;
-import com.edu.subject.TestMode;
 import com.edu.subject.basic.OptionData;
 import com.edu.subject.basic.SelectItemAdapter;
 import com.edu.subject.basic.SelectItemAdapter.SelectListener;
@@ -46,7 +45,7 @@ public abstract class BaseSelectView extends BasicSubjectView implements SelectL
 	}
 
 	@Override
-	public void initUAnswer() {
+	public void initUAnswer(boolean judge) {
 		BasicAnswerData answerData = ((TestBasicData) mTestData).getUAnswerData();
 		if (answerData != null) {
 			mAdapter.setUAnswer(answerData.getUanswer());
@@ -92,10 +91,11 @@ public abstract class BaseSelectView extends BasicSubjectView implements SelectL
 		if (isChild) {//作为子题，点击后只保存答案，不提交
 			saveAnswer();
 		} else {
-			submit();
-			if (mTestMode == TestMode.MODE_PRACTICE && mSubjectListener != null) {
-				mSubjectListener.onSaveTestData(mTestData);
-			}
+//			submit();
+//			if (mTestMode == TestMode.MODE_PRACTICE && mSubjectListener != null) {
+//				mSubjectListener.onSaveTestData(mTestData);
+//			}
+			saveAnswer();//方案调整，单选和判断也需要点击右上角提交按钮进行提交操作
 		}
 	}
 

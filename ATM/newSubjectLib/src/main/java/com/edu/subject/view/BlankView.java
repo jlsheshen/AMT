@@ -4,12 +4,15 @@ import java.util.List;
 
 import android.content.Context;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.edu.subject.ISubject;
+import com.edu.subject.R;
+import com.edu.subject.SubjectState;
 import com.edu.subject.blank.FillInBlankView;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.TestBlankData;
+import com.edu.subject.data.answer.BlankAnswerData;
+import com.edu.subject.data.answer.BlankAnswerData.BlankAnswer;
 
 /**
  * 填空题
@@ -29,7 +32,9 @@ public class BlankView extends BasicSubjectView implements ISubject {
 	protected void initBody(RelativeLayout layoutContent) {
 		String question = ((TestBlankData) mTestData).getSubjectData().getBody();
 		List<String> answers = ((TestBlankData) mTestData).getSubjectData().getAnswers();
+		//填空控件初始化
 		fillInBlankView = new FillInBlankView(mContext, question, answers);
+		fillInBlankView.setTextSize(getResources().getDimension(R.dimen.txt_size_small));
 		layoutContent.addView(fillInBlankView);
 	}
 
@@ -44,28 +49,61 @@ public class BlankView extends BasicSubjectView implements ISubject {
 			} else {
 				builder.append("\n" + answer);
 			}
-
 		}
 		tvAnswer.setText(getJudgeResult() + "，正确答案是:\n" + builder.toString());
 	}
 
 	@Override
 	public void saveAnswer() {
-
+		if (inited) {
+			BlankAnswerData answer = fillInBlankView.getUAnswer(mTestData.getSubjectData().getScore());
+			mTestData.setUAnswerData(answer);
+		}
 	}
 
 	@Override
 	public void disableSubject() {
-
+		if (inited) {
+			fillInBlankView.setEnabled(false);
+		}
 	}
 
 	@Override
-	public void initUAnswer() {
+	public void reset() {
+		super.reset();
+		if (inited) {
+			fillInBlankView.setEnabled(true);//使空可编辑，并且清空内容
+		}
+	}
 
+	@Override
+	public void initUAnswer(boolean judge) {
+		BlankAnswerData answer = ((TestBlankData) mTestData).getUAnswerData();
+		if (answer != null) {
+			fillInBlankView.initUAnswer(answer.getAnswers(), judge);
+		} else {
+			if(judge) {
+				fillInBlankView.setUAnswerError();
+			}
+		}
 	}
 
 	@Override
 	protected void judgeAnswer() {
+		//得分计算
+		BlankAnswerData answer = ((TestBlankData) mTestData).getUAnswerData();
+		float score = 0;
+		for (BlankAnswer blank : answer.getAnswers()) {
+			score += blank.getScore();
+		}
+		mTestData.setuScore(score);
+		//根据每个空的结果状态设置对应空的样式
+		fillInBlankView.judgeAnswer(answer.getAnswers());
 
+		if (score == mTestData.getSubjectData().getScore()) {
+			mTestData.setState(SubjectState.STATE_CORRECT);
+		} else {
+			mTestData.setState(SubjectState.STATE_WRONG);
+		}
 	}
 }

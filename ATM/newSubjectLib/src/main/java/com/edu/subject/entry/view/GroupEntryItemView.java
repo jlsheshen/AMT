@@ -191,4 +191,22 @@ public class GroupEntryItemView extends LinearLayout {
 			entryItem.setEnabled(enabled);
 		}
 	}
+
+	/**
+	 * 初始化用户答案为空的情况
+	 */
+	public void initUAnswer() {
+		int borrowCount = borrowContainer.getChildCount();
+		for (int i = 0; i < borrowCount; i++) {
+			EntryItemView entryItem = (EntryItemView) borrowContainer.getChildAt(i);
+			entryItem.setJudgeStyle(false, false, false);
+		}
+		int loanCount = loanContainer.getChildCount();
+		for (int i = 0; i < loanCount; i++) {
+			EntryItemView entryItem = (EntryItemView) loanContainer.getChildAt(i);
+			entryItem.setJudgeStyle(false, false, false);
+		}
+	}
+	
+	
 }

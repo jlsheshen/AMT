@@ -18,7 +18,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:background="@drawable/shape_entry_edittext_normal"
+        android:background="@drawable/shape_edittext_normal"
         android:hint="一级科目"
         android:padding="5dp"
         android:textSize="@dimen/txt_size_small" />
@@ -34,7 +34,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="5"
-        android:background="@drawable/shape_entry_edittext_normal"
+        android:background="@drawable/shape_edittext_normal"
         android:hint="二级科目"
         android:padding="5dp"
         android:textSize="@dimen/txt_size_small" />
@@ -43,14 +43,14 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:layout_weight="1"
-        android:background="@color/trans_gray" />
+        android:background="@color/trans_parent" />
 
     <com.edu.subject.entry.view.EntryEditText
         android:id="@+id/etAmount"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="4"
-        android:background="@drawable/shape_entry_edittext_normal"
+        android:background="@drawable/shape_edittext_normal"
         android:gravity="right|center_vertical"
         android:hint="输入金额"
         android:padding="5dp"

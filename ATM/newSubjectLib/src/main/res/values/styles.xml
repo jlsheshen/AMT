@@ -1,5 +1,12 @@
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources>
 
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
     <!-- 分组单据标签样式 -->
     <style name="rb_label_style">
         <item name="android:textColor">@drawable/rb_selector_label_text_color</item>
@@ -38,8 +45,8 @@
     <style name="subject_analysis" parent="@style/subject_textview_parent">
     </style>
     <!-- *****************************题型相关end********************** -->
-    
-     <!-- 一级科目单项按钮样式 -->
+
+    <!-- 一级科目单项按钮样式 -->
     <style name="PSubjectStyle">
         <item name="android:ellipsize">marquee</item>
         <item name="android:gravity">center</item>
@@ -51,5 +58,6 @@
         <item name="android:background">@drawable/rb_selector_psubject_bg</item>
         <item name="android:singleLine">true</item>
     </style>
+
 
 </resources>

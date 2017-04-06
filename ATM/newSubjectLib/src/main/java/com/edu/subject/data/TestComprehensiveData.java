@@ -45,13 +45,14 @@ public class TestComprehensiveData extends BaseTestData {
 	public SubjectAnswerResult toResult() {
 		SubjectAnswerResult result = new SubjectAnswerResult();
 		result.setFlag(getSubjectData().getFlag());
-		result.setType(SubjectType.SUBJECT_COMPREHENSIVE);
-		if (getUAnswer() == null) {
-			result.setAnswer("null");
+		result.setType(getSubjectData().getSubjectType());
+		if (answerData == null) {
+			result.setAnswer("");
 		} else {
-			result.setAnswer(getUAnswer().toString());
+			result.setAnswer(JSON.toJSONString(answerData));
 		}
 		result.setScore(uScore);
+
 		return result;
 	}
 

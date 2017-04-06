@@ -22,7 +22,6 @@ import com.nineoldandroids.view.ViewHelper;
  * 
  */
 public class SlidingDragLayout extends FrameLayout {
-
 	// 是否显示阴影
 	private boolean isShowShadow = false;
 

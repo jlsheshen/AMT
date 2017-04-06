@@ -1,1 +1,1 @@
-include ':app', ':BillLib', ':EduLib', ':newSubjectLib'
+include ':app', ':BillLib', ':EduLib', 'NewSubjectLib'

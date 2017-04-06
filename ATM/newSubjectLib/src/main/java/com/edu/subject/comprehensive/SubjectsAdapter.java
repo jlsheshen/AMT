@@ -147,6 +147,7 @@ public class SubjectsAdapter extends PagerAdapter {
 		ComprehensiveAnswerData answer = new ComprehensiveAnswerData();
 		List<UserAnswerData> childAnswers = new ArrayList<UserAnswerData>(mViews.size());
 		for (int i = 0; i < mViews.size(); i++) {
+			mViews.get(i).saveAnswer();
 			CommonAnswerData answerData = mSubjectDatas.get(i).getUAnswerData();
 			UserAnswerData userAnswer = new UserAnswerData();
 			if (answerData instanceof BasicAnswerData) {//基础类题型，直接设置uAnswer为字符串
@@ -197,11 +198,12 @@ public class SubjectsAdapter extends PagerAdapter {
 
 	/**
 	 * 初始化子题用户答案
+	 * @param judge
 	 */
-	public void initUAnswer() {
+	public void initUAnswer(boolean judge) {
 		for (int i = 0; i < mViews.size(); i++) {
 			BasicSubjectView subject = mViews.get(i);
-			subject.initUAnswer();
+			subject.initUAnswer(judge);
 		}
 	}
 

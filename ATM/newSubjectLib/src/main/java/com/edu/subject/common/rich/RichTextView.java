@@ -3,10 +3,7 @@ package com.edu.subject.common.rich;
 import android.content.Context;
 import android.text.Html;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.TextView;
-
-import com.alibaba.fastjson.JSON;
 
 /**
  * 支持富文本显示的textview
