@@ -299,7 +299,8 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 						mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
 //					return;
 				}
-				mPagerList.get(index).saveAnswer();
+				if (mPagerList.get(index) != null){
+				mPagerList.get(index).saveAnswer();}
 				if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
 					mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);
 				}
