@@ -75,7 +75,6 @@
 
         <RadioButton
             android:id="@+id/rb_A"
-            style="@style/rb_option_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:tag="1"
@@ -89,7 +88,6 @@
 
         <RadioButton
             android:id="@+id/rb_B"
-            style="@style/rb_option_style"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:tag="0"

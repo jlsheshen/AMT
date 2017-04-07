@@ -1,8 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import java.io.IOException;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,16 +16,20 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.newsubject.adapter.SubjectCardAdapter;
+import com.edu.accountingteachingmaterial.newsubject.adapter.SubjectViewPagerAdapter;
+import com.edu.accountingteachingmaterial.newsubject.common.SubjectCardDialog;
+import com.edu.accountingteachingmaterial.newsubject.common.TestTimer;
+import com.edu.accountingteachingmaterial.newsubject.dialog.SignChooseDialog;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.bill.SignData;
 import com.edu.subject.bill.SignDataDao;
 import com.edu.subject.data.BaseTestData;
-import com.edu.testsubject.adapter.SubjectCardAdapter.OnCardItemClickListener;
-import com.edu.testsubject.adapter.SubjectViewPagerAdapter;
-import com.edu.testsubject.common.SubjectCardDialog;
-import com.edu.testsubject.common.TestTimer.OnTimeOutListener;
-import com.edu.testsubject.dialog.SignChooseDialog;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 
@@ -37,7 +38,7 @@ import com.edu.testsubject.dialog.SignChooseDialog;
  * @author lucher
  * 
  */
-public abstract class BaseSubjectsContentActivity extends FragmentActivity implements OnItemClickListener, SubjectListener, OnCardItemClickListener, OnPageChangeListener, OnTimeOutListener {
+public abstract class BaseSubjectsContentActivity extends FragmentActivity implements OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, OnPageChangeListener, TestTimer.OnTimeOutListener {
 	
 	//确认类型-退出
 	protected static final int CONFIRM_EXIT = 1;

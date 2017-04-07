@@ -1,11 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject.common;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.view.Gravity;
@@ -15,10 +9,16 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.newsubject.adapter.SubjectCardAdapter;
 import com.edu.subject.SubjectType;
 import com.edu.subject.data.BaseTestData;
-import com.edu.testsubject.R;
-import com.edu.testsubject.adapter.SubjectCardAdapter.OnCardItemClickListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * 答题卡对话框
@@ -37,11 +37,11 @@ public class SubjectCardDialog extends Dialog implements View.OnClickListener {
 	// 全部重做
 	private Button btnReDo;
 	private LinearLayout cardContent;
-	private OnCardItemClickListener mListener;
+	private SubjectCardAdapter.OnCardItemClickListener mListener;
 	// 所有题型表格
 	private List<CardGridItem> mGrids;
 
-	public SubjectCardDialog(Context context, List<BaseTestData> datas, OnCardItemClickListener listener, int currentId) {
+	public SubjectCardDialog(Context context, List<BaseTestData> datas, SubjectCardAdapter.OnCardItemClickListener listener, int currentId) {
 		super(context);
 
 		this.mDatas = datas;

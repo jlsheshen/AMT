@@ -6,8 +6,6 @@
       <module fileurl="file://$PROJECT_DIR$/BillLib/BillLib.iml" filepath="$PROJECT_DIR$/BillLib/BillLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/EduLib/EduLib.iml" filepath="$PROJECT_DIR$/EduLib/EduLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/NewSubjectLib/NewSubjectLib.iml" filepath="$PROJECT_DIR$/NewSubjectLib/NewSubjectLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/NewSubjectLib/NewSubjectLib.iml" filepath="$PROJECT_DIR$/NewSubjectLib/NewSubjectLib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SubjectLib/SubjectLib.iml" filepath="$PROJECT_DIR$/SubjectLib/SubjectLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

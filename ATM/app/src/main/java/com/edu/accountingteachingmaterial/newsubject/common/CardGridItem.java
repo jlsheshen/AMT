@@ -1,17 +1,17 @@
 package com.edu.accountingteachingmaterial.newsubject.common;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
+import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.newsubject.adapter.SubjectCardAdapter;
 import com.edu.subject.SubjectType;
 import com.edu.subject.common.CardGridView;
 import com.edu.subject.data.BaseTestData;
-import com.edu.testsubject.R;
-import com.edu.testsubject.adapter.SubjectCardAdapter;
-import com.edu.testsubject.adapter.SubjectCardAdapter.OnCardItemClickListener;
+
+import java.util.List;
+
 
 /**
  * 答题卡中具体题型对应的表格
@@ -28,10 +28,10 @@ public class CardGridItem {
 	// 对应的表格
 	private CardGridView cardGrid;
 
-	private OnCardItemClickListener mListener;
+	private SubjectCardAdapter.OnCardItemClickListener mListener;
 	private List<BaseTestData> mDatas;
 
-	public CardGridItem(Context context, List<BaseTestData> datas, OnCardItemClickListener listener) {
+	public CardGridItem(Context context, List<BaseTestData> datas, SubjectCardAdapter.OnCardItemClickListener listener) {
 		mView = View.inflate(context, R.layout.card_grid_item, null);
 		mDatas = datas;
 		mListener = listener;
