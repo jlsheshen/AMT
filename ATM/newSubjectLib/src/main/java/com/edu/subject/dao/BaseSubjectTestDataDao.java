@@ -102,7 +102,7 @@ public abstract class BaseSubjectTestDataDao extends BaseDataDao2 {
 	 * @param db 
 	 * @return
 	 */
-	private BaseTestData initTestData(Cursor curs, int testMode) {
+	protected BaseTestData initTestData(Cursor curs, int testMode) {
 		BaseTestData testData = null;
 		CommonSubjectData subjectData = null;
 		// 初始化题目数据

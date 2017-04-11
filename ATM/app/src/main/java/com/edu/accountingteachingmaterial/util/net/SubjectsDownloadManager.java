@@ -3,7 +3,6 @@ package com.edu.accountingteachingmaterial.util.net;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -11,13 +10,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
-import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.library.data.DBHelper;
-import com.edu.subject.dao.SubjectBillDataDao;
-import com.edu.subject.data.SubjectData;
-import com.edu.testbill.Constant;
+import com.edu.subject.SubjectType;
+import com.edu.subject.dao.CommonSubjectDataDao;
+import com.edu.subject.data.CommonSubjectData;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
@@ -80,10 +77,6 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 		ContentValues contentValues = new ContentValues();
 		contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_UNDONE);
 		ExamListDao.getInstance(mContext).updateData("" + chatperId, contentValues);
-//
-//		view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.GONE);
-//		stateIv.setImageResource(R.drawable.selector_exam_undown_type);
-//		stateIv.setVisibility(View.VISIBLE);
 		EventBus.getDefault().post(ClassContstant.EXAM_UNDONE);
 	}
 
@@ -108,7 +101,7 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 		boolean result = json.getBoolean("result");
 		String message = json.getString("message");
 		if (result) {
-			List<SubjectData> subjects = JSON.parseArray(message, SubjectData.class);
+			List<CommonSubjectData> subjects = JSON.parseArray(message, CommonSubjectData.class);
 			Log.d(TAG, "------" + message + "---");
 			saveSubjects(subjects);
 			Log.d(TAG, "subjects:" + subjects);
@@ -123,48 +116,43 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	 *
 	 * @param subjects
 	 */
-	private void saveSubjects(List<SubjectData> subjects) {
-		DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
-		SQLiteDatabase db = helper.getWritableDatabase();
 
-		for (SubjectData subject : subjects) {
-			subject.setChapterId(chatperId);
-			switch (subject.getSubjectType()) {
-				case ClassContstant.SUBJECT_SINGLE_CHOSE:
-				case ClassContstant.SUBJECT_MULITI_CHOSE:
-				case ClassContstant.SUBJECT_JUDGE:
+	/**
+	 * 保存题目数据到数据库
+	 *
+	 * @param subjects
+	 */
+	private void saveSubjects(List<CommonSubjectData> subjects) {
+		for (CommonSubjectData subject : subjects) {
+			try {
+				int subjectId = -1;
+				if (subject.getSubjectType() == SubjectType.SUBJECT_COMPREHENSIVE) {//综合题需要插入子题
 					// 插入题目数据
-					int basicId = SubjectBasicDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
-
-					if (basicId > 0) {
-						SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), basicId,subject.getChapterId(), db);
-					}
-					break;
-
-				case ClassContstant.SUBJECT_ENTRY:
-//				String ids = SubjectEntryDataDao.getInstance(mContext).insertData(subject, db);
-//				if(ids.length()>0) {
-//					//加入test表
-//				}
-					break;
-
-				case ClassContstant.SUBJECT_BILL:
-					int billId = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
-					if (billId > 0) {
-						if (subject.getTemplateId().length()>3) {
-							subject.setSubjectType(ClassContstant.SUBJECT_GROUP_BILL);
+					String body = subject.getBody();
+					subject.setBody("");//body内容不需要存入数据库
+					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
+					if (subjectId > 0) {
+						//插入子题
+						List<CommonSubjectData> children = JSON.parseArray(body, CommonSubjectData.class);
+						for (CommonSubjectData child : children) {
+							child.setParentId(subjectId);
+							CommonSubjectDataDao.getInstance(mContext).insertData(child);
 						}
-						SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId, subject.getChapterId(), db);
-
 					}
-
-					break;
-
-
-				default:
-					break;
+				} else {
+					// 插入题目数据
+					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
+				}
+				if (subjectId > 0) {
+					SubjectOnlineTestDataDao.getInstance(mContext).insertTest(subjectId);
+				}
+			} catch (Exception e) {
+				Log.e(TAG, "题目插入出错：" + subject);
+				e.printStackTrace();
 			}
 		}
+	}
+
 
 	}
-}
+

@@ -18,7 +18,6 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.bean.BillDataModel;
-import com.edu.accountingteachingmaterial.bean.SubjectEntryData;
 import com.edu.accountingteachingmaterial.bean.SubjectEntryDataDao;
 import com.edu.accountingteachingmaterial.util.EditTextUtil;
 import com.edu.accountingteachingmaterial.util.StringFormatUtil;

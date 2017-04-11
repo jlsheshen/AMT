@@ -19,6 +19,8 @@ import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.entity.StartExamData;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
+import com.edu.accountingteachingmaterial.newsubject.OnlineTestContentActivity;
+import com.edu.accountingteachingmaterial.newsubject.ShowUAnswerContentActivity;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
@@ -28,6 +30,8 @@ import com.lucher.net.req.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.TOTAL_TIME;
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.CHAPTER_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 
 /**
@@ -110,9 +114,15 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 if (textMode == ClassContstant.TEST_MODE_TEST) {
                     //ExamListData考试数据（测试）
                     Bundle bundle = new Bundle();
-                    bundle.putInt(ClassContstant.SUBJECT_DETAIL_ID, examId);
-                    startActivity(OnlineExamDetailsContentActivity.class, bundle);
+                    bundle.putInt(CHAPTER_ID, examId);
+                    startActivity(OnlineTestContentActivity.class, bundle);
                     finish();
+                } else if (textMode == ClassContstant.TEST_MODE_LOOK) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(CHAPTER_ID, examId);
+                    startActivity(ShowUAnswerContentActivity.class, bundle);
+                    finish();
+
                 } else {
                     uploadTestTime();
                 }
@@ -165,38 +175,32 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     private void uploadTestTime() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        Log.d("SubjectExamActivity", "uploadTestTime");
         String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
         String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(useId));
 
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + sendExamId[0]  + "-" + useId);
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + sendExamId[0] + "-" + useId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
-                    Log.d("SubjectExamActivity", jsonObject.getString("message"));
                     StartExamData startExamData = JSONObject.parseObject(jsonObject.getString("message"), StartExamData.class);
                     if (startExamData.getStarted_time() > 0) {
                         //ExamListData考试数据（测试）
                         Bundle bundle = new Bundle();
-                        bundle.putInt("examId", examId);
-                        bundle.putInt("textMode", textMode);
-                        bundle.putInt("totalTime", startExamData.getRemaining());
-                        startActivity(SubjectExamActivity.class, bundle);
+                        bundle.putInt(CHAPTER_ID, examId);
+//                        bundle.putInt("textMode", textMode);
+                        bundle.putInt(TOTAL_TIME, startExamData.getRemaining());
+                        startActivity(OnlineTestContentActivity.class, bundle);
                         finish();
                     } else {
                         ToastUtil.showToast(UnitTestActivity.this, "当前考试还没开始，请稍后!");
                         return;
                     }
-
                 }
-
             }
-
             @Override
             public void onFailure(String errorInfo) {
-                Log.d("SubjectExamActivity", errorInfo);
                 ToastUtil.showToast(UnitTestActivity.this, errorInfo);
 
 
@@ -239,7 +243,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 
     //刷新试卷不同状态下的试图（提交,未提交，批阅，分数）
     private void refreshState() {
-            int state = ExamOnLineListDao.getInstance(this).getState(examId);
+        int state = ExamOnLineListDao.getInstance(this).getState(examId);
 
         //未提交 state:2
         if (state == ClassContstant.EXAM_UNDONE) {
@@ -252,11 +256,11 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             textMode = ClassContstant.TEST_MODE_NORMAL;
         } else if (state == ClassContstant.EXAM_COMMIT) {
             //已提交 state:1
-            if (testPaperListData.getIs_send() == 1&&testPaperListData.getRemaining()<0){
-            state = ClassContstant.EXAM_READ;
+            if (testPaperListData.getIs_send() == 1 && testPaperListData.getRemaining() < 0) {
+                state = ClassContstant.EXAM_READ;
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ExamOnLineListDao.STATE, state);
-                ExamOnLineListDao.getInstance(this).updateData(String.valueOf(examId),contentValues);
+                ExamOnLineListDao.getInstance(this).updateData(String.valueOf(examId), contentValues);
                 textMode = ClassContstant.TEST_MODE_TEST;
                 refreshState();
                 return;

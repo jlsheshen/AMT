@@ -15,7 +15,7 @@ import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;
-import com.edu.subject.net.AnswerResult;
+import com.edu.subject.net.SubjectAnswerResult;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
@@ -38,7 +38,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
 
     private Context mContext;
     // 需要上传答题结果的所有数据
-    private List<AnswerResult> mAnswerResults;
+    private List<SubjectAnswerResult> mAnswerResults;
     private static UploadOnlineResultsManager mSingleton;
     int examId;
     ResultsListener resultsListener;
@@ -73,7 +73,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
      */
     public void setResults(List<BaseTestData> datas) {
         if (datas != null) {
-            mAnswerResults = new ArrayList<AnswerResult>(datas.size());
+            mAnswerResults = new ArrayList<SubjectAnswerResult>(datas.size());
             for (BaseTestData data : datas) {
                 mAnswerResults.add(data.toResult());
             }
@@ -143,7 +143,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
             ExamOnLineListDao.getInstance(mContext).updateData("" + examId, contentValues);
-            resultsListener.onSuccess();
+            resultsListener.onResultsSuccess();
             ToastUtil.showToast(mContext, "成绩上传成功!");
             EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
         } else {
@@ -158,7 +158,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
         Log.d(TAG, "成绩上传出错：" + arg0);
         ToastUtil.showToast(mContext, "成绩上传出错：" + arg0);
         if (resultsListener != null) {
-            resultsListener.onFialure();
+            resultsListener.onResultsFialure();
         }
         EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
     }
@@ -167,15 +167,11 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
     public void onConnectionFailure(String arg0, Header[] arg1) {
         Log.d(TAG, "成绩上传出错：" + arg0);
 
-        resultsListener.onFialure();
+        resultsListener.onResultsFialure();
 
         ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);
         EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
     }
-    interface upDateListener{
-        void upDateSuccess();
-        void upDateFail();
 
-    }
 
 }

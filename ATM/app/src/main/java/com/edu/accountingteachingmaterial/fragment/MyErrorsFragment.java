@@ -8,11 +8,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.activity.SubjectErrorActivity;
 import com.edu.accountingteachingmaterial.adapter.ErrorAdapter;
 import com.edu.accountingteachingmaterial.adapter.ReviewHisAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.ErrorPracticeActivity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.view.dialog.DeteleDialog;
 import com.edu.subject.TestMode;
@@ -74,7 +74,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                     Bundle b = new Bundle();
                     b.putInt(ERRORS_ITEM, position);
                     b.putSerializable(ERRORS_DATAS, (Serializable) datas);
-                    startActivity(SubjectErrorActivity.class, b);
+                    startActivity(ErrorPracticeActivity.class, b);
                 }
             });
 

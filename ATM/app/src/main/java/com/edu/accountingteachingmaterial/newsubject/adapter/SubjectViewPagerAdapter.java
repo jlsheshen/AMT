@@ -29,8 +29,8 @@ import java.util.List;
  * 
  */
 public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
-
 	private static final String TAG = "SubjectViewPagerAdapter";
+
 
 	/**
 	 * 对应界面集合

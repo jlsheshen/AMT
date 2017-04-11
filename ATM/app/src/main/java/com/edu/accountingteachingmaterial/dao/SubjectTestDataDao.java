@@ -10,7 +10,6 @@ import android.util.Log;
 import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
 import com.edu.accountingteachingmaterial.bean.SubjectEntryDataDao;
 import com.edu.accountingteachingmaterial.bean.TestBasicData;
-import com.edu.accountingteachingmaterial.bean.TestEntryData;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;

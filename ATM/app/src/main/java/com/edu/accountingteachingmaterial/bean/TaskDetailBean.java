@@ -1,7 +1,7 @@
 package com.edu.accountingteachingmaterial.bean;
 
+import com.edu.accountingteachingmaterial.constant.BASE_URL;
 import com.edu.library.data.BaseData;
-import com.edu.subject.BASE_URL;
 
 import java.util.List;
 

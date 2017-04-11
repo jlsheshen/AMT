@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
+import com.edu.accountingteachingmaterial.constant.Constant;
 import com.edu.accountingteachingmaterial.newsubject.adapter.SubjectCardAdapter;
 import com.edu.accountingteachingmaterial.newsubject.adapter.SubjectViewPagerAdapter;
 import com.edu.accountingteachingmaterial.newsubject.common.SubjectCardDialog;
@@ -39,7 +40,28 @@ import java.util.List;
  * 
  */
 public abstract class BaseSubjectsContentActivity extends FragmentActivity implements OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, OnPageChangeListener, TestTimer.OnTimeOutListener {
-	
+	/**
+	 * 上个页面传来的节id
+	 */
+	public static final String CHAPTER_ID = "CHAPTER_ID";
+	/**
+	 * 上个页面传来的随堂练习item
+	 */
+	public static final String EXERCISE_ITEM = "EXERCISE_ITEM";
+
+	/**
+	 * 上个页面传来的试卷信息
+	 */
+	public static final String CONTENT_DATA = "CONTENT_DATA";
+	/**
+	 * 上个页面传来的试卷信息
+	 */
+	public static final String TOTAL_TIME = "TOTAL_TIME";
+	/**
+	 * 上个页面传来的是否是考试
+	 */
+	public static final String IS_EXAM = "IS_EXAM";
+
 	//确认类型-退出
 	protected static final int CONFIRM_EXIT = 1;
 	//确认类型-提交
@@ -51,6 +73,9 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 
 	// 当前页面索引
 	protected int mCurrentIndex;
+	//用于获取上个页面的值
+	Bundle mBundle;
+
 
 	// 标题，例如xx测试
 	protected TextView tvTitle;
@@ -80,7 +105,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 		super.onCreate(savedInstanceState);
 
 		mContext = this;
-		setContentView(R.layout.activity_subjects_content);
+		setContentView(R.layout.activity_test);
 		init();
 	}
 
@@ -101,8 +126,15 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 		btnFlash = (ImageButton) findViewById(R.id.btnFlash);
 		btnCard = (ImageButton) findViewById(R.id.btnCard);
 		btnSubmit = (ImageButton) findViewById(R.id.btnSubmit);
+		mBundle = getIntent().getExtras();
+
 		// 题目数据，答题卡初始化
 		List<BaseTestData> datas = initDatas();
+		if (datas == null || datas.size() == 0){
+			onDatasError();
+			finish();
+			return;
+		}
 		mSubjectAdapter = new SubjectViewPagerAdapter(getSupportFragmentManager(), datas, this, this);
 		viewPager.setAdapter(mSubjectAdapter);
 
@@ -112,7 +144,10 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 		} else {
 			mCardDialog = new SubjectCardDialog(this, datas, this, mSubjectAdapter.getDatas().get(mCurrentIndex).getId());
 		}
+		operationPager();
 	}
+
+
 
 	/**
 	 * timer初始化,需要使用计时器的，调用该方法初始化，并重写onTimeOut处理超时情況
@@ -180,6 +215,11 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	protected abstract List<BaseTestData> initDatas();
 
 	/**
+	 * 加载数据后的操作
+	 */
+	protected abstract void operationPager();
+
+	/**
 	 * 处理提交按钮点击
 	 */
 	protected abstract void handSubmit();
@@ -198,6 +238,12 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 * 保存答案方法，在左右切页或者通过答题卡切页的时候调用
 	 */
 	protected abstract void saveAnswer();
+
+	/**
+	 * 如果试题为空
+	 */
+	protected abstract void onDatasError();
+
 
 	public void onClick(View view) throws IOException {
 		switch (view.getId()) {
@@ -286,7 +332,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 			viewPager.setCurrentItem(mCurrentIndex, true);
 		} else {
 			ToastUtil.showToast(this, "已经是第一页");
-		}
+	}
 	}
 
 	/**

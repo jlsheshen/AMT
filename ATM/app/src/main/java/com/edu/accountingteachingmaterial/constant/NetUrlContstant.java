@@ -1,7 +1,8 @@
 package com.edu.accountingteachingmaterial.constant;
 
-import static com.edu.subject.BASE_URL.BASE_URL;
-import static com.edu.subject.BASE_URL.TEMP_URL;
+
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.TEMP_URL;
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.BASE_URL;
 
 /**
  * Created by Administrator on 2016/11/21.

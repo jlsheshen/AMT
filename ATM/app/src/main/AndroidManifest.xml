@@ -61,26 +61,7 @@
             android:launchMode="singleTask"
             android:screenOrientation="landscape" >
         </activity>
-        <activity
-            android:name=".activity.SubjectPracticeActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectLocalActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectLocalPracticeActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectDetailsLocalActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+
         <activity
             android:name=".activity.MediaActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
@@ -91,48 +72,10 @@
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectTestActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectDetailsContentActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+
+
         <activity
             android:name=".activity.UnitTestActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectExamActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectReViewActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.OnlineExamDetailsContentActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.ReviewHistoryActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectErrorActivity"
-            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
-            android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
-        <activity
-            android:name=".activity.SubjectDetailsReviewActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />

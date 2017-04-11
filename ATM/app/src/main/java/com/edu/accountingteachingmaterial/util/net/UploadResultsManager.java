@@ -14,7 +14,7 @@ import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;
-import com.edu.subject.net.AnswerResult;
+import com.edu.subject.net.SubjectAnswerResult;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
@@ -37,7 +37,7 @@ public class UploadResultsManager extends JsonNetReqManager {
 
     private Context mContext;
     // 需要上传答题结果的所有数据
-    private List<AnswerResult> mAnswerResults;
+    private List<SubjectAnswerResult> mAnswerResults;
     private static UploadResultsManager mSingleton;
     int examId;
     ResultsListener resultsListener;
@@ -99,12 +99,13 @@ public class UploadResultsManager extends JsonNetReqManager {
 
     /**
      * 上传答题结果
-     *
-     * @param studentId
-     * @param examId
+     ** @param examId
      * @param seconds
      */
-    public void uploadResult(int studentId, int examId, int seconds) {
+    public void uploadResult( int examId, int seconds) {
+
+        int studentId = Integer.parseInt(PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID));
+
         this.examId = examId;
         if (mAnswerResults == null || mAnswerResults.size() <= 0) {
             ToastUtil.showToast(mContext, "发送结果为空");
@@ -121,10 +122,10 @@ public class UploadResultsManager extends JsonNetReqManager {
     /**
      * 上传单道答题结果
      *
-     * @param studentId
      * @param examId
      */
-    public void uploadResult(int studentId, int examId) {
+    public void uploadResult( int examId) {
+        int studentId = Integer.parseInt(PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID));
         this.examId = examId;
         if (mAnswerResults == null || mAnswerResults.size() <= 0) {
             ToastUtil.showToast(mContext, "发送结果为空");
@@ -149,7 +150,7 @@ public class UploadResultsManager extends JsonNetReqManager {
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
             ExamListDao.getInstance(mContext).updateData("" + examId, contentValues);
-            resultsListener.onSuccess();
+            resultsListener.onResultsSuccess();
             ToastUtil.showToast(mContext, "成绩上传成功!");
             EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
         } else {
@@ -163,7 +164,7 @@ public class UploadResultsManager extends JsonNetReqManager {
         Log.d(TAG, "成绩上传出错：" + arg0);
         ToastUtil.showToast(mContext, "成绩上传出错：" + arg0);
         if (resultsListener != null) {
-            resultsListener.onFialure();
+            resultsListener.onResultsFialure();
         }
 
     }
@@ -172,7 +173,7 @@ public class UploadResultsManager extends JsonNetReqManager {
     public void onConnectionFailure(String arg0, Header[] arg1) {
         Log.d(TAG, "成绩上传出错：" + arg0);
 
-        resultsListener.onFialure();
+        resultsListener.onResultsFialure();
 
         ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);
     }

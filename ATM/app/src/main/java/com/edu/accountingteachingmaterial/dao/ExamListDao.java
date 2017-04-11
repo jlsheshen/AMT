@@ -5,16 +5,17 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.util.Log;
 
+import com.edu.accountingteachingmaterial.constant.Constant;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
-import com.edu.testbill.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 练习的的数据库操作类
  * Created by Administrator on 2016/11/28.
  */
 

@@ -3,7 +3,6 @@ package com.edu.accountingteachingmaterial.activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -137,10 +136,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
                 break;
 
             case R.id.class_review_hy:
-                Bundle bundle = new Bundle();
-                bundle.putInt("chapterId", chapterId);
-                Log.d("ClassReviewFragment", "chapterId:" + chapterId);
-                startActivity(ReviewHistoryActivity.class,bundle);
+
                 break;
         }
 

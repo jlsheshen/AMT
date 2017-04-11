@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.activity.SubjectDetailsLocalActivity;
-import com.edu.accountingteachingmaterial.activity.SubjectLocalActivity;
 import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
@@ -23,6 +21,8 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.entity.OnLineExamData;
 import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
+import com.edu.accountingteachingmaterial.newsubject.ShowDetailsContentActivity;
+import com.edu.accountingteachingmaterial.newsubject.TextBookExamActivity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.ExamLocalListManager;
 import com.edu.accountingteachingmaterial.util.net.ExamOnlineListManager;
@@ -35,6 +35,9 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.CHAPTER_ID;
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.IS_EXAM;
 
 /**
  * 试卷页面
@@ -126,20 +129,20 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                 } else {
                                                     if (isExercise) {
                                                         Bundle b = new Bundle();
-                                                        b.putBoolean("isExam", true);
-                                                        b.putInt("examId", showDatas.get(pos).getExam_id());
+                                                        b.putBoolean(IS_EXAM, true);
+                                                        b.putInt(CHAPTER_ID, showDatas.get(pos).getExam_id());
                                                         if (showDatas.get(pos).getState() != ClassContstant.EXAM_UNDONE) {
-                                                            b.putInt(ClassContstant.SUBJECT_DETAIL_ID, showDatas.get(pos).getExam_id());
+
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
-                                                            startActivity(SubjectDetailsLocalActivity.class, b);
+                                                            startActivity(ShowDetailsContentActivity.class, b);
                                                         } else {
 //                                                            String examId[] = String.valueOf(showDatas.get(pos).getExam_id()).split(String.valueOf(showDatas.get(pos).getU_id()));
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
-                                                            startActivity(SubjectLocalActivity.class, b);
+                                                            startActivity(TextBookExamActivity.class, b);
                                                         }
                                                     } else {
                                                         Bundle b = new Bundle();
-                                                        b.putInt("examId", showDatas.get(pos).getExam_id());
+                                                        b.putInt(CHAPTER_ID, showDatas.get(pos).getExam_id());
                                                         startActivity(UnitTestActivity.class, b);
                                                     }
                                                 }

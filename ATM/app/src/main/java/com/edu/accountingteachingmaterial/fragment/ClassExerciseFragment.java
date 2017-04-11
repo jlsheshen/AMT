@@ -13,12 +13,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.activity.SubjectDetailsContentActivity;
-import com.edu.accountingteachingmaterial.activity.SubjectDetailsLocalActivity;
-import com.edu.accountingteachingmaterial.activity.SubjectLocalActivity;
-import com.edu.accountingteachingmaterial.activity.SubjectLocalPracticeActivity;
-import com.edu.accountingteachingmaterial.activity.SubjectPracticeActivity;
-import com.edu.accountingteachingmaterial.activity.SubjectTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExerciseExLvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
@@ -28,6 +22,11 @@ import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.newsubject.ClassExamActivity;
+import com.edu.accountingteachingmaterial.newsubject.ClassPracticeActivity;
+import com.edu.accountingteachingmaterial.newsubject.ShowDetailsContentActivity;
+import com.edu.accountingteachingmaterial.newsubject.TextBookExamActivity;
+import com.edu.accountingteachingmaterial.newsubject.TextbookPracticeActivity;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
@@ -43,7 +42,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
-import static com.edu.accountingteachingmaterial.constant.ClassContstant.SUBJECT_DETAIL_ID;
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.EXERCISE_ITEM;
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.CHAPTER_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.EXAM_ID;
 
 /**
@@ -141,23 +141,19 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), datas.get(i).getId());
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
-                    b.putSerializable("ExamListData", datas.get(i));
+                    b.putSerializable(CHAPTER_ID, datas.get(i));
                     b.putBoolean("isExam", false);
                     if (isBook) {
-                        startActivity(SubjectLocalActivity.class, b);
+                        startActivity(TextBookExamActivity.class, b);
                     } else {
-                        startActivity(SubjectTestActivity.class, b);
+                        startActivity(ClassExamActivity.class, b);
                     }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt(SUBJECT_DETAIL_ID, datas.get(i).getId());
-                    if (isBook) {
-                        startActivity(SubjectDetailsLocalActivity.class, b);
-                    } else {
-                        startActivity(SubjectDetailsContentActivity.class, b);
-                    }
+                    b.putInt(CHAPTER_ID, datas.get(i).getId());
+                    startActivity(ShowDetailsContentActivity.class, b);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
-                    b.putInt(SUBJECT_DETAIL_ID, datas.get(i).getId());
-                    startActivity(SubjectDetailsContentActivity.class, b);
+                    b.putInt(CHAPTER_ID, datas.get(i).getId());
+                    startActivity(ShowDetailsContentActivity.class, b);
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
                     if (datas.get(i) == null) {
                         Toast.makeText(context, "请重新下载", Toast.LENGTH_SHORT).show();
@@ -175,13 +171,13 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView expandableListView, View view, int i, int i1, long l) {
-                b.putInt("ExamListDataItem", i1);
-                b.putSerializable("ExamListData", datas.get(i));
+                b.putInt(EXERCISE_ITEM, i1);
+                b.putSerializable(CHAPTER_ID, datas.get(i).getId());
                 if (isBook) {
-                    startActivity(SubjectLocalPracticeActivity.class, b);
+                    startActivity(TextbookPracticeActivity.class, b);
 
                 } else {
-                    startActivity(SubjectPracticeActivity.class, b);
+                    startActivity(ClassPracticeActivity.class, b);
 
                 }
                 return false;
