@@ -102,7 +102,7 @@ public abstract class BaseSubjectTestDataDao extends BaseDataDao2 {
 	 * @param db 
 	 * @return
 	 */
-	protected BaseTestData initTestData(Cursor curs, int testMode) {
+	private BaseTestData initTestData(Cursor curs, int testMode) {
 		BaseTestData testData = null;
 		CommonSubjectData subjectData = null;
 		// 初始化题目数据
@@ -135,7 +135,7 @@ public abstract class BaseSubjectTestDataDao extends BaseDataDao2 {
 			break;
 		default:
 			testData = initCommonSubject(curs, subjectData, testMode);
-			
+
 			break;
 		}
 
@@ -205,14 +205,14 @@ public abstract class BaseSubjectTestDataDao extends BaseDataDao2 {
 			break;
 		default:
 			testData = initCommonSubject(null, subjectData, testMode);
-			
+
 			break;
 		}
 		testData.parseUAnswerData(answerData);
 
 		return testData;
 	}
-	
+
 	/**
 	 * 通用题型初始化
 	 * @param curs
@@ -227,7 +227,7 @@ public abstract class BaseSubjectTestDataDao extends BaseDataDao2 {
 		parseCursor(curs, testData, -1);
 		return testData;
 	}
-	
+
 	/**
 	 * 填空题型初始化
 	 * @param curs
@@ -347,7 +347,7 @@ public abstract class BaseSubjectTestDataDao extends BaseDataDao2 {
 			data.setFlag(curs.getInt(1));
 			data.setSubjectId(curs.getInt(2));
 			data.setRemark(curs.getString(6));
-			if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
+			if (data.getTestMode() == TestMode.MODE_EXAM_EMPTY) {// 测试模式不加载用户数据
 				data.setUAnswer(null);
 				data.setuScore(0);
 				data.setState(SubjectState.STATE_INIT);
@@ -458,9 +458,9 @@ public abstract class BaseSubjectTestDataDao extends BaseDataDao2 {
 				id = (int) mDb.replace(TABLE_NAME, null, values);
 				if (id < 0) {
 					ToastUtil.showToast(mContext, "测试数据插入出错：" + subjectId);
-					Log.e(TAG, "insertTest error:" + id );
+					Log.e(TAG, "insertTest error:" + id);
 				} else {
-					Log.d(TAG, "insertTest success:" + id );
+					Log.d(TAG, "insertTest success:" + id);
 				}
 			}
 		} catch (Exception e) {

@@ -107,6 +107,9 @@ public class LoginNetMananger extends JsonNetReqManager implements GetBillTempla
             Toast.makeText(context, message.toString(), Toast.LENGTH_SHORT).show();
         }
     }
+    public void dismissDialog(){
+        GetBillTemplatesManager.newInstance(context).dismissDialog();
+    }
 
     @Override
     public void onConnectionError(String arg0) {

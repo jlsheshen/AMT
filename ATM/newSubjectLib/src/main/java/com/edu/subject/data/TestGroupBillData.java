@@ -1,12 +1,12 @@
 package com.edu.subject.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.alibaba.fastjson.JSON;
 import com.edu.subject.SubjectType;
 import com.edu.subject.data.answer.BillAnswerData;
 import com.edu.subject.net.SubjectAnswerResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 分组单据测试数据
@@ -69,6 +69,8 @@ public class TestGroupBillData extends BaseTestData {
 			result.setAnswer(uAnswer);
 		}
 		result.setScore(uScore);
+		result.setRight(uScore == getSubjectData().getScore());
+		
 		return result;
 	}
 
@@ -77,7 +79,7 @@ public class TestGroupBillData extends BaseTestData {
 	 * @return
 	 */
 	public String getUAnswer() {
-		return userAnswer.toString();
+		return userAnswer==null?"" : userAnswer.toString();
 	}
 
 	@Override

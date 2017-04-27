@@ -1,7 +1,5 @@
 package com.edu.subject.view;
 
-import java.util.List;
-
 import android.content.Context;
 import android.widget.RelativeLayout;
 
@@ -11,8 +9,10 @@ import com.edu.subject.SubjectState;
 import com.edu.subject.blank.FillInBlankView;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.TestBlankData;
+import com.edu.subject.data.answer.BlankAnswer;
 import com.edu.subject.data.answer.BlankAnswerData;
-import com.edu.subject.data.answer.BlankAnswerData.BlankAnswer;
+
+import java.util.List;
 
 /**
  * 填空题

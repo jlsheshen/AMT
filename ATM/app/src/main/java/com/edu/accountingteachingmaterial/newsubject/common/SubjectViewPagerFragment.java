@@ -35,8 +35,7 @@ import com.edu.subject.view.SingleSelectView;
  * 
  */
 public class SubjectViewPagerFragment extends Fragment {
-
-	private static final String TAG = "SubjectViewPagerFragment";
+String TAG = "SubjectViewPagerFragment";
 	/**
 	 * 题目内容数据
 	 */
@@ -201,7 +200,7 @@ public class SubjectViewPagerFragment extends Fragment {
 	/**
 	 * 盖章
 	 * 
-	 * @param sign
+	 * @param signData
 	 *            印章数据
 	 */
 	public void sign(SignData signData) {

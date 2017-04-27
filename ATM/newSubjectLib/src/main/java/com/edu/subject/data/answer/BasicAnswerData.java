@@ -10,6 +10,8 @@ public class BasicAnswerData extends CommonAnswerData {
 	//用户答案
 	private String uanswer;
 
+
+
 	public String getUanswer() {
 		return uanswer;
 	}

@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
-import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.subject.SubjectType;
 import com.edu.subject.dao.CommonSubjectDataDao;
@@ -25,6 +25,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.List;
 
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 
 
 /**
@@ -111,11 +112,7 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 		Log.d(TAG, "parse end:" + (System.currentTimeMillis() - start) / 1000);
 	}
 
-	/**
-	 * 保存题目数据到数据库
-	 *
-	 * @param subjects
-	 */
+
 
 	/**
 	 * 保存题目数据到数据库
@@ -123,7 +120,9 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 	 * @param subjects
 	 */
 	private void saveSubjects(List<CommonSubjectData> subjects) {
+		String userId = PreferenceHelper.getInstance(mContext).getStringValue(USER_ID);
 		for (CommonSubjectData subject : subjects) {
+//			subject.setChapterId(chatperId);
 			try {
 				int subjectId = -1;
 				if (subject.getSubjectType() == SubjectType.SUBJECT_COMPREHENSIVE) {//综合题需要插入子题
@@ -133,18 +132,18 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
 					if (subjectId > 0) {
 						//插入子题
-						List<CommonSubjectData> children = JSON.parseArray(body, CommonSubjectData.class);
-						for (CommonSubjectData child : children) {
-							child.setParentId(subjectId);
-							CommonSubjectDataDao.getInstance(mContext).insertData(child);
-						}
+//						List<CommonSubjectData> children = JSON.parseArray(body, CommonSubjectData.class);
+//						for (CommonSubjectData child : children) {
+//							child.setParentId(subjectId);
+//							CommonSubjectDataDao.getInstance(mContext).insertData(child);
+//						}
 					}
 				} else {
 					// 插入题目数据
 					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
 				}
-				if (subjectId > 0) {
-					SubjectOnlineTestDataDao.getInstance(mContext).insertTest(subjectId);
+				if (subjectId > 0 && subject.getParentId() == -1) {
+					SubjectTestDataDao.getInstance(mContext).insertTest(subjectId,chatperId);
 				}
 			} catch (Exception e) {
 				Log.e(TAG, "题目插入出错：" + subject);

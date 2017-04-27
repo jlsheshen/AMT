@@ -36,7 +36,7 @@ public class DeteleDialog extends Dialog implements View.OnClickListener {
         // 窗口全屏显示
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 设置窗口弹出动画
-        getWindow().setWindowAnimations(com.edu.R.style.TranAnimation);
+        getWindow().setWindowAnimations(R.style.TranAnimation);
         setContentView(R.layout.dialog_detele);
         setCancelable(false);
         tvTitle = (TextView) findViewById(R.id.tv_text);

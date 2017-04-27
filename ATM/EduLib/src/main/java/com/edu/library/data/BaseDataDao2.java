@@ -229,6 +229,7 @@ public abstract class BaseDataDao2 {
 	 * @return
 	 */
 	public synchronized List<? extends BaseData> queryList(String sql) {
+
 		Cursor curs = null;
 		List<BaseData> datas = null;
 		try {
@@ -246,6 +247,7 @@ public abstract class BaseDataDao2 {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+//			closeDb(mDb,curs);
 			closeCursor(curs);
 		}
 		return datas;

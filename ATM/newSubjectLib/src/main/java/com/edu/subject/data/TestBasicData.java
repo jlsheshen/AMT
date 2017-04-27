@@ -33,7 +33,7 @@ public class TestBasicData extends BaseTestData {
 	 * @return
 	 */
 	public String getUAnswer() {
-		return userAnswer.toString();
+		return userAnswer == null? "":userAnswer.toString();
 	}
 
 	@Override
@@ -61,6 +61,7 @@ public class TestBasicData extends BaseTestData {
 			}
 		}
 		result.setScore(uScore);
+		result.setRight(uScore == getSubjectData().getScore());
 
 		return result;
 	}
@@ -70,6 +71,7 @@ public class TestBasicData extends BaseTestData {
 		if (answer != null) {
 			answerData = new BasicAnswerData();
 			((BasicAnswerData) answerData).setUanswer(answer.getUanswer());
+//			answerData.setuScore(answer.getuScore());
 		}
 	}
 }

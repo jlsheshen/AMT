@@ -78,7 +78,7 @@ public class CommonSubjectDataDao extends BaseDataDao2 {
 	@Override
 	public CommonSubjectData parseCursor(Cursor curs) {
 		CommonSubjectData subjectData = null;
-		int subjectType = curs.getInt(4);
+		int subjectType = curs.getInt(3);
 		switch (subjectType) {
 		case SubjectType.SUBJECT_BILL:
 			subjectData = new SubjectBillData();
@@ -112,15 +112,14 @@ public class CommonSubjectDataDao extends BaseDataDao2 {
 
 		subjectData.setId(curs.getInt(0));
 		subjectData.setParentId(curs.getInt(1));
-		subjectData.setChapterId(curs.getInt(2));
-		subjectData.setFlag(curs.getInt(3));
+		subjectData.setFlag(curs.getInt(2));
 		subjectData.setSubjectType(subjectType);
-		subjectData.setQuestion(RichTextUtil.parse(curs.getString(5)));
-		subjectData.setBody(curs.getString(6));
-		subjectData.setAnswer(RichTextUtil.parse(curs.getString(7)));
-		subjectData.setAnalysis(RichTextUtil.parse(curs.getString(8)));
-		subjectData.setScore(curs.getInt(9));
-		subjectData.setRemark(curs.getString(10));
+		subjectData.setQuestion(RichTextUtil.parse(curs.getString(4)));
+		subjectData.setBody(curs.getString(5));
+		subjectData.setAnswer(RichTextUtil.parse(curs.getString(6)));
+		subjectData.setAnalysis(RichTextUtil.parse(curs.getString(7)));
+		subjectData.setScore(curs.getInt(8));
+		subjectData.setRemark(curs.getString(9));
 
 		return subjectData;
 	}
@@ -149,13 +148,12 @@ public class CommonSubjectDataDao extends BaseDataDao2 {
 			if (!exist) {
 				ContentValues values = new ContentValues();
 				values.put("PARENT_ID", subject.getParentId());
-				values.put("CHAPTER_ID", subject.getChapterId());
 				values.put("FLAG", subject.getFlag());
 				values.put("SUBJECT_TYPE", subject.getSubjectType());
 				values.put("QUESTION", subject.getQuestion().toJsonString());
-				values.put("BODY", subject.getBody());
-				values.put("ANSWER", subject.getAnswer().toJsonString());
-				values.put("ANALYSIS", subject.getAnalysis().toJsonString());
+				values.put("BODY", subject.getBody() == null?"":subject.getBody());
+				values.put("ANSWER", subject.getAnswer() == null?"":subject.getAnswer().toJsonString());
+				values.put("ANALYSIS", subject.getAnalysis() == null?"":subject.getAnalysis().toJsonString());
 				values.put("SCORE", subject.getScore());
 				values.put("REMARK", subject.getRemark());
 				id = (int) mDb.replace(TABLE_NAME, null, values);

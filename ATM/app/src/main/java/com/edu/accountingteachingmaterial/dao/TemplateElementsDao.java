@@ -4,10 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.edu.accountingteachingmaterial.constant.Constant;
 import com.edu.library.data.BaseData;
 import com.edu.library.data.BaseDataDao;
 import com.edu.library.data.DBHelper;
-import com.edu.testbill.Constant;
 
 /**
  * Created by Administrator on 2016/12/13.

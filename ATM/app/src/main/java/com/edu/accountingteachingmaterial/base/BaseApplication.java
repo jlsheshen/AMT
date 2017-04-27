@@ -2,6 +2,7 @@ package com.edu.accountingteachingmaterial.base;
 
 import android.content.Context;
 
+import com.edu.library.EduCrashApplication;
 import com.lucher.net.req.LogUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;

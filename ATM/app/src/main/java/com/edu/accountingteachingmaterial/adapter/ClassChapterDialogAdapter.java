@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
@@ -78,15 +77,15 @@ public class ClassChapterDialogAdapter extends BaseExpandableListAdapter {
         convertView = LayoutInflater.from(context).inflate(R.layout.item_dialog_classchapter_exlv, parent, false);
         TextView titlyTv = (TextView) convertView.findViewById(R.id.item_classchapter_tv);
         titlyTv.setText(datas.get(groupPosition).getTitle());
-        TextView titleNum = (TextView) convertView.findViewById(R.id.item_classchapter_num_tv);
-        titleNum.setText("第" + (groupPosition + 1) + "章");
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.item_classchapter_iv);
+//        TextView titleNum = (TextView) convertView.findViewById(R.id.item_classchapter_num_tv);
+//        titleNum.setText("第" + (groupPosition + 1) + "章");
+//        ImageView imageView = (ImageView) convertView.findViewById(R.id.item_classchapter_iv);
         //箭头随着子列的展开而变化
-        if (isExpanded) {
-            imageView.setSelected(true);
-        } else {
-            imageView.setSelected(false);
-        }
+//        if (isExpanded) {
+//            imageView.setSelected(true);
+//        } else {
+//            imageView.setSelected(false);
+//        }
         return convertView;
     }
 

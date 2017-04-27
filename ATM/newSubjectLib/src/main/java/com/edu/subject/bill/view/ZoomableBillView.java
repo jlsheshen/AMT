@@ -290,7 +290,7 @@ public class ZoomableBillView extends ViewGroup implements OnTouchListener, Drag
 	 * 
 	 */
 	public void showFlashes() {
-		// 闪电符缩放
+		// 闪电符显示
 		for (FlashView flashView : mFlashViews) {
 			flashView.show(true);
 		}

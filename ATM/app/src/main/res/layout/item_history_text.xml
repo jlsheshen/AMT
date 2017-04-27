@@ -17,13 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/content_text_size"
+        android:visibility="gone"
         android:layout_margin="5dp"
                 />
     <TextView
         android:id="@+id/item_history_node_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/item_text_size"
+        android:textSize="@dimen/content_text_size"
         android:layout_margin="5dp"
         />
     <TextView

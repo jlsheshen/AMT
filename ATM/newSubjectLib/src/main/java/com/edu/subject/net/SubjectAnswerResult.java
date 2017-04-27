@@ -18,6 +18,8 @@ public class SubjectAnswerResult extends BaseData {
 	private String answer;
 	// 用户得分
 	private float score;
+	// 是否答对
+	private boolean right;
 
 	public int getFlag() {
 		return flag;
@@ -49,6 +51,14 @@ public class SubjectAnswerResult extends BaseData {
 
 	public void setScore(float score) {
 		this.score = score;
+	}
+
+	public boolean isRight() {
+		return right;
+	}
+
+	public void setRight(boolean right) {
+		this.right = right;
 	}
 
 	@Override

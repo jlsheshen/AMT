@@ -13,15 +13,15 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
+import com.edu.accountingteachingmaterial.bean.TemplateData;
+import com.edu.accountingteachingmaterial.constant.BASE_URL;
+import com.edu.accountingteachingmaterial.constant.Constant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.TemplateElementsDao;
 import com.edu.accountingteachingmaterial.entity.BillTemplateListBean;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.library.data.DBHelper;
-import com.edu.subject.BASE_URL;
-import com.edu.subject.data.TemplateData;
-import com.edu.subject.util.SubjectImageLoader;
-import com.edu.testbill.Constant;
+import com.edu.subject.net.SubjectImageLoader;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.JsonReqEntity;
@@ -187,7 +187,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         public void onCompleted() {
                             Log.d("GetBillTemplatesManager", "插入数据完成");
                             getBillListener.onGetBillSuccess();
-//                            EventBus.getDefault().post("1");
+//                          EventBus.getDefault().post("1");
                             myDialog.dismiss();
                         }
                         @Override
@@ -204,6 +204,11 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
         }
 
+    }
+    public void dismissDialog(){
+        if (myDialog != null){
+            myDialog.dismiss();
+        }
     }
 
     @Override
@@ -242,13 +247,11 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
             int i = updateTemplateInfo(contentValues, billTemplate);
             if (i !=0){
                 insertData(billTemplate);
-
-
             }else {
                 updateData(billTemplate);
             }
         }
-        SubjectImageLoader.getInstance(mContext).preDownloadAllPic(urls);
+        SubjectImageLoader.getInstance(mContext).preloadAllPics();
 
     }
 

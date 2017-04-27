@@ -2,15 +2,19 @@ package com.edu.accountingteachingmaterial.newsubject;
 
 import android.content.ContentValues;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
-import com.edu.accountingteachingmaterial.newsubject.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.UploadOnlineResultsManager;
+import com.edu.library.data.BaseDataDao2;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
@@ -30,13 +34,19 @@ import java.util.List;
 public class TextBookExamActivity extends BaseSubjectsContentActivity implements ResultsListener {
     public int chapterId;
     public boolean isExam;
+    BaseDataDao2 baseDataDao;
 
     @Override
     protected void init() {
         super.init();
         btnSubmit.setVisibility(View.VISIBLE);
-        initTimer(1000, 5 * 60 * 1000);
+//        initTimer(1000, 5 * 60 * 1000);
         initConfirmDialog();
+    }
+
+    @Override
+    public void onRedoClicked() {
+        mCardDialog.dismiss();
     }
 
     @Override
@@ -44,7 +54,11 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
         Bundle bundle = getIntent().getExtras();
         isExam = bundle.getBoolean(IS_EXAM);
         chapterId = bundle.getInt(CHAPTER_ID);
-        return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
+        if (isExam){
+            return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
+        }else {
+            return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
+        }
     }
 
     @Override
@@ -71,12 +85,12 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     protected void handSubmit() {
-        showConfirmDialog(CONFIRM_SUBMIT, "提示", "确认提交？");
+        showConfirmDialog(CONFIRM_SUBMIT, "提交", "确认提交？");
     }
 
     @Override
     protected void handleBack() {
-        showConfirmDialog(CONFIRM_EXIT, "提示", "退出将直接提交答案，确认退出？");
+        showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
     }
 
     /**
@@ -89,10 +103,15 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
         if (isExam) {
             UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
             UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
-            int cost = 0;
-            UploadOnlineResultsManager.getSingleton(this).uploadResult(chapterId, cost);
+            String userId = PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID);
+            UploadOnlineResultsManager.getSingleton(this).uploadResult(userId,chapterId,0);
+
+//            ContentValues contentValues = new ContentValues();
+//            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+//            SubjectOnlineTestDataDao.getInstance(this).updateData(chapterId, contentValues);
+//            EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+//            finish();
         } else {
-            Toast.makeText(this, "score:" + score, Toast.LENGTH_SHORT).show();
             ContentValues contentValues = new ContentValues();
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
             ExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
@@ -103,7 +122,7 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     protected void saveAnswer() {
-        mSubjectAdapter.saveAnswer(mCurrentIndex);
+        mSubjectAdapter.saveAnswer(mCurrentIndex,0);
     }
 
     @Override
@@ -125,12 +144,23 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     public void onSaveTestData(BaseTestData testData) {
-        SubjectTestDataDao.getInstance(mContext).updateTestData(testData);
+        if (isExam){
+            SubjectOnlineTestDataDao.getInstance(mContext).updateTestData(testData);
+
+        }else {
+            SubjectTestDataDao.getInstance(mContext).updateTestData(testData);
+        }
+
     }
 
     @Override
     public void onSaveTestDatas(List<BaseTestData> testDatas) {
-        SubjectTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
+        if (isExam){
+            SubjectOnlineTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
+
+        }else {
+            SubjectTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
+        }
     }
 
     @Override
@@ -143,8 +173,14 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
     public void onDialogConfirm(int confirmType) {
         switch (confirmType) {
             case CONFIRM_EXIT:
+                saveAnswer();
+                finish();
+                break;
+
             case CONFIRM_SUBMIT:
-                submit();
+                saveAnswer();
+                submit() ;
+
                 break;
 
             default:
@@ -154,6 +190,7 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     public void onResultsSuccess() {
+        Log.d("TextBookExamActivity", "成功回调");
         ContentValues contentValues = new ContentValues();
         contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
         ExamOnLineListDao.getInstance(this).updateData("" + chapterId, contentValues);
@@ -163,6 +200,8 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     public void onResultsFialure() {
+        Log.d("TextBookExamActivity", "失败回调");
 
+//        finish();
     }
 }

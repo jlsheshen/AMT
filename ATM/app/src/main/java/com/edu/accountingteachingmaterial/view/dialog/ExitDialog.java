@@ -24,10 +24,11 @@ public class ExitDialog extends Dialog implements android.view.View.OnClickListe
     private SetDialogListener mListener;
 
     private String info;
-    private TextView tvTitle;
-
-    public ExitDialog(Context context) {
+    private TextView tvTitle,tvText;
+    private int type;
+    public ExitDialog(Context context ,int type) {
         super(context);
+        this.type = type;
         init();
     }
 
@@ -37,10 +38,11 @@ public class ExitDialog extends Dialog implements android.view.View.OnClickListe
         // 窗口全屏显示
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 设置窗口弹出动画
-        getWindow().setWindowAnimations(com.edu.R.style.TranAnimation);
+        getWindow().setWindowAnimations(R.style.TranAnimation);
         setContentView(R.layout.dialog_exit);
         setCancelable(false);
-
+        tvTitle = (TextView) findViewById(R.id.tv_title);
+        tvText = (TextView) findViewById(R.id.tv_text);
         btnOk = (Button) findViewById(R.id.btn_ok);
         btnCancel = (ImageView) findViewById(R.id.btn_cancel);
 
@@ -53,11 +55,11 @@ public class ExitDialog extends Dialog implements android.view.View.OnClickListe
         super.show();
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_ok:
-                dismiss();
                 if (mListener != null) {
                     mListener.onOkClicked();
                 }
@@ -66,12 +68,17 @@ public class ExitDialog extends Dialog implements android.view.View.OnClickListe
                 if (mListener != null) {
                     mListener.onCancelClicked();
                 }
-                dismiss();
                 break;
             default:
                 dismiss();
                 break;
         }
+    }
+    public void setTvTitle(String message){
+        tvTitle.setText(message);
+    }
+    public void setTvText(String message){
+        tvText.setText(message);
     }
 
     /**

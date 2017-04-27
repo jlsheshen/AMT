@@ -65,7 +65,7 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getChildId(int i, int i1) {
-        return Long.parseLong(datas.get(i).getTestList().get(i1).getSubjectId());
+        return (datas.get(i).getTestList().get(i1).getSubjectId());
     }
 
     @Override
@@ -154,9 +154,9 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
             Log.d("ExerciseExLvAdapter", "没有支持的题型");
             return view;
         }
-        childViewHolder.contentTv.setText(exercisePracticeBean.getSubjectData().getQuestion());
+        childViewHolder.contentTv.setText(exercisePracticeBean.getSubjectData().getQuestion().getText());
         String s = null;
-        switch (exercisePracticeBean.getSubjectType()) {
+        switch (exercisePracticeBean.getSubjectData().getSubjectType()) {
             case ClassContstant.SUBJECT_SINGLE_CHOSE:
                 s = ClassContstant.SUBJECT_SINGLE_CHOSE_STRING;
                 break;
@@ -166,14 +166,20 @@ public class ExerciseExLvAdapter extends BaseExpandableListAdapter {
             case ClassContstant.SUBJECT_JUDGE:
                 s = ClassContstant.SUBJECT_JUDGE_STRING;
                 break;
-            case ClassContstant.SUBJECT_PRACTIAL:
-                s = ClassContstant.SUBJECT_PRACTIAL_STRING;
+            case ClassContstant.SUBJECT_BLANK:
+                s = ClassContstant.SUBJECT_BLANK_STRING;
                 break;
             case ClassContstant.SUBJECT_ENTRY:
                 s = ClassContstant.SUBJECT_ENTRY_STRING;
                 break;
             case ClassContstant.SUBJECT_BILL:
                 s = ClassContstant.SUBJECT_BILL_STRING;
+                break;
+            case ClassContstant.SUBJECT_SIMPLE_ANSWER:
+                s = ClassContstant.SUBJECT_SIMPLE_ANSWER_STRING;
+                break;
+            case ClassContstant.SUBJECT_COMPREHENSIVE:
+                s = ClassContstant.SUBJECT_COMPREHENSIVE_STRING;
                 break;
             case ClassContstant.SUBJECT_GROUP_BILL:
                 s = ClassContstant.SUBJECT_GROUP_BILL_STRING;

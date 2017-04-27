@@ -14,13 +14,12 @@
         android:textColor="@color/colorGray"
         android:textSize="@dimen/title_text_size" />
 
-    <ExpandableListView
+    <ListView
         android:id="@+id/class_classchapter_exlv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:childDivider="@color/colorBlueBar"
         android:divider="@color/colorWhite"
         android:dividerHeight="1dp"
         android:scrollbars="none"
-        android:groupIndicator="@null"></ExpandableListView>
+        android:groupIndicator="@null"></ListView>
 </LinearLayout>

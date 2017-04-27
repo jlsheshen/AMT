@@ -60,7 +60,7 @@ public class HistoryPpwAdapter extends BaseAdapter {
             viewHolder = (HisViewHolder) view.getTag();
         }
         if (null == datas.get(i)) {
-            viewHolder.chapterTv.setVisibility(View.GONE);
+//            viewHolder.chapterTv.setVisibility(View.GONE);
             viewHolder.NodeTv.setVisibility(View.GONE);
             viewHolder.contentTv.setVisibility(View.GONE);
             viewHolder.dayTv.setVisibility(View.VISIBLE);
@@ -78,11 +78,11 @@ public class HistoryPpwAdapter extends BaseAdapter {
                     break;
             }
         } else {
-            viewHolder.chapterTv.setVisibility(View.VISIBLE);
+//            viewHolder.chapterTv.setVisibility(View.VISIBLE);
             viewHolder.NodeTv.setVisibility(View.VISIBLE);
             viewHolder.contentTv.setVisibility(View.VISIBLE);
             viewHolder.dayTv.setVisibility(View.GONE);
-            viewHolder.chapterTv.setText(datas.get(i).getChapter_title());
+//            viewHolder.chapterTv.setText(datas.get(i).getChapter_title());
             viewHolder.NodeTv.setText(datas.get(i).getSection_title());
             viewHolder.contentTv.setText(datas.get(i).getLesson_title());
         }
@@ -90,10 +90,10 @@ public class HistoryPpwAdapter extends BaseAdapter {
     }
 
     public class HisViewHolder {
-        TextView chapterTv, NodeTv, contentTv, dayTv;
+        TextView  NodeTv, contentTv, dayTv;
 
         public HisViewHolder(View view) {
-            chapterTv = (TextView) view.findViewById(R.id.item_history_chapter_tv);
+//            chapterTv = (TextView) view.findViewById(R.id.item_history_chapter_tv);
             NodeTv = (TextView) view.findViewById(R.id.item_history_node_tv);
             contentTv = (TextView) view.findViewById(R.id.item_history_content_tv);
             dayTv = (TextView) view.findViewById(R.id.item_history_day_tv);

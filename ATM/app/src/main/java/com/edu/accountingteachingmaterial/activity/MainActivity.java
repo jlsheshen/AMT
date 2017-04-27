@@ -33,9 +33,9 @@ import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.util.DoubleClickExitUtil;
 import com.lucher.net.req.RequestMethod;
 
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.BASE_URL;
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.TEMP_URL;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDENT_NAME;
-import static com.edu.subject.BASE_URL.BASE_URL;
-import static com.edu.subject.BASE_URL.TEMP_URL;
 
 public class MainActivity extends BaseActivity implements OnClickListener, DrawerListener {
 

@@ -11,11 +11,11 @@
         android:background="@mipmap/bg_exit_dialog">
 
         <TextView
-            android:id="@+id/tv"
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="160dp"
+            android:layout_marginTop="140dp"
             android:text="还有试题尚未作答"
             android:textColor="@color/colorBlueBackground"
             android:textSize="24sp" />
@@ -24,8 +24,11 @@
             android:id="@+id/tv_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv"
+            android:layout_below="@+id/tv_title"
             android:layout_centerHorizontal="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:text="确定提交？"
             android:textColor="@color/colorBlueBackground"
@@ -38,7 +41,7 @@
             android:layout_below="@+id/tv_text"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
-            android:text="交卷"
+            android:text="确定"
             android:textColor="@color/colorBlueBackground"
             android:textSize="24sp" />
     </RelativeLayout>

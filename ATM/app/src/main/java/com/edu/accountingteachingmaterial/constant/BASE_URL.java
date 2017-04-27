@@ -5,7 +5,7 @@ package com.edu.accountingteachingmaterial.constant;
  */
 
 public class BASE_URL {
-    public static String BASE_URL = "http://192.168.1.143:8080";
+    public static String BASE_URL = "http://192.168.1.156:8080";
 
     public static String TEMP_URL;
 

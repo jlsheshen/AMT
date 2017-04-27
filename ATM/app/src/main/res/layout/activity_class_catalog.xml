@@ -123,12 +123,20 @@
             android:maxWidth="300dp" />
     </RelativeLayout>
 
-    <ExpandableListView
-        android:id="@+id/class_classchapter_exlv"
-        style="@style/ExpandableLvStyle"
+    <!--<ExpandableListView-->
+        <!--android:id="@+id/class_classchapter_exlv"-->
+        <!--style="@style/ExpandableLvStyle"-->
+        <!--android:layout_below="@id/aty_horizontal_line"-->
+        <!--android:layout_toRightOf="@id/catalog_textbook_sizebar">-->
+
+    <!--</ExpandableListView>-->
+    <ListView
+        android:id="@+id/class_classchapter_lv"
+        style="@style/ChapterListStyle"
         android:layout_below="@id/aty_horizontal_line"
         android:layout_toRightOf="@id/catalog_textbook_sizebar">
 
-    </ExpandableListView>
+    </ListView>
+
 
 </RelativeLayout>

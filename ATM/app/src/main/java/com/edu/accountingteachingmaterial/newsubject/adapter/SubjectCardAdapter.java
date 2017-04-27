@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.library.R.color;
 import com.edu.subject.SubjectState;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
@@ -76,34 +75,34 @@ public class SubjectCardAdapter extends BaseAdapter implements OnClickListener {
 		BaseTestData testData = mDatas.get(position);
 		view.setText(String.valueOf(testData.getSubjectIndex()));
 		// 设置不同状态不同模式下item的背景色
-		int backgroud = color.gray;
+		int backgroud = R.mipmap.normal;
 
 		if (mCurrentId == testData.getId()) {// 当前题
-			backgroud = color.purple;
+			backgroud = R.mipmap.normal;
 		} else {
 			if (testData.getState() == SubjectState.STATE_INIT) {
 				if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
-					backgroud = color.red;
+					backgroud = R.mipmap.normal;
 				} else {
-					backgroud = color.gray;
+					backgroud = R.mipmap.normal;
 				}
 			} else if (testData.getState() == SubjectState.STATE_UNFINISH) {
 				if (testData.getTestMode() == TestMode.MODE_SHOW_DETAILS) {// 测试模式不用区分正确或者错误
-					backgroud = color.red;
+					backgroud = R.mipmap.zuoguo;
 				} else {
-					backgroud = color.yellow;
+					backgroud = R.mipmap.zuoguo;
 				}
-			} else if (testData.getState() == SubjectState.STATE_CORRECT) {
-				if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
-					backgroud = color.yellow;
+			} else if (testData.getState() == SubjectState.STATE_CORRECT&& testData.getTestMode() != TestMode.MODE_SHOW_UANSWER) {
+				if (testData.getTestMode() != TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
+					backgroud = R.mipmap.zhengque;
 				} else {
-					backgroud = color.blue;
+					backgroud = R.mipmap.zuoguo;
 				}
 			} else if (testData.getState() == SubjectState.STATE_WRONG) {
-				if (testData.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不用区分正确或者错误
-					backgroud = color.yellow;
+				if (testData.getTestMode() != TestMode.MODE_EXAM && testData.getTestMode() != TestMode.MODE_SHOW_UANSWER) {// 测试模式不用区分正确或者错误
+					backgroud = R.mipmap.cuowu;
 				} else {
-					backgroud = color.red;
+					backgroud = R.mipmap.zuoguo;
 				}
 			}
 		}

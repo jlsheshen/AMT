@@ -115,6 +115,7 @@ public class BlankEditText extends EditText implements IScaleable {
 			}
 		} else if (mTestMode == TestMode.MODE_EXAM) {// 测试模式
 			showUAnswer(true);
+		} else if (mTestMode == TestMode.MODE_EXAM_EMPTY) {// 测试清空模式
 		} else if(mTestMode == TestMode.MODE_SHOW_UANSWER) {//查看用户答案模式
 			showUAnswer(true);
 			setFocusable(false);
@@ -440,7 +441,7 @@ public class BlankEditText extends EditText implements IScaleable {
 			} else {
 				setBackgroundColor(BG_COLOR_ERROR);
 			}
-		} else if (mTestMode == TestMode.MODE_EXAM) {// 考试模式
+		} else if (mTestMode == TestMode.MODE_EXAM || mTestMode == TestMode.MODE_EXAM_EMPTY) {// 考试模式
 			setBackgroundColor(BG_COLOR_NORMAL);
 		}
 	}

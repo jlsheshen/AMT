@@ -1,8 +1,5 @@
 package com.edu.subject.bill.template;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -18,6 +15,9 @@ import com.edu.subject.bill.element.info.FlashInfo;
 import com.edu.subject.bill.element.info.SignInfo;
 import com.edu.subject.data.answer.BillAnswerData.SignResult;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 单据模板数据库操作类
  * 
@@ -25,6 +25,19 @@ import com.edu.subject.data.answer.BillAnswerData.SignResult;
  * 
  */
 public class BillTemplateDao {
+	private static final String CONTENT = "CONTENT";
+	private static final String TEMPLATE_ID = "TEMPLATE_ID";
+	private static final String TYPE = "TYPE";
+	private static final String X = "X";
+	private static final String Y = "Y";
+	private static final String WIDTH = "WIDTH";
+	private static final String HEIGHT = "HEIGHT";
+	private static final String SCORE = "SCORE";
+	private static final String ID = "ID";
+	private static final String REMARK = "REMARK";
+	private static final String NAME = "NAME";
+	private static final String BACKGROUND = "BACKGROUND";
+	private static final String FLAG = "FLAG";
 
 	private static final String TAG = "BillTestDataDao";
 
@@ -68,18 +81,18 @@ public class BillTemplateDao {
 				if (curs.isFirst()) {
 					template = new BillTemplate();
 					template.setId(curs.getInt(0));
-					template.setName(curs.getString(1));
-					template.setBitmap(curs.getString(2));
-					template.setFlag(curs.getInt(3));
+					template.setName(curs.getString(curs.getColumnIndex(NAME)));
+					template.setBitmap(curs.getString(curs.getColumnIndex(BACKGROUND)));
+					template.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
 				}
 				BaseElementInfo element;
-				int type = curs.getInt(7);
+				int type = curs.getInt(curs.getColumnIndex(TYPE));
 				switch (type) {
 				case ElementType.TYPE_SIGN:
 					element = new SignInfo();
 					initElement(element, curs);
 					((SignInfo) element).setUser(false);
-					((SignInfo) element).setBitmap(getSignBitmap(curs.getInt(12), db));
+					((SignInfo) element).setBitmap(getSignBitmap(curs.getColumnIndex(CONTENT), db));
 
 					break;
 				case ElementType.TYPE_FLASH:
@@ -92,7 +105,7 @@ public class BillTemplateDao {
 					element = new BlankInfo();
 					initElement(element, curs);
 					try {
-						((BlankInfo) element).setTextSize(curs.getInt(12));
+						((BlankInfo) element).setTextSize(curs.getInt(curs.getColumnIndex(CONTENT)));
 					} catch (Exception e) {
 						e.printStackTrace();
 						ToastUtil.showToast(mContext, "字体大小必须为整数：" + element);
@@ -116,14 +129,14 @@ public class BillTemplateDao {
 	 * @param curs
 	 */
 	private void initElement(BaseElementInfo element, Cursor curs) {
-		element.setId(curs.getInt(5));
-		element.setType(curs.getInt(7));
-		element.setX(curs.getInt(8));
-		element.setY(curs.getInt(9));
-		element.setWidth(curs.getInt(10));
-		element.setHeight(curs.getInt(11));
-		element.setScore(curs.getFloat(13));
-		element.setRemark(curs.getString(14));
+		element.setId(curs.getInt(curs.getColumnIndex(ID)));
+		element.setType(curs.getInt(curs.getColumnIndex(TYPE)));
+		element.setX(curs.getInt(curs.getColumnIndex(X)));
+		element.setY(curs.getInt(curs.getColumnIndex(Y)));
+		element.setWidth(curs.getInt(curs.getColumnIndex(WIDTH)));
+		element.setHeight(curs.getInt(curs.getColumnIndex(HEIGHT)));
+		element.setScore(curs.getFloat(curs.getColumnIndex(SCORE)));
+		element.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
 	}
 
 	/**

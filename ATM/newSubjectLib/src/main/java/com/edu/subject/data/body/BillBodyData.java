@@ -1,11 +1,13 @@
 package com.edu.subject.data.body;
 
+import com.edu.library.data.BaseData;
+
 /**
  * 单据题型body对象
  * @author lucher
  *
  */
-public class BillBodyData {
+public class BillBodyData extends BaseData {
 
 	//模板id
 	private int templateId;

@@ -19,11 +19,11 @@ public class EntryItemData extends SortableData {
 
 	/************答案上传使用**************/
 	//一级科目是否正确
-	private boolean isPrimaryRight;
+	private boolean primaryRight;
 	//二级科目是否正确
-	private boolean isSecondaryRight;
+	private boolean secondaryRight;
 	//金额是否正确
-	private boolean isAmountRight;
+	private boolean amountRight;
 
 	public String getPrimary() {
 		return primary;
@@ -50,27 +50,27 @@ public class EntryItemData extends SortableData {
 	}
 
 	public boolean isPrimaryRight() {
-		return isPrimaryRight;
+		return primaryRight;
 	}
 
 	public void setPrimaryRight(boolean isPrimaryRight) {
-		this.isPrimaryRight = isPrimaryRight;
+		this.primaryRight = isPrimaryRight;
 	}
 
 	public boolean isSecondaryRight() {
-		return isSecondaryRight;
+		return secondaryRight;
 	}
 
 	public void setSecondaryRight(boolean isSecondaryRight) {
-		this.isSecondaryRight = isSecondaryRight;
+		this.secondaryRight = isSecondaryRight;
 	}
 
 	public boolean isAmountRight() {
-		return isAmountRight;
+		return amountRight;
 	}
 
 	public void setAmountRight(boolean isAmountRight) {
-		this.isAmountRight = isAmountRight;
+		this.amountRight = isAmountRight;
 	}
 
 	@Override

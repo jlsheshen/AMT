@@ -4,39 +4,44 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
-import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.edu.accountingteachingmaterial.bean.SubjectBasicData;
-import com.edu.accountingteachingmaterial.bean.SubjectEntryDataDao;
-import com.edu.accountingteachingmaterial.bean.TestBasicData;
-import com.edu.library.data.BaseData;
-import com.edu.library.data.BaseDataDao;
-import com.edu.library.data.DBHelper;
-import com.edu.library.util.ToastUtil;
-import com.edu.subject.SubjectConstant;
-import com.edu.subject.SubjectState;
+import com.alibaba.fastjson.JSON;
+import com.edu.accountingteachingmaterial.constant.Constant;
+import com.edu.library.data.BaseDataDao2;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.bill.template.BillTemplate;
 import com.edu.subject.bill.template.BillTemplateFactory;
-import com.edu.subject.dao.SubjectBillDataDao;
-import com.edu.subject.data.BaseSubjectData;
+import com.edu.subject.dao.CommonSubjectDataDao;
 import com.edu.subject.data.BaseTestData;
+import com.edu.subject.data.CommonSubjectData;
 import com.edu.subject.data.SubjectBillData;
+import com.edu.subject.data.SubjectBlankData;
+import com.edu.subject.data.SubjectComprehensiveData;
+import com.edu.subject.data.SubjectEntryData;
+import com.edu.subject.data.SubjectSelectData;
+import com.edu.subject.data.TestBasicData;
 import com.edu.subject.data.TestBillData;
+import com.edu.subject.data.TestBlankData;
+import com.edu.subject.data.TestComprehensiveData;
+import com.edu.subject.data.TestEntryData;
 import com.edu.subject.data.TestGroupBillData;
-import com.edu.testbill.Constant;
+import com.edu.subject.data.UserAnswerData;
+import com.edu.subject.data.answer.BillAnswerData;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.edu.subject.SubjectState.STATE_INIT;
 
 /**
  * 测试数据数据库操作dao层
  *
  * @author lucher
  */
-public class SubjectTestDataDao extends BaseDataDao {
+public class SubjectTestDataDao extends BaseDataDao2 {
 
     //题目类型
     public static final String SUBJECT_ID = "SUBJECT_ID";
@@ -98,8 +103,8 @@ public class SubjectTestDataDao extends BaseDataDao {
         Cursor curs = null;
         List<BaseTestData> datas = null;
         try {
-            DBHelper helper = new DBHelper(mContext, dbName, null);
-            mDb = helper.getWritableDatabase();
+//            DBHelper helper = new DBHelper(mContext, dbName, null);
+//            mDb = helper.getWritableDatabase();
             String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + CHAPTER_ID + " = " + chapter;
             Log.d(TAG, "sql:" + sql);
             curs = mDb.rawQuery(sql, null);
@@ -110,7 +115,6 @@ public class SubjectTestDataDao extends BaseDataDao {
                     // 初始化测试数据
                     BaseTestData testData = initTestData(curs, testMode);
                     testData.setSubjectIndex(String.valueOf(index++));
-                    Log.d(TAG, "testData.getState():" + testData.getState() + "---" + testData.getuAnswer() + "---" + testData.getRemark());
                     datas.add(testData);
                 }
             }
@@ -119,62 +123,11 @@ public class SubjectTestDataDao extends BaseDataDao {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            closeDb(mDb, curs);
+           closeCursor(curs);
+//            closeDb(mDb, curs);
         }
         return datas;
     }
-
-    public List<BaseTestData> getErrors(int testMode,int state) {
-        Cursor curs = null;
-        List<BaseTestData> datas = null;
-        try {
-            DBHelper helper = new DBHelper(mContext, dbName, null);
-            mDb = helper.getWritableDatabase();
-            String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + STATE + " = " + SubjectState.STATE_WRONG;
-            Log.d(TAG, "sql:" + sql);
-            curs = mDb.rawQuery(sql, null);
-            if (curs != null) {
-                datas = new ArrayList<BaseTestData>(curs.getCount());
-                int index = 1;
-                while (curs.moveToNext()) {
-                    // 初始化测试数据
-                    BaseTestData testData = initTestData(curs, testMode);
-                    testData.setSubjectIndex(String.valueOf(index++));
-                    Log.d(TAG, "testData.getState():" + testData.getState() + "---" + testData.getuAnswer() + "---" + testData.getRemark());
-                    datas.add(testData);
-                }
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeDb(mDb, curs);
-        }
-        return datas;
-
-
-    }
-
-        /**
-         * 删除数据
-         *
-         * @param examId
-         */
-    public synchronized void deleteData(long examId) {
-        try {
-            Log.e(TAG, TABLE_NAME + "-deleteData:" + examId);
-            DBHelper helper = new DBHelper(mContext, dbName, null);
-            mDb = helper.getWritableDatabase();
-            mDb.delete(TABLE_NAME, CHAPTER_ID + "=?", new String[] { String.valueOf(examId) });
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeDb(mDb);
-        }
-    }
-
-
 
     /**
      * 初始化测试数据
@@ -185,103 +138,236 @@ public class SubjectTestDataDao extends BaseDataDao {
      */
     private BaseTestData initTestData(Cursor curs, int testMode) {
         BaseTestData testData = null;
-        BaseSubjectData subjectData = null;
-        int subjectType = curs.getInt(curs.getColumnIndex(SUBJECT_TYPE));
+        CommonSubjectData subjectData = null;
+        // 初始化题目数据
+        int subjectId = curs.getInt(curs.getColumnIndex(SUBJECT_ID));
+//        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE " + ID + " = " + subjectId;
+//        curs = mDb.rawQuery(sql, null);
+        subjectData = CommonSubjectDataDao.getInstance(mContext).getData(subjectId);
 
-        switch (subjectType) {
-            case SubjectType.SUBJECT_GROUP_BILL:
-                // 初始化测试数据
-                testData = new TestGroupBillData();
-                testData.setTestMode(testMode);
-                parseCursor(curs, testData, -1);
-                // 初始化题目数据,分组单据存在多张单据题目
-                List<SubjectBillData> subjcets = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).getDatas(testData.getSubjectId(), mDb);
-                List<TestBillData> testBills = new ArrayList<TestBillData>(subjcets.size());
-                ((TestGroupBillData) testData).setTestDatas(testBills);
-                for (int i = 0; i < subjcets.size(); i++) {
-                    SubjectBillData subject = subjcets.get(i);
-                    ((TestGroupBillData) testData).setScore(subject.getScore());
-                    TestBillData testBill = new TestBillData();
-                    testBill.setTestMode(testMode);
-                    testBills.add(testBill);
-                    parseCursor(curs, testBill, i);
-                    testBill.setSubjectData(subject);
-                    // 初始化模板数据
-                    BillTemplate template = BillTemplateFactory.createTemplate(mDb, Integer.parseInt(((SubjectBillData) subject).getTemplateId()), mContext);
-                    testBill.setTemplate(template);
-                    String result = testBill.loadTemplate(mContext);
-                    if (result.equals("success")) {
-                        Log.d(TAG, "load data success:" + testData);
-                    } else {
-                        Log.e(TAG, "load data error:" + result);
-                        ToastUtil.showToast(mContext, result);
-                    }
-                }
-                break;
+        switch (subjectData.getSubjectType()) {
             case SubjectType.SUBJECT_BILL:
-                // 初始化测试数据
-                testData = new TestBillData();
-                testData.setTestMode(testMode);
-                parseCursor(curs, testData);
-                // 初始化题目数据
-                subjectData = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).getData(testData.getSubjectId(), mDb);
-                testData.setSubjectData(subjectData);
-                // 初始化模板数据
-                BillTemplate template = BillTemplateFactory.createTemplate(mDb, Integer.parseInt(((SubjectBillData) subjectData).getTemplateId()), mContext);
-                ((TestBillData) testData).setTemplate(template);
-                String result = ((TestBillData) testData).loadTemplate(mContext);
-                if (result.equals("success")) {
-                    Log.d(TAG, "load data success:" + testData);
-                } else {
-                    Log.e(TAG, "load data error:" + result);
-                    ToastUtil.showToast(mContext, result);
-                }
+                testData = initBillSubject(curs, subjectData, testMode);
+
+                break;
+            //选择类题目初始化
+            case SubjectType.SUBJECT_SINGLE:
+            case SubjectType.SUBJECT_MULTI:
+            case SubjectType.SUBJECT_JUDGE:
+                testData = initSelectSubject(curs, subjectData, testMode);
 
                 break;
             case SubjectType.SUBJECT_ENTRY:
-                testData = new TestEntryData();
-                testData.setTestMode(testMode);
-                parseCursor(curs, testData);
-                subjectData = (BaseSubjectData) SubjectEntryDataDao.getInstance(mContext).getDataById(Integer.valueOf(testData.getSubjectId().split(">>>")[0]));
-                testData.setSubjectData(subjectData);
-                int a = 0;
-                break;
-
-
-            case SubjectType.SUBJECT_SINGLE:
-                testData = new TestBasicData();
-                testData.setTestMode(testMode);
-                parseCursor(curs, testData);
-                // 初始化题目数据
-                subjectData = (SubjectBasicData) SubjectBasicDataDao.getInstance(mContext, Constant.DATABASE_NAME).getData(testData.getSubjectId(), mDb);
-                testData.setSubjectData(subjectData);
-                break;
-
-            case SubjectType.SUBJECT_MULTI:
-                // 初始化测试数据
-                testData = new TestBasicData();
-                testData.setTestMode(testMode);
-                parseCursor(curs, testData);
-                // 初始化题目数据
-                subjectData = (SubjectBasicData) SubjectBasicDataDao.getInstance(mContext, Constant.DATABASE_NAME).getData(testData.getSubjectId(), mDb);
-                testData.setSubjectData(subjectData);
-                break;
-
-            case SubjectType.SUBJECT_JUDGE:
-                // 初始化测试数据
-                testData = new TestBasicData();
-                testData.setTestMode(testMode);
-                parseCursor(curs, testData);
-                // 初始化题目数据
-                subjectData = (SubjectBasicData) SubjectBasicDataDao.getInstance(mContext, Constant.DATABASE_NAME).getData(testData.getSubjectId(), mDb);
-                testData.setSubjectData(subjectData);
+                testData = initEntrySubject(curs, subjectData, testMode);
 
                 break;
+            case SubjectType.SUBJECT_COMPREHENSIVE:
+                testData = initComprehensiveSubject(curs, subjectData, testMode);
 
+                break;
+            case SubjectType.SUBJECT_BLANK:
+                testData = initBlankSubject(curs, subjectData, testMode);
+
+                break;
             default:
+                testData = initCommonSubject(curs, subjectData, testMode);
+
                 break;
         }
 
+        return testData;
+    }
+
+    /**
+     * 综合类题型初始化
+     *
+     * 此处修改为通过flag遍历子题
+     * @param curs
+     * @param subjectData
+     * @param testMode
+     * @return
+     */
+    private BaseTestData initComprehensiveSubject(Cursor curs, CommonSubjectData subjectData, int testMode) {
+        TestComprehensiveData testData = new TestComprehensiveData();
+        testData.setTestMode(testMode);
+        SubjectComprehensiveData subject = (SubjectComprehensiveData) subjectData;
+        testData.setSubjectData(subject);
+        parseCursor(curs, testData, -1);
+
+        //加载子题
+        List<CommonSubjectData> subjects = CommonSubjectDataDao.getInstance(mContext).getDatasByParentId(subject.getFlag());
+        List<BaseTestData> testDatas = new ArrayList<BaseTestData>(subjects.size());
+        List<UserAnswerData> answerDatas = null;
+        if (testData.getUAnswerData() != null) {//用户答案为空判断
+            answerDatas = testData.getUAnswerData().getAnswerDatas();
+        }
+        for (int i = 0; i < subjects.size(); i++) {//初始化每个子题的测试数据
+            UserAnswerData answer = null;
+            if (answerDatas != null) {
+                answer = answerDatas.get(i);
+            }
+            BaseTestData childTestData = initChildSubject(subjects.get(i), testMode, answer);
+            testDatas.add(childTestData);
+        }
+        testData.setTestDatas(testDatas);
+
+        return testData;
+    }
+
+    /**
+     * 初始化子题测试数据
+     * @param subjectData
+     * @param testMode
+     * @param answerData
+     * @return
+     */
+    private BaseTestData initChildSubject(CommonSubjectData subjectData, int testMode, UserAnswerData answerData) {
+        BaseTestData testData = null;
+        // 初始化题目数据
+        switch (subjectData.getSubjectType()) {
+            //选择类题目初始化
+            case SubjectType.SUBJECT_SINGLE:
+            case SubjectType.SUBJECT_MULTI:
+            case SubjectType.SUBJECT_JUDGE:
+                testData = initSelectSubject(null, subjectData, testMode);
+
+                break;
+            case SubjectType.SUBJECT_ENTRY:
+                testData = initEntrySubject(null, subjectData, testMode);
+
+                break;
+            case SubjectType.SUBJECT_BLANK:
+                testData = initBlankSubject(null, subjectData, testMode);
+
+                break;
+            default:
+                testData = initCommonSubject(null, subjectData, testMode);
+
+                break;
+        }
+        testData.parseUAnswerData(answerData);
+
+        return testData;
+    }
+
+    /**
+     * 通用题型初始化
+     * @param curs
+     * @param subjectData
+     * @param testMode
+     * @return
+     */
+    private BaseTestData initCommonSubject(Cursor curs, CommonSubjectData subjectData, int testMode) {
+        TestBasicData testData = new TestBasicData();
+        testData.setTestMode(testMode);
+        testData.setSubjectData(subjectData);
+        parseCursor(curs, testData, -1);
+        return testData;
+    }
+
+    /**
+     * 填空题型初始化
+     * @param curs
+     * @param subjectData
+     * @param testMode
+     * @return
+     */
+    private BaseTestData initBlankSubject(Cursor curs, CommonSubjectData subjectData, int testMode) {
+        TestBlankData testData = new TestBlankData();
+        testData.setTestMode(testMode);
+        SubjectBlankData blank = (SubjectBlankData) subjectData;
+        blank.makeAnswers();
+        testData.setSubjectData(blank);
+        parseCursor(curs, testData, -1);
+        return testData;
+    }
+
+    /**
+     * 分录类题型初始化
+     * @param curs
+     * @param subjectData
+     * @param testMode
+     * @return
+     */
+    private BaseTestData initEntrySubject(Cursor curs, CommonSubjectData subjectData, int testMode) {
+        BaseTestData testData = new TestEntryData();
+        testData.setTestMode(testMode);
+        SubjectEntryData entry = (SubjectEntryData) subjectData;
+        entry.makeBody();
+        testData.setSubjectData(entry);
+        parseCursor(curs, testData, -1);
+        return testData;
+    }
+
+    /**
+     * 选择类型题型初始化
+     * @param curs
+     * @param subjectData
+     * @param testMode
+     * @return
+     */
+    private BaseTestData initSelectSubject(Cursor curs, CommonSubjectData subjectData, int testMode) {
+        // 初始化测试数据
+        BaseTestData testData = new TestBasicData();
+        testData.setTestMode(testMode);
+        SubjectSelectData select = (SubjectSelectData) subjectData;
+        select.makeBody();
+        testData.setSubjectData(select);
+        parseCursor(curs, testData, -1);
+        return testData;
+    }
+
+    /**
+     * 单据类题型初始化
+     * @param curs
+     * @param subjectData
+     * @param testMode
+     * @return
+     */
+    private BaseTestData initBillSubject(Cursor curs, CommonSubjectData subjectData, int testMode) {
+        BaseTestData testData = null;
+        SubjectBillData bill = (SubjectBillData) subjectData;
+        bill.makeBody();
+        // 题型初始化
+        int size = bill.getBills().size();
+        if (size <= 1) {//一张单据
+            bill.setSubjectType(SubjectType.SUBJECT_BILL);
+            testData = new TestBillData();
+            testData.setSubjectData(bill);
+            testData.setTestMode(testMode);
+            // 初始化,加载模板数据
+            BillTemplate template = BillTemplateFactory.createTemplate(mDb, ((SubjectBillData) subjectData).getBills().get(0).getTemplateId(), mContext);
+            parseCursor(curs, testData, -1);
+            ((TestBillData) testData).loadTemplate(template, mContext, 0);
+        } else {//多张单据
+            bill.setSubjectType(SubjectType.SUBJECT_GROUP_BILL);
+            testData = new TestGroupBillData();
+            testData.setSubjectData(bill);
+            testData.setTestMode(testMode);
+            ((TestGroupBillData) testData).setScore(bill.getScore());
+            // 初始化题目数据,分组单据存在多张单据题目
+            List<TestBillData> testBills = new ArrayList<TestBillData>(size);
+            ((TestGroupBillData) testData).setTestDatas(testBills);
+
+            for (int i = 0; i < size; i++) {
+                SubjectBillData subject = new SubjectBillData();
+                subject.setBills(bill.getBills());
+                subject.setLabel(bill.getBills().get(i).getLabel());
+                subject.setSubjectType(SubjectType.SUBJECT_GROUP_BILL);
+                subject.setQuestion(bill.getQuestion());
+                subject.setId(bill.getId());
+
+                TestBillData testBill = new TestBillData();
+                testBill.setTestMode(testMode);
+                testBill.setSubjectData(subject);
+                parseCursor(curs, testBill, i);
+                testBills.add(testBill);
+                // 初始化模板数据
+                BillTemplate template = BillTemplateFactory.createTemplate(mDb, ((SubjectBillData) subject).getBills().get(i).getTemplateId(), mContext);
+                testBill.loadTemplate(template, mContext, i);
+            }
+            parseCursor(curs, testData, -1);
+        }
         return testData;
     }
 
@@ -290,139 +376,65 @@ public class SubjectTestDataDao extends BaseDataDao {
      *
      * @param curs
      * @param data
-     */
-    public void parseCursor(Cursor curs, BaseTestData data) {
-        data.setId(curs.getInt(curs.getColumnIndex("ID")));
-        data.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
-        data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
-        data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
-        data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
-//        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
-//            data.setuAnswer(null);
-//            data.setuScore(0);
-//            data.setState(SubjectState.STATE_INIT);
-//            if (data.getSubjectType() == SubjectType.SUBJECT_BILL) {
-//                ((TestBillData) data).setuSigns(null);
-//            }
-//        } else {
-            data.setuAnswer(curs.getString(curs.getColumnIndex(UANSWER)));
-            data.setuScore(curs.getInt(curs.getColumnIndex(USCORE)));
-            data.setState(curs.getInt(curs.getColumnIndex(STATE)));
-            data.setErrorCount(curs.getInt(curs.getColumnIndex(ERROR_COUNT)));
-            if (data.getSubjectType() == SubjectType.SUBJECT_BILL) {
-                ((TestBillData) data).setuSigns(curs.getString(curs.getColumnIndex(USIGNS)));
-            }
-//        }
-    }
-    /**
-     * 根据chatperid获取对应数据
-     *
-     * @param chatperid
-     * @return
-     */
-    public synchronized BaseData getDataByChatperId(int chatperid) {
-        BaseData data = null;
-        Cursor curs = null;
-        String sql = "SELECT * FROM " + TABLE_NAME + " WHERE CHAPTER_ID = " + CHAPTER_ID;
-        try {
-            DBHelper helper = new DBHelper(mContext, dbName, null);
-            mDb = helper.getWritableDatabase();
-            curs = mDb.rawQuery(sql, null);
-            if (curs != null) {
-                if (curs.getCount() == 0)
-                    return null;
-                curs.moveToFirst();
-                data = parseCursor(curs);
-
-                Log.d(TAG, "data:" + data);
-            }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        } finally {
-            closeDb(mDb, curs);
-        }
-
-        return data;
-    }
-
-    /**
-     * cursor解析,用于多组单据
-     *
-     * @param curs
-     * @param data
-     * @param index
+     * @param index 大于1代表多组单据的当前单据索引，小于1代表其他题型
      */
     public void parseCursor(Cursor curs, BaseTestData data, int index) {
-        data.setId(curs.getInt(curs.getColumnIndex("ID")));
-        data.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
-        data.setSubjectType(curs.getInt(curs.getColumnIndex(SUBJECT_TYPE)));
-        data.setSubjectId(curs.getString(curs.getColumnIndex(SUBJECT_ID)));
-        data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
-//        if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
-//            data.setuAnswer(null);
-//            data.setuScore(0);
-//            data.setState(SubjectState.STATE_INIT);
-//            if (data instanceof TestBillData) {
-//                ((TestBillData) data).setuSigns(null);
-//            } else if (data instanceof TestGroupBillData) {
-//                ((TestGroupBillData) data).setuSigns(null);
-//            }
-//        } else {
-            data.setuScore(curs.getInt(curs.getColumnIndex(USCORE)));
-            data.setState(curs.getInt(curs.getColumnIndex(STATE)));
-            if (index == -1) {// group
-                ((TestGroupBillData) data).setuSigns(curs.getString(curs.getColumnIndex(USIGNS)));
-                data.setuAnswer(curs.getString(curs.getColumnIndex(UANSWER)));
+        if (curs != null) {
+            data.setId(curs.getInt(curs.getColumnIndex(ID)));
+            data.setFlag(curs.getInt(curs.getColumnIndex(FLAG)));
+            data.setSubjectId(curs.getInt(curs.getColumnIndex(SUBJECT_ID)));
+            data.setRemark(curs.getString(curs.getColumnIndex(REMARK)));
+
+//            if (data.getTestMode() == TestMode.MODE_EXAM) {// 测试模式不加载用户数据
+            if (false) {
+
+                data.setUAnswer(null);
+                data.setuScore(0);
+                data.setState(STATE_INIT);
             } else {
-                // 解析对应单据的用户答案
-                String answer = curs.getString(curs.getColumnIndex(UANSWER));
-                String sign = curs.getString(curs.getColumnIndex(USIGNS));
-                if (answer != null && !answer.equals("")) {
-                    String[] answers = answer.split(SubjectConstant.SEPARATOR_GROUP);
-                    data.setuAnswer(answers[index]);
-                } else {
-                    data.setuAnswer(answer);
+
+                data.setuScore(curs.getInt(curs.getColumnIndex(USCORE)));
+                data.setState(curs.getInt(curs.getColumnIndex(STATE)));
+
+                //用户答案初始化
+                String uAnswer = curs.getString(curs.getColumnIndex(UANSWER));
+                if (!TextUtils.isEmpty(uAnswer)) {
+                    UserAnswerData answer = JSON.parseObject(uAnswer, UserAnswerData.class);
+                    if (data.getSubjectData().getSubjectType() == SubjectType.SUBJECT_GROUP_BILL) {//分组单据做特殊处理
+                        if (index > -1) {//分组单据里的子单据，都是单张单据类型
+                            List<BillAnswerData> answers = JSON.parseArray(answer.getUanswer(), BillAnswerData.class);
+                            if (answers != null && index < answers.size()) {
+                                ((TestBillData) data).setUAnswerData(answers.get(index));
+                            }
+                        } else {
+                            data.parseUAnswerData(answer);
+                        }
+                    } else {
+                        data.parseUAnswerData(answer);
+                    }
                 }
-                if (sign != null && !sign.equals("")) {
-                    String[] signs = sign.split(SubjectConstant.SEPARATOR_GROUP);
-                    ((TestBillData) data).setuSigns(signs[index]);
-                } else {
-                    ((TestBillData) data).setuSigns(sign);
-                }
-            }
+           }
         }
-//    }
+
+    }
 
     /**
      * 更新指定的测试数据
      *
      * @param data
      */
-    public synchronized void updateTestData(BaseTestData data,boolean onLineExam) {
+    public synchronized void updateTestData(BaseTestData data) {
         try {
             Log.d(TAG, TABLE_NAME + "-updateData");
-            DBHelper helper = new DBHelper(mContext, dbName, null);
-            mDb = helper.getWritableDatabase();
             long id = data.getId();
             ContentValues values = new ContentValues();
-            values.put(UANSWER, data.getuAnswer());
+            String uAnswer = data.getUAnswer() == null ? null : data.getUAnswer().toString();
+            values.put(UANSWER, uAnswer);
             values.put(USCORE, data.getuScore());
             values.put(STATE, data.getState());
-            if (data instanceof TestBillData) {
-                values.put(USIGNS, ((TestBillData) data).getuSigns());
-            } else if (data instanceof TestGroupBillData) {
-                values.put(USIGNS, ((TestGroupBillData) data).getuSigns());
-            }
-            mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
-//            if (data.getState() == SubjectState.STATE_WRONG){
-//                if (!onLineExam){
-//                ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
-//            }}
-
+            mDb.update(TABLE_NAME, values, ID + "=?", new String[] { String.valueOf(id) });
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            closeDb(mDb);
         }
     }
 
@@ -431,59 +443,90 @@ public class SubjectTestDataDao extends BaseDataDao {
      *
      * @param datas
      */
-    public synchronized void updateTestDatas(List<BaseTestData> datas,boolean onLineExam) {
+    public synchronized void updateTestDatas(List<BaseTestData> datas) {
         try {
             Log.d(TAG, TABLE_NAME + "-updateDatas");
-            DBHelper helper = new DBHelper(mContext, dbName, null);
-            mDb = helper.getWritableDatabase();
             mDb.beginTransaction();
             for (BaseTestData data : datas) {
                 long id = data.getId();
                 ContentValues values = new ContentValues();
-                values.put(UANSWER, data.getuAnswer());
+                String uAnswer = data.getUAnswer() == null ? null : data.getUAnswer().toString();
+                values.put(UANSWER, uAnswer);
                 values.put(USCORE, data.getuScore());
                 values.put(STATE, data.getState());
-
-                if (data instanceof TestBillData) {
-                    values.put(USIGNS, ((TestBillData) data).getuSigns());
-                } else if (data instanceof TestGroupBillData) {
-                    values.put(USIGNS, ((TestGroupBillData) data).getuSigns());
-                }
-                mDb.update(TABLE_NAME, values, ID + "=?", new String[]{String.valueOf(id)});
-//                if (data.getState() == SubjectState.STATE_WRONG){
-//                    if (!onLineExam){
-//                        ErrorTestDataDao.getInstance(mContext).insertTest(data.getSubjectType(), Integer.parseInt(data.getSubjectId()),data.getSubjectData().getChapterId(), mDb);
-//                    }}
+                updateData(id, values);
             }
-            mDb.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            mDb.setTransactionSuccessful();
             mDb.endTransaction();
-            closeDb(mDb);
         }
     }
-    /**
-     * 插入test数据
-     * @param subjectType
-     * @param subjectId
-     * @param db
-     */
-    public void insertTest(int subjectType, int subjectId,int chapterid, SQLiteDatabase db) {
-        ContentValues values = new ContentValues();
-        values.put("FLAG", -1);
-
-        values.put("SUBJECT_TYPE", subjectType);
-        values.put("SUBJECT_ID", subjectId);
-        values.put(CHAPTER_ID,chapterid);
-        values.put("USCORE", 0);
-        values.put("STATE", 0);
-        db.replace(TABLE_NAME, null, values);
-    }
-
 
     @Override
     public BaseTestData parseCursor(Cursor curs) {
         return null;
     }
+
+    /**
+     * 插入test数据
+     *
+     * @param subjectId
+     */
+    public void insertTest(int subjectId,int chapterid) {
+//        DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
+//        SQLiteDatabase db = helper.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("FLAG", -1);
+        values.put("SUBJECT_ID", subjectId);
+        values.put(CHAPTER_ID,chapterid);
+        values.put("UANSWER", "");
+        values.put("USCORE", 0);
+        values.put(STATE, STATE_INIT);
+        mDb.replace(TABLE_NAME, null, values);
+
+//        String sql = "select id from " + TABLE_NAME + " where SUBJECT_ID = " + subjectId;
+//        DBHelper helper = new DBHelper(mContext, dbName, null);
+//        mDb = helper.getWritableDatabase();
+//        Cursor curs = mDb.rawQuery(sql, null);
+//        int id = 0;//如果存在代表原id，否則代表新增的id
+//        try {
+//            boolean exist = false;//是否存在该测试
+//            if (curs != null && curs.moveToNext()) {
+//                id = curs.getInt(0);
+//                if (id > 0) {
+//                    exist = true;
+//                    Log.d(TAG, "insertTest test exists:" + id);
+//                }
+//            }
+//            //不存在则插入新数据
+//            if (!exist) {
+//                ContentValues values = new ContentValues();
+//                values.put("FLAG", -1);
+//                values.put("SUBJECT_ID", subjectId);
+//                values.put("UANSWER", "");
+//                values.put("USCORE", 0);
+//                values.put("STATE", 0);
+//                id = (int) mDb.replace(TABLE_NAME, null, values);
+//                if (id < 0) {
+//                    ToastUtil.showToast(mContext, "测试数据插入出错：" + subjectId);
+//                    Log.e(TAG, "insertTest error:" + id );
+//                } else {
+//                    Log.d(TAG, "insertTest success:" + id );
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            if (curs != null) {
+//                curs.close();
+//            }
+//        }
+    }
 }
+
+
+
+

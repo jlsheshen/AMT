@@ -40,6 +40,7 @@ public class TestBlankData extends BaseTestData {
 			result.setAnswer(JSON.toJSONString(answerData));
 		}
 		result.setScore(uScore);
+		result.setRight(uScore == getSubjectData().getScore());
 
 		return result;
 	}

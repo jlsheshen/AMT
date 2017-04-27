@@ -3,8 +3,9 @@ package com.edu.accountingteachingmaterial.newsubject;
 import android.os.Bundle;
 import android.view.View;
 
+import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
-import com.edu.accountingteachingmaterial.newsubject.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.CountryTestTimer;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.UploadOnlineResultsManager;
@@ -18,123 +19,158 @@ import java.util.List;
 
 /**
  * 在线测试示例
- * @author lucher
  *
+ * @author lucher
  */
-public class OnlineTestContentActivity extends BaseSubjectsContentActivity implements ResultsListener {
-	public int chapterId;
-	public int totalTime;
-	// 页面相关状态的监听
-	private CountryTestTimer timer;
+public class OnlineTestContentActivity extends BaseSubjectsContentActivity implements ResultsListener, CountryTestTimer.OnTimeOutListener {
+    public int chapterId;
+    public int totalTime;
 
-	@Override
-	protected void init() {
-		super.init();
-		btnSubmit.setVisibility(View.VISIBLE);
+    // 页面相关状态的监听
+    private CountryTestTimer timer;
+
+    @Override
+    protected void init() {
+        super.init();
+        btnSubmit.setVisibility(View.VISIBLE);
 		initTimer(1000,  totalTime * 1000);
-		initConfirmDialog();
-	}
+        if (totalTime > 0) {
+            setTime();
+        } else {
+            findViewById(R.id.ly_time).setVisibility(View.GONE);
+        }
+        initConfirmDialog();
+    }
+    @Override
+    public void onRedoClicked() {
+        mCardDialog.dismiss();
+    }
 
-	@Override
-	protected List<BaseTestData> initDatas() {
-		Bundle bundle = getIntent().getExtras();
-		chapterId = bundle.getInt(CHAPTER_ID);
+    @Override
+    protected List<BaseTestData> initDatas() {
+        Bundle bundle = getIntent().getExtras();
+        chapterId = bundle.getInt(CHAPTER_ID);
+
 //		textMode = bundle.getInt("textMode");
-		totalTime = bundle.getInt(TOTAL_TIME);
-		return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
-	}
+        totalTime = bundle.getInt(TOTAL_TIME);
 
-	@Override
-	protected void operationPager() {
+        return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
+    }
 
-	}
+    @Override
+    protected void operationPager() {
 
-	@Override
-	protected void initTitle() {
-		tvTitle.setText("在线测试示例");
-	}
+    }
 
-	@Override
-	protected void refreshToolBar() {
-		CommonSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
-		if (subject.getSubjectType() == SubjectType.SUBJECT_BILL || subject.getSubjectType() == SubjectType.SUBJECT_GROUP_BILL) {
-			btnSign.setVisibility(View.VISIBLE);
-			btnFlash.setVisibility(View.VISIBLE);
-		} else {
-			btnSign.setVisibility(View.GONE);
-			btnFlash.setVisibility(View.GONE);
-		}
-	}
+    @Override
+    protected void initTitle() {
+        tvTitle.setText("在线测试示例");
+    }
 
-	@Override
-	protected void handSubmit() {
-		showConfirmDialog(CONFIRM_SUBMIT, "提示", "确认提交？");
-	}
+    @Override
+    protected void refreshToolBar() {
+        CommonSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
+        if (subject.getSubjectType() == SubjectType.SUBJECT_BILL || subject.getSubjectType() == SubjectType.SUBJECT_GROUP_BILL) {
+            btnSign.setVisibility(View.VISIBLE);
+            btnFlash.setVisibility(View.VISIBLE);
+        } else {
+            btnSign.setVisibility(View.GONE);
+            btnFlash.setVisibility(View.GONE);
+        }
+    }
 
-	@Override
-	protected void handleBack() {
-		showConfirmDialog(CONFIRM_EXIT, "提示", "退出将直接提交答案，确认退出？");
-	}
+    @Override
+    protected void handSubmit() {
+        showConfirmDialog(CONFIRM_SUBMIT, "提交", "确认提交？");
+    }
 
-	/**
-	 * 提交处理
-	 */
-	private void submit() {
-		float score = mSubjectAdapter.submit();
-		UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
-		UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
-		int userId = Integer.parseInt(PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
-		int cost = 0;
-		UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, chapterId, cost);
-		finish();
-	}
+    @Override
+    protected void handleBack() {
+        showConfirmDialog(CONFIRM_EXIT, "退出", "确认退出？");
+    }
 
-	@Override
-	protected void saveAnswer() {
-		mSubjectAdapter.saveAnswer(mCurrentIndex);
-	}
+    /**
+     * 提交处理
+     */
+    private void submit() {
+        float score = mSubjectAdapter.submit();
+        UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
+        UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
+        String userId = PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID);
+        int cost = 0;
+        if (timer != null) {
+            cost = timer.getUsedTime();
+        }
+        UploadOnlineResultsManager.getSingleton(this).uploadResult(userId, chapterId, cost);
+    }
 
-	@Override
-	protected void onDatasError() {
+    //开始倒计时
+    private void setTime() {
+        // 倒计时时间设置
+        timer = new CountryTestTimer(tvTimer, 1000, totalTime * 1000, this);
+        timer.setOnTimeOutListener(this);
+        if (timer != null && !timer.isRunning()) {
+            timer.start();
+        }
+    }
 
-	}
+    @Override
+    protected void saveAnswer() {
+        mSubjectAdapter.saveAnswer(mCurrentIndex);
+    }
 
-	@Override
-	public void onSaveTestData(BaseTestData testData) {
-		SubjectTestDataDao.getInstance(mContext).updateTestData(testData);
-	}
+    @Override
+    protected void onDatasError() {
 
-	@Override
-	public void onSaveTestDatas(List<BaseTestData> testDatas) {
-		SubjectTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
-	}
+    }
 
-	@Override
-	public void onTimeOut() {
-		ToastUtil.showToast(mContext, "时间到");
-		submit();
-	}
+    @Override
+    public void onSaveTestData(BaseTestData testData) {
+        SubjectOnlineTestDataDao.getInstance(mContext).updateTestData(testData);
+    }
 
-	@Override
-	public void onDialogConfirm(int confirmType) {
-		switch (confirmType) {
-		case CONFIRM_EXIT:
-		case CONFIRM_SUBMIT:
-			submit();
-			break;
+    @Override
+    public void onSaveTestDatas(List<BaseTestData> testDatas) {
+        SubjectOnlineTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
+    }
 
-		default:
-			break;
-		}
-	}
+    @Override
+    public void onTimeOut() {
+        ToastUtil.showToast(mContext, "时间到");
+        submit();
+    }
 
-	@Override
-	public void onResultsSuccess() {
+    @Override
+    public void onDialogConfirm(int confirmType) {
+        switch (confirmType) {
+            case CONFIRM_EXIT:
+                if (timer != null) {
+                    timer.cancel();
+                }
+                saveAnswer();
+                finish();
+                break;
 
-	}
+            case CONFIRM_SUBMIT:
+                submit();
+                finish();
 
-	@Override
-	public void onResultsFialure() {
+                break;
 
-	}
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onResultsSuccess() {
+        finish();
+
+    }
+
+    @Override
+    public void onResultsFialure() {
+        finish();
+
+    }
 }

@@ -1,8 +1,5 @@
 package com.edu.subject.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 
 import com.alibaba.fastjson.JSON;
@@ -16,6 +13,9 @@ import com.edu.subject.bill.template.BillTemplateDao;
 import com.edu.subject.data.answer.BillAnswerData;
 import com.edu.subject.data.body.BillBodyData;
 import com.edu.subject.net.SubjectAnswerResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 单据测试数据
@@ -148,6 +148,9 @@ public class TestBillData extends BaseTestData {
 	private void loadSigns(Context context, BillBodyData billBody) {
 		//题目里的印章加载
 		String signs = billBody.getSigns();
+		if (signs == null|| "".equals(signs)){
+			return;
+		}
 		template.getElementDatas().addAll(BillTemplateDao.getInstance(context).loadSigns(signs));
 	}
 
@@ -158,6 +161,9 @@ public class TestBillData extends BaseTestData {
 	 */
 	private void loadFlashs(Context context, BillBodyData billBody) {
 		String flashs = billBody.getFlashs();
+		if (flashs == null|| "".equals(flashs)){
+			return;
+		}
 		template.getElementDatas().addAll(BillTemplateDao.getInstance(context).loadFlashs(flashs));
 	}
 
@@ -172,6 +178,8 @@ public class TestBillData extends BaseTestData {
 			result.setAnswer(JSON.toJSONString(answerData));
 		}
 		result.setScore(uScore);
+		result.setRight(uScore == getSubjectData().getScore());
+		
 		return result;
 	}
 

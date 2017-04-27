@@ -1,14 +1,10 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import android.content.ContentValues;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ExamListDao;
-import com.edu.accountingteachingmaterial.newsubject.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
@@ -90,61 +86,69 @@ public class ErrorPracticeActivity extends BaseSubjectsContentActivity  {
 	protected void handSubmit() {
 		if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
 			float score = mSubjectAdapter.submit(mCurrentIndex);
-			//ToastUtil.showToast(this, "score:" + score);
-
-//            btnDone.setImageResource(R.mipmap.icon_congzuo_n);
+			ToastUtil.showToast(this, "score:" + score);
+//			btnSubmit.setImageResource(R.mipmap.icon_congzuo_n);
 		}
 		else {
 			mSubjectAdapter.reset(mCurrentIndex);
-//            btnDone.setImageResource(R.mipmap.icon_fasong_n);
+//			btnSubmit.setImageResource(R.mipmap.icon_fasong_n);
 		}
 		refreshSubmitState();
 	}
 
 	@Override
 	protected void handleBack() {
-		showConfirmDialog(CONFIRM_EXIT, "提示", "确认退出吗？");
+		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
 	}
 
 	@Override
 	public void onRedoClicked() {
 		mCardDialog.dismiss();
-		mSubjectAdapter.reset();
-		ToastUtil.showToast(this, "全部重做操作完成");
+//		mSubjectAdapter.reset();
+//		ToastUtil.showToast(this, "全部重做操作完成");
 	}
 
 	@Override
 	protected void saveAnswer() {
-		int subType = mSubjectAdapter.getData(mCurrentIndex).getSubjectData().getSubjectType();
-		if (subType != SubjectType.SUBJECT_JUDGE && subType != SubjectType.SUBJECT_SINGLE) {//对于单项和判断，在点击选项的时候保存答案
-			mSubjectAdapter.saveAnswer(mCurrentIndex);
-		}
+//		int subType = mSubjectAdapter.getData(mCurrentIndex).getSubjectData().getSubjectType();
+//		if (subType != SubjectType.SUBJECT_JUDGE && subType != SubjectType.SUBJECT_SINGLE) {//对于单项和判断，在点击选项的时候保存答案
+//			mSubjectAdapter.saveAnswer(mCurrentIndex);
+//		}
+		mSubjectAdapter.saveAnswer(mCurrentIndex);
+
 	}
 
 	@Override
 	protected void onDatasError() {
-			ContentValues contentValues = new ContentValues();
-			contentValues.put(ExamListDao.ID, chapterId);
-			contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_NOT);
-			ExamListDao.getInstance(this).updateData(String.valueOf(chapterId), contentValues);
-			Toast.makeText(this, "需要重新下载", Toast.LENGTH_SHORT).show();
-			finish();
+
 	}
 
 	@Override
 	public void onSaveTestData(BaseTestData testData) {
-		SubjectTestDataDao.getInstance(mContext).updateTestData(testData);
+		ErrorTestDataDao.getInstance(mContext).updateTestData(testData);
 	}
 
 	@Override
 	public void onSaveTestDatas(List<BaseTestData> testDatas) {
-		SubjectTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
+		ErrorTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
 	}
 
 	@Override
 	public void onDialogConfirm(int confirmType) {
-		saveAnswer();
-		finish();
+		switch (confirmType) {
+			case CONFIRM_EXIT:
+				saveAnswer();
+				finish();
+				break;
+
+			case CONFIRM_SUBMIT:
+				handSubmit();
+				finish();
+				break;
+
+			default:
+				break;
+		}
 	}
 
 

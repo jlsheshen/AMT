@@ -1,8 +1,5 @@
 package com.edu.subject.comprehensive;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
@@ -26,6 +23,9 @@ import com.edu.subject.view.JudgeView;
 import com.edu.subject.view.MultiSelectView;
 import com.edu.subject.view.SimpleAnswerView;
 import com.edu.subject.view.SingleSelectView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 综合题中子题adapter
@@ -150,8 +150,14 @@ public class SubjectsAdapter extends PagerAdapter {
 			mViews.get(i).saveAnswer();
 			CommonAnswerData answerData = mSubjectDatas.get(i).getUAnswerData();
 			UserAnswerData userAnswer = new UserAnswerData();
+			userAnswer.setuScore( mSubjectDatas.get(i).getuScore());
+			userAnswer.setType(mSubjectDatas.get(i).getSubjectData().getSubjectType());
+			userAnswer.setState(mSubjectDatas.get(i).getState());
+			userAnswer.setId(mSubjectDatas.get(i).getSubjectData().getFlag());
+
 			if (answerData instanceof BasicAnswerData) {//基础类题型，直接设置uAnswer为字符串
 				userAnswer.setUanswer(((BasicAnswerData) answerData).getUanswer());
+
 			} else {
 				userAnswer.setUanswer(JSON.toJSONString(answerData));
 			}

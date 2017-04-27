@@ -9,16 +9,18 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ExpandableListView;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.PopupWindow;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.ClassDetailActivity;
-import com.edu.accountingteachingmaterial.adapter.ClassChapterDialogAdapter;
-import com.edu.accountingteachingmaterial.entity.ClassChapterData;
+import com.edu.accountingteachingmaterial.adapter.ClassChapterDialogLvAdapter;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.entity.SubChaptersBean;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
@@ -32,10 +34,12 @@ import java.util.List;
  */
 
 public class ChapterPopupWindow extends PopupWindow {
+    ListView listView;
 
-    ExpandableListView expandableListView;
-    List<ClassChapterData> datas;
-    ClassChapterDialogAdapter chapterExLvAdapter;
+//    ExpandableListView expandableListView;
+    List<SubChaptersBean> datas;
+    ClassChapterDialogLvAdapter adapter;
+
     private Context mContext;
     private View conentView;
 
@@ -63,36 +67,55 @@ public class ChapterPopupWindow extends PopupWindow {
         //设置透明度
         // backgroundAlpha(context, 0.5f);//0.0-1.0
         //this.setAnimationStyle(R.style.AnimationPreview);
-        expandableListView = (ExpandableListView) conentView.findViewById(R.id.class_classchapter_exlv);
-        chapterExLvAdapter = new ClassChapterDialogAdapter(mContext);
+        listView = (ListView) conentView.findViewById(R.id.class_classchapter_exlv);
+//      expandableListView = (ExpandableListView) conentView.findViewById(R.id.class_classchapter_exlv);
+        adapter = new ClassChapterDialogLvAdapter(mContext);
+//        chapterExLvAdapter = new ClassChapterDialogAdapter(mContext);
         uploadChapter();
-        expandableListView.setAdapter(chapterExLvAdapter);
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        listView.setAdapter(adapter);
+//      expandableListView.setAdapter(chapterExLvAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(mContext, ClassDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
-                bundle.putInt("ChapterId", datas.get(groupPosition).getSubChapters().get(childPosition).getId());
+                bundle.putSerializable("classData", datas.get(position));
+                bundle.putInt("ChapterId", datas.get(position).getId());
                 intent.putExtras(bundle);
                 context.finish();
                 mContext.startActivity(intent);
                 ChapterPopupWindow.this.dismiss();
                 backgroundAlpha(context, 1f);
                 // TODO Auto-generated method stub
-                return false;
+
             }
         });
+//        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+//                Intent intent = new Intent(mContext, ClassDetailActivity.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("classData", datas.get(groupPosition).getSubChapters().get(childPosition));
+//                bundle.putInt("ChapterId", datas.get(groupPosition).getSubChapters().get(childPosition).getId());
+//                intent.putExtras(bundle);
+//                context.finish();
+//                mContext.startActivity(intent);
+//                ChapterPopupWindow.this.dismiss();
+//                backgroundAlpha(context, 1f);
+//                // TODO Auto-generated method stub
+//                return false;
+//            }
+//        });
 
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                for (int i = 0, count = expandableListView.getExpandableListAdapter().getGroupCount(); i < count; i++) {
-                    if (groupPosition != i) {// 关闭其他分组
-                        expandableListView.collapseGroup(i);
-                    }
-                }}
-        });
+//        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+//            @Override
+//            public void onGroupExpand(int groupPosition) {
+//                for (int i = 0, count = expandableListView.getExpandableListAdapter().getGroupCount(); i < count; i++) {
+//                    if (groupPosition != i) {// 关闭其他分组
+//                        expandableListView.collapseGroup(i);
+//                    }
+//                }}
+//        });
 
         this.setOnDismissListener(new OnDismissListener() {
             @Override
@@ -122,18 +145,36 @@ public class ChapterPopupWindow extends PopupWindow {
 
     private void uploadChapter() {
         String courseId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.COURSE_ID);
-        Log.d("ChapterPopupWindow", "courseId" + "courseId" + courseId);
-        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        boolean isBook = PreferenceHelper.getInstance(mContext).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
 
-        NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, NetUrlContstant.getChapterUrl() + courseId);
+        Log.d("ChapterPopupWindow", "courseId" + "courseId" + courseId);
+        String url = null;
+        if (isBook){
+            url =  NetUrlContstant.getChapterUrl() + courseId + "-" + ClassContstant.TEXT_BOOK_TYPE;
+        }else {
+            String classId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.CLASS_ID);
+            url =  NetUrlContstant.getChapterUrl() + courseId + "-" + classId;
+        }
+        SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
+        NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
             public void onSuccess(JSONObject jsonObject) {
                 if (jsonObject.getString("success").equals("true")) {
-                    datas = JSON.parseArray(jsonObject.getString("message"), ClassChapterData.class);
+                    List<SubChaptersBean> tempDatas = JSON.parseArray(jsonObject.getString("message"), SubChaptersBean.class);
                     Log.d("ChapterPopupWindow", "uploadChapter" + "success" + datas);
-                    chapterExLvAdapter.setDatas(datas);
+//                    chapterExLvAdapter.setDatas(datas);
+                    boolean isBook = PreferenceHelper.getInstance(mContext).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
+                    if (isBook){
+                        datas = tempDatas.get(0).getSubChapters();
+
+                    }else {
+                        datas = tempDatas;
+
+                    }
+                    adapter.setDatas(datas);
+
                 }
             }
 

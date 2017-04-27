@@ -1,6 +1,9 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import com.edu.accountingteachingmaterial.newsubject.dao.SubjectTestDataDao;
+import android.os.Bundle;
+
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
 
@@ -14,15 +17,29 @@ import java.util.List;
  * 
  */
 public class ShowUAnswerContentActivity extends BaseSubjectsContentActivity {
-	
+	int chapterId;
+	public boolean isExam;
+
 	@Override
 	protected List<BaseTestData> initDatas() {
-			return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_UANSWER);
+		Bundle bundle = getIntent().getExtras();
+		chapterId = bundle.getInt(CHAPTER_ID);
+		isExam = bundle.getBoolean(IS_EXAM);
+
+		if (isExam){
+			return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_UANSWER, chapterId);
+		}else {
+			return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_UANSWER, chapterId);
+		}
 	}
 
 	@Override
 	protected void operationPager() {
 
+	}
+	@Override
+	public void onRedoClicked() {
+		mCardDialog.dismiss();
 	}
 
 	@Override

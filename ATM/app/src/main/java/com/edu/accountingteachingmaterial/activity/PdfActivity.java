@@ -1,12 +1,18 @@
 package com.edu.accountingteachingmaterial.activity;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
+import com.edu.accountingteachingmaterial.view.dialog.SelectPictureDialog;
 import com.edu.library.util.SdcardPathUtil;
 import com.edu.library.util.ToastUtil;
 import com.github.barteksc.pdfviewer.PDFView;
@@ -27,6 +33,10 @@ public class PdfActivity extends BaseActivity {
     private FinalHttp fHttp = new FinalHttp();
     private HttpHandler<File> mHandler;
     String target;
+    SelectPictureDialog pictureDialog;//上传图片
+    int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 37422;
+
+
 
     private String mUrl = NetUrlContstant.getMediaorPdfUrl();
 
@@ -45,8 +55,13 @@ public class PdfActivity extends BaseActivity {
         Bundle bundle = getIntent().getExtras();
         exampleBeans = (ExampleBean) bundle.getSerializable("exampleBeans");
         Log.d("PdfActivity", "exampleBeans:" + exampleBeans);
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(permissionCheck ==  PackageManager.PERMISSION_GRANTED){
 
-        start();
+        }else {
+            Log.d("MainActivity", "没有权限");
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+        }
     }
 
     private void show() {
@@ -67,6 +82,19 @@ public class PdfActivity extends BaseActivity {
                 .password(null)
                 .scrollHandle(null)
                 .load();
+
+
+
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS){
+            start();
+
+        }
+
 
     }
 
@@ -96,7 +124,6 @@ public class PdfActivity extends BaseActivity {
             }
         }
     }
-
     /**
      * 检查文件是否存在，存在直接读取，不进行下载
      */

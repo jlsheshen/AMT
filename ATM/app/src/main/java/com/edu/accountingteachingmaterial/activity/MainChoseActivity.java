@@ -35,9 +35,9 @@ import com.lucher.net.req.RequestMethod;
 
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.BASE_URL;
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.TEMP_URL;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDENT_NAME;
-import static com.edu.subject.BASE_URL.BASE_URL;
-import static com.edu.subject.BASE_URL.TEMP_URL;
 
 /**
  * 首页选择界面,在1.0重构时建立,分为教材,评测,课堂三个模块

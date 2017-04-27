@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ATM.iml" filepath="$PROJECT_DIR$/ATM.iml" />
-      <module fileurl="file://$PROJECT_DIR$/BillLib/BillLib.iml" filepath="$PROJECT_DIR$/BillLib/BillLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/EduLib/EduLib.iml" filepath="$PROJECT_DIR$/EduLib/EduLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/NewSubjectLib/NewSubjectLib.iml" filepath="$PROJECT_DIR$/NewSubjectLib/NewSubjectLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

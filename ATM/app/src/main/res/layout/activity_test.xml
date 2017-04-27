@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="25px"
+            android:layout_marginLeft="25dp"
             android:src="@mipmap/icon_fanhui_n"
             android:onClick="onClick"
             />
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="25px"
+            android:layout_marginRight="25dp"
             android:focusable="false"
             android:onClick="onClick"
             android:src="@mipmap/icon_fasong_n" />
@@ -105,36 +105,7 @@
             <!--android:textSize="@dimen/content_text_size"-->
             <!--android:visibility="gone"-->
             <!--/>-->
-        <LinearLayout
-            android:id="@+id/ly_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="25px"
-            android:layout_marginTop="10px"
-            android:orientation="horizontal">
 
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="10px"
-                android:focusable="false"
-                android:onClick="onClick"
-                android:src="@mipmap/icon_ciock" />
-
-            <TextView
-                android:id="@+id/tvTimer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:gravity="center_vertical"
-                android:text="10"
-                android:textColor="@color/colorAccent"
-                android:textSize="24sp" />
-
-        </LinearLayout>
 
         <com.edu.accountingteachingmaterial.view.UnTouchableViewPager
             android:layout_below="@id/tv_bill_question"
@@ -165,6 +136,37 @@
             android:src="@mipmap/btn_right"
             android:onClick="onClick"
             android:text="right" />
+        <LinearLayout
+            android:id="@+id/ly_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:focusable="false"
+                android:onClick="onClick"
+                android:src="@mipmap/icon_ciock" />
+
+            <TextView
+                android:id="@+id/tvTimer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:gravity="center_vertical"
+                android:text="10"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp" />
+
+        </LinearLayout>
     </RelativeLayout>
 
 </LinearLayout>

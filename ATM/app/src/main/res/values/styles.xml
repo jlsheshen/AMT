@@ -74,6 +74,14 @@
         <item name="android:layout_margin">@dimen/little_interval</item>
         <item name="android:childDivider">@color/colorBlueContent</item>
     </style>
+    <style name="ChapterListStyle">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">match_parent</item>
+    <item name="android:groupIndicator">@null</item>
+    <item name="android:divider">@color/colorBlueContent</item>
+    <item name="android:dividerHeight">1dp</item>
+    <item name="android:layout_margin">@dimen/little_interval</item>
+    </style>
     <!--fragment的padding-->
     <style name="FragmentPadding">
         <item name="android:paddingLeft">10dp</item>

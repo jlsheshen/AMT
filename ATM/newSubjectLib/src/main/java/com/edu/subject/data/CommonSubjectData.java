@@ -16,8 +16,6 @@ public class CommonSubjectData extends BaseData {
 	protected int parentId;
 	// 预置标识
 	protected int flag;
-	// 章节id
-	protected int chapterId;
 	/**
 	 * 题目类别,与{@link SubjectType}对应
 	 */
@@ -48,14 +46,6 @@ public class CommonSubjectData extends BaseData {
 
 	public void setFlag(int flag) {
 		this.flag = flag;
-	}
-
-	public int getChapterId() {
-		return chapterId;
-	}
-
-	public void setChapterId(int chapterId) {
-		this.chapterId = chapterId;
 	}
 
 	public int getSubjectType() {

@@ -7,7 +7,8 @@ import android.view.View;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
-import com.edu.accountingteachingmaterial.newsubject.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
@@ -33,7 +34,11 @@ public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
         isExam = bundle.getBoolean(IS_EXAM);
         chapterId = bundle.getInt(CHAPTER_ID);
         isBook = PreferenceHelper.getInstance(this).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
-        return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS);
+        if (isExam){
+            return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, chapterId);
+        }else {
+            return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, chapterId);
+        }
 
     }
 
@@ -45,6 +50,10 @@ public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
             btnSubmit.setImageResource(R.mipmap.icon_congzuo_n);
         }
 
+    }
+    @Override
+    public void onRedoClicked() {
+        mCardDialog.dismiss();
     }
 
     @Override
@@ -82,9 +91,19 @@ public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
 
     @Override
     public void onSaveTestData(BaseTestData testData) {
+        if (isExam){
+            SubjectOnlineTestDataDao.getInstance(mContext).updateTestData(testData);
+        }else {
+            SubjectTestDataDao.getInstance(mContext).updateTestData(testData);
+        }
     }
 
     @Override
     public void onSaveTestDatas(List<BaseTestData> testDatas) {
+        if (isExam){
+             SubjectOnlineTestDataDao.getInstance(this).updateTestDatas(testDatas);
+        }else {
+             SubjectTestDataDao.getInstance(this).updateTestDatas(testDatas);
+        }
     }
 }

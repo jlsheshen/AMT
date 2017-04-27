@@ -140,8 +140,8 @@ public final class ClassContstant {
     public static final String SUBJECT_JUDGE_STRING = "判断题";
 
     //实训
-    public static final int SUBJECT_PRACTIAL = 4;
-    public static final String SUBJECT_PRACTIAL_STRING = "实训题";
+    public static final int SUBJECT_BLANK = 4;
+    public static final String SUBJECT_BLANK_STRING = "填空题";
 
     //分录
     public static final int SUBJECT_ENTRY = 5;
@@ -150,6 +150,18 @@ public final class ClassContstant {
     //凭证
     public static final int SUBJECT_BILL = 6;
     public static final String SUBJECT_BILL_STRING = "凭证题";
+    /**
+     * 简答题
+     */
+    public static final int SUBJECT_SIMPLE_ANSWER = 7;
+    public static final String SUBJECT_SIMPLE_ANSWER_STRING = "简答题";
+
+    /**
+     * 综合题
+     */
+    public static final int SUBJECT_COMPREHENSIVE = 8;
+    public static final String SUBJECT_COMPREHENSIVE_STRING = "综合题";
+
 
     //多组凭证
     public static final int SUBJECT_GROUP_BILL = 9;
@@ -188,4 +200,8 @@ public final class ClassContstant {
     public static final int SUB_SHORTIN = 5;
     public static final int SUB_COMPREHENSIVE = 6;
     public static final int SUB_FORM = 22;
+
+    public static final String TEXT_BOOK_TYPE = "0";
+    public static final String CLASS_TYPE = "1";
+
 }

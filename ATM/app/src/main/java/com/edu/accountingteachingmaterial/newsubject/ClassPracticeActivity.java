@@ -8,8 +8,8 @@ import android.widget.Toast;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
+import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
-import com.edu.accountingteachingmaterial.newsubject.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.util.net.UploadResultsManager;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectState;
@@ -101,22 +101,22 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 
 	@Override
 	protected void handleBack() {
-		showConfirmDialog(CONFIRM_EXIT, "提示", "确认退出吗？");
+		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
 	}
 
 	@Override
 	public void onRedoClicked() {
 		mCardDialog.dismiss();
-		mSubjectAdapter.reset();
-		ToastUtil.showToast(this, "全部重做操作完成");
+//		mSubjectAdapter.reset();
+//		ToastUtil.showToast(this, "全部重做操作完成");
 	}
 
 	@Override
 	protected void saveAnswer() {
-		int subType = mSubjectAdapter.getData(mCurrentIndex).getSubjectData().getSubjectType();
-		if (subType != SubjectType.SUBJECT_JUDGE && subType != SubjectType.SUBJECT_SINGLE) {//对于单项和判断，在点击选项的时候保存答案
+//		int subType = mSubjectAdapter.getData(mCurrentIndex).getSubjectData().getSubjectType();
+//		if (subType != SubjectType.SUBJECT_JUDGE && subType != SubjectType.SUBJECT_SINGLE) {//对于单项和判断，在点击选项的时候保存答案
 			mSubjectAdapter.saveAnswer(mCurrentIndex);
-		}
+//		}
 	}
 
 	@Override
@@ -141,8 +141,22 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 
 	@Override
 	public void onDialogConfirm(int confirmType) {
-		saveAnswer();
-		finish();
+		switch (confirmType) {
+			case CONFIRM_EXIT:
+				saveAnswer();
+				finish();
+				break;
+
+			case CONFIRM_SUBMIT:
+
+				handSubmit();
+				finish();
+
+				break;
+
+			default:
+				break;
+		}
 	}
 
 

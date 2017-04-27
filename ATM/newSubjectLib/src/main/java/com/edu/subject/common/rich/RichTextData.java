@@ -1,15 +1,16 @@
 package com.edu.subject.common.rich;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSON;
+import com.edu.library.data.BaseData;
+
+import java.util.List;
 
 /**
  * 富文本对象数据类
  * @author lucher
  *
  */
-public class RichTextData {
+public class RichTextData extends BaseData {
 
 	//对应的图片
 	private List<String> imgSrc;

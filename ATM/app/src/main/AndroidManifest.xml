@@ -102,6 +102,47 @@
             android:launchMode="singleTask"
             android:theme="@style/TranslucentBg"
             android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.ClassExamActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.ClassPracticeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.ErrorPracticeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.OnlineTestContentActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.ShowDetailsContentActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.ShowUAnswerContentActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.TextBookExamActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+        <activity
+            android:name=".newsubject.TextbookPracticeActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:screenOrientation="landscape"/>
+
 
         <meta-data
             android:name="design_width"

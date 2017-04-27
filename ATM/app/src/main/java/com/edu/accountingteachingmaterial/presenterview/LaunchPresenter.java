@@ -5,10 +5,10 @@ import android.os.CountDownTimer;
 import android.util.Log;
 
 import com.edu.accountingteachingmaterial.base.BasePresenter;
-import com.edu.accountingteachingmaterial.util.net.LoginNetMananger;
+import com.edu.accountingteachingmaterial.constant.BASE_URL;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.net.LoginNetMananger;
 import com.edu.library.util.ToastUtil;
-import com.edu.subject.BASE_URL;
 
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.KEY_LOGIN_STATE;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_NUMBER;

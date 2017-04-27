@@ -1,13 +1,5 @@
 package com.edu.subject.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.lang.ref.SoftReference;
-import java.util.concurrent.ConcurrentHashMap;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -20,6 +12,14 @@ import com.edu.library.util.ImageUtil;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.common.ProgressImageView;
 import com.edu.subject.net.SubjectImageLoader;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.lang.ref.SoftReference;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * bitmap解析工具类，目前支持assets,file,http,https,res自动使用缓存机制

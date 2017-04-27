@@ -19,7 +19,9 @@ import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.entity.StartExamData;
 import com.edu.accountingteachingmaterial.entity.TestPaperListData;
 import com.edu.accountingteachingmaterial.entity.TopicsBean;
+import com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity;
 import com.edu.accountingteachingmaterial.newsubject.OnlineTestContentActivity;
+import com.edu.accountingteachingmaterial.newsubject.ShowDetailsContentActivity;
 import com.edu.accountingteachingmaterial.newsubject.ShowUAnswerContentActivity;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
@@ -30,6 +32,9 @@ import com.lucher.net.req.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
+import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.IS_EXAM;
 import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.TOTAL_TIME;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.CHAPTER_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
@@ -89,7 +94,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
     public void initData() {
 
         Bundle bundle = getIntent().getExtras();
-        examId = bundle.getInt("examId");
+        examId = bundle.getInt(BaseSubjectsContentActivity.CHAPTER_ID);
         uploadTestInfo();
 
 
@@ -111,19 +116,29 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 break;
 
             case R.id.btn_start:
-                if (textMode == ClassContstant.TEST_MODE_TEST) {
-                    //ExamListData考试数据（测试）
-                    Bundle bundle = new Bundle();
-                    bundle.putInt(CHAPTER_ID, examId);
-                    startActivity(OnlineTestContentActivity.class, bundle);
-                    finish();
+                //可以考试时,进入试卷作答
+                if (textMode == TEST_MODE_NORMAL) {
+                    uploadTestTime();
+
+
                 } else if (textMode == ClassContstant.TEST_MODE_LOOK) {
+                    //试卷提交后,但是未发布答案,进入查看答案
                     Bundle bundle = new Bundle();
+                    bundle.putBoolean(IS_EXAM, true);
                     bundle.putInt(CHAPTER_ID, examId);
                     startActivity(ShowUAnswerContentActivity.class, bundle);
                     finish();
 
-                } else {
+                } else if (textMode == ClassContstant.TEST_MODE_TEST){
+                    //试卷提交后,,答案也发布了,进入查看详情
+
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(IS_EXAM, true);
+                    bundle.putInt(CHAPTER_ID, examId);
+                    startActivity(ShowDetailsContentActivity.class, bundle);
+                    finish();
+
+                }else {
                     uploadTestTime();
                 }
 
@@ -186,6 +201,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 if (jsonObject.getString("success").equals("true")) {
                     StartExamData startExamData = JSONObject.parseObject(jsonObject.getString("message"), StartExamData.class);
                     if (startExamData.getStarted_time() > 0) {
+
                         //ExamListData考试数据（测试）
                         Bundle bundle = new Bundle();
                         bundle.putInt(CHAPTER_ID, examId);
@@ -253,7 +269,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
             rlAnswerData.findViewById(R.id.item_answer_ly).setVisibility(View.GONE);
             //开始比赛
             btnStart.setBackgroundResource(R.drawable.selector_start);
-            textMode = ClassContstant.TEST_MODE_NORMAL;
+            textMode = TEST_MODE_NORMAL;
         } else if (state == ClassContstant.EXAM_COMMIT) {
             //已提交 state:1
             if (testPaperListData.getIs_send() == 1 && testPaperListData.getRemaining() < 0) {
@@ -261,7 +277,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ExamOnLineListDao.STATE, state);
                 ExamOnLineListDao.getInstance(this).updateData(String.valueOf(examId), contentValues);
-                textMode = ClassContstant.TEST_MODE_TEST;
+                textMode = TEST_MODE_TEST;
                 refreshState();
                 return;
             }
@@ -283,7 +299,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
 //            tvScore.setText(testPaperListData.getStu_score() + "");
             //查看答案
             btnStart.setBackgroundResource(R.drawable.selector_check_answer);
-            textMode = ClassContstant.TEST_MODE_TEST;
+            textMode = TEST_MODE_TEST;
         }
     }
 

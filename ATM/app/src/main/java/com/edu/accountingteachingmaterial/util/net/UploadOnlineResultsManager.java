@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.TOKEN;
+import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
 
 
 /**
@@ -100,7 +101,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
      * @param examId
      * @param seconds
      */
-    public void uploadResult(int studentId, int examId, int seconds) {
+    public void uploadResult(String studentId, int examId, int seconds) {
         this.examId = examId;
         if (mAnswerResults == null || mAnswerResults.size() <= 0) {
             ToastUtil.showToast(mContext, "发送结果为空");
@@ -127,7 +128,9 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
             ToastUtil.showToast(mContext, "发送结果为空");
             return;
         }
-        String url = NetUrlContstant.getSubjectSingleSubmitUrl() + studentId + "-" + examId;
+        String userId = PreferenceHelper.getInstance(mContext).getStringValue(USER_ID);
+        String sendExamId[] = (String.valueOf(studentId)).split(userId);
+        String url = NetUrlContstant.getSubjectSingleSubmitUrl() + userId + "-" + sendExamId[0];
         Log.d("UploadResultsManager", "mAnswerResults.get(0):" + mAnswerResults.get(0) + "--" + url);
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
         sendRequest(entity, "正在拼命上传成绩");
@@ -149,7 +152,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
         } else {
             ToastUtil.showToast(mContext, "成绩上传失败：" + message);
             Log.e(TAG, "uploadResult:" + json);
-            EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
+//            EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
         }
     }
 
@@ -160,7 +163,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
         if (resultsListener != null) {
             resultsListener.onResultsFialure();
         }
-        EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
+//        EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
     }
 
     @Override
@@ -170,7 +173,7 @@ public class UploadOnlineResultsManager extends JsonNetReqManager {
         resultsListener.onResultsFialure();
 
         ToastUtil.showToast(mContext, "成绩上传失败：" + arg0);
-        EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
+//        EventBus.getDefault().post(ClassContstant.EXAM_FAILD);
     }
 
 

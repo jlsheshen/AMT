@@ -114,15 +114,25 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 		initAnalysis();
 		int state = mTestData.getState();
 		//查看详情或者练习模式下已提交的题目，直接显示作答详情
-		if (mTestMode == TestMode.MODE_SHOW_DETAILS || (mTestMode == TestMode.MODE_PRACTICE && (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG))) {
+		if (mTestMode == TestMode.MODE_SHOW_DETAILS) {
 			initUAnswer(true);
 			showDetails();
-		} else if (mTestMode == TestMode.MODE_EXAM) {
 		} else if (mTestMode == TestMode.MODE_SHOW_UANSWER) {
 			initUAnswer(false);
 			disableSubject();
-		} else if (state == SubjectState.STATE_UNFINISH) {
-			initUAnswer(false);
+		} else if (mTestMode == TestMode.MODE_PRACTICE) {
+			if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG) {
+				initUAnswer(true);
+				showDetails();
+			} else if (state == SubjectState.STATE_UNFINISH) {
+				initUAnswer(false);
+			}
+		} else if (mTestMode == TestMode.MODE_EXAM) {
+			if (state == SubjectState.STATE_CORRECT || state == SubjectState.STATE_WRONG || state == SubjectState.STATE_UNFINISH) {
+				initUAnswer(false);
+			}
+		} else if(mTestMode == TestMode.MODE_EXAM_EMPTY) {
+			
 		}
 	}
 

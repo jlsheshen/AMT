@@ -6,8 +6,10 @@ import android.util.Log;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.bean.EmphasisBean;
+import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.lucher.net.req.RequestMethod;
 
 import org.apache.http.Header;
@@ -49,7 +51,9 @@ public class EmphasisManager extends BaseNetManager {
      * @param
      */
     public void getEmphasis(EmphasisListener emphasisListener, int chapterId) {
-        String url = NetUrlContstant.getClassicCaseUrl() + chapterId + "-" + 1;
+        boolean isBook = PreferenceHelper.getInstance(mContext).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
+        String bookStr = isBook? ClassContstant.TEXT_BOOK_TYPE:ClassContstant.CLASS_TYPE;
+        String url = NetUrlContstant.getClassicCaseUrl() + chapterId + "-" + 1 + "-" + bookStr;
         NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
         Log.d(TAG, "url");
         sendRequest(entity);
@@ -66,7 +70,7 @@ public class EmphasisManager extends BaseNetManager {
             }
             List<EmphasisBean> datas =  JSON.parseArray(jsonObject.getString("message"), EmphasisBean.class);
 
-            emphasisListener.onSuccess(datas.get(0).getContent());
+            emphasisListener.onSuccess(datas.get(0).getUri());
         }else {
 
             emphasisListener.onFailure("链接失败");

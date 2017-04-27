@@ -67,7 +67,6 @@ public class ElementType {
 	 * 小写金额组合空
 	 */
 	public static final int TYPE_AMOUNT_LOWER_GROUP = 24;
-	
 	/**
 	 * 印章
 	 */

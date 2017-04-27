@@ -2,6 +2,8 @@ package com.edu.subject.basic;
 
 import java.util.List;
 
+import net.tsz.afinal.core.Arrays;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +25,7 @@ public class SelectItemAdapter extends BaseAdapter implements OnClickListener {
 	/**
 	 * 选项字母
 	 */
-	public static String[] mLetters = new String[] { "A", "B", "C", "D", "E", "F" };
+	public static String[] mLetters = new String[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 
 	/**
 	 * 选择题支持的最大选项个数
@@ -156,15 +158,21 @@ public class SelectItemAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	/**
-	 * 获取用户选择的答案
+	 * 获取用户选择的答案,保存选项id,多个id逗号隔开
 	 * 
 	 * @return
 	 */
 	public String getUAnswer() {
 		StringBuilder builder = new StringBuilder();
+		int index = 0;
 		for (OptionData data : mDatas) {
 			if (data.isSelected()) {
-				builder.append(data.getOption().getId());
+				if (index > 0) {
+					builder.append("," + data.getOption().getId());
+				} else {
+					builder.append(data.getOption().getId());
+				}
+				index++;
 			}
 		}
 		return builder.toString();
@@ -173,11 +181,11 @@ public class SelectItemAdapter extends BaseAdapter implements OnClickListener {
 	/**
 	 * 设置用户答案
 	 * 
-	 * @param answer
+	 * @param answer.
 	 */
 	public void setUAnswer(String answer) {
 		for (OptionData data : mDatas) {
-			if (answer != null && answer.contains(String.valueOf(data.getOption().getId()))) {
+			if (answer != null && Arrays.asList(answer.split(",")).contains(String.valueOf(data.getOption().getId()))) {
 				data.setSelected(true);
 			} else {
 				data.setSelected(false);
@@ -194,10 +202,11 @@ public class SelectItemAdapter extends BaseAdapter implements OnClickListener {
 	public String getAnswerLabel(String answer) {
 		StringBuilder builder = new StringBuilder();
 		if (answer != null) {
-			int length = answer.length();
+			String[] answers = answer.split(",");
+			int length = answers.length;
 			for (int i = 0; i < length; i++) {
 				for (OptionData data : mDatas) {
-					if (answer.substring(i, i + 1).equals(String.valueOf(data.getOption().getId()))) {
+					if (answers[i].equals(String.valueOf(data.getOption().getId()))) {
 						builder.append(data.getFlag());
 					}
 				}

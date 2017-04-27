@@ -1,8 +1,6 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -13,7 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
@@ -23,6 +21,7 @@ import com.edu.accountingteachingmaterial.newsubject.adapter.SubjectViewPagerAda
 import com.edu.accountingteachingmaterial.newsubject.common.SubjectCardDialog;
 import com.edu.accountingteachingmaterial.newsubject.common.TestTimer;
 import com.edu.accountingteachingmaterial.newsubject.dialog.SignChooseDialog;
+import com.edu.accountingteachingmaterial.view.dialog.ExitDialog;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.bill.SignData;
@@ -37,9 +36,9 @@ import java.util.List;
  * 答题页面基类
  * 
  * @author lucher
- * 
+ * 改动 : 讲左右滑动页面保存改为页面切换保存
  */
-public abstract class BaseSubjectsContentActivity extends FragmentActivity implements OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, OnPageChangeListener, TestTimer.OnTimeOutListener {
+public abstract class BaseSubjectsContentActivity extends FragmentActivity implements OnItemClickListener, SubjectListener, SubjectCardAdapter.OnCardItemClickListener, OnPageChangeListener, TestTimer.OnTimeOutListener, ExitDialog.SetDialogListener {
 	/**
 	 * 上个页面传来的节id
 	 */
@@ -80,7 +79,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	// 标题，例如xx测试
 	protected TextView tvTitle;
 	// 印章，闪电符，答题卡，提交按钮
-	protected ImageButton btnSign, btnFlash, btnCard, btnSubmit;
+	protected ImageView btnSign, btnFlash, btnCard, btnSubmit;
 
 	// 印章选择对话框
 	protected SignChooseDialog signDialog;
@@ -93,7 +92,8 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	protected TextView tvTimer;
 
 	// 退出确认框
-	private AlertDialog  mConfirmDialog;
+//	private AlertDialog  mConfirmDialog;
+	private ExitDialog mConfirmDialog;
 	//当前确认类型
 	private int mConfirmType;
 
@@ -113,7 +113,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 * 初始化
 	 */
 	protected void init() {
-		@SuppressWarnings("unchecked")
+//		@SuppressWarnings("unchecked")
 		// 印章初始化
 		List<SignData> signs = (List<SignData>) SignDataDao.getInstance(this, Constant.DATABASE_NAME).getAllDatas();
 		signDialog = new SignChooseDialog(this, signs, this);
@@ -121,11 +121,11 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 		viewPager = (ViewPager) findViewById(R.id.vp_content);
 		viewPager.setOnPageChangeListener(this);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
-		initTitle();
-		btnSign = (ImageButton) findViewById(R.id.btnSign);
-		btnFlash = (ImageButton) findViewById(R.id.btnFlash);
-		btnCard = (ImageButton) findViewById(R.id.btnCard);
-		btnSubmit = (ImageButton) findViewById(R.id.btnSubmit);
+//		initTitle();
+		btnSign = (ImageView) findViewById(R.id.btnSign);
+		btnFlash = (ImageView) findViewById(R.id.btnFlash);
+		btnCard = (ImageView) findViewById(R.id.btnCard);
+		btnSubmit = (ImageView) findViewById(R.id.btnSubmit);
 		mBundle = getIntent().getExtras();
 
 		// 题目数据，答题卡初始化
@@ -156,10 +156,11 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 */
 	protected void initTimer(long countDownInterval, long totalTime) {
 		tvTimer = (TextView) findViewById(R.id.tvTimer);
+		findViewById(R.id.ly_time).setVisibility(View.VISIBLE);
 		tvTimer.setVisibility(View.VISIBLE);
-		mTimer = new TestTimer(tvTimer, countDownInterval, totalTime);
-		mTimer.start();
-		mTimer.setOnTimeOutListener(this);
+//		mTimer = new TestTimer(tvTimer, countDownInterval, totalTime);
+//		mTimer.start();
+//		mTimer.setOnTimeOutListener(this);
 	}
 
 	/**
@@ -168,18 +169,22 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 * 处理确认点击重写onDialogConfirm(int confirmType)
 	 */
 	protected void initConfirmDialog() {
-		mConfirmDialog = new AlertDialog.Builder(this).setTitle("").setMessage("").setIcon(null).setPositiveButton("是", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				onDialogConfirm(mConfirmType);
-			}
-		}).setNegativeButton("否", new DialogInterface.OnClickListener() {
+		mConfirmDialog = new ExitDialog(this,mConfirmType);
+		mConfirmDialog.setDialogListener(this);
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				mConfirmDialog.dismiss();
-			}
-		}).create();
+//		mConfirmDialog = new AlertDialog.Builder(this).setTitle("").setMessage("").setIcon(null).
+//				setPositiveButton("是", new DialogInterface.OnClickListener() {
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				onDialogConfirm(mConfirmType);
+//			}
+//		}).setNegativeButton("否", new DialogInterface.OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				mConfirmDialog.dismiss();
+//			}
+//		}).create();
 
 	}
 	
@@ -196,8 +201,11 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 		}
 		if (!mConfirmDialog.isShowing()) {
 			mConfirmType = confirmType;
-			mConfirmDialog.setTitle(title);
-			mConfirmDialog.setMessage(message);
+			mConfirmDialog.setTvTitle(title);
+			mConfirmDialog.setTvText(message);
+
+//			mConfirmDialog.setTitle(title);
+//			mConfirmDialog.setMessage(message);
 			mConfirmDialog.show();
 		}
 	}
@@ -327,7 +335,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 */
 	protected void scrollToLeft() {
 		if (mCurrentIndex != 0) {
-			saveAnswer();
+//			saveAnswer();
 			mCurrentIndex--;
 			viewPager.setCurrentItem(mCurrentIndex, true);
 		} else {
@@ -340,7 +348,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 */
 	protected void scrollToRight() {
 		if (mCurrentIndex != mSubjectAdapter.getCount() - 1) {
-			saveAnswer();
+//			saveAnswer();
 			mCurrentIndex++;
 			viewPager.setCurrentItem(mCurrentIndex, true);
 		} else {
@@ -355,6 +363,16 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	@Override
 	public void onComplete() {
 		scrollToRight();
+	}
+
+	@Override
+	public void onSaveTestData(BaseTestData testData) {
+
+	}
+
+	@Override
+	public void onSaveTestDatas(List<BaseTestData> testDatas) {
+
 	}
 
 	@Override
@@ -391,6 +409,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 
 	@Override
 	public void onPageScrollStateChanged(int item) {
+		saveAnswer();
 	}
 
 	@Override
@@ -422,9 +441,21 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 
 	@Override
 	protected void onDestroy() {
+		if (mConfirmDialog != null){
+		mConfirmDialog.dismiss();}
 		super.onDestroy();
 		if (mTimer != null) {
 			mTimer.cancel();
 		}
+	}
+
+	@Override
+	public void onOkClicked() {
+		onDialogConfirm(mConfirmType);
+	}
+
+	@Override
+	public void onCancelClicked() {
+		mConfirmDialog.dismiss();
 	}
 }

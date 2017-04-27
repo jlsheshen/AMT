@@ -29,7 +29,7 @@ public class LoadingDialog extends Dialog {
         // 窗口全屏显示
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 设置窗口弹出动画
-        getWindow().setWindowAnimations(com.edu.R.style.TranAnimation);
+        getWindow().setWindowAnimations(R.style.TranAnimation);
         setContentView(R.layout.dialog_boy_run);
         setCancelable(false);
         imageView = (ImageView) findViewById(R.id.dialog_boy_run_iv);

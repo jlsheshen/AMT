@@ -19,11 +19,12 @@ import com.edu.accountingteachingmaterial.base.BaseFragment;
 import com.edu.accountingteachingmaterial.bean.ExampleBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
-import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ClassicCase;
 import com.edu.accountingteachingmaterial.entity.StudyHistoryVO;
+import com.edu.accountingteachingmaterial.entity.SubChaptersBean;
 import com.edu.accountingteachingmaterial.util.HistoryClickManager;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
+import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.lucher.net.req.RequestMethod;
 
@@ -40,12 +41,12 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     ExampleGVAdapter exampleGVAdapter;
     List<ExampleBean> exampleBeans;
     List<ClassicCase> cData;
-    ClassChapterData.SubChaptersBean data;
+    SubChaptersBean data;
     TextView nothingTv;
 
 
 
-    public void setData(ClassChapterData.SubChaptersBean data) {
+    public void setData(SubChaptersBean data) {
         this.data = data;
     }
     @Override
@@ -106,7 +107,10 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         List<StudyHistoryVO> historyVOs = new ArrayList<>();
         historyVOs.add(cData.get(i).getUpLoadingData(context));
-        HistoryClickManager.getHisInstance(context).setStudyHistoryVOList(historyVOs).sendHistory();
+        boolean isBook = PreferenceHelper.getInstance(context).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
+        if (!isBook) {
+            HistoryClickManager.getHisInstance(context).setStudyHistoryVOList(historyVOs).sendHistory();
+        }
 
         switch (exampleBeans.get(i).getType()) {
             case ClassContstant.MEADIA_TYPE:
@@ -137,9 +141,10 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
      */
 
     private void uploadInfo() {
+        boolean isBook = PreferenceHelper.getInstance(context).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
+        String bookStr = isBook? ClassContstant.TEXT_BOOK_TYPE:ClassContstant.CLASS_TYPE;
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        Log.d("ClassExampleFragment", NetUrlContstant.getClassicCaseUrl() + data.getId() + "-2");
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.getClassicCaseUrl() + data.getId() + "-2");
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this.getContext(), RequestMethod.POST, NetUrlContstant.getClassicCaseUrl() + data.getId() + "-2"+ "-" + bookStr);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override

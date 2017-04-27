@@ -60,7 +60,7 @@ public class ErrorAdapter extends BaseCheckAdapter {
             holder = (ErrorViewHolder) convertView.getTag();
         }
         String s = null;
-        switch (datas.get(position).getSubjectType()){
+        switch (datas.get(position).getSubjectData().getSubjectType()){
             case ClassContstant.SUBJECT_SINGLE_CHOSE:
                 s = ClassContstant.SUBJECT_SINGLE_CHOSE_STRING;
                 break;
@@ -70,8 +70,8 @@ public class ErrorAdapter extends BaseCheckAdapter {
             case ClassContstant.SUBJECT_JUDGE:
                 s = ClassContstant.SUBJECT_JUDGE_STRING;
                 break;
-            case ClassContstant.SUBJECT_PRACTIAL:
-                s = ClassContstant.SUBJECT_PRACTIAL_STRING;
+            case ClassContstant.SUBJECT_BLANK:
+                s = ClassContstant.SUBJECT_BLANK_STRING;
                 break;
             case ClassContstant.SUBJECT_ENTRY:
                 s = ClassContstant.SUBJECT_ENTRY_STRING;
@@ -79,12 +79,18 @@ public class ErrorAdapter extends BaseCheckAdapter {
             case ClassContstant.SUBJECT_BILL:
                 s = ClassContstant.SUBJECT_BILL_STRING;
                 break;
+            case ClassContstant.SUBJECT_SIMPLE_ANSWER:
+                s = ClassContstant.SUBJECT_SIMPLE_ANSWER_STRING;
+                break;
+            case ClassContstant.SUBJECT_COMPREHENSIVE:
+                s = ClassContstant.SUBJECT_COMPREHENSIVE_STRING;
+                break;
             case ClassContstant.SUBJECT_GROUP_BILL:
                 s = ClassContstant.SUBJECT_GROUP_BILL_STRING;
                 break;
         }
         holder.typeTv.setText(s);
-        holder.contentTv.setText(datas.get(position).getSubjectData().getQuestion());
+        holder.contentTv.setText(datas.get(position).getSubjectData().getQuestion().getText());
 
         if (checkIsShow){
             holder.checkBox.setVisibility(View.VISIBLE);

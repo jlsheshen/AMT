@@ -20,8 +20,8 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
-import com.edu.accountingteachingmaterial.entity.ClassChapterData;
 import com.edu.accountingteachingmaterial.entity.ExamListData;
+import com.edu.accountingteachingmaterial.entity.SubChaptersBean;
 import com.edu.accountingteachingmaterial.newsubject.ClassExamActivity;
 import com.edu.accountingteachingmaterial.newsubject.ClassPracticeActivity;
 import com.edu.accountingteachingmaterial.newsubject.ShowDetailsContentActivity;
@@ -70,7 +70,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
      * 上拉加载完成
      */
     private final static int LOAD_COMPLETE = 1;
-    ClassChapterData.SubChaptersBean data;
+    SubChaptersBean data;
     public static final String ERRORS_ITEM = "ErrorsItem";
     public static final String ERRORS_DATAS = "ErrorsDatas";
     int item;
@@ -88,7 +88,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
 
     }
 
-    public void setData(ClassChapterData.SubChaptersBean data) {
+    public void setData(SubChaptersBean data) {
         this.data = data;
         int i = data.getId();
         PreferenceHelper.getInstance(BaseApplication.getContext()).setStringValue(EXAM_ID, "" + i);
@@ -141,7 +141,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), datas.get(i).getId());
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
-                    b.putSerializable(CHAPTER_ID, datas.get(i));
+                    b.putInt(CHAPTER_ID, datas.get(i).getId());
                     b.putBoolean("isExam", false);
                     if (isBook) {
                         startActivity(TextBookExamActivity.class, b);
@@ -209,8 +209,10 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
     }
 
     private void uploadChapterList() {
-        Log.d("ClassExerciseFragment", NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(EXAM_ID) + "-0");
-        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(EXAM_ID) + "-0");
+        String userId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID);
+        boolean isBook = PreferenceHelper.getInstance(context).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
+        String bookStr = isBook? ClassContstant.TEXT_BOOK_TYPE:ClassContstant.CLASS_TYPE;
+        NetSendCodeEntity entity = new NetSendCodeEntity(context, RequestMethod.POST, NetUrlContstant.getChapterTypeUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(EXAM_ID) + "-0"+ "-" + userId + "-" + bookStr);
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         sendJsonNetReqManager.sendRequest(entity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {

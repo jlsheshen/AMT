@@ -1,11 +1,10 @@
 package com.edu.subject.data;
 
-import java.util.List;
-
 import com.alibaba.fastjson.JSON;
-import com.edu.subject.SubjectType;
 import com.edu.subject.data.answer.ComprehensiveAnswerData;
 import com.edu.subject.net.SubjectAnswerResult;
+
+import java.util.List;
 
 /**
  * 综合题测试数据
@@ -52,6 +51,7 @@ public class TestComprehensiveData extends BaseTestData {
 			result.setAnswer(JSON.toJSONString(answerData));
 		}
 		result.setScore(uScore);
+		result.setRight(uScore == getSubjectData().getScore());
 
 		return result;
 	}

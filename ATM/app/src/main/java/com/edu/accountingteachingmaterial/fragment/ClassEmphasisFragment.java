@@ -8,7 +8,9 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
+import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.util.net.EmphasisManager;
+import com.edu.accountingteachingmaterial.util.net.GetWebViewUrlManager;
 
 import java.util.Map;
 
@@ -61,14 +63,46 @@ public class ClassEmphasisFragment extends BaseFragment implements EmphasisManag
 
     @Override
     public void onSuccess(String message) {
-        Log.d("ClassEmphasisFragment", message);
-        String encoding = "UTF-8";
-        String mimeType = "text/html";
-        Log.d("WebActivity", " ++++ " + message);
-        WebSettings webSettings = wView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        wView.getSettings().setBuiltInZoomControls(true);
-        wView.loadDataWithBaseURL("file://", message,mimeType, encoding, "about:blank");
+
+//        String before = "<html> \n" +
+//                "<header> \n" +
+//                "<meta charset=\"UTF-8\"> \n" +
+//                "<meta name=\"viewport\" content=\"width=device-width , user-scalable=yes, minimum-scale=1, maximum-scale=2,target-densitydpi=device-dpi \"> \n" +
+//                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\"/> \n" +
+//                "<style type=\"text/css\"> \n" +
+//                ".view p img { \n" +
+//                "max-width:100%;\n"+
+//                "width:auto; \n" +
+//                "\n" +
+//                "} \n" +
+//                "</style></header> \n" +
+//                "<body class=view> \n";
+//        String after = "</body></html>\n";
+//        message = before + message + after;
+
+
+        GetWebViewUrlManager.newInstance(context).setGetWebUrlListener(new GetWebViewUrlManager.GetWebUrlListener() {
+            @Override
+            public void onSuccess(String text) {
+                Log.d("ClassEmphasisFragment", text);
+                String encoding = "UTF-8";
+                String mimeType = "text/html";
+                Log.d("WebActivity", " ++++ " + text);
+                WebSettings webSettings = wView.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+                wView.getSettings().setBuiltInZoomControls(true);
+                wView.loadDataWithBaseURL("file://", text,mimeType, encoding, "about:blank");
+
+            }
+
+            @Override
+            public void onFail() {
+                nothingTv.setVisibility(View.VISIBLE);
+                wView.setVisibility(View.GONE);
+
+            }
+        }).getSubjects(NetUrlContstant.getHTMLUrl() + message);
+
     }
 
     @Override

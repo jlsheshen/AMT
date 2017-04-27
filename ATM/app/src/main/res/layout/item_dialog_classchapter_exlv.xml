@@ -7,15 +7,15 @@
     android:paddingBottom="10dp"
     android:paddingTop="10dp">
 
-    <TextView
-        android:id="@+id/item_classchapter_num_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/middle_interval"
-        android:text="@string/class_name"
-        android:textColor="@color/colorBlueBackground"
-        android:textSize="@dimen/item_title_text_size" />
+    <!--<TextView-->
+        <!--android:id="@+id/item_classchapter_num_tv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginLeft="@dimen/middle_interval"-->
+        <!--android:text="@string/class_name"-->
+        <!--android:textColor="@color/colorBlueBackground"-->
+        <!--android:textSize="@dimen/item_title_text_size" />-->
 
 
     <TextView
@@ -32,13 +32,13 @@
         android:textSize="@dimen/item_title_text_size"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/item_classchapter_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:layout_marginRight="5dp"
-        android:src="@drawable/secector_main_chapter_fold" />
+    <!--<ImageView-->
+        <!--android:id="@+id/item_classchapter_iv"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="center_vertical"-->
+        <!--android:layout_marginRight="5dp"-->
+        <!--android:src="@drawable/secector_main_chapter_fold" />-->
 
 
 </LinearLayout>

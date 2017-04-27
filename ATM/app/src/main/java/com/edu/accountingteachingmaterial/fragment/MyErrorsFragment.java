@@ -62,7 +62,7 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
     protected void initData() {
         adapter = new ErrorAdapter(context);
         String userId = PreferenceHelper.getInstance(context).getStringValue(PreferenceHelper.USER_ID);
-        datas = (List<BaseTestData>) ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE, userId);
+        datas =  ErrorTestDataDao.getInstance(context).getErrors(TestMode.MODE_PRACTICE, userId);
         if (shouBackground()) {
 
         } else {

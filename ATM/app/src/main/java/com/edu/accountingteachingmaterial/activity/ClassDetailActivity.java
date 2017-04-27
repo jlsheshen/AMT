@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
-import com.edu.accountingteachingmaterial.entity.ClassChapterData;
+import com.edu.accountingteachingmaterial.entity.SubChaptersBean;
 import com.edu.accountingteachingmaterial.fragment.ClassEmphasisFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExampleFragment;
 import com.edu.accountingteachingmaterial.fragment.ClassExerciseFragment;
@@ -32,7 +32,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     ClassEmphasisFragment classEmphasisFragment;
     ImageView backIv, imgZhangjie, imgReviewHy;
     TextView textView;
-    ClassChapterData.SubChaptersBean data;
+    SubChaptersBean data;
     int chapterId;
     View vLine;
     //当前是否是教材入口
@@ -66,7 +66,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     public void initData() {
 
         Bundle bundle = getIntent().getExtras();
-        data = (ClassChapterData.SubChaptersBean) bundle.getSerializable("classData");
+        data = (SubChaptersBean) bundle.getSerializable("classData");
         chapterId = bundle.getInt("ChapterId");
         if (data != null) {
             textView.setText(data.getTitle());

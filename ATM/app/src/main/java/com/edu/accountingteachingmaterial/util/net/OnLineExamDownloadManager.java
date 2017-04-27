@@ -3,7 +3,6 @@ package com.edu.accountingteachingmaterial.util.net;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
@@ -11,13 +10,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
-import com.edu.accountingteachingmaterial.dao.SubjectBasicDataDao;
-import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
-import com.edu.library.data.DBHelper;
-import com.edu.subject.dao.SubjectBillDataDao;
-import com.edu.subject.data.SubjectData;
-import com.edu.testbill.Constant;
+import com.edu.subject.SubjectType;
+import com.edu.subject.dao.CommonSubjectDataDao;
+import com.edu.subject.data.CommonSubjectData;
 import com.lucher.net.req.RequestMethod;
 import com.lucher.net.req.impl.JsonNetReqManager;
 import com.lucher.net.req.impl.UrlReqEntity;
@@ -103,7 +100,7 @@ public class OnLineExamDownloadManager extends JsonNetReqManager {
 		boolean result = json.getBoolean("result");
 		String message = json.getString("message");
 		if (result) {
-			List<SubjectData> subjects = JSON.parseArray(message, SubjectData.class);
+			List<CommonSubjectData> subjects = JSON.parseArray(message, CommonSubjectData.class);
 			Log.d(TAG, "------" + message + "---");
 			saveSubjects(subjects);
 			Log.d(TAG, "subjects:" + subjects);
@@ -118,44 +115,38 @@ public class OnLineExamDownloadManager extends JsonNetReqManager {
 	 *
 	 * @param subjects
 	 */
-	private void saveSubjects(List<SubjectData> subjects) {
-		DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
-		SQLiteDatabase db = helper.getWritableDatabase();
+	private void saveSubjects(List<CommonSubjectData> subjects) {
+		for (CommonSubjectData subject : subjects) {
+//			subject.setChapterId(chatperId);
 
-		for (SubjectData subject : subjects) {
-			subject.setChapterId(chatperId);
-			switch (subject.getSubjectType()) {
-				case ClassContstant.SUBJECT_SINGLE_CHOSE:
-				case ClassContstant.SUBJECT_MULITI_CHOSE:
-				case ClassContstant.SUBJECT_JUDGE:
+			try {
+				int subjectId = -1;
+				if (subject.getSubjectType() == SubjectType.SUBJECT_COMPREHENSIVE) {//综合题需要插入子题
 					// 插入题目数据
-					int basicId = SubjectBasicDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
-
-					if (basicId > 0) {
-						SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), basicId,subject.getChapterId(), db);
+					String body = subject.getBody();
+					subject.setBody("");//body内容不需要存入数据库
+					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
+					if (subjectId > 0) {
+						//插入子题
+//						List<CommonSubjectData> children = JSON.parseArray(body, CommonSubjectData.class);
+//						for (CommonSubjectData child : children) {
+//							child.setParentId(subjectId);
+//							CommonSubjectDataDao.getInstance(mContext).insertData(child);
+//						}
 					}
-					break;
-
-				case ClassContstant.SUBJECT_ENTRY:
-//				String ids = SubjectEntryDataDao.getInstance(mContext).insertData(subject, db);
-//				if(ids.length()>0) {
-//					//加入test表
-//				}
-					break;
-
-				case ClassContstant.SUBJECT_BILL:
-					int billId = SubjectBillDataDao.getInstance(mContext, Constant.DATABASE_NAME).insertData(subject, db);
-					if (subject.getTemplateId().length()>3) {
-						subject.setSubjectType(ClassContstant.SUBJECT_GROUP_BILL);
-					}
-					if (billId > 0) {
-						SubjectTestDataDao.getInstance(mContext).insertTest(subject.getSubjectType(), billId,subject.getChapterId(), db);
-					}
-					break;
-				default:
-					break;
+				} else {
+					// 插入题目数据
+					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
+				}
+				if (subjectId > 0 && subject.getParentId() == -1) {
+					SubjectOnlineTestDataDao.getInstance(mContext).insertTest(subjectId,chatperId);
+				}
+			} catch (Exception e) {
+				Log.e(TAG, "题目插入出错：" + subject);
+				e.printStackTrace();
 			}
 		}
-
 	}
+
+
 }

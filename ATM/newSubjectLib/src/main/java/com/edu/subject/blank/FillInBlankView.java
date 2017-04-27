@@ -1,8 +1,5 @@
 package com.edu.subject.blank;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -16,9 +13,12 @@ import android.widget.EditText;
 import com.edu.library.util.DensityUtil;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectConstant;
+import com.edu.subject.data.answer.BlankAnswer;
 import com.edu.subject.data.answer.BlankAnswerData;
-import com.edu.subject.data.answer.BlankAnswerData.BlankAnswer;
 import com.edu.subject.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 填空控件
@@ -392,7 +392,7 @@ public class FillInBlankView extends ViewGroup {
 
 	/**
 	 * 获取用户答案
-	 * @param blankAnswer 
+	 * @param score
 	 * @return 得分
 	 */
 	public BlankAnswerData getUAnswer(float score) {
@@ -401,7 +401,7 @@ public class FillInBlankView extends ViewGroup {
 		float singleScore = score / mBlanks.size();
 		for (int i = 0; i < mBlanks.size(); i++) {
 			EditText blank = mBlanks.get(i);
-			BlankAnswer answer = blankAnswer.new BlankAnswer();
+			BlankAnswer answer = new BlankAnswer();
 			answers.add(answer);
 			answer.setIndex(0);
 			String uAnswer = blank.getText().toString();

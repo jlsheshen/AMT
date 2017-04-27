@@ -104,14 +104,14 @@ public class UploadResultsManager extends JsonNetReqManager {
      */
     public void uploadResult( int examId, int seconds) {
 
-        int studentId = Integer.parseInt(PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID));
+        String studentId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
 
         this.examId = examId;
         if (mAnswerResults == null || mAnswerResults.size() <= 0) {
             ToastUtil.showToast(mContext, "发送结果为空");
             return;
         }
-        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(studentId));
+        String sendExamId[] = (String.valueOf(examId)).split(studentId);
         Log.d("UploadResultsManager", "-----------" + JSON.toJSONString(mAnswerResults));
         String url = NetUrlContstant.getSubjectSubmitUrl() + studentId + "-" + sendExamId[0] + "-" + seconds;
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));

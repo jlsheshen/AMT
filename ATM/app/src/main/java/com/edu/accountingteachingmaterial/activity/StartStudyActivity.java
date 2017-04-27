@@ -19,6 +19,7 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.entity.HomepageInformationData;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.net.GetBillTemplatesManager;
 import com.edu.accountingteachingmaterial.util.net.LoginNetMananger;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.util.DoubleClickExitUtil;
@@ -28,11 +29,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.BASE_URL;
+import static com.edu.accountingteachingmaterial.constant.BASE_URL.TEMP_URL;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_NUMBER;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.STUDNET_PASSWORD;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
-import static com.edu.subject.BASE_URL.BASE_URL;
-import static com.edu.subject.BASE_URL.TEMP_URL;
 
 /**
  * Created by Administrator on 2016/11/11.
@@ -231,6 +232,7 @@ public class StartStudyActivity extends BaseActivity {
 
     @Override
     protected void onDestroy() {
+        GetBillTemplatesManager.newInstance(this).dismissDialog();
         EventBus.getDefault().unregister(this);
         finish();
         super.onDestroy();
