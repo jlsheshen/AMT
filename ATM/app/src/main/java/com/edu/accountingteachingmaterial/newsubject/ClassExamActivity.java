@@ -10,7 +10,6 @@ import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.net.UploadResultsManager;
-import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
@@ -73,7 +72,9 @@ public class ClassExamActivity extends BaseSubjectsContentActivity implements Re
     @Override
     protected void handleBack() {
 //		showConfirmDialog(CONFIRM_EXIT, "提示", "退出将直接提交答案，确认退出？");
-        showConfirmDialog(CONFIRM_EXIT, "退出", "确认退出？");
+//        showConfirmDialog(CONFIRM_EXIT, "退出", "确认退出？");
+        saveAnswer();
+        finish();
     }
 
     /**
@@ -82,10 +83,12 @@ public class ClassExamActivity extends BaseSubjectsContentActivity implements Re
     private void submit() {
         saveAnswer();
         float score = mSubjectAdapter.submit();
-        ToastUtil.showToast(this, "score:" + score);
+//        ToastUtil.showToast(this, "score:" + score);
         UploadResultsManager.getSingleton(this).setResultsListener(this);
         UploadResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
         UploadResultsManager.getSingleton(this).uploadResult(chapterId, 10000);
+
+
 //		Intent intent = new Intent(this, TestResultActivity.class);
 //		intent.putExtra("score", score);
 //		intent.putExtra("online", false);
@@ -140,7 +143,7 @@ public class ClassExamActivity extends BaseSubjectsContentActivity implements Re
             case CONFIRM_SUBMIT:
                 saveAnswer();
                 submit();
-                finish();
+//                finish();
 
                 break;
 
@@ -152,7 +155,7 @@ public class ClassExamActivity extends BaseSubjectsContentActivity implements Re
     @Override
     public void onResultsSuccess() {
         EventBus.getDefault().unregister(this);
-        super.onDestroy();
+        finish();
     }
 
     @Override

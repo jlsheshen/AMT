@@ -1,13 +1,7 @@
 package com.edu.subject.bill;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-
 import android.util.Log;
 
-import com.alibaba.fastjson.JSON;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.SubjectState;
@@ -20,6 +14,11 @@ import com.edu.subject.data.TestBillData;
 import com.edu.subject.data.answer.BillAnswerData;
 import com.edu.subject.data.answer.BillAnswerData.BlankResult;
 import com.edu.subject.data.answer.BillAnswerData.SignResult;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 单据题答案判分处理类
@@ -167,6 +166,7 @@ public class BillAnswerHandler {
 			//创建结果数据
 			BlankResult blankResult = mTestData.getUAnswerData().new BlankResult();
 			blankResult.setIndex(++index);
+			blankResult.setId(mTestData.getTemplate().getId());
 			blankResult.setEditable(true);
 			blanks.add(blankResult);
 			if (!etBlank.getData().isEditable()) {// 该空不需要用户填写，直接跳过

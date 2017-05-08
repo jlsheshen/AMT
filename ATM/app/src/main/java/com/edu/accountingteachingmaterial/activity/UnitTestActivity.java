@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.base.BaseActivity;
+import com.edu.accountingteachingmaterial.bean.UpdateScoreBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
@@ -23,8 +24,10 @@ import com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity
 import com.edu.accountingteachingmaterial.newsubject.OnlineTestContentActivity;
 import com.edu.accountingteachingmaterial.newsubject.ShowDetailsContentActivity;
 import com.edu.accountingteachingmaterial.newsubject.ShowUAnswerContentActivity;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.net.GetScoreListManager;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
@@ -44,7 +47,7 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
  * Created by Administrator on 2016/11/18.
  */
 
-public class UnitTestActivity extends BaseActivity implements OnClickListener {
+public class UnitTestActivity extends BaseActivity implements OnClickListener, GetScoreListManager.ExamScoreListListener {
     ImageView imgBack, imgShow;
     TextView testTitle, tvPublisher, tvReleaseTime, tvScore, tvSubmittingTime,
             tvUsedTime, tvStartTime, tvEndTime, tvChallengeTime,
@@ -132,11 +135,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
                 } else if (textMode == ClassContstant.TEST_MODE_TEST){
                     //试卷提交后,,答案也发布了,进入查看详情
 
-                    Bundle bundle = new Bundle();
-                    bundle.putBoolean(IS_EXAM, true);
-                    bundle.putInt(CHAPTER_ID, examId);
-                    startActivity(ShowDetailsContentActivity.class, bundle);
-                    finish();
+                    GetScoreListManager.getSingleton(this).setExamId(this,examId);
+
 
                 }else {
                     uploadTestTime();
@@ -303,4 +303,19 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener {
         }
     }
 
+    @Override
+    public void onGetScoreSuccess(List<UpdateScoreBean> updateScoreBeanList, String chapterId) {
+        SubjectOnlineTestDataDao.getInstance(this).updateScores(updateScoreBeanList,chapterId);
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(IS_EXAM, true);
+        bundle.putInt(CHAPTER_ID, examId);
+        startActivity(ShowDetailsContentActivity.class, bundle);
+        finish();
+    }
+
+    @Override
+    public void onGetScoreFailure(String message) {
+
+    }
 }

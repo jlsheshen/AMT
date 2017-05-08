@@ -116,7 +116,7 @@ public class OnlineTestContentActivity extends BaseSubjectsContentActivity imple
 
     @Override
     protected void saveAnswer() {
-        mSubjectAdapter.saveAnswer(mCurrentIndex);
+        mSubjectAdapter.saveAnswer(mCurrentIndex,0);
     }
 
     @Override
@@ -153,7 +153,6 @@ public class OnlineTestContentActivity extends BaseSubjectsContentActivity imple
 
             case CONFIRM_SUBMIT:
                 submit();
-                finish();
 
                 break;
 

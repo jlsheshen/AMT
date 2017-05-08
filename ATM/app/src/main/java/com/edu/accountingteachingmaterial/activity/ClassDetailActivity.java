@@ -59,6 +59,8 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
         }
         textView = bindView(R.id.class_id_title_tv);
         imgZhangjie = (ImageView) findViewById(R.id.class_aty_zhangjie_iv);
+        imgZhangjie.setVisibility(View.GONE);
+
         vLine = (View) findViewById(R.id.view);
     }
 

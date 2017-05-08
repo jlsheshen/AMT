@@ -20,7 +20,7 @@ public class SubjectConstant {
 	/**
 	 * 空字符串标识符-目前主要用于单据题中空答案为空的情况
 	 */
-	public static final String FLAG_NULL_STRING = "null";
+	public static final String FLAG_NULL_STRING = "";
 	/**
 	 * 不可编辑前缀标识-目前主要用于单据题中空不需要用户填写，而是直接显示正确答案的情况
 	 */

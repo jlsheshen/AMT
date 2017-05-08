@@ -5,12 +5,12 @@
 
 
     <!-- 字体大小 -->
-    <dimen name="txt_size_x_small">12dp</dimen>
-    <dimen name="txt_size_half_small">15dp</dimen>
-    <dimen name="txt_size_small">20dp</dimen>
-    <dimen name="txt_size_half_medium">25dp</dimen>
-    <dimen name="txt_size_medium">30dp</dimen>
-    <dimen name="txt_size_half_large">35dp</dimen>
+    <dimen name="txt_size_x_small">16sp</dimen>
+    <dimen name="txt_size_half_small">20sp</dimen>
+    <dimen name="txt_size_small">24sp</dimen>
+    <dimen name="txt_size_half_medium">24sp</dimen>
+    <dimen name="txt_size_medium">32sp</dimen>
+    <dimen name="txt_size_half_large">32sp</dimen>
     <dimen name="txt_size_large">40dp</dimen>
     <dimen name="txt_size_x_large">45dp</dimen>
     <dimen name="txt_size_xx_large">55dp</dimen>

@@ -2,7 +2,6 @@ package com.edu.subject.blank;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.FontMetricsInt;
 import android.util.Log;
@@ -12,6 +11,7 @@ import android.widget.EditText;
 
 import com.edu.library.util.DensityUtil;
 import com.edu.library.util.ToastUtil;
+import com.edu.subject.R;
 import com.edu.subject.SubjectConstant;
 import com.edu.subject.data.answer.BlankAnswer;
 import com.edu.subject.data.answer.BlankAnswerData;
@@ -99,7 +99,7 @@ public class FillInBlankView extends ViewGroup {
 		//画笔初始化
 		mTextPaint = new Paint();
 		mTextPaint.setAntiAlias(true);
-		mTextPaint.setColor(Color.BLACK);
+		mTextPaint.setColor(getResources().getColor(R.color.blue));
 		setTextSize(DensityUtil.dip2px(mContex, DEFAULT_TEXT_SIZE));
 		//容器初始化
 		mBlanks = new ArrayList<BlankEditText>(mAnswers.size());
@@ -403,7 +403,7 @@ public class FillInBlankView extends ViewGroup {
 			EditText blank = mBlanks.get(i);
 			BlankAnswer answer = new BlankAnswer();
 			answers.add(answer);
-			answer.setIndex(0);
+			answer.setIndex(i+1);
 			String uAnswer = blank.getText().toString();
 			answer.setAnswer(uAnswer);
 			if (uAnswer.trim().replace(" ", "").equals(mAnswers.get(i))) {

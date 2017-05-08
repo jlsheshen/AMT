@@ -143,7 +143,7 @@ public class SubjectsDownloadManager extends JsonNetReqManager {
 					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
 				}
 				if (subjectId > 0 && subject.getParentId() == -1) {
-					SubjectTestDataDao.getInstance(mContext).insertTest(subjectId,chatperId);
+					SubjectTestDataDao.getInstance(mContext).insertTest(subjectId,chatperId,subject.getFlag());
 				}
 			} catch (Exception e) {
 				Log.e(TAG, "题目插入出错：" + subject);

@@ -469,7 +469,7 @@ public class ErrorTestDataDao extends BaseDataDao2 {
      * @param subjectId
      */
     public void insertTest(int subjectId) {
-        String sql = "select id from " + TABLE_NAME + " where SUBJECT_ID = " + subjectId;
+        String sql = "select id from " + TABLE_NAME + " where SUBJECT_ID = " + subjectId + " and " +  USERID + " = " + userId;
         Cursor curs = mDb.rawQuery(sql, null);
         int id = 0;//如果存在代表原id，否則代表新增的id
         try {

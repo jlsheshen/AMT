@@ -52,6 +52,9 @@ public class NetUrlContstant {
     public static final String upLoadingHisUrl = INTERCACE + "exam/saveUserStudyHistories";
     //上传本币模板数据
     public static final String localTemplates = INTERCACE + "exam/findBillTemplatesByIds";
+    //获取试卷试题的得分
+    public static final String FIND_EXAM_SCORE_LIST = INTERCACE + "exam/findStuScoreList/";
+
     //    //图片url前缀
 //    public static final String background = "http://192.168.1.142:80/resources/files/background/";
     //视频播放地址、pdf下载地址
@@ -210,5 +213,9 @@ public class NetUrlContstant {
 
     public static String getExamLocalUrlList() {
         return BASE_URL + EXAM_LOCAL_URL_LIST;
+    }
+
+    public static String getFindExamScoreList(){
+        return BASE_URL + FIND_EXAM_SCORE_LIST;
     }
 }

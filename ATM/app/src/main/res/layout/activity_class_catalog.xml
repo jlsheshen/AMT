@@ -25,6 +25,7 @@
             android:layout_centerInParent="true"
             android:text="@string/class_name"
             android:maxWidth="300dp"
+            android:lines="1"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/title_text_size"
             android:textStyle="bold" />
@@ -109,7 +110,7 @@
             android:lines="1"
             android:maxWidth="300dp" />
 
-        <TextView
+        <com.edu.accountingteachingmaterial.view.StartCustomTextView
             android:id="@+id/catalog_textbook_content_tv"
             style="@style/content_white_text"
             android:layout_width="wrap_content"

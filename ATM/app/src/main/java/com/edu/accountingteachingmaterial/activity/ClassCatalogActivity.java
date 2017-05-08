@@ -35,6 +35,8 @@ import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.view.CircleImageView;
+import com.edu.accountingteachingmaterial.view.StartCustomTextView;
+import com.edu.accountingteachingmaterial.view.dialog.ChapterHistoryDialog;
 import com.edu.library.imageloader.EduImageLoader;
 import com.edu.library.util.ToastUtil;
 import com.lucher.net.req.RequestMethod;
@@ -48,7 +50,7 @@ import java.util.List;
  * Created by Administrator on 2017/3/2.
  */
 
-public class ClassCatalogActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener, ClassInfoManager.ClassInfoListener {
+public class ClassCatalogActivity extends BaseActivity implements View.OnClickListener, AdapterView.OnItemClickListener, ClassInfoManager.ClassInfoListener, ChapterHistoryDialog.OnDialogItemClick {
 
 //    ExpandableListView expandableListView;
     ListView listView;
@@ -61,9 +63,11 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
     boolean ppwShowing = false;
     ImageView imgHistory,infoClassHead;//历史按钮,教材封面
     CircleImageView infoTextbookHead;
-    TextView infoTextbookName, infoTextbookAuthor,infoTextbookOrganization,infotextbookContext,titleTv;//教材名称,作者,内容//
+    TextView infoTextbookName, infoTextbookAuthor,infoTextbookOrganization,titleTv;//教材名称,作者,内容//
+    StartCustomTextView infotextbookContext;
     RelativeLayout bookRl,classRl;
     ImageView backBtn;
+    ChapterHistoryDialog chapterHistoryDialog;
     //当前是否是教材入口
     private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
 
@@ -171,7 +175,7 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
                         }else {
                             datas = tempDatas;
                         }
-                        classChapterLvAdapter.setDatas(datas);
+                        classChapterLvAdapter.setDatas(datas,isBook);
                     }catch (Exception e){
                         Toast.makeText(ClassCatalogActivity.this, "当前无课时", Toast.LENGTH_SHORT).show();
                     }
@@ -187,13 +191,21 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         });
     }
     public void showPpw(){
-        if (ppwShowing) {
-            popupWindow.dismiss();
-            ppwShowing = false;
-        } else {
-            popupWindow.showAsDropDown(imgHistory, 50, 50);
-            ppwShowing = true;
-        }
+//        if (ppwShowing) {
+//            popupWindow.dismiss();
+//            ppwShowing = false;
+//        } else {
+//            popupWindow.showAsDropDown(imgHistory, 50, 50);
+//            ppwShowing = true;
+//        }
+        chapterHistoryDialog = new ChapterHistoryDialog(this);
+        chapterHistoryDialog.setOnDialogItemClick(this);
+
+        int[] location = new int[2];
+        imgHistory.getLocationOnScreen(location);
+        chapterHistoryDialog.show(location[0], location[1]);
+
+        chapterHistoryDialog.show();
     }
 
     @Override
@@ -224,12 +236,19 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         popupWindow.setTouchInterceptor(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Log.i("mengdd", "onTouch : ");
+                Log.i("mengdd", "onTouch : " + event);
+//                popupWindow.dismiss();
+                if (event.getAction() == MotionEvent.ACTION_OUTSIDE) {
+                    popupWindow.dismiss();
+                    return true;
+
+                }
                 return false;
                 // 这里如果返回true的话，touch事件将被拦截
                 // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
             }
         });
+
         popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
@@ -243,7 +262,8 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
 
         Log.d("LaunchActivity", NetUrlContstant.getFindHisUrl() + PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID));
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getFindHisUrl() + PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(PreferenceHelper.USER_ID));
+        String url =  NetUrlContstant.getFindHisUrl() + PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID) + "-" + PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.COURSE_ID);
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST,url);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
@@ -344,14 +364,42 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         infoTextbookAuthor.setText(data.getCreator());
         infoTextbookName.setText(data.getTitle());
         titleTv.setText(data.getTitle());
-        infotextbookContext.setText(data.getSummary());
+        infotextbookContext.setMText(data.getSummary());
         infoTextbookOrganization.setText(data.getSchool());
+
     }
 
     @Override
     public void onFailure(String message) {
 
     }
+
+    @Override
+    public void onHistoryClick(int position) {
+        if ( null == ppwAdapter.getData(position)){
+            return;
+        }
+        List<StudyHistoryVO> historyVOs = new ArrayList<>();
+        ExampleBean exampleBean = new ExampleBean();
+
+        historyVOs.add(ppwAdapter.getData(position).getUpLoadingData(this));
+        exampleBean.setUrl(ppwAdapter.getData(position).getUri());
+
+        HistoryClickManager.getHisInstance(this).setStudyHistoryVOList(historyVOs).sendHistory();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("exampleBeans", exampleBean);
+        Log.d("ClassFragment", "exampleBean:" + exampleBean);
+        switch (ppwAdapter.getData(position).getFile_type()) {
+            case ClassContstant.MEADIA_TYPE:
+                startActivity(MediaActivity.class, bundle);
+                break;
+            case ClassContstant.PDF_TYPE:
+                startActivity(PdfActivity.class, bundle);
+                break;
+            case ClassContstant.HTML_TYPE:
+                startActivity(WebActivity.class, bundle);
+                break;
+    }}
 }
 
 

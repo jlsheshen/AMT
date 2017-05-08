@@ -125,6 +125,8 @@ public class SelectItemAdapter extends BaseAdapter implements OnClickListener {
 			convertView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 			convertView.setOnClickListener(this);
 			viewHolder.selectItem = (SelectItemView) convertView;
+			//此处修改.讲选项设置padding
+			viewHolder.selectItem.setPadding(10,10,10,10);
 			convertView.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) convertView.getTag();

@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="5dp"
-        android:textColor="@color/gray" />
+        android:textColor="@color/gray"
+        android:textSize="@dimen/txt_size_small"/>
 
     <ImageView
         android:id="@+id/imageView1"

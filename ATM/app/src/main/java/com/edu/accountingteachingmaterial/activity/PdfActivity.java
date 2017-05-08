@@ -57,7 +57,7 @@ public class PdfActivity extends BaseActivity {
         Log.d("PdfActivity", "exampleBeans:" + exampleBeans);
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
         if(permissionCheck ==  PackageManager.PERMISSION_GRANTED){
-
+            start();
         }else {
             Log.d("MainActivity", "没有权限");
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISSIONS_REQUEST_READ_CONTACTS);
@@ -92,7 +92,6 @@ public class PdfActivity extends BaseActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == MY_PERMISSIONS_REQUEST_READ_CONTACTS){
             start();
-
         }
 
 

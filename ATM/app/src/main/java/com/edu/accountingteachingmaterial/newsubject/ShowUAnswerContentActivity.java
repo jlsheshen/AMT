@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
@@ -25,6 +26,7 @@ public class ShowUAnswerContentActivity extends BaseSubjectsContentActivity {
 		Bundle bundle = getIntent().getExtras();
 		chapterId = bundle.getInt(CHAPTER_ID);
 		isExam = bundle.getBoolean(IS_EXAM);
+		btnSubmit.setVisibility(View.GONE);
 
 		if (isExam){
 			return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_UANSWER, chapterId);

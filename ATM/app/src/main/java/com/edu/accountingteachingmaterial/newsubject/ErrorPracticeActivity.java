@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
-import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
 import com.edu.subject.data.BaseTestData;
@@ -86,7 +85,7 @@ public class ErrorPracticeActivity extends BaseSubjectsContentActivity  {
 	protected void handSubmit() {
 		if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
 			float score = mSubjectAdapter.submit(mCurrentIndex);
-			ToastUtil.showToast(this, "score:" + score);
+//			ToastUtil.showToast(this, "score:" + score);
 //			btnSubmit.setImageResource(R.mipmap.icon_congzuo_n);
 		}
 		else {
@@ -98,7 +97,9 @@ public class ErrorPracticeActivity extends BaseSubjectsContentActivity  {
 
 	@Override
 	protected void handleBack() {
-		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+//		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+		saveAnswer();
+		finish();
 	}
 
 	@Override

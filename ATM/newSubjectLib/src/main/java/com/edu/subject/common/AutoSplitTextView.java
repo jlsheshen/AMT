@@ -48,7 +48,9 @@ public class AutoSplitTextView extends TextView {
 	private String autoSplitText() {
 		final Paint tvPaint = getPaint(); // paint，包含字体等信息
 		final float tvWidth = getWidth() - getPaddingLeft() - getPaddingRight(); // 控件可用宽度
-
+		if (mText == null){
+			mText = "啊就是款到发货asdsad111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111";
+		}
 		// 将原始文本按行拆分
 		String[] rawTextLines = mText.replaceAll("\r", "").split("\n");
 		StringBuilder sbNewText = new StringBuilder();

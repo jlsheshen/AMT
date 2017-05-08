@@ -88,11 +88,11 @@ public class SelectItemView extends LinearLayout {
 			setEnabled(false);
 		}
 		if (mData.isSelected()) {
-			richContent.setTextColor(Color.BLUE);
-			tvLabel.setTextColor(Color.BLUE);
+			richContent.setTextColor(getResources().getColor(R.color.yellow));
+			tvLabel.setTextColor(getResources().getColor(R.color.yellow));
 		} else {
-			richContent.setTextColor(Color.BLACK);
-			tvLabel.setTextColor(Color.BLACK);
+			richContent.setTextColor(getResources().getColor(R.color.blue));
+			tvLabel.setTextColor(getResources().getColor(R.color.blue));
 		}
 	}
 
@@ -102,13 +102,13 @@ public class SelectItemView extends LinearLayout {
 	public void handleSelect() {
 		if (mData.isSelected()) {// 当前选中，如果是多选，取消选中
 			if (isMulti) {
-				richContent.setTextColor(Color.BLACK);
-				tvLabel.setTextColor(Color.BLACK);
+				richContent.setTextColor(getResources().getColor(R.color.blue));
+				tvLabel.setTextColor(getResources().getColor(R.color.blue));
 				mData.setSelected(!mData.isSelected());
 			}
 		} else {// 当前未选中，变为选中
-			richContent.setTextColor(Color.BLUE);
-			tvLabel.setTextColor(Color.BLUE);
+			richContent.setTextColor(getResources().getColor(R.color.yellow));
+			tvLabel.setTextColor(getResources().getColor(R.color.yellow));
 			mData.setSelected(!mData.isSelected());
 		}
 

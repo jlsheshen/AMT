@@ -3,17 +3,56 @@
     android:orientation="vertical" android:layout_width="435dp"
     android:background="@mipmap/textbook_item_bg"
     android:paddingRight="22dp"
-    android:layout_height="185dp">
 
-    <ImageView
-        android:id="@+id/item_textbook_bg_iv"
-        android:layout_height="match_parent"
-        android:layout_width="110dp"
-        android:layout_margin="10dp"
-        />
+    android:layout_height="185dp">
+    
+    <RelativeLayout
+        android:id="@+id/item_textbook_bg_rl"
+        android:layout_width="130dp"
+        android:layout_height="150dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        >
+        <ImageView
+            android:id="@+id/item_textbook_locker_iv"
+            android:layout_width="110dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:src="@mipmap/locker"
+            android:layout_marginTop="-1dp"
+            />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/item_textbook_locker_iv"
+            android:src="@mipmap/shadow"
+            android:layout_marginBottom="-2dp"
+
+            />
+        
+        <ImageView
+            android:id="@+id/item_textbook_bg_iv"
+            android:layout_above="@id/item_textbook_locker_iv"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="110dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="-2dp"
+
+            />
+
+
+
+
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/item_textbook_name_tv"
-        android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:layout_toRightOf="@id/item_textbook_bg_rl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -26,7 +65,7 @@
         android:id="@+id/item_textbook_organization_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:layout_toRightOf="@id/item_textbook_bg_rl"
         android:maxWidth="180dp"
         android:layout_marginTop="10dp"
         android:layout_below="@id/item_textbook_name_tv"
@@ -48,12 +87,12 @@
         android:ellipsize="end"
         />
 
-    <TextView
+    <com.edu.accountingteachingmaterial.view.StartCustomTextView
         android:id="@+id/item_textbook_intro_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/item_textbook_bg_iv"
+        android:layout_toRightOf="@id/item_textbook_bg_rl"
         android:layout_below="@id/item_textbook_organization_tv"
         style="@style/item_gray_text"
         android:lines="3"

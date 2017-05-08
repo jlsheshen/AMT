@@ -10,7 +10,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.edu.accountingteachingmaterial.R;
-import com.edu.accountingteachingmaterial.activity.ImageActivity;
 import com.edu.accountingteachingmaterial.activity.MediaActivity;
 import com.edu.accountingteachingmaterial.activity.PdfActivity;
 import com.edu.accountingteachingmaterial.activity.WebActivity;
@@ -126,7 +125,9 @@ public class ClassExampleFragment extends BaseFragment implements AdapterView.On
 //                startActivity(PdfActivity.class);
                 break;
             case ClassContstant.DOC_TYPE:
-                startActivity(ImageActivity.class);
+                Bundle bundle3 = new Bundle();
+                bundle3.putSerializable("exampleBeans", exampleBeans.get(i));
+                startActivity(PdfActivity.class, bundle3);
                 break;
             case ClassContstant.HTML_TYPE:
                 Bundle bundle2 = new Bundle();

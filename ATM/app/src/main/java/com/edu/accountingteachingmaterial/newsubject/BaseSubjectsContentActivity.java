@@ -335,7 +335,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 */
 	protected void scrollToLeft() {
 		if (mCurrentIndex != 0) {
-//			saveAnswer();
+			saveAnswer();
 			mCurrentIndex--;
 			viewPager.setCurrentItem(mCurrentIndex, true);
 		} else {
@@ -348,7 +348,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 */
 	protected void scrollToRight() {
 		if (mCurrentIndex != mSubjectAdapter.getCount() - 1) {
-//			saveAnswer();
+			saveAnswer();
 			mCurrentIndex++;
 			viewPager.setCurrentItem(mCurrentIndex, true);
 		} else {
@@ -399,8 +399,11 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	// 页面切换后调用
 	@Override
 	public void onPageSelected(int item) {
+		saveAnswer();
+
 		mCurrentIndex = item;
 		refreshToolBar();
+
 	}
 
 	@Override
@@ -409,7 +412,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 
 	@Override
 	public void onPageScrollStateChanged(int item) {
-		saveAnswer();
+
 	}
 
 	@Override

@@ -7,15 +7,16 @@ import android.widget.Toast;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
-import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
-import com.edu.library.util.ToastUtil;
+import com.edu.accountingteachingmaterial.util.SubmitTimerUtil;
 import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.CommonSubjectData;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -88,22 +89,31 @@ public class TextbookPracticeActivity extends BaseSubjectsContentActivity  {
 	protected void handSubmit() {
 		if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
 			float score = mSubjectAdapter.submit(mCurrentIndex);
-			ToastUtil.showToast(this, "score:" + score);
-//			ContentValues contentValues = new ContentValues();
-//			contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
-//			ExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
-//			EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
-			finish();
+			SubmitTimerUtil.setTemptime();
 
+//			ToastUtil.showToast(this, "score:" + score);
+			ContentValues contentValues = new ContentValues();
+			contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
+			ExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
+			EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+//			finish();
 		} else {
-			mSubjectAdapter.reset(mCurrentIndex);
+			if (SubmitTimerUtil.resetSubject(this)){
+
+				mSubjectAdapter.reset(mCurrentIndex);
+			EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+			}else {
+				return;
+			}
 		}
 		refreshSubmitState();
 	}
 
 	@Override
 	protected void handleBack() {
-		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+//		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+		saveAnswer();
+		finish();
 	}
 
 	@Override
@@ -133,12 +143,12 @@ public class TextbookPracticeActivity extends BaseSubjectsContentActivity  {
 
 	@Override
 	public void onSaveTestData(BaseTestData testData) {
-		ErrorTestDataDao.getInstance(mContext).updateTestData(testData);
+		SubjectTestDataDao.getInstance(mContext).updateTestData(testData);
 	}
 
 	@Override
 	public void onSaveTestDatas(List<BaseTestData> testDatas) {
-		ErrorTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
+		SubjectTestDataDao.getInstance(mContext).updateTestDatas(testDatas);
 	}
 
 	@Override
@@ -160,5 +170,10 @@ public class TextbookPracticeActivity extends BaseSubjectsContentActivity  {
 		}
 	}
 
+	@Override
+	protected void onDestroy() {
 
+
+		super.onDestroy();
+	}
 }

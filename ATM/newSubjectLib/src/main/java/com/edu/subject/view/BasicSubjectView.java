@@ -17,6 +17,8 @@ import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.CommonSubjectData;
 import com.edu.subject.data.answer.BasicAnswerData;
 
+import static com.edu.subject.SubjectType.SUBJECT_BLANK;
+
 /**
  * 基础题型视图的基类,目前主要针对于：单多判，填空，简答,分录等
  * 
@@ -163,7 +165,11 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 	 * 初始化题目
 	 */
 	protected void initQuestion() {
-		richQuestion.setRichData(mSubjectData.getQuestion());
+		richQuestion.setTextColor(getResources().getColor(R.color.blue));
+		if (mSubjectData.getSubjectType() == SUBJECT_BLANK){
+			richQuestion.setVisibility(GONE);
+		}else {
+		richQuestion.setRichData(mSubjectData.getQuestion());}
 	}
 
 	/**
@@ -176,7 +182,7 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 			tvSubjectType.setVisibility(View.GONE);
 		} else {
 			tvSubjectType.setVisibility(View.VISIBLE);
-			tvSubjectType.setText(type + "(" + mSubjectData.getScore() + "分)");
+			tvSubjectType.setText(mTestData.getSubjectIndex() + " . " + type + "(" + mSubjectData.getScore() + "分)");
 		}
 	}
 

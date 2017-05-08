@@ -295,7 +295,8 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 //                if (mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
 //                    return;
 //                }
-                mPagerList.get(index).saveAnswer();
+                if (mPagerList.get(index) != null){
+                  mPagerList.get(index).saveAnswer();}
                 if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
                     mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);
                 }
@@ -323,16 +324,19 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 //                if (mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
 //                    return;
 //                }
-                mPagerList.get(index).saveAnswer();
+                    mPagerList.get(index).saveAnswer();
+
                 if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
                     mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);
-                }
-                if (mListener != null) {
-                    mListener.onSaveTestData(mSubjectList.get(index));
+
                 }
                 if (mPagerList.get(index) != null) {
                     mPagerList.get(index).submit();
                 }
+                if (mListener != null) {
+                    mListener.onSaveTestData(mSubjectList.get(index));
+                }
+
                 Log.i(TAG, "save answer over:" + index);
             }
         }.run();

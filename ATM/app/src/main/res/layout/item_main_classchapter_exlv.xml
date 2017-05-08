@@ -25,7 +25,19 @@
         android:layout_weight="1"
         android:textColor="@color/colorWhite"
         android:textSize="@dimen/item_title_text_size"
+        android:maxLength="9"
         android:textStyle="bold" />
+    <TextView
+        android:id="@+id/item_classchapter_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/middle_interval"
+        android:textColor="@color/colorWhite"
+        android:textSize="@dimen/item_title_text_size"
+        android:maxLength="11"
+        android:visibility="gone"
+       />
 
     <ImageView
         android:id="@+id/item_classchapter_iv"
@@ -33,7 +45,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="10dp"
-        android:src="@drawable/secector_main_chapter_fold" />
+        android:src="@mipmap/enter"
+        />
 
 
 </LinearLayout>

@@ -139,7 +139,7 @@ public class OnLineExamDownloadManager extends JsonNetReqManager {
 					subjectId = CommonSubjectDataDao.getInstance(mContext).insertData(subject);
 				}
 				if (subjectId > 0 && subject.getParentId() == -1) {
-					SubjectOnlineTestDataDao.getInstance(mContext).insertTest(subjectId,chatperId);
+					SubjectOnlineTestDataDao.getInstance(mContext).insertTest(subjectId,chatperId,subject.getFlag());
 				}
 			} catch (Exception e) {
 				Log.e(TAG, "题目插入出错：" + subject);

@@ -1,5 +1,6 @@
 package com.edu.accountingteachingmaterial.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,11 @@ public class ClassGvAdapter extends BaseAdapter{
         }
         ClassBean data = datas.get(position);
         viewHolder.nameTv.setText(data.getTitle());
+        Log.d("ClassGvAdapter", data.getPicture());
+        data.getPicture().replace("\\","/");
+//        data.setPicture(data.getPicture().replace("\\","/"));
+        Log.d("ClassGvAdapter", "替换后 "+ data.getPicture());
+//        data.getPicture().replaceAll("\\","  ");
         ImageLoader.getInstance().displayImage(data.getPicture(), viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
         viewHolder.authorTv.setText(data.getName());
         return convertView;

@@ -35,7 +35,7 @@ public class TestBlankData extends BaseTestData {
 		result.setFlag(getSubjectData().getFlag());
 		result.setType(getSubjectData().getSubjectType());
 		if (answerData == null) {
-			result.setAnswer("null");
+			result.setAnswer("");
 		} else {
 			result.setAnswer(JSON.toJSONString(answerData));
 		}

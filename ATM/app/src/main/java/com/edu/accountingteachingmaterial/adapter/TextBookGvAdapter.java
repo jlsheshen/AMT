@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.bean.TextbookBean;
+import com.edu.accountingteachingmaterial.view.StartCustomTextView;
 import com.edu.library.imageloader.EduImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -57,7 +58,7 @@ public class TextBookGvAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         TextbookBean data = datas.get(position);
-        viewHolder.introTv.setText(data.getSummary());
+        viewHolder.introTv.setMText(data.getSummary());
         viewHolder.publisherTv.setText(data.getName());
         viewHolder.organizationTv.setText(data.getSchool_name());
         viewHolder.nameTv.setText(data.getTitle());
@@ -69,14 +70,15 @@ public class TextBookGvAdapter extends BaseAdapter {
 
     class ViewHolder {
         ImageView bgIv;
-        TextView nameTv, organizationTv, publisherTv, introTv;
+        TextView nameTv, organizationTv, publisherTv;
+        StartCustomTextView introTv;
 
         public ViewHolder(View view) {
             bgIv = (ImageView) view.findViewById(R.id.item_textbook_bg_iv);
             nameTv = (TextView) view.findViewById(R.id.item_textbook_name_tv);
             organizationTv = (TextView) view.findViewById(R.id.item_textbook_organization_tv);
             publisherTv = (TextView) view.findViewById(R.id.item_textbook_publisher_tv);
-            introTv = (TextView) view.findViewById(R.id.item_textbook_intro_tv);
+            introTv = (StartCustomTextView) view.findViewById(R.id.item_textbook_intro_tv);
 
 
         }

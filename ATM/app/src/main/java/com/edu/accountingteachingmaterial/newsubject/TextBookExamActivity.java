@@ -90,7 +90,9 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     protected void handleBack() {
-        showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+//        showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+        saveAnswer();
+        finish();
     }
 
     /**
@@ -99,13 +101,12 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
     private void submit() {
 
         float score = mSubjectAdapter.submit();
-        ToastUtil.showToast(this, "score:" + score);
+//        ToastUtil.showToast(this, "score:" + score);
         if (isExam) {
             UploadOnlineResultsManager.getSingleton(this).setResultsListener(this);
             UploadOnlineResultsManager.getSingleton(this).setResults(mSubjectAdapter.getDatas());
             String userId = PreferenceHelper.getInstance(this).getStringValue(PreferenceHelper.USER_ID);
             UploadOnlineResultsManager.getSingleton(this).uploadResult(userId,chapterId,0);
-
 //            ContentValues contentValues = new ContentValues();
 //            contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
 //            SubjectOnlineTestDataDao.getInstance(this).updateData(chapterId, contentValues);

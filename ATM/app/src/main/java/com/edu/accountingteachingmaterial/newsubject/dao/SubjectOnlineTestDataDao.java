@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
+import com.edu.accountingteachingmaterial.bean.UpdateScoreBean;
 import com.edu.accountingteachingmaterial.constant.Constant;
 import com.edu.accountingteachingmaterial.dao.ErrorTestDataDao;
 import com.edu.library.data.BaseDataDao2;
@@ -180,6 +181,20 @@ String TAG = "SubjectOnlineTestDataDao";
 
 		return testData;
 	}
+	/**
+	 * 更新得分
+	 */
+	public void updateScores(List<UpdateScoreBean> updateScoreBeanList, String chapterId){
+		for (UpdateScoreBean updateScoreBean : updateScoreBeanList) {
+			ContentValues contentValues = new ContentValues();
+			contentValues.put(USCORE,updateScoreBean.getScore());
+			try {
+				Log.d(TAG, TABLE_NAME + "-updateData:" + contentValues);
+				mDb.update(TABLE_NAME, contentValues, CHAPTER_ID + "=? AND " + FLAG + "=?", new String[] { chapterId, String.valueOf(updateScoreBean.getTopic_id())});
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}}
 
 	/**
 	 * 综合类题型初始化
@@ -479,14 +494,15 @@ String TAG = "SubjectOnlineTestDataDao";
 	 *
 	 * @param subjectId
 	 */
-	public void insertTest(int subjectId,int chapterid) {
+	public void insertTest(int subjectId,int chapterid,int flag) {
 //        DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
 //        SQLiteDatabase db = helper.getWritableDatabase();
 
 		ContentValues values = new ContentValues();
-		values.put("FLAG", -1);
+		values.put(FLAG, flag);
 		values.put("SUBJECT_ID", subjectId);
 		values.put(CHAPTER_ID,chapterid);
+		;
 		values.put("UANSWER", "");
 		values.put("USCORE", 0);
 		values.put("STATE", 0);

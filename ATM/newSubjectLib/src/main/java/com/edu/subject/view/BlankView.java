@@ -98,7 +98,7 @@ public class BlankView extends BasicSubjectView implements ISubject {
 		}
 		mTestData.setuScore(score);
 		//根据每个空的结果状态设置对应空的样式
-		fillInBlankView.judgeAnswer(answer.getAnswers());
+//		fillInBlankView.judgeAnswer(answer.getAnswers());
 
 		if (score == mTestData.getSubjectData().getScore()) {
 			mTestData.setState(SubjectState.STATE_CORRECT);

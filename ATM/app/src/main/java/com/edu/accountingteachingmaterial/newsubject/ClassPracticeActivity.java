@@ -10,13 +10,15 @@ import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
+import com.edu.accountingteachingmaterial.util.SubmitTimerUtil;
 import com.edu.accountingteachingmaterial.util.net.UploadResultsManager;
-import com.edu.library.util.ToastUtil;
 import com.edu.subject.SubjectState;
 import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.CommonSubjectData;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 
@@ -43,7 +45,7 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 	@Override
 	protected List<BaseTestData> initDatas() {
 		Bundle bundle = getIntent().getExtras();
-		 chapterId = bundle.getInt(CHAPTER_ID);
+        chapterId = bundle.getInt(CHAPTER_ID);
 		pagerItem = bundle.getInt(EXERCISE_ITEM);
 		return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,chapterId);
 	}
@@ -89,19 +91,29 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 	protected void handSubmit() {
 		if (mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_INIT || mSubjectAdapter.getData(mCurrentIndex).getState() == SubjectState.STATE_UNFINISH) {
 			float score = mSubjectAdapter.submit(mCurrentIndex);
-			ToastUtil.showToast(this, "score:" + score);
+			SubmitTimerUtil.setTemptime();
+//			ToastUtil.showToast(this, "score:" + score);
 			UploadResultsManager.getSingleton(this).setResultsListener(this);
 			UploadResultsManager.getSingleton(this).setSingleResults(mSubjectAdapter.getData(mCurrentIndex));
 			UploadResultsManager.getSingleton(this).uploadResult(chapterId);
 		} else {
+			if (SubmitTimerUtil.resetSubject(this)){
 			mSubjectAdapter.reset(mCurrentIndex);
+			EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+			}else {
+			return;
+			}
+
 		}
 		refreshSubmitState();
 	}
 
 	@Override
 	protected void handleBack() {
-		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+//		showConfirmDialog(CONFIRM_EXIT,  "退出", "确认退出？");
+		saveAnswer();
+		finish();
+
 	}
 
 	@Override
@@ -150,7 +162,6 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 			case CONFIRM_SUBMIT:
 
 				handSubmit();
-				finish();
 
 				break;
 
@@ -162,7 +173,7 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 
 	@Override
 	public void onResultsSuccess() {
-			finish();
+//			finish();
 	}
 
 	@Override

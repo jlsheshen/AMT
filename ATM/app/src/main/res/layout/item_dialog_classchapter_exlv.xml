@@ -32,13 +32,13 @@
         android:textSize="@dimen/item_title_text_size"
         android:textStyle="bold" />
 
-    <!--<ImageView-->
-        <!--android:id="@+id/item_classchapter_iv"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:layout_marginRight="5dp"-->
-        <!--android:src="@drawable/secector_main_chapter_fold" />-->
+    <ImageView
+        android:id="@+id/item_classchapter_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/secector_main_chapter_fold" />
 
 
 </LinearLayout>

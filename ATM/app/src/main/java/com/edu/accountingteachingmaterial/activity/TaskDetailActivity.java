@@ -53,6 +53,7 @@ import org.apache.http.Header;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.NumberFormat;
 import java.util.List;
 
 import static com.edu.accountingteachingmaterial.R.id.aty_title_back_iv;
@@ -72,6 +73,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     RvMultiTypeAdapter accessotyAdapter;
     GroupsAdapter groupsAdapter;
     TaskContentAdapter taskContentAdapter;
+
     private int taskModel;
     private TaskDetailBean data;
     int taskId;
@@ -79,7 +81,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
     SelectPictureDialog pictureDialog;//上传图片
     public static final int ALBUM = 111;//从相册取照片
     public static final int PHOTOGRAPH = 112;//照相
-    String fileNmae;//照片路径
+    String fileNmae,beforeContent;//照片路径
     TaskSubmitHistoryDialog historyDialog;//历史提交纪录dialog
     JoinGroupDialog dialog;
     int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 37421;
@@ -119,6 +121,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
 
         taskId = bundle.getInt(ClassContstant.ID);
         data = (TaskDetailBean) bundle.getSerializable(ClassContstant.TASK_DETAIL);
+        beforeContent = data.getAnswer();
         answerEt.setText(data.getAnswer());
         groupNmaeTv.setText(data.getStudentlist().get(0).getTeam_name() + "作答");
         groupNumberTv.setText("小组成员(" + data.getStudentlist().size() + "/" +data.getStu_count() + ")");
@@ -304,7 +307,17 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
 
                 @Override
                 public void onConnectionProgress(long bytesWritten, long totalSize) {
-                    ToastUtil.showToast(mContext, "文件上传进度更新：" + bytesWritten + "/" + totalSize);
+                    // 创建一个数值格式化对象
+
+                    NumberFormat numberFormat = NumberFormat.getInstance();
+
+                    // 设置精确到小数点后2位
+
+                    numberFormat.setMaximumFractionDigits(2);
+
+                    String result = numberFormat.format((float) bytesWritten / (float) totalSize * 100);
+                    ToastUtil.showToast(mContext, "文件上传进度更新：" + result + "%");
+                    Log.d(TAG, "文件上传进度更新：" + result + "%");
                 }
             }
                     .sendRequest(entity, "文件上传中,请稍等...");
@@ -344,7 +357,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         }
     }
     void goBack(){
-        if (taskModel == 1){
+        if (taskModel == 1&&!answerEt.getText().toString().equals(beforeContent)){
         dialog = new JoinGroupDialog(this);
         dialog.setTitle("确定放弃修改并返回吗?");
         dialog.setOnButtonClickListener(new JoinGroupDialog.OnButtonClickListener() {

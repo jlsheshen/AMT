@@ -1,5 +1,7 @@
 package com.edu.subject.data.answer;
 
+import com.edu.library.data.BaseData;
+
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class BillAnswerData extends CommonAnswerData {
 	 * @author lucher
 	 *
 	 */
-	public class BlankResult {
+	public class BlankResult extends BaseData{
 		// 填空对应的index
 		private int index;
 		//是否可编辑

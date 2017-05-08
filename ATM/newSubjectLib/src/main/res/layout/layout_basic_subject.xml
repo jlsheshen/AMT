@@ -29,6 +29,7 @@
         <com.edu.subject.common.rich.RichContentView
             android:id="@+id/tvQuestion"
             style="@style/subject_question"
+
             android:layout_marginTop="3dp" />
     </RelativeLayout>
 

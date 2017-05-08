@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:textColor="@color/colorGray"
-    android:padding="5dp"
+
    >
     <TextView
         android:id="@+id/item_history_day_tv"

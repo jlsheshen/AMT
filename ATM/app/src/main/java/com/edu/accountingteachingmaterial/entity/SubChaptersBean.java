@@ -19,6 +19,7 @@ public  class SubChaptersBean extends BaseData {
     private int id;
     private String title;
     private int order;
+    private String createTime;
     private List<SubChaptersBean> subChapters;
 
     public int getId() {
@@ -43,6 +44,14 @@ public  class SubChaptersBean extends BaseData {
 
     public void setOrder(int order) {
         this.order = order;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     public List<SubChaptersBean> getSubChapters() {

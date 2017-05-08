@@ -84,14 +84,15 @@ public class SimpleAnswerView extends BasicSubjectView implements ISubject {
 		BasicAnswerData answerData = ((TestBasicData) mTestData).getUAnswerData();
 		if (answerData != null && answerData.getUanswer().replace(" ", "").equals(mSubjectData.getAnswer().getText())) {
 			mTestData.setuScore(mSubjectData.getScore());
+
 			mTestData.setState(SubjectState.STATE_CORRECT);
-			etBlank.setTextColor(Color.BLUE);
-			etBlank.setBackgroundResource(R.drawable.shape_edittext_right);
+//			etBlank.setTextColor(Color.BLUE);
+//			etBlank.setBackgroundResource(R.drawable.shape_edittext_right);
 		} else {
 			mTestData.setuScore(0);
 			mTestData.setState(SubjectState.STATE_WRONG);
-			etBlank.setBackgroundResource(R.drawable.shape_edittext_wrong);
-			etBlank.setTextColor(Color.RED);
+//			etBlank.setBackgroundResource(R.drawable.shape_edittext_wrong);
+//			etBlank.setTextColor(Color.RED);
 		}
 	}
 
@@ -100,7 +101,7 @@ public class SimpleAnswerView extends BasicSubjectView implements ISubject {
 		super.reset();
 		if (inited) {
 			etBlank.setEnabled(true);
-			etBlank.setTextColor(Color.BLACK);
+			etBlank.setTextColor(Color.GRAY);
 			etBlank.setBackgroundResource(R.drawable.shape_edittext_normal);
 			etBlank.setText("");
 			etBlank.setHint("请在此作答");

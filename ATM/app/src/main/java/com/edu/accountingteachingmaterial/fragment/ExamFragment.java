@@ -16,6 +16,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.activity.UnitTestActivity;
 import com.edu.accountingteachingmaterial.adapter.ExamAdapter;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
+import com.edu.accountingteachingmaterial.bean.UpdateScoreBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
@@ -23,9 +24,11 @@ import com.edu.accountingteachingmaterial.entity.OnLineExamData;
 import com.edu.accountingteachingmaterial.entity.OnLineExamListData;
 import com.edu.accountingteachingmaterial.newsubject.ShowDetailsContentActivity;
 import com.edu.accountingteachingmaterial.newsubject.TextBookExamActivity;
+import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.ExamLocalListManager;
 import com.edu.accountingteachingmaterial.util.net.ExamOnlineListManager;
+import com.edu.accountingteachingmaterial.util.net.GetScoreListManager;
 import com.edu.accountingteachingmaterial.util.net.OnLineExamDownloadManager;
 import com.edu.accountingteachingmaterial.view.RefreshListView;
 
@@ -42,7 +45,7 @@ import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentA
 /**
  * 试卷页面
  */
-public class ExamFragment extends BaseFragment implements RefreshListView.OnListMoveListener, CompoundButton.OnCheckedChangeListener, ExamOnlineListManager.ExamOnlineListener, ExamLocalListManager.ExamLocalListener {
+public class ExamFragment extends BaseFragment implements RefreshListView.OnListMoveListener, CompoundButton.OnCheckedChangeListener, ExamOnlineListManager.ExamOnlineListener, ExamLocalListManager.ExamLocalListener, GetScoreListManager.ExamScoreListListener {
 
     RefreshListView listView;
     List<OnLineExamListData> datas;
@@ -132,9 +135,9 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                         b.putBoolean(IS_EXAM, true);
                                                         b.putInt(CHAPTER_ID, showDatas.get(pos).getExam_id());
                                                         if (showDatas.get(pos).getState() != ClassContstant.EXAM_UNDONE) {
-
+                                                            GetScoreListManager.getSingleton(context).setExamId(ExamFragment.this,showDatas.get(pos).getExam_id());
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
-                                                            startActivity(ShowDetailsContentActivity.class, b);
+//                                                            startActivity(ShowDetailsContentActivity.class, b);
                                                         } else {
 //                                                            String examId[] = String.valueOf(showDatas.get(pos).getExam_id()).split(String.valueOf(showDatas.get(pos).getU_id()));
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
@@ -327,5 +330,19 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     public void onFailure(String message) {
         Toast.makeText(context, "当前还没有评测", Toast.LENGTH_SHORT).show();
         Log.d("ExamFragment", message);
+    }
+
+    @Override
+    public void onGetScoreSuccess(List<UpdateScoreBean> updateScoreBeanList, String chapterId) {
+        SubjectOnlineTestDataDao.getInstance(context).updateScores(updateScoreBeanList,chapterId);
+        Bundle b = new Bundle();
+        b.putBoolean(IS_EXAM, true);
+        b.putInt(CHAPTER_ID, Integer.parseInt(chapterId));
+        startActivity(ShowDetailsContentActivity.class, b);
+    }
+
+    @Override
+    public void onGetScoreFailure(String message) {
+
     }
 }

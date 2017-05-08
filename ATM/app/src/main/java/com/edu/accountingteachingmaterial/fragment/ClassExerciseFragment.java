@@ -16,6 +16,7 @@ import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.ExerciseExLvAdapter;
 import com.edu.accountingteachingmaterial.base.BaseApplication;
 import com.edu.accountingteachingmaterial.base.BaseFragment;
+import com.edu.accountingteachingmaterial.bean.UpdateScoreBean;
 import com.edu.accountingteachingmaterial.constant.ClassContstant;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
@@ -29,6 +30,7 @@ import com.edu.accountingteachingmaterial.newsubject.TextBookExamActivity;
 import com.edu.accountingteachingmaterial.newsubject.TextbookPracticeActivity;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.net.GetScoreListManager;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.accountingteachingmaterial.util.net.SubjectsDownloadManager;
 import com.edu.accountingteachingmaterial.view.RefreshExListView;
@@ -50,7 +52,7 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.EXAM_ID;
  * 练习界面,包括课前,随堂,课后练习
  * Created by Administrator on 2016/11/9.
  */
-public class ClassExerciseFragment extends BaseFragment implements RefreshExListView.OnListMoveListener {
+public class ClassExerciseFragment extends BaseFragment implements RefreshExListView.OnListMoveListener,GetScoreListManager.ExamScoreListListener {
     RefreshExListView expandableListView;
     List<ExamListData> datas;
     ExerciseExLvAdapter adapter;
@@ -149,11 +151,20 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                         startActivity(ClassExamActivity.class, b);
                     }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt(CHAPTER_ID, datas.get(i).getId());
-                    startActivity(ShowDetailsContentActivity.class, b);
+                    if (isBook){
+                        b.putInt(CHAPTER_ID, datas.get(i).getId());
+                        startActivity(ShowDetailsContentActivity.class, b);
+                    }else {
+                        GetScoreListManager.getSingleton(context).setExamId(ClassExerciseFragment.this, datas.get(i).getId());
+                    }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
-                    b.putInt(CHAPTER_ID, datas.get(i).getId());
-                    startActivity(ShowDetailsContentActivity.class, b);
+                    if (isBook){
+                        b.putInt(CHAPTER_ID, datas.get(i).getId());
+                        startActivity(ShowDetailsContentActivity.class, b);
+                    }else {
+                        GetScoreListManager.getSingleton(context).setExamId(ClassExerciseFragment.this, datas.get(i).getId());
+                    }
+
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
                     if (datas.get(i) == null) {
                         Toast.makeText(context, "请重新下载", Toast.LENGTH_SHORT).show();
@@ -193,7 +204,6 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(Integer state) {
-        Log.d("ClassExerciseFragment", "走过了1EventBus" + state);
 
         if (datas != null) {
             datas.get(item).setState(state);
@@ -265,6 +275,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         });
     }
 
+
     @Override
     public void onDestroy() {
         EventBus.getDefault().unregister(this);
@@ -316,6 +327,19 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                 }
             }
         }).start();
+
+    }
+
+    @Override
+    public void onGetScoreSuccess(List<UpdateScoreBean> updateScoreBeanList,String chapterId) {
+        SubjectTestDataDao.getInstance(context).updateScores(updateScoreBeanList,chapterId);
+        b.putInt(CHAPTER_ID, Integer.parseInt(chapterId));
+        startActivity(ShowDetailsContentActivity.class, b);
+
+    }
+
+    @Override
+    public void onGetScoreFailure(String message) {
 
     }
 }
