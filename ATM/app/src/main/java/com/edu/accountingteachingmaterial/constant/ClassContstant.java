@@ -71,11 +71,11 @@ public final class ClassContstant {
 
     //练习类型
     //课前预习
-    public static final int EXERCISE_BEFORE_CLASS = 3;
+    public static final int EXERCISE_AFTER_CLASS = 3;
     //随堂测验
     public static final int EXERCISE_IN_CLASS = 4;
     //课后复习
-    public static final int EXERCISE_AFTER_CLASS = 5;
+    public static final int EXERCISE_BEFORE_CLASS = 5;
     //
 
     //练习题对错状态

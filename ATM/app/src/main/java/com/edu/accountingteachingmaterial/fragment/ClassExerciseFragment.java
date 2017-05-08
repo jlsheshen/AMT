@@ -123,6 +123,9 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
         ;
     };
 
+    /**
+     * 课前预习无重做功能,课后预习有重做功能
+     */
     @Override
     protected void initData() {
 
@@ -134,6 +137,8 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
                 Log.d("ClassExerciseFragment", NetUrlContstant.getSubjectListUrl() + datas.get(i).getId());
                 item = i;
+                b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
+
                 if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
                     return false;
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
@@ -142,7 +147,6 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), datas.get(i).getId());
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
                     b.putInt(CHAPTER_ID, datas.get(i).getId());
                     b.putBoolean("isExam", false);
                     if (isBook) {
@@ -334,6 +338,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
     public void onGetScoreSuccess(List<UpdateScoreBean> updateScoreBeanList,String chapterId) {
         SubjectTestDataDao.getInstance(context).updateScores(updateScoreBeanList,chapterId);
         b.putInt(CHAPTER_ID, Integer.parseInt(chapterId));
+
         startActivity(ShowDetailsContentActivity.class, b);
 
     }

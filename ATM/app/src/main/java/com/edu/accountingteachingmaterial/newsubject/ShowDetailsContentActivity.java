@@ -27,11 +27,16 @@ public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
     public boolean isExam;
     public int chapterId;
     boolean isBook;
+    int examType = 0;
 
     @Override
     protected List<BaseTestData> initDatas() {
         Bundle bundle = getIntent().getExtras();
         isExam = bundle.getBoolean(IS_EXAM);
+        if (!isExam){
+            examType = bundle.getInt(EXERCISE_TYPE);
+
+        }
         chapterId = bundle.getInt(CHAPTER_ID);
         isBook = PreferenceHelper.getInstance(this).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
         if (isExam){
@@ -44,7 +49,7 @@ public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
 
     @Override
     protected void operationPager() {
-        if (isExam) {
+        if (isExam || examType ==ClassContstant.EXERCISE_BEFORE_CLASS   ) {
             btnSubmit.setVisibility(View.GONE);
         } else {
             btnSubmit.setImageResource(R.mipmap.icon_congzuo_n);

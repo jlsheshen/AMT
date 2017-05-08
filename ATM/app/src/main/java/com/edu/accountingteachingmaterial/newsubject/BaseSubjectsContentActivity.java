@@ -60,7 +60,10 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 * 上个页面传来的是否是考试
 	 */
 	public static final String IS_EXAM = "IS_EXAM";
-
+	/**
+	 * 练习类型
+	 */
+	public static final String  EXERCISE_TYPE ="EXERCISE_TYPE";
 	//确认类型-退出
 	protected static final int CONFIRM_EXIT = 1;
 	//确认类型-提交
