@@ -30,7 +30,7 @@ public class BlankView extends BasicSubjectView implements ISubject {
 
 	@Override
 	protected void initBody(RelativeLayout layoutContent) {
-		String question = ((TestBlankData) mTestData).getSubjectData().getBody();
+		String question = ((TestBlankData) mTestData).getSubjectData().getQuestion().toString();
 		List<String> answers = ((TestBlankData) mTestData).getSubjectData().getAnswers();
 		//填空控件初始化
 		fillInBlankView = new FillInBlankView(mContext, question, answers);
@@ -50,7 +50,7 @@ public class BlankView extends BasicSubjectView implements ISubject {
 				builder.append("\n" + answer);
 			}
 		}
-		tvAnswer.setText(getJudgeResult() + "，正确答案是:\n" + builder.toString());
+		tvAnswer.setText(getJudgeResult() + "正确答案是:\n" + builder.toString());
 	}
 
 	@Override
@@ -96,7 +96,8 @@ public class BlankView extends BasicSubjectView implements ISubject {
 		for (BlankAnswer blank : answer.getAnswers()) {
 			score += blank.getScore();
 		}
-		mTestData.setuScore(score);
+		//此处废除判分逻辑
+		mTestData.setuScore(0);
 		//根据每个空的结果状态设置对应空的样式
 //		fillInBlankView.judgeAnswer(answer.getAnswers());
 

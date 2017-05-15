@@ -65,7 +65,7 @@ public class StartStudyActivity extends BaseActivity {
         bgIv = bindView(R.id.startstudy_bg_iv);
         passwerEt = bindView(R.id.startstudy_pw_et);
         passwerEt.setText(PreferenceHelper.getInstance(this).getStringValue(STUDNET_PASSWORD));
-        passwerEt.setText("123456");
+//        passwerEt.setText("123456");
 
         passwerEt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

@@ -1,7 +1,6 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
 import android.content.ContentValues;
-import android.os.Bundle;
 import android.view.View;
 
 import com.edu.accountingteachingmaterial.R;
@@ -25,19 +24,20 @@ import java.util.List;
  */
 public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
     public boolean isExam;
-    public int chapterId;
+    public String chapterId;
     boolean isBook;
     int examType = 0;
 
     @Override
     protected List<BaseTestData> initDatas() {
-        Bundle bundle = getIntent().getExtras();
-        isExam = bundle.getBoolean(IS_EXAM);
+        isExam = mBundle.getBoolean(IS_EXAM);
+        titleContent = mBundle.getString(TITLE);
+
         if (!isExam){
-            examType = bundle.getInt(EXERCISE_TYPE);
+            examType = mBundle.getInt(EXERCISE_TYPE);
 
         }
-        chapterId = bundle.getInt(CHAPTER_ID);
+        chapterId =  mBundle.getString(CHAPTER_ID);
         isBook = PreferenceHelper.getInstance(this).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
         if (isExam){
             return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_SHOW_DETAILS, chapterId);
@@ -49,7 +49,7 @@ public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
 
     @Override
     protected void operationPager() {
-        if (isExam || examType ==ClassContstant.EXERCISE_BEFORE_CLASS   ) {
+        if (isExam || examType ==ClassContstant.EXERCISE_BEFORE_CLASS) {
             btnSubmit.setVisibility(View.GONE);
         } else {
             btnSubmit.setImageResource(R.mipmap.icon_congzuo_n);
@@ -63,7 +63,7 @@ public class ShowDetailsContentActivity extends BaseSubjectsContentActivity {
 
     @Override
     protected void initTitle() {
-        tvTitle.setText("查看详情示例");
+        tvTitle.setText(titleContent);
     }
 
     @Override

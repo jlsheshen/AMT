@@ -9,6 +9,7 @@ import com.edu.accountingteachingmaterial.bean.UpdateScoreBean;
 import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.SplitChapterIdUtil;
 import com.lucher.net.req.RequestMethod;
 
 import org.apache.http.Header;
@@ -50,13 +51,12 @@ public class GetScoreListManager extends BaseNetManager {
      * @param
      * @param examScoreListListener
      */
-    public void setExamId(ExamScoreListListener examScoreListListener, int examId) {
-        chapter = String.valueOf(examId);
+    public void setExamId(ExamScoreListListener examScoreListListener, String examId) {
+        chapter = examId;
         String studentId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
+        String sendExamId = SplitChapterIdUtil.spliterId(examId,studentId);
 
-        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(studentId));
-
-        String url = NetUrlContstant.getFindExamScoreList() + sendExamId[0] + "-" + studentId;
+        String url = NetUrlContstant.getFindExamScoreList() + sendExamId+ "-" + studentId;
         NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
         Log.d("GroupTaskListManager", "url" + url);
         sendRequest(entity);

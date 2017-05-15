@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.edu.accountingteachingmaterial.R;
@@ -23,7 +22,7 @@ import java.util.List;
  * @author lucher
  */
 public class OnlineTestContentActivity extends BaseSubjectsContentActivity implements ResultsListener, CountryTestTimer.OnTimeOutListener {
-    public int chapterId;
+    public String chapterId;
     public int totalTime;
 
     // 页面相关状态的监听
@@ -48,23 +47,23 @@ public class OnlineTestContentActivity extends BaseSubjectsContentActivity imple
 
     @Override
     protected List<BaseTestData> initDatas() {
-        Bundle bundle = getIntent().getExtras();
-        chapterId = bundle.getInt(CHAPTER_ID);
+        chapterId = mBundle.getString(CHAPTER_ID);
+        titleContent = mBundle.getString(TITLE);
 
 //		textMode = bundle.getInt("textMode");
-        totalTime = bundle.getInt(TOTAL_TIME);
+        totalTime = mBundle.getInt(TOTAL_TIME);
 
         return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
     }
 
     @Override
     protected void operationPager() {
-
+        mSubjectAdapter.setOnLineExam();
     }
 
     @Override
     protected void initTitle() {
-        tvTitle.setText("在线测试示例");
+        tvTitle.setText(titleContent);
     }
 
     @Override
@@ -152,6 +151,8 @@ public class OnlineTestContentActivity extends BaseSubjectsContentActivity imple
                 break;
 
             case CONFIRM_SUBMIT:
+                saveAnswer();
+
                 submit();
 
                 break;

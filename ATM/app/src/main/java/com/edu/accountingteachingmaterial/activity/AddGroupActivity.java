@@ -26,6 +26,7 @@ import java.util.List;
 /**
  * 添加小组界面
  * Created by Administrator on 2017/2/28.
+ * >adb shell monkey -p com.edu.accountingteachingmaterial -v 1000>D:\CC\monkeytest.txt
  */
 
 public class AddGroupActivity extends BaseActivity implements AdapterView.OnItemClickListener, GroupAddOneManager.AddGroupOneListener,  AddTasktManager.AddTaskListener, AddGroupAdapter.ItemFootViewClickListener, JoinGroupDialog.OnButtonClickListener, View.OnClickListener {

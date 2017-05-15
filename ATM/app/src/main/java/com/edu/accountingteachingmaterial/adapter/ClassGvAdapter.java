@@ -60,12 +60,12 @@ public class ClassGvAdapter extends BaseAdapter{
         }
         ClassBean data = datas.get(position);
         viewHolder.nameTv.setText(data.getTitle());
-        Log.d("ClassGvAdapter", data.getPicture());
-        data.getPicture().replace("\\","/");
+        Log.d("ClassGvAdapter", data.getPicture() + "反斜杠是" + "\\");
+        String s= data.getPicture().replace("\\","/");
 //        data.setPicture(data.getPicture().replace("\\","/"));
-        Log.d("ClassGvAdapter", "替换后 "+ data.getPicture());
+        Log.d("ClassGvAdapter", "替换后 "+s);
 //        data.getPicture().replaceAll("\\","  ");
-        ImageLoader.getInstance().displayImage(data.getPicture(), viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+        ImageLoader.getInstance().displayImage(s, viewHolder.bgIv, EduImageLoader.getInstance().getDefaultBuilder().build());
         viewHolder.authorTv.setText(data.getName());
         return convertView;
     }

@@ -148,12 +148,18 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
     public float submit(int index) {
         if (mSubjectList.size() <= 0)
             return 0;
+        SubjectViewPagerFragment pager = mPagerList.get(index);
+        if (pager != null) {
+           pager.submit();
+        }
         submitSubject(index);
+
         float totalScore = mSubjectList.get(index).getuScore();
         Log.d(TAG, "totalScore:" + totalScore);
 //        if (mListener != null) {
-////            mListener.onSaveTestData(mSubjectList.get(index));
+//            mListener.onSaveTestData(mSubjectList.get(index));
 //        }
+
 
         return totalScore;
 
@@ -186,10 +192,10 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
     private void submitSubject(int index) {
         SubjectViewPagerFragment pager = mPagerList.get(index);
         if (pager != null) {
-            pager.submit();
-            if (mListener != null) {
-            mListener.onSaveTestData(mSubjectList.get(index));
-            }
+//           pager.submit();
+//            if (mListener != null) {
+//            mListener.onSaveTestData(mSubjectList.get(index));
+//            }
         }
         // 判断正误，在此之前需要把对应的题得分设置到data中
         if (mSubjectList.get(index).getSubjectData().getScore() == mSubjectList.get(index).getuScore()) {
@@ -295,6 +301,9 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 //                if (mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
 //                    return;
 //                }
+//                if (mPagerList.get(index) != null) {
+//                    mPagerList.get(index).submit();
+//                }
                 if (mPagerList.get(index) != null){
                   mPagerList.get(index).saveAnswer();}
                 if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
@@ -324,8 +333,9 @@ public class SubjectViewPagerAdapter extends FragmentPagerAdapter {
 //                if (mSubjectList.get(index).getState() == SubjectState.STATE_CORRECT || mSubjectList.get(index).getState() == SubjectState.STATE_WRONG) {
 //                    return;
 //                }
+                if (mPagerList.get(index)!= null) {
                     mPagerList.get(index).saveAnswer();
-
+                }
                 if (mSubjectList.get(index).getState() == SubjectState.STATE_INIT) {
                     mSubjectList.get(index).setState(SubjectState.STATE_UNFINISH);
 

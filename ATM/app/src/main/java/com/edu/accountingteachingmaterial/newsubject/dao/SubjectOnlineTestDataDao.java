@@ -103,7 +103,7 @@ String TAG = "SubjectOnlineTestDataDao";
 	 * @param testMode 测试模式，见{@link TestMode}
 	 * @return
 	 */
-	public List<BaseTestData> getSubjects(int testMode, int chapter) {
+	public List<BaseTestData> getSubjects(int testMode, String chapter) {
 		Cursor curs = null;
 		List<BaseTestData> datas = null;
 		try {
@@ -494,7 +494,7 @@ String TAG = "SubjectOnlineTestDataDao";
 	 *
 	 * @param subjectId
 	 */
-	public void insertTest(int subjectId,int chapterid,int flag) {
+	public void insertTest(int subjectId,String chapterid,int flag) {
 //        DBHelper helper = new DBHelper(mContext, Constant.DATABASE_NAME, null);
 //        SQLiteDatabase db = helper.getWritableDatabase();
 

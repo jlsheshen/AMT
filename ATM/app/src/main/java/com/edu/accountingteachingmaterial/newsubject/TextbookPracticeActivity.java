@@ -1,7 +1,6 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
 import android.content.ContentValues;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,7 +28,7 @@ import java.util.List;
  */
 public class TextbookPracticeActivity extends BaseSubjectsContentActivity  {
 	public int pagerItem;
-	public int chapterId;
+	public String chapterId;
 	@Override
 	protected void init() {
 		super.init();
@@ -42,9 +41,9 @@ public class TextbookPracticeActivity extends BaseSubjectsContentActivity  {
 
 	@Override
 	protected List<BaseTestData> initDatas() {
-		Bundle bundle = getIntent().getExtras();
-		 chapterId = bundle.getInt(CHAPTER_ID);
-		pagerItem = bundle.getInt(EXERCISE_ITEM);
+		 chapterId = mBundle.getString(CHAPTER_ID);
+		pagerItem = mBundle.getInt(EXERCISE_ITEM);
+		titleContent = mBundle.getString(TITLE);
 		return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,chapterId);
 	}
 	@Override
@@ -54,7 +53,7 @@ public class TextbookPracticeActivity extends BaseSubjectsContentActivity  {
 
 	@Override
 	protected void initTitle() {
-		tvTitle.setText("练习模式示例");
+		tvTitle.setText(titleContent);
 	}
 
 	@Override

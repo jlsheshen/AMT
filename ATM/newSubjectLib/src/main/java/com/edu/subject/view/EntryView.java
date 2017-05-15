@@ -1,8 +1,5 @@
 package com.edu.subject.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +21,9 @@ import com.edu.subject.entry.view.EntryItemView;
 import com.edu.subject.entry.view.EntryItemView.EntryItemListener;
 import com.edu.subject.entry.view.GroupEntryItemData;
 import com.edu.subject.entry.view.GroupEntryItemView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 分录题型控件
@@ -182,7 +182,7 @@ public class EntryView extends BasicSubjectView implements OnClickListener, Entr
 		if (groups != null) {
 			answer = mAnswerHandler.getFormatedAnswer(groups);
 		}
-		tvAnswer.setText(getJudgeResult() + ",正确答案是\n" + answer);
+		tvAnswer.setText(getJudgeResult() + "正确答案是\n" + answer);
 	}
 
 	@Override

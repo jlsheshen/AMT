@@ -50,7 +50,7 @@ public class EmphasisManager extends BaseNetManager {
      *
      * @param
      */
-    public void getEmphasis(EmphasisListener emphasisListener, int chapterId) {
+    public void getEmphasis(EmphasisListener emphasisListener, String chapterId) {
         boolean isBook = PreferenceHelper.getInstance(mContext).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
         String bookStr = isBook? ClassContstant.TEXT_BOOK_TYPE:ClassContstant.CLASS_TYPE;
         String url = NetUrlContstant.getClassicCaseUrl() + chapterId + "-" + 1 + "-" + bookStr;

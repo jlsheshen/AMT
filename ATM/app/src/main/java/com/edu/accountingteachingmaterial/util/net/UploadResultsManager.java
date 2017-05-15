@@ -12,6 +12,7 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamListDao;
 import com.edu.accountingteachingmaterial.model.ResultsListener;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.SplitChapterIdUtil;
 import com.edu.library.util.ToastUtil;
 import com.edu.subject.data.BaseTestData;
 import com.edu.subject.net.SubjectAnswerResult;
@@ -39,7 +40,7 @@ public class UploadResultsManager extends JsonNetReqManager {
     // 需要上传答题结果的所有数据
     private List<SubjectAnswerResult> mAnswerResults;
     private static UploadResultsManager mSingleton;
-    int examId;
+    String examId;
     ResultsListener resultsListener;
 
     public void setResultsListener(ResultsListener resultsListener) {
@@ -102,7 +103,7 @@ public class UploadResultsManager extends JsonNetReqManager {
      ** @param examId
      * @param seconds
      */
-    public void uploadResult( int examId, int seconds) {
+    public void uploadResult( String examId, int seconds) {
 
         String studentId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
 
@@ -111,9 +112,10 @@ public class UploadResultsManager extends JsonNetReqManager {
             ToastUtil.showToast(mContext, "发送结果为空");
             return;
         }
-        String sendExamId[] = (String.valueOf(examId)).split(studentId);
+        String sendExamId = SplitChapterIdUtil.spliterId(examId,studentId);
+
         Log.d("UploadResultsManager", "-----------" + JSON.toJSONString(mAnswerResults));
-        String url = NetUrlContstant.getSubjectSubmitUrl() + studentId + "-" + sendExamId[0] + "-" + seconds;
+        String url = NetUrlContstant.getSubjectSubmitUrl() + studentId + "-" + sendExamId + "-" + seconds;
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));
         sendRequest(entity, "正在拼命上传成绩");
         Log.d("UploadResultsManager", "uploadResult:" + JSON.toJSONString(mAnswerResults));
@@ -124,16 +126,17 @@ public class UploadResultsManager extends JsonNetReqManager {
      *
      * @param examId
      */
-    public void uploadResult( int examId) {
-        int studentId = Integer.parseInt(PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID));
+    public void uploadResult( String examId) {
+        String studentId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
         this.examId = examId;
         if (mAnswerResults == null || mAnswerResults.size() <= 0) {
             ToastUtil.showToast(mContext, "发送结果为空");
             return;
         }
-        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(studentId));
+//        String sendExamId[] = (String.valueOf(examId)).split(".");
+        String sendExamId = SplitChapterIdUtil.spliterId(examId,studentId);
 
-        String url = NetUrlContstant.getSubjectSingleSubmitUrl() + studentId + "-" + sendExamId[0];
+        String url = NetUrlContstant.getSubjectSingleSubmitUrl() + studentId + "-" + sendExamId;
         Log.d("UploadResultsManager", "mAnswerResults.get(0):" + mAnswerResults.get(0) + "--" + url);
         Log.d("UploadResultsManager", "-----------" + JSON.toJSONString(mAnswerResults));
         JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(mAnswerResults));

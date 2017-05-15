@@ -76,7 +76,9 @@ public class ComprehensiveView extends FrameLayout implements ISubject, OnPageCh
 		//问题初始化
 		questionView = new QuestionView(mContext);
 		slideableContainer.setUnSlideableContent(questionView);
-		questionView.setSubjectType("综合题(" + mSubjectData.getScore() + "分)");
+		questionView.setSubjectType("综合题"
+//				+ mSubjectData.getScore() + "分)"
+		);
 		questionView.setQuestion(mSubjectData.getQuestion());
 		//滑块初始化
 		View sliderView = View.inflate(mContext, R.layout.layout_comprehensive_slider, null);
@@ -94,7 +96,7 @@ public class ComprehensiveView extends FrameLayout implements ISubject, OnPageCh
 	/**
 	 * 初始化内容
 	 * 
-	 * @param type
+	 *
 	 */
 	private void initContent() {
 		refreshSliderLabel();
@@ -170,7 +172,7 @@ public class ComprehensiveView extends FrameLayout implements ISubject, OnPageCh
 	@Override
 	public void saveAnswer() {
 		if (inited) {
-			mTestData.setUAnswerData(mSubjectsAdapter.getUAnswer());
+			mTestData.setUAnswerData(mSubjectsAdapter.getUAnswer(mTestData.getTestDatas()));
 		}
 	}
 
@@ -180,10 +182,11 @@ public class ComprehensiveView extends FrameLayout implements ISubject, OnPageCh
 			//计算得分
 			float score = mSubjectsAdapter.submit();
 			mTestData.setuScore(score);
-			//保存答案
-			saveAnswer();
 			//判断答案
 			judgeAnswer();
+			//保存答案
+			saveAnswer();
+
 			if (mTestMode == TestMode.MODE_PRACTICE) {
 				showDetails();
 			}

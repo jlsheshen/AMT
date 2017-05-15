@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.edu.accountingteachingmaterial.R;
@@ -38,9 +37,9 @@ public class ErrorPracticeActivity extends BaseSubjectsContentActivity  {
 
 	@Override
 	protected List<BaseTestData> initDatas() {
-		Bundle bundle = getIntent().getExtras();
-		pagerItem = bundle.getInt(ERRORS_ITEM,0);
-		datas = (List<BaseTestData>) bundle.get(ERRORS_DATAS);
+		pagerItem = mBundle.getInt(ERRORS_ITEM,0);
+		datas = (List<BaseTestData>) mBundle.get(ERRORS_DATAS);
+
 		return datas;
 	}
 	@Override
@@ -50,7 +49,7 @@ public class ErrorPracticeActivity extends BaseSubjectsContentActivity  {
 
 	@Override
 	protected void initTitle() {
-		tvTitle.setText("练习模式示例");
+		tvTitle.setText("我的错题");
 	}
 
 	@Override
@@ -143,6 +142,7 @@ public class ErrorPracticeActivity extends BaseSubjectsContentActivity  {
 				break;
 
 			case CONFIRM_SUBMIT:
+				saveAnswer();
 				handSubmit();
 				finish();
 				break;

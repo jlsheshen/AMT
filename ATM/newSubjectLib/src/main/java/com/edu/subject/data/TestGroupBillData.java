@@ -61,10 +61,10 @@ public class TestGroupBillData extends BaseTestData {
 		}
 		String uAnswer = JSON.toJSONString(billAnswers);
 		result.setAnswer(uAnswer);
-		result.setFlag(getSubjectData().getFlag());
+		result.setFlag(testDatas.get(0).getFlag());
 		result.setType(SubjectType.SUBJECT_BILL);
 		if (uAnswer == null) {
-			result.setAnswer("null");
+			result.setAnswer("");
 		} else {
 			result.setAnswer(uAnswer);
 		}
@@ -84,5 +84,6 @@ public class TestGroupBillData extends BaseTestData {
 
 	@Override
 	public void parseUAnswerData(UserAnswerData answer) {
+
 	}
 }

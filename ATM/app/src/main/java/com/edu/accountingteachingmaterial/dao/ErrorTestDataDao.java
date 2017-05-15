@@ -456,6 +456,7 @@ public class ErrorTestDataDao extends BaseDataDao2 {
             mDb.setTransactionSuccessful();
             mDb.endTransaction();
         }
+
     }
 
     @Override

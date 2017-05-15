@@ -25,7 +25,7 @@ import java.util.List;
  * @author lucher
  */
 public class ClassExamActivity extends BaseSubjectsContentActivity implements ResultsListener {
-    public int chapterId;
+    public String chapterId;
 
     @Override
     protected void init() {
@@ -37,8 +37,9 @@ public class ClassExamActivity extends BaseSubjectsContentActivity implements Re
 
     @Override
     protected List<BaseTestData> initDatas() {
-        Bundle bundle = getIntent().getExtras();
-        chapterId = bundle.getInt(CHAPTER_ID);
+        chapterId = mBundle.getString(CHAPTER_ID);
+        titleContent = mBundle.getString(TITLE);
+
         return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
     }
 
@@ -49,7 +50,7 @@ public class ClassExamActivity extends BaseSubjectsContentActivity implements Re
 
     @Override
     protected void initTitle() {
-        tvTitle.setText("测试模式示例");
+        tvTitle.setText(titleContent);
     }
 
     @Override
@@ -155,6 +156,12 @@ public class ClassExamActivity extends BaseSubjectsContentActivity implements Re
     @Override
     public void onResultsSuccess() {
         EventBus.getDefault().unregister(this);
+        Bundle b = new Bundle();
+        b.putBoolean("isExam", false);
+        b.putInt(EXERCISE_TYPE, ClassContstant.EXERCISE_BEFORE_CLASS);
+        b.putString(CHAPTER_ID, chapterId);
+        b.putString(TITLE,titleContent);
+        startActivity(ShowDetailsContentActivity.class, b);
         finish();
     }
 

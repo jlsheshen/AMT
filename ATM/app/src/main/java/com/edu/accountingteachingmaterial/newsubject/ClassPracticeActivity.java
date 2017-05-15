@@ -1,7 +1,6 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
 import android.content.ContentValues;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
@@ -31,7 +30,7 @@ import java.util.List;
  */
 public class ClassPracticeActivity extends BaseSubjectsContentActivity implements ResultsListener {
 	public int pagerItem;
-	public int chapterId;
+	public String chapterId;
 	@Override
 	protected void init() {
 		super.init();
@@ -44,9 +43,10 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 
 	@Override
 	protected List<BaseTestData> initDatas() {
-		Bundle bundle = getIntent().getExtras();
-        chapterId = bundle.getInt(CHAPTER_ID);
-		pagerItem = bundle.getInt(EXERCISE_ITEM);
+        chapterId = mBundle.getString(CHAPTER_ID);
+		pagerItem = mBundle.getInt(EXERCISE_ITEM);
+		titleContent = mBundle.getString(TITLE);
+
 		return SubjectTestDataDao.getInstance(this).getSubjects(TestMode.MODE_PRACTICE,chapterId);
 	}
 	@Override
@@ -56,14 +56,14 @@ public class ClassPracticeActivity extends BaseSubjectsContentActivity implement
 
 	@Override
 	protected void initTitle() {
-		tvTitle.setText("练习模式示例");
+		tvTitle.setText(titleContent);
 	}
 
 	@Override
 	protected void refreshToolBar() {
 		CommonSubjectData subject = mSubjectAdapter.getData(mCurrentIndex).getSubjectData();
 		int type = subject.getSubjectType();
-		//		if (type != SubjectType.SUBJECT_SINGLE && type != SubjectType.SUBJECT_JUDGE) {
+		//if (type != SubjectType.SUBJECT_SINGLE && type != SubjectType.SUBJECT_JUDGE) {
 		btnSubmit.setVisibility(View.VISIBLE);//方案调整，所有题型都显示提交按钮
 		refreshSubmitState();
 		if (type == SubjectType.SUBJECT_BILL || type == SubjectType.SUBJECT_GROUP_BILL) {

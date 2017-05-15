@@ -1,6 +1,7 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -47,6 +48,10 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	 * 上个页面传来的随堂练习item
 	 */
 	public static final String EXERCISE_ITEM = "EXERCISE_ITEM";
+	/**
+	 *显示的title名称
+	 */
+	public static final String TITLE = "TITLE";
 
 	/**
 	 * 上个页面传来的试卷信息
@@ -78,7 +83,8 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 	//用于获取上个页面的值
 	Bundle mBundle;
 
-
+	//标题文字
+	protected String titleContent;
 	// 标题，例如xx测试
 	protected TextView tvTitle;
 	// 印章，闪电符，答题卡，提交按钮
@@ -123,8 +129,7 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 		// 控件初始化
 		viewPager = (ViewPager) findViewById(R.id.vp_content);
 		viewPager.setOnPageChangeListener(this);
-		tvTitle = (TextView) findViewById(R.id.tvTitle);
-//		initTitle();
+		tvTitle = (TextView) findViewById(R.id.tvQuestion);
 		btnSign = (ImageView) findViewById(R.id.btnSign);
 		btnFlash = (ImageView) findViewById(R.id.btnFlash);
 		btnCard = (ImageView) findViewById(R.id.btnCard);
@@ -133,6 +138,8 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 
 		// 题目数据，答题卡初始化
 		List<BaseTestData> datas = initDatas();
+		initTitle();
+
 		if (datas == null || datas.size() == 0){
 			onDatasError();
 			finish();
@@ -211,6 +218,19 @@ public abstract class BaseSubjectsContentActivity extends FragmentActivity imple
 //			mConfirmDialog.setMessage(message);
 			mConfirmDialog.show();
 		}
+	}
+
+	/**
+	 * 界面跳转，带参数
+	 *
+	 * @param context
+	 * @param cls
+	 * @param bundle
+	 */
+	protected void startActivity(Class cls, Bundle bundle) {
+		Intent intent = new Intent(this, cls);
+		intent.putExtras(bundle);
+		startActivity(intent);
 	}
 
 	/**

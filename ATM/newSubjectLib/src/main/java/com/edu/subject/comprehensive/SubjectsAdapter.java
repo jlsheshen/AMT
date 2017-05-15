@@ -59,7 +59,7 @@ public class SubjectsAdapter extends PagerAdapter {
 			for (int i = 0; i < mSubjectDatas.size(); i++) {
 				//设置答题状态
 				if (mTestData.getState() == SubjectState.STATE_CORRECT || mTestData.getState() == SubjectState.STATE_WRONG) {
-					if (mSubjectDatas.get(i).getuScore() == mSubjectDatas.get(i).getSubjectData().getScore()) {
+					if (mTestData.getUAnswerData().getAnswerDatas().get(i).getuScore() == mSubjectDatas.get(i).getSubjectData().getScore()) {
 						mSubjectDatas.get(i).setState(SubjectState.STATE_CORRECT);
 					} else {
 						mSubjectDatas.get(i).setState(SubjectState.STATE_WRONG);
@@ -67,6 +67,12 @@ public class SubjectsAdapter extends PagerAdapter {
 				}
 
 				BasicSubjectView subjectView = createSubjectView(mSubjectDatas.get(i));
+				//暂时用来解决综合题下滑问题
+				subjectView.scrollTo(0,0);
+//				TextView textView = new TextView(mContext);
+//				textView.setText("此处显示题型");
+//				mViews.add(textView);
+
 				mViews.add(subjectView);
 				subjectView.setChild(true);
 				subjectView.onVisible();
@@ -143,7 +149,7 @@ public class SubjectsAdapter extends PagerAdapter {
 	 * 获取用户答案
 	 * @return
 	 */
-	public ComprehensiveAnswerData getUAnswer() {
+	public ComprehensiveAnswerData getUAnswer( List<BaseTestData> mSubjectDatas) {
 		ComprehensiveAnswerData answer = new ComprehensiveAnswerData();
 		List<UserAnswerData> childAnswers = new ArrayList<UserAnswerData>(mViews.size());
 		for (int i = 0; i < mViews.size(); i++) {
@@ -154,10 +160,8 @@ public class SubjectsAdapter extends PagerAdapter {
 			userAnswer.setType(mSubjectDatas.get(i).getSubjectData().getSubjectType());
 			userAnswer.setState(mSubjectDatas.get(i).getState());
 			userAnswer.setId(mSubjectDatas.get(i).getSubjectData().getFlag());
-
 			if (answerData instanceof BasicAnswerData) {//基础类题型，直接设置uAnswer为字符串
 				userAnswer.setUanswer(((BasicAnswerData) answerData).getUanswer());
-
 			} else {
 				userAnswer.setUanswer(JSON.toJSONString(answerData));
 			}

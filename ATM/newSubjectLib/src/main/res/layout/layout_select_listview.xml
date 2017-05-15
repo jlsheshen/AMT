@@ -3,5 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:cacheColorHint="@color/trans_parent"
+    android:paddingLeft="20dp"
     android:divider="@null"
     android:listSelector="@color/trans_parent" />

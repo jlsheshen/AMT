@@ -1,6 +1,5 @@
 package com.edu.accountingteachingmaterial.newsubject;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.edu.accountingteachingmaterial.dao.SubjectTestDataDao;
@@ -18,14 +17,15 @@ import java.util.List;
  * 
  */
 public class ShowUAnswerContentActivity extends BaseSubjectsContentActivity {
-	int chapterId;
+	String chapterId;
 	public boolean isExam;
 
 	@Override
 	protected List<BaseTestData> initDatas() {
-		Bundle bundle = getIntent().getExtras();
-		chapterId = bundle.getInt(CHAPTER_ID);
-		isExam = bundle.getBoolean(IS_EXAM);
+		chapterId = mBundle.getString(CHAPTER_ID);
+		isExam = mBundle.getBoolean(IS_EXAM);
+		titleContent = mBundle.getString(TITLE);
+
 		btnSubmit.setVisibility(View.GONE);
 
 		if (isExam){
@@ -46,7 +46,7 @@ public class ShowUAnswerContentActivity extends BaseSubjectsContentActivity {
 
 	@Override
 	protected void initTitle() {
-		tvTitle.setText("显示用户答案示例");
+		tvTitle.setText(titleContent);
 	}
 
 	@Override

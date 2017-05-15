@@ -45,6 +45,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.List;
 
 import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.EXERCISE_ITEM;
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.TITLE;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.CHAPTER_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.EXAM_ID;
 
@@ -138,16 +139,16 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                 Log.d("ClassExerciseFragment", NetUrlContstant.getSubjectListUrl() + datas.get(i).getId());
                 item = i;
                 b.putInt("EXERCISE_TYPE", datas.get(i).getLesson_type());
-
+                b.putString(TITLE,datas.get(i).getExam_name());
                 if (datas.get(i).getState() == ClassContstant.EXAM_DOWNLOADING) {
                     return false;
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_NOT) {
                     stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), datas.get(i).getId());
+                    SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), String.valueOf(datas.get(i).getId()));
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
-                    b.putInt(CHAPTER_ID, datas.get(i).getId());
+                    b.putString(CHAPTER_ID, String.valueOf(datas.get(i).getId()));
                     b.putBoolean("isExam", false);
                     if (isBook) {
                         startActivity(TextBookExamActivity.class, b);
@@ -156,17 +157,17 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_COMMIT && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     if (isBook){
-                        b.putInt(CHAPTER_ID, datas.get(i).getId());
+                        b.putString(CHAPTER_ID, String.valueOf(datas.get(i).getId()));
                         startActivity(ShowDetailsContentActivity.class, b);
                     }else {
-                        GetScoreListManager.getSingleton(context).setExamId(ClassExerciseFragment.this, datas.get(i).getId());
+                        GetScoreListManager.getSingleton(context).setExamId(ClassExerciseFragment.this, String.valueOf(datas.get(i).getId()));
                     }
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_READ) {
                     if (isBook){
-                        b.putInt(CHAPTER_ID, datas.get(i).getId());
+                        b.putString(CHAPTER_ID, String.valueOf(datas.get(i).getId()));
                         startActivity(ShowDetailsContentActivity.class, b);
                     }else {
-                        GetScoreListManager.getSingleton(context).setExamId(ClassExerciseFragment.this, datas.get(i).getId());
+                        GetScoreListManager.getSingleton(context).setExamId(ClassExerciseFragment.this, String.valueOf(datas.get(i).getId()));
                     }
 
                 } else if (datas.get(i).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS) {
@@ -175,7 +176,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                         stateIv = (ImageView) view.findViewById(R.id.item_exercise_type_iv);
                         stateIv.setVisibility(View.GONE);
                         view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
-                        SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), datas.get(i).getId());
+                        SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), String.valueOf(datas.get(i).getId()));
                     }
                     return false;
                 }
@@ -214,7 +215,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
             if (datas.get(item).getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && state != ClassContstant.EXAM_NOT) {
                 Log.d("ClassExerciseFragment", "走过了2EventBus" + state);
 
-                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, datas.get(item).getId()));
+                datas.get(item).setTestList(SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, String.valueOf(datas.get(item).getId())));
             }
             refreshAdapter();
         } else {
@@ -258,7 +259,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                             data.setState(data1.getState());
                         }
                         if (data.getLesson_type() == ClassContstant.EXERCISE_IN_CLASS && data.getState() != ClassContstant.EXAM_NOT) {
-                            List<BaseTestData> tests = SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, data.getId());
+                            List<BaseTestData> tests = SubjectTestDataDao.getInstance(context).getSubjects(TestMode.MODE_PRACTICE, String.valueOf(data.getId()));
                             data.setTestList(tests);
                         }
                     }
@@ -337,7 +338,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
     @Override
     public void onGetScoreSuccess(List<UpdateScoreBean> updateScoreBeanList,String chapterId) {
         SubjectTestDataDao.getInstance(context).updateScores(updateScoreBeanList,chapterId);
-        b.putInt(CHAPTER_ID, Integer.parseInt(chapterId));
+        b.putString(CHAPTER_ID, chapterId);
 
         startActivity(ShowDetailsContentActivity.class, b);
 

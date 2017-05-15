@@ -103,6 +103,12 @@
             android:theme="@style/TranslucentBg"
             android:screenOrientation="landscape"/>
         <activity
+            android:name="com.edu.library.picgrid.PicBrowseActivity"
+            android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+            android:launchMode="singleTask"
+            android:theme="@style/TranslucentBg"
+            android:screenOrientation="landscape"/>
+        <activity
             android:name=".newsubject.ClassExamActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"

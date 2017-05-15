@@ -39,7 +39,7 @@ public class SimpleAnswerView extends BasicSubjectView implements ISubject {
 	 * 刷新正确答案
 	 */
 	protected void refreshAnswer() {
-		tvAnswer.setText(getJudgeResult() + "，正确答案是\n" + mSubjectData.getAnswer());
+		tvAnswer.setText(getJudgeResult() + "正确答案是\n" + mSubjectData.getAnswer());
 	}
 
 	@Override

@@ -91,7 +91,7 @@ public class ExamOnLineListDao extends BaseDataDao {
         return examListData;
     }
 
-    public int  getState(int chapter) {
+    public int  getState(String chapter) {
         Cursor curs = null;
         int state = 0;
         try {

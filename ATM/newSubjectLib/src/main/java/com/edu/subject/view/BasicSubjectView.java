@@ -11,6 +11,7 @@ import com.edu.subject.ISubject;
 import com.edu.subject.R;
 import com.edu.subject.SubjectListener;
 import com.edu.subject.SubjectState;
+import com.edu.subject.SubjectType;
 import com.edu.subject.TestMode;
 import com.edu.subject.common.rich.RichContentView;
 import com.edu.subject.data.BaseTestData;
@@ -179,7 +180,8 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 	 */
 	protected void initType(String type) {
 		if (isChild) {
-			tvSubjectType.setVisibility(View.GONE);
+			tvSubjectType.setVisibility(View.VISIBLE);
+			tvSubjectType.setText(type);
 		} else {
 			tvSubjectType.setVisibility(View.VISIBLE);
 			tvSubjectType.setText(mTestData.getSubjectIndex() + " . " + type + "(" + mSubjectData.getScore() + "分)");
@@ -205,7 +207,7 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 				uAnswer = "空";
 			}
 		}
-		tvAnswer.setText(getJudgeResult() + "，正确答案是" + mSubjectData.getAnswer() + ",您的答案是" + uAnswer);
+		tvAnswer.setText(getJudgeResult()+ "正确答案是" + mSubjectData.getAnswer() + ",您的答案是" + uAnswer);
 	}
 
 	/**
@@ -215,9 +217,17 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 	protected String getJudgeResult() {
 		String result = null;
 		if (mTestData.getState() == SubjectState.STATE_CORRECT) {
-			result = "回答正确";
+			result = "回答正确，";
 		} else {
-			result = "回答错误";
+			if (mTestData.getSubjectData().getSubjectType() == SubjectType.SUBJECT_BLANK||
+					mTestData.getSubjectData().getSubjectType() == SubjectType.SUBJECT_SIMPLE_ANSWER||
+					mTestData.getSubjectData().getSubjectType() == SubjectType.SUBJECT_ENTRY
+					) {
+				result = "";
+
+			}else {
+				result = "回答错误，";
+			}
 		}
 		return result;
 	}
@@ -237,8 +247,8 @@ public abstract class BasicSubjectView extends ScrollView implements ISubject {
 	@Override
 	public float submit() {
 		if (inited) {
-			saveAnswer();
 			judgeAnswer();
+			saveAnswer();
 			if (mTestMode == TestMode.MODE_PRACTICE) {
 				showDetails();
 			}

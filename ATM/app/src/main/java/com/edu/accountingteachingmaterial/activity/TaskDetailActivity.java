@@ -187,7 +187,7 @@ public class TaskDetailActivity extends BaseActivity implements RvMultiTypeAdapt
         Log.d("TaskDetailActivity", "-------------" + s);
         accessotyAdapter.setDatas(data.getFilelist());
         if (data.getHistory().size() > 0) {
-            answerManTv.setText("最后提交:" + data.getHistory().get(data.getHistory().size() - 1).getName());
+            answerManTv.setText("最后提交:" + data.getHistory().get(0).getName());
             answerManTv.setVisibility(View.VISIBLE);
         } else {
             answerManTv.setVisibility(View.GONE);

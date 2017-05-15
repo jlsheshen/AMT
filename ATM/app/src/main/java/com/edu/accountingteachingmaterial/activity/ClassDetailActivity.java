@@ -33,7 +33,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
     ImageView backIv, imgZhangjie, imgReviewHy;
     TextView textView;
     SubChaptersBean data;
-    int chapterId;
+    String chapterId;
     View vLine;
     //当前是否是教材入口
     private boolean isBook = PreferenceHelper.getInstance(BaseApplication.getContext()).getBooleanValue(PreferenceHelper.IS_TEXKBOOK);
@@ -69,7 +69,7 @@ public class ClassDetailActivity extends BaseActivity implements OnClickListener
 
         Bundle bundle = getIntent().getExtras();
         data = (SubChaptersBean) bundle.getSerializable("classData");
-        chapterId = bundle.getInt("ChapterId");
+        chapterId = bundle.getString("ChapterId");
         if (data != null) {
             textView.setText(data.getTitle());
         }

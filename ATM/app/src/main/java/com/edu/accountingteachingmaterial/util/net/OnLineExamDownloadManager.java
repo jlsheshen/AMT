@@ -12,6 +12,7 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.dao.ExamOnLineListDao;
 import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.SplitChapterIdUtil;
 import com.edu.subject.SubjectType;
 import com.edu.subject.dao.CommonSubjectDataDao;
 import com.edu.subject.data.CommonSubjectData;
@@ -34,7 +35,7 @@ import java.util.List;
 public class OnLineExamDownloadManager extends JsonNetReqManager {
 
 	private Context mContext;
-	private int chatperId;
+	private String chatperId;
 
 	public OnLineExamDownloadManager(Context context) {
 		mContext = context;
@@ -54,11 +55,13 @@ public class OnLineExamDownloadManager extends JsonNetReqManager {
 	 * 下载题目数据
 	 *
 	 */
-	public void getSubjects(int chapterId) {
+	public void getSubjects(String chapterId) {
 		this.chatperId = chapterId;
 		String userId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.USER_ID);
-		String sendExamId[] = (String.valueOf(chapterId)).split(String.valueOf(userId));
-		String url = NetUrlContstant.getSubjectListUrl() + sendExamId[0];
+		String sendExamId = SplitChapterIdUtil.spliterId(chatperId,userId);
+
+//		String sendExamId[] = (String.valueOf(chapterId)).split(".");
+		String url = NetUrlContstant.getSubjectListUrl() + sendExamId;
 		UrlReqEntity entity = new UrlReqEntity(mContext, RequestMethod.GET, url);
 		sendRequest(entity);
 	}

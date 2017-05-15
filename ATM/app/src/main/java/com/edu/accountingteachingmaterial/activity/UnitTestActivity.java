@@ -27,6 +27,7 @@ import com.edu.accountingteachingmaterial.newsubject.ShowUAnswerContentActivity;
 import com.edu.accountingteachingmaterial.newsubject.dao.SubjectOnlineTestDataDao;
 import com.edu.accountingteachingmaterial.util.NetSendCodeEntity;
 import com.edu.accountingteachingmaterial.util.PreferenceHelper;
+import com.edu.accountingteachingmaterial.util.SplitChapterIdUtil;
 import com.edu.accountingteachingmaterial.util.net.GetScoreListManager;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
 import com.edu.library.util.ToastUtil;
@@ -38,6 +39,7 @@ import java.util.List;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_NORMAL;
 import static com.edu.accountingteachingmaterial.constant.ClassContstant.TEST_MODE_TEST;
 import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.IS_EXAM;
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.TITLE;
 import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.TOTAL_TIME;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.CHAPTER_ID;
 import static com.edu.accountingteachingmaterial.util.PreferenceHelper.USER_ID;
@@ -56,7 +58,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
     LinearLayout rlScore, rlSubmitting, rlAnswerData;
     TestPaperListData testPaperListData;
     List<TopicsBean> topicsBeen;
-    int examId;
+    String examId;
     int textMode;
 
     @Override
@@ -97,7 +99,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
     public void initData() {
 
         Bundle bundle = getIntent().getExtras();
-        examId = bundle.getInt(BaseSubjectsContentActivity.CHAPTER_ID);
+        examId = bundle.getString(BaseSubjectsContentActivity.CHAPTER_ID);
         uploadTestInfo();
 
 
@@ -128,7 +130,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
                     //试卷提交后,但是未发布答案,进入查看答案
                     Bundle bundle = new Bundle();
                     bundle.putBoolean(IS_EXAM, true);
-                    bundle.putInt(CHAPTER_ID, examId);
+                    bundle.putString(CHAPTER_ID, examId);
+                    bundle.putString(TITLE,testPaperListData.getExam_name());
                     startActivity(ShowUAnswerContentActivity.class, bundle);
                     finish();
 
@@ -154,9 +157,11 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         Log.d("UnitTestActivity", "uploadTestInfo");
         String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
-        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(useId));
+        String sendExamId = SplitChapterIdUtil.spliterId(examId,useId);
 
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + sendExamId[0] + "-" + useId);
+//        String sendExamId[] = (String.valueOf(examId)).split(".");
+
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + sendExamId + "-" + useId);
 //        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getExamInfoUrl() + examId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
@@ -191,9 +196,10 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
     private void uploadTestTime() {
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         String useId = PreferenceHelper.getInstance(this).getStringValue(USER_ID);
-        String sendExamId[] = (String.valueOf(examId)).split(String.valueOf(useId));
+        String sendExamId = SplitChapterIdUtil.spliterId(examId,useId);
+//        String sendExamId[] = (String.valueOf(examId)).split(".");
 
-        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + sendExamId[0] + "-" + useId);
+        NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getUploadingTestTime() + sendExamId + "-" + useId);
         sendJsonNetReqManager.sendRequest(netSendCodeEntity);
         sendJsonNetReqManager.setOnJsonResponseListener(new SendJsonNetReqManager.JsonResponseListener() {
             @Override
@@ -204,7 +210,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
 
                         //ExamListData考试数据（测试）
                         Bundle bundle = new Bundle();
-                        bundle.putInt(CHAPTER_ID, examId);
+                        bundle.putString(CHAPTER_ID, examId);
 //                        bundle.putInt("textMode", textMode);
                         bundle.putInt(TOTAL_TIME, startExamData.getRemaining());
                         startActivity(OnlineTestContentActivity.class, bundle);
@@ -276,7 +282,7 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
                 state = ClassContstant.EXAM_READ;
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(ExamOnLineListDao.STATE, state);
-                ExamOnLineListDao.getInstance(this).updateData(String.valueOf(examId), contentValues);
+                ExamOnLineListDao.getInstance(this).updateData(examId, contentValues);
                 textMode = TEST_MODE_TEST;
                 refreshState();
                 return;
@@ -309,7 +315,8 @@ public class UnitTestActivity extends BaseActivity implements OnClickListener, G
 
         Bundle bundle = new Bundle();
         bundle.putBoolean(IS_EXAM, true);
-        bundle.putInt(CHAPTER_ID, examId);
+        bundle.putString(CHAPTER_ID, examId);
+        bundle.putString(TITLE,testPaperListData.getExam_name());
         startActivity(ShowDetailsContentActivity.class, bundle);
         finish();
     }

@@ -173,7 +173,7 @@ public class TestBillData extends BaseTestData {
 		result.setFlag(getSubjectData().getFlag());
 		result.setType(SubjectType.SUBJECT_BILL);
 		if (answerData == null) {
-			result.setAnswer("null");
+			result.setAnswer("");
 		} else {
 			result.setAnswer(JSON.toJSONString(answerData));
 		}

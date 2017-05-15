@@ -1,13 +1,11 @@
 package com.edu.accountingteachingmaterial.util.net;
 
-import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
@@ -68,7 +66,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     SQLiteDatabase mDb = null;
     private static GetBillTemplatesManager instance;
-    ProgressDialog myDialog;
+//    ProgressDialog myDialog;
 
 
     private GetBillTemplatesManager(Context context) {
@@ -154,13 +152,8 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
         boolean result = json.getBoolean("result");
         final String message = json.getString("message");
         if (result) {
-
-            myDialog = new ProgressDialog(mContext);
-            myDialog.getWindow().setType(WindowManager.LayoutParams.TYPE_TOAST);
-            myDialog.setTitle("正在加载模板..");
-            myDialog.setMessage("第一次加载时间会比较久^-^");
-            myDialog.setCancelable(false);
-            myDialog.show();
+//            myDialog =  UpdateTemplatesDialog.getDialogInstance(mContext);
+//            myDialog.show();
             Log.d(TAG, "------" + message + "---");
             Log.d("GetBillTemplatesManager", "context:2" + mContext);
 
@@ -180,23 +173,20 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         @Override
                         public void onNext(List<TemplateData> data) {
                             Log.d("GetBillTemplatesManager", "插入数据完成一点");
-                            myDialog.dismiss();
-
+//                            myDialog.dismiss();
                         }
                         @Override
                         public void onCompleted() {
                             Log.d("GetBillTemplatesManager", "插入数据完成");
                             getBillListener.onGetBillSuccess();
-//                          EventBus.getDefault().post("1");
-                            myDialog.dismiss();
+//                            myDialog.dismiss();
                         }
                         @Override
                         public void onError(Throwable e) {
                             Log.d(TAG, "----------e:" + e);
                             getBillListener.onGetBillFail();
-                            myDialog.dismiss();
+//                            myDialog.dismiss();
 
-//                            EventBus.getDefault().post("0");
                         }
                     });
 
@@ -206,9 +196,10 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     }
     public void dismissDialog(){
-        if (myDialog != null){
-            myDialog.dismiss();
-        }
+//        if (myDialog != null){
+//            myDialog.dismiss();
+//            Log.d(TAG, "走过dismiss方法");
+//        }
     }
 
     @Override

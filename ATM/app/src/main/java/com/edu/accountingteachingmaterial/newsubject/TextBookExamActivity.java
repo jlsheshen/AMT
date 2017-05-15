@@ -32,7 +32,7 @@ import java.util.List;
  * @author lucher
  */
 public class TextBookExamActivity extends BaseSubjectsContentActivity implements ResultsListener {
-    public int chapterId;
+    public String chapterId;
     public boolean isExam;
     BaseDataDao2 baseDataDao;
 
@@ -51,9 +51,10 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     protected List<BaseTestData> initDatas() {
-        Bundle bundle = getIntent().getExtras();
-        isExam = bundle.getBoolean(IS_EXAM);
-        chapterId = bundle.getInt(CHAPTER_ID);
+        isExam = mBundle.getBoolean(IS_EXAM);
+        chapterId = mBundle.getString(CHAPTER_ID);
+        titleContent = mBundle.getString(TITLE);
+
         if (isExam){
             return SubjectOnlineTestDataDao.getInstance(this).getSubjects(TestMode.MODE_EXAM, chapterId);
         }else {
@@ -68,7 +69,7 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
 
     @Override
     protected void initTitle() {
-        tvTitle.setText("测试模式示例");
+        tvTitle.setText(titleContent);
     }
 
     @Override
@@ -117,6 +118,11 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
             contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
             ExamListDao.getInstance(this).updateData("" + chapterId, contentValues);
             EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+            Bundle b = new Bundle();
+            b.putBoolean("isExam", false);
+            b.putInt(EXERCISE_TYPE, ClassContstant.EXERCISE_BEFORE_CLASS);
+            b.putString(CHAPTER_ID, chapterId);
+            startActivity(ShowDetailsContentActivity.class, b);
             finish();
         }
     }
@@ -196,6 +202,11 @@ public class TextBookExamActivity extends BaseSubjectsContentActivity implements
         contentValues.put(ExamListDao.STATE, ClassContstant.EXAM_COMMIT);
         ExamOnLineListDao.getInstance(this).updateData("" + chapterId, contentValues);
         EventBus.getDefault().post(ClassContstant.EXAM_COMMIT);
+        Bundle b = new Bundle();
+        b.putBoolean("isExam", true);
+        b.putInt(EXERCISE_TYPE, ClassContstant.EXERCISE_BEFORE_CLASS);
+        b.putString(CHAPTER_ID, chapterId);
+        startActivity(ShowDetailsContentActivity.class, b);
         finish();
     }
 

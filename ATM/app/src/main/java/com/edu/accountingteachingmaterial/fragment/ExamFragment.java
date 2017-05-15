@@ -41,6 +41,7 @@ import java.util.List;
 
 import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.CHAPTER_ID;
 import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.IS_EXAM;
+import static com.edu.accountingteachingmaterial.newsubject.BaseSubjectsContentActivity.TITLE;
 
 /**
  * 试卷页面
@@ -57,7 +58,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     private boolean isExercise;//当前状态,当为练习时值为ture
     private boolean inRefresh = false;
     ContentValues contentValues;
-
+    Bundle b;
     /**
      * 下拉刷新完成
      */
@@ -118,6 +119,8 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                 if (i > 1) {
                                                     pos = i - 1;
                                                 }
+                                                b = new Bundle();
+                                                b.putString(TITLE,showDatas.get(pos).getExam_name());
                                                 Log.d("ExamFragment", "setOnItemClickListener" + JSONObject.toJSON(examAdapter.getItem(pos)));
 
                                                 item = pos;
@@ -127,15 +130,14 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                     ImageView imageView = (ImageView) view.findViewById(R.id.item_exam_type_iv);
                                                     imageView.setVisibility(View.GONE);
                                                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
-                                                    OnLineExamDownloadManager.newInstance(context).getSubjects(showDatas.get(pos).getExam_id());
+                                                    OnLineExamDownloadManager.newInstance(context).getSubjects(String.valueOf(showDatas.get(pos).getExam_id()));
 
                                                 } else {
                                                     if (isExercise) {
-                                                        Bundle b = new Bundle();
                                                         b.putBoolean(IS_EXAM, true);
-                                                        b.putInt(CHAPTER_ID, showDatas.get(pos).getExam_id());
+                                                        b.putString(CHAPTER_ID, String.valueOf(showDatas.get(pos).getExam_id()));
                                                         if (showDatas.get(pos).getState() != ClassContstant.EXAM_UNDONE) {
-                                                            GetScoreListManager.getSingleton(context).setExamId(ExamFragment.this,showDatas.get(pos).getExam_id());
+                                                            GetScoreListManager.getSingleton(context).setExamId(ExamFragment.this, String.valueOf(showDatas.get(pos).getExam_id()));
 //                                                        b.putSerializable("ExamListData", datas.get(i).getExam_id());
 //                                                            startActivity(ShowDetailsContentActivity.class, b);
                                                         } else {
@@ -144,8 +146,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                             startActivity(TextBookExamActivity.class, b);
                                                         }
                                                     } else {
-                                                        Bundle b = new Bundle();
-                                                        b.putInt(CHAPTER_ID, showDatas.get(pos).getExam_id());
+                                                        b.putString(CHAPTER_ID, String.valueOf(showDatas.get(pos).getExam_id()));
                                                         startActivity(UnitTestActivity.class, b);
                                                     }
                                                 }
@@ -290,7 +291,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
         for (OnLineExamListData data : datas) {
             data.setExam_id(Integer.valueOf("" + data.getExam_id() + data.getU_id()));
             OnLineExamListData data1 = (OnLineExamListData) ExamOnLineListDao.getInstance(context).getDataById(data.getExam_id());
-                int state = ExamOnLineListDao.getInstance(context).getState(data.getExam_id());
+                int state = ExamOnLineListDao.getInstance(context).getState(String.valueOf(data.getExam_id()));
             if (data1 == null) {
                 contentValues = new ContentValues();
                 contentValues.put(ExamOnLineListDao.ID,data.getExam_id() );
@@ -335,9 +336,9 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
     @Override
     public void onGetScoreSuccess(List<UpdateScoreBean> updateScoreBeanList, String chapterId) {
         SubjectOnlineTestDataDao.getInstance(context).updateScores(updateScoreBeanList,chapterId);
-        Bundle b = new Bundle();
+
         b.putBoolean(IS_EXAM, true);
-        b.putInt(CHAPTER_ID, Integer.parseInt(chapterId));
+        b.putString(CHAPTER_ID, chapterId);
         startActivity(ShowDetailsContentActivity.class, b);
     }
 

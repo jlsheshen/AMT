@@ -140,6 +140,10 @@ public class ChapterHistoryDialog extends BaseDialog implements AdapterView.OnIt
 		onDialogItemClick.onHistoryClick( position);
 	}
 
+	public HistoryPpwAdapter getAdapter() {
+		return ppwAdapter;
+	}
+
 	public interface OnDialogItemClick {
 		void onHistoryClick(int position);
 

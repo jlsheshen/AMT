@@ -1,12 +1,14 @@
 package com.edu.accountingteachingmaterial.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.adapter.ErrorAdapter;
 import com.edu.accountingteachingmaterial.adapter.ReviewHisAdapter;
@@ -73,6 +75,8 @@ public class MyErrorsFragment extends BaseFragment implements View.OnClickListen
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Bundle b = new Bundle();
                     b.putInt(ERRORS_ITEM, position);
+                    String s = JSON.toJSONString(datas.get(position));
+                    Log.d("MyErrorsFragment", s);
                     b.putSerializable(ERRORS_DATAS, (Serializable) datas);
                     startActivity(ErrorPracticeActivity.class, b);
                 }

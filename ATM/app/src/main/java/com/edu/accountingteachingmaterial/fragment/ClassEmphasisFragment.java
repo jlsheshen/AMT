@@ -22,15 +22,15 @@ public class ClassEmphasisFragment extends BaseFragment implements EmphasisManag
     WebView wView;
     TextView nothingTv;
 
-    int chapter;
+    String chapter;
     Map<String, String> extraHeaders;
 
 
-    public int getChapter() {
+    public String getChapter() {
         return chapter;
     }
 
-    public void setChapter(int chapter) {
+    public void setChapter(String chapter) {
         this.chapter = chapter;
         Log.d("ClassEmphasisFragment", "chapter:" + chapter);
 

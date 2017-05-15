@@ -114,7 +114,7 @@ public abstract class BaseSelectView extends BasicSubjectView implements SelectL
 			}
 
 		}
-		tvAnswer.setText(getJudgeResult() + "，正确答案是" + mAdapter.getAnswerLabel(mSubjectData.getAnswer().getText()) + ",您的答案是" + uAnswer);
+		tvAnswer.setText(getJudgeResult() + "正确答案是" + mAdapter.getAnswerLabel(mSubjectData.getAnswer().getText()) + ",您的答案是" + uAnswer);
 	}
 
 	/**
