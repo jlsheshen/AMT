@@ -98,6 +98,5 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         // Commit the transaction
         transaction.commit();
         errorView.setData();
-
     }
 }

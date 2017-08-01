@@ -1,7 +1,5 @@
 package com.edu.library.behavior;
 
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.ContentValues;
@@ -13,6 +11,8 @@ import android.util.Log;
 import com.edu.library.util.ApplicationUtil;
 import com.edu.library.util.TimeUtil;
 import com.edu.library.util.VersionUtil;
+
+import java.util.HashMap;
 
 /**
  * 用户行数据为收集，并把数据添加到爱丁用户中心
@@ -146,7 +146,6 @@ public class UserBehaviorCollecter implements ActivityLifecycleCallbacks {
 				values.put("START_TIME", mBehavior.getStartTime());
 				values.put("END_TIME", mBehavior.getEndTime());
 				mContext.getContentResolver().insert(Uri.parse("content://com.edu.usercenter.behavior/"), values);
-
 				mBehavior.setStartTime(null);
 				mBehavior.setEndTime(null);
 			} catch (Exception e) {

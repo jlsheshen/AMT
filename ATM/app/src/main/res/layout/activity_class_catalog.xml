@@ -38,7 +38,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="25dp"
             android:src="@mipmap/icon_history_n"
-            android:visibility="visible" />
+            android:visibility="gone" />
     </RelativeLayout>
 
     <View

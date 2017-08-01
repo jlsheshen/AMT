@@ -144,6 +144,24 @@ public abstract class BaseDataDao {
 			closeDb(mDb);
 		}
 	}
+	/**
+	 * 更新数据
+	 *
+	 * @param id
+	 * @param values
+	 */
+	public synchronized void updateData(int id, ContentValues values) {
+		try {
+			Log.d(TAG, TABLE_NAME + "-updateData:" + id);
+			DBHelper helper = new DBHelper(mContext, dbName, null);
+			mDb = helper.getWritableDatabase();
+			mDb.update(TABLE_NAME, values, ID + "=?", new String[] { String.valueOf(id) });
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			closeDb(mDb);
+		}
+	}
 
 	/**
 	 * 插入数据

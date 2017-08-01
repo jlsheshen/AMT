@@ -9,8 +9,6 @@ import android.widget.TextView;
 import com.edu.accountingteachingmaterial.R;
 import com.edu.accountingteachingmaterial.bean.TaskDetailBean;
 import com.edu.accountingteachingmaterial.view.CircleImageView;
-import com.edu.library.imageloader.EduImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -57,7 +55,7 @@ public class GroupsAdapter extends BaseAdapter {
 
         }
         TaskDetailBean.StudentlistBean data = datas.get(position);
-        ImageLoader.getInstance().displayImage(data.getPicture(),viewHolder.headIv, EduImageLoader.getInstance().getDefaultBuilder().build());
+        viewHolder.headIv.setImageResource(R.mipmap.student_head);
         viewHolder.nameTv.setText(data.getName());
         return convertView;
     }

@@ -22,6 +22,7 @@ import com.edu.accountingteachingmaterial.util.PreferenceHelper;
 import com.edu.accountingteachingmaterial.util.net.GetBillTemplatesManager;
 import com.edu.accountingteachingmaterial.util.net.LoginNetMananger;
 import com.edu.accountingteachingmaterial.util.net.SendJsonNetReqManager;
+import com.edu.accountingteachingmaterial.view.LoginEditText;
 import com.edu.library.util.DoubleClickExitUtil;
 import com.lucher.net.req.RequestMethod;
 
@@ -41,7 +42,7 @@ import static com.edu.accountingteachingmaterial.util.PreferenceHelper.URL_NAME;
 public class StartStudyActivity extends BaseActivity {
     ImageView imageView;
     HomepageInformationData data;
-    EditText numEt, passwerEt;
+    LoginEditText numEt, passwerEt;
     EditText editText;//ip地址的et
     ImageView bgIv;
     TextView settingIpTv;

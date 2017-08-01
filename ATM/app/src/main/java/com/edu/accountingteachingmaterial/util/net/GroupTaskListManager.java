@@ -42,13 +42,14 @@ public class GroupTaskListManager extends BaseNetManager {
         return mSingleton;
     }
     /**
-     * 发送答案和密码
+     *
      *
      * @param
      */
     public void setCourse(GroupTaskListListener groupTaskListListener) {
         String courseId  = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.COURSE_ID);
-        String url = NetUrlContstant.getGroupTaskList() + courseId;
+        String classId = PreferenceHelper.getInstance(mContext).getStringValue(PreferenceHelper.CLASS_ID);
+        String url = NetUrlContstant.getGroupTaskList() + courseId +"-" +  classId;
         NetSendCodeEntity entity = new NetSendCodeEntity(mContext, RequestMethod.POST, url);
         Log.d("GroupTaskListManager", "url" + url);
         sendRequest(entity);

@@ -21,5 +21,7 @@ public abstract class BaseNetManager extends JsonNetReqManager {
     public BaseNetManager(Context context) {
         mAsyncClient.addHeader(TOKEN, PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
         mContext = context;
+        mAsyncClient.setMaxRetriesAndTimeout(0, 10);
+        mSyncClient.setMaxRetriesAndTimeout(0, 10);
     }
 }

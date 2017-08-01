@@ -30,7 +30,7 @@ public class BlankView extends BasicSubjectView implements ISubject {
 
 	@Override
 	protected void initBody(RelativeLayout layoutContent) {
-		String question = ((TestBlankData) mTestData).getSubjectData().getQuestion().toString();
+		String question = ((TestBlankData) mTestData).getSubjectData().getQuestion().getText().toString();
 		List<String> answers = ((TestBlankData) mTestData).getSubjectData().getAnswers();
 		//填空控件初始化
 		fillInBlankView = new FillInBlankView(mContext, question, answers);
@@ -93,9 +93,13 @@ public class BlankView extends BasicSubjectView implements ISubject {
 		//得分计算
 		BlankAnswerData answer = ((TestBlankData) mTestData).getUAnswerData();
 		float score = 0;
+
+		if(answer == null){
+			answer = new BlankAnswerData();
+		}else {
 		for (BlankAnswer blank : answer.getAnswers()) {
 			score += blank.getScore();
-		}
+		}}
 		//此处废除判分逻辑
 		mTestData.setuScore(0);
 		//根据每个空的结果状态设置对应空的样式

@@ -1,7 +1,7 @@
 package com.edu.subject.basic;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,7 +58,11 @@ public class SelectItemView extends LinearLayout {
 		if (isSelect) {// 选择题
 			tvLabel.setText(mData.getFlag() + ".");
 		}
+		//2017.6.1 修改,如果只有图片没有文字,在前面加一段空白
 		richContent.setRichData(mData.getOption());
+		if(TextUtils.isEmpty(mData.getOption().getText())){
+			tvLabel.setMinimumWidth(100);
+		}
 		refreshSelectState();
 	}
 
@@ -71,6 +75,7 @@ public class SelectItemView extends LinearLayout {
 		setOrientation(LinearLayout.HORIZONTAL);
 		
 		tvLabel = new TextView(getContext());
+
 		addView(tvLabel);
 		tvLabel.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.select_item_size));
 		richContent = new RichContentView(getContext());

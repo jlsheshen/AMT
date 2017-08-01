@@ -14,8 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:textSize="@dimen/content_text_size"
+        android:paddingLeft="2dp"
         android:background="@drawable/shape_ip_et"
-
         />
     <ImageView
         android:id="@+id/ip_close_iv"
@@ -24,9 +24,8 @@
         android:src="@drawable/selector_closel_ip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-
-
         />
+
     <ImageView
         android:id="@+id/ip_save_iv"
         android:layout_width="wrap_content"
@@ -34,10 +33,6 @@
         android:src="@drawable/selector_save_ip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-
         />
-
-
-
 
 </RelativeLayout>

@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Movie;
+import android.graphics.Paint;
+import android.graphics.PaintFlagsDrawFilter;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.View;
@@ -178,7 +180,6 @@ public class GifMovieView extends View {
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 		super.onLayout(changed, l, t, r, b);
-
 		/*
 		 * Calculate left / top for drawing in center
 		 */
@@ -190,6 +191,7 @@ public class GifMovieView extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		canvas.setDrawFilter(new PaintFlagsDrawFilter(0, Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG));
 		if (mMovie != null) {
 			if (!mPaused) {
 				// updateAnimationTime();

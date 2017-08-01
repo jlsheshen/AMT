@@ -46,7 +46,7 @@
         android:text="服务器IP设置"
         android:textColor="@color/colorBlueBackground"
         android:textSize="16sp" />
-    <EditText
+    <com.edu.accountingteachingmaterial.view.LoginEditText
         android:id="@+id/startstudy_pw_et"
         android:layout_width="290dp"
         android:layout_height="50dp"
@@ -59,9 +59,11 @@
         android:gravity="center"
         android:inputType="textPassword"
         android:paddingTop="5dp"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         />
 
-    <EditText
+    <com.edu.accountingteachingmaterial.view.LoginEditText
         android:id="@+id/startstudy_num_et"
         android:layout_width="290dp"
         android:layout_height="50dp"
@@ -74,6 +76,8 @@
         android:inputType="number"
         android:paddingTop="5dp"
         android:gravity="center"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
         />
 
     <ImageView

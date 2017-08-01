@@ -76,9 +76,9 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
         listView = bindView(R.id.class_classchapter_lv);
         imgHistory = (ImageView) bindView(R.id.main_study_history_iv);
         imgHistory.setOnClickListener(this);
-        if (isBook) {
+//        if (isBook) {
             imgHistory.setVisibility(View.GONE);
-        }
+//        }
         setInfoView();
 //        typeShow();
 //        if (isBook){
@@ -214,7 +214,8 @@ public class ClassCatalogActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void onSuccess(ClassInfoBean data) {
-        ImageLoader.getInstance().displayImage(BASE_URL.getBaseImageUrl() + data.getPicture() , infoTextbookHead, EduImageLoader.getInstance().getDefaultBuilder().build());
+        String imageUrl = data.getPicture().replace("\\","/");
+        ImageLoader.getInstance().displayImage(BASE_URL.getBaseImageUrl() + imageUrl , infoTextbookHead, EduImageLoader.getInstance().getDefaultBuilder().build());
         infoTextbookAuthor.setText(data.getCreator());
         infoTextbookName.setText(data.getTitle());
         titleTv.setText(data.getTitle());

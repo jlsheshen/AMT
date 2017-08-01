@@ -147,6 +147,7 @@ public class ClassExerciseFragment extends BaseFragment implements RefreshExList
                     stateIv.setVisibility(View.GONE);
                     view.findViewById(R.id.item_exercise_type_pb).setVisibility(View.VISIBLE);
                     SubjectsDownloadManager.newInstance(context).getSubjects(NetUrlContstant.getSubjectListUrl(), String.valueOf(datas.get(i).getId()));
+                    datas.get(i).setState(ClassContstant.EXAM_DOWNLOADING);
                 } else if (datas.get(i).getState() == ClassContstant.EXAM_UNDONE && datas.get(i).getLesson_type() != ClassContstant.EXERCISE_IN_CLASS) {
                     b.putString(CHAPTER_ID, String.valueOf(datas.get(i).getId()));
                     b.putBoolean("isExam", false);

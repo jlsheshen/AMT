@@ -54,6 +54,7 @@ public class RvAddGroupAdapter extends RecyclerView.Adapter<RvAddGroupAdapter.Gr
             holder.nameTv.setVisibility(View.GONE);
         }else {
             ImageLoader.getInstance().displayImage(data.getPicture(), holder.headIv, EduImageLoader.getInstance().getDefaultBuilder().build()) ;
+            holder.headIv.setImageResource(R.mipmap.student_head);
             holder.nameTv.setVisibility(View.VISIBLE);
             holder.nameTv.setText(data.getName());
         }

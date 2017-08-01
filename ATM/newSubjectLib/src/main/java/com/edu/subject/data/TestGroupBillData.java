@@ -62,7 +62,7 @@ public class TestGroupBillData extends BaseTestData {
 		String uAnswer = JSON.toJSONString(billAnswers);
 		result.setAnswer(uAnswer);
 		result.setFlag(testDatas.get(0).getFlag());
-		result.setType(SubjectType.SUBJECT_BILL);
+		result.setType(SubjectType.SUBJECT_GROUP_BILL);
 		if (uAnswer == null) {
 			result.setAnswer("");
 		} else {
@@ -70,7 +70,6 @@ public class TestGroupBillData extends BaseTestData {
 		}
 		result.setScore(uScore);
 		result.setRight(uScore == getSubjectData().getScore());
-		
 		return result;
 	}
 

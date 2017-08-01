@@ -22,8 +22,10 @@ public class SendJsonNetReqManager extends JsonNetReqManager {
         initAsyncClient();
         initSyncClient();
         mAsyncClient.addHeader(TOKEN, PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
-        mAsyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
-        mSyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
+//        mAsyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
+//        mSyncClient.setMaxRetriesAndTimeout(0, RETRY_TIME_OUT);
+        mAsyncClient.setMaxRetriesAndTimeout(0, 10);
+        mSyncClient.setMaxRetriesAndTimeout(0, 10);
     }
 
     public static SendJsonNetReqManager newInstance() {

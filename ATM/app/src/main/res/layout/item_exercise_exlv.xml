@@ -31,6 +31,7 @@
             android:textColor="@color/colorWhite"
             android:maxWidth="350dp"
             android:ellipsize="end"
+            android:lines="1"
             android:textSize="@dimen/item_title_text_size"
             />
 
@@ -63,6 +64,8 @@
             android:textSize="@dimen/item_text_size"
             android:drawableLeft="@mipmap/icon_shitishu_n"
             android:text="@string/test_number"
+            android:lines="1"
+
 
             />
         <TextView
@@ -71,8 +74,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/item_text_size"
-             />
-
+            android:lines="1"
+            />
 
     </LinearLayout>
 

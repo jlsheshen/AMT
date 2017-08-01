@@ -61,7 +61,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
     private static final String WIDTH = "WIDTH";
     private static final String HEIGHT = "HEIGHT";
     private static final String SCORE = "SCORE";
-
+//在8寸板连云服务器1440字符串限制
     GetBillListener getBillListener;
 
     SQLiteDatabase mDb = null;
@@ -71,7 +71,8 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     private GetBillTemplatesManager(Context context) {
         mAsyncClient.addHeader(TOKEN, PreferenceHelper.getInstance(BaseApplication.getContext()).getStringValue(TOKEN));
-
+//        mAsyncClient.setMaxRetriesAndTimeout(0, 20);
+//        mSyncClient.setMaxRetriesAndTimeout(0, 20);
         this.mContext = context;
     }
 
@@ -101,10 +102,15 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
      */
     public void sendLocalTemplates() {
         List<BillTemplateListBean> datas = getTemplates();
+//        List<BillTemplateListBean> newdatas = new ArrayList<>();
+//        for (int i = 0; i < 32; i++) {
+//            if (i<(datas.size()-1)&&datas.get(i) != null){
+//            newdatas.add(datas.get(i));}
+//
+//        }
         String url = NetUrlContstant.getLocalTemplates();
         Log.d("GetBillTemplatesManager", url);
-        JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(datas));
-
+       JsonReqEntity entity = new JsonReqEntity(mContext, RequestMethod.POST, url, JSON.toJSONString(datas));
         sendRequest(entity);
         Log.d("GetBillTemplatesManager", "uploadResult:" + JSON.toJSONString(datas));
     }
@@ -161,7 +167,7 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                 @Override
                 public void call(Subscriber<? super List<TemplateData>> subscriber) {
                     Log.d("GetBillTemplatesManager", "插入数据");
-
+                    getBillListener.onGetBillSuccess();
                     List<TemplateData> billTemplates = JSON.parseArray(message, TemplateData.class);
                     saveTemplates(billTemplates);
                     subscriber.onCompleted();
@@ -178,7 +184,6 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
                         @Override
                         public void onCompleted() {
                             Log.d("GetBillTemplatesManager", "插入数据完成");
-                            getBillListener.onGetBillSuccess();
 //                            myDialog.dismiss();
                         }
                         @Override
@@ -204,11 +209,14 @@ public class GetBillTemplatesManager extends JsonNetReqManager {
 
     @Override
     public void onConnectionError(String arg0) {
+        Toast.makeText(mContext, arg0, Toast.LENGTH_SHORT).show();
+
         Log.e(TAG, "onConnectionError:" + arg0);
     }
 
     @Override
     public void onConnectionFailure(String arg0, Header[] arg1) {
+        Toast.makeText(mContext, arg0, Toast.LENGTH_SHORT).show();
         Log.e(TAG, "onConnectionFailure:" + arg0);
     }
 

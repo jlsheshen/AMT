@@ -60,6 +60,8 @@ public class ErrorAdapter extends BaseCheckAdapter {
             holder = (ErrorViewHolder) convertView.getTag();
         }
         String s = null;
+        String content = datas.get(position).getSubjectData().getQuestion().getText();
+
         switch (datas.get(position).getSubjectData().getSubjectType()){
             case ClassContstant.SUBJECT_SINGLE_CHOSE:
                 s = ClassContstant.SUBJECT_SINGLE_CHOSE_STRING;
@@ -71,6 +73,7 @@ public class ErrorAdapter extends BaseCheckAdapter {
                 s = ClassContstant.SUBJECT_JUDGE_STRING;
                 break;
             case ClassContstant.SUBJECT_BLANK:
+                content = content.replace("[blank]","___");
                 s = ClassContstant.SUBJECT_BLANK_STRING;
                 break;
             case ClassContstant.SUBJECT_ENTRY:
@@ -90,7 +93,7 @@ public class ErrorAdapter extends BaseCheckAdapter {
                 break;
         }
         holder.typeTv.setText(s);
-        holder.contentTv.setText(datas.get(position).getSubjectData().getQuestion().getText());
+        holder.contentTv.setText(content);
 
         if (checkIsShow){
             holder.checkBox.setVisibility(View.VISIBLE);
@@ -105,9 +108,9 @@ public class ErrorAdapter extends BaseCheckAdapter {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     checkList.set(position,isChecked);
                     checkedListener.onCheckeBoxChecked();
-
                 }
-            });}else {
+            }
+            );}else {
 
         }
         return convertView;

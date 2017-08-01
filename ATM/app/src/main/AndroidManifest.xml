@@ -54,7 +54,8 @@
             android:name=".activity.StartStudyActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
             android:launchMode="singleTask"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".activity.ClassDetailActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"

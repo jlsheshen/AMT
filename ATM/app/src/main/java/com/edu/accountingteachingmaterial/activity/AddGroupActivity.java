@@ -119,7 +119,7 @@ public class AddGroupActivity extends BaseActivity implements AdapterView.OnItem
 
     @Override
     public void onFailure(String message) {
-
+        Toast.makeText(this, "当前小组已满", Toast.LENGTH_SHORT).show();
     }
 
 

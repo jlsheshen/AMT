@@ -25,6 +25,7 @@ public class BlankGroupAmountEditText extends BlankEditText {
 	private static final String TAG = "BlankGroupAmountEditText";
 	// 以空格开头答案或结尾的占位符前后缀
 	public static final String ANSWER_FLAG = "*@*";
+//	public static final String ANSWER_FLAG = "\\";
 
 	// 金额空的长度，默认为10
 	private int mLength = 10;

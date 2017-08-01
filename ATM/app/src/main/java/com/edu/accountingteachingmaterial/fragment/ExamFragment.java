@@ -131,6 +131,7 @@ public class ExamFragment extends BaseFragment implements RefreshListView.OnList
                                                     imageView.setVisibility(View.GONE);
                                                     view.findViewById(R.id.item_exam_type_pb).setVisibility(View.VISIBLE);
                                                     OnLineExamDownloadManager.newInstance(context).getSubjects(String.valueOf(showDatas.get(pos).getExam_id()));
+                                                    showDatas.get(pos).setState(ClassContstant.EXAM_DOWNLOADING);
 
                                                 } else {
                                                     if (isExercise) {

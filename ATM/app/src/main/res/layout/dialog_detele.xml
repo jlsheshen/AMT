@@ -18,7 +18,7 @@
             android:layout_alignBottom="@id/dialog_detele_bg_iv"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="110dp"
-            android:text="确定删除自测记录"
+            android:text="确定删除错题记录"
             android:textColor="@color/colorBlueBackground"
             android:textSize="24sp"
             android:textStyle="bold" />
