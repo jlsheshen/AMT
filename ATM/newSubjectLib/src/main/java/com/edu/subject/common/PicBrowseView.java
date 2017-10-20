@@ -1,24 +1,23 @@
 package com.edu.subject.common;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import uk.co.senab.photoview.PhotoViewAttacher;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.text.method.ScrollingMovementMethod;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.edu.library.picselect.HackyViewPager;
 import com.edu.subject.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * 图片查看控件
@@ -40,7 +39,7 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 	private ImageView[] mIndicatorImgs;
 	private Context mContext;
 	// 关闭按钮
-	private ImageButton ibtnClose;
+	private ImageView ibtnClose;
 	private CloseListener mListener;
 
 	// 对应的问题
@@ -87,7 +86,7 @@ public class PicBrowseView extends RelativeLayout implements OnPageChangeListene
 		mViewPager = (HackyViewPager) findViewById(R.id.viewPager);
 		mViewPager.setAdapter(mAdapter);
 		mViewPager.setOnPageChangeListener(this);
-		ibtnClose = (ImageButton) findViewById(R.id.ibtnClose);
+		ibtnClose = (ImageView) findViewById(R.id.ibtnClose);
 		ibtnClose.setOnClickListener(this);
 	}
 

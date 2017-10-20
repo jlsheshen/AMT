@@ -86,10 +86,10 @@ public class MainChoseActivity extends BaseActivity implements OnClickListener, 
     public void initData() {
         String stuName = PreferenceHelper.getInstance(this).getStringValue(STUDENT_NAME);
         studentName.setText(stuName);
-        if (null == textBookFragment) {
-            textBookFragment = new TextbookFragment();
+        if (null == examFragment) {
+            examFragment = new ExamFragment();
         }
-        replaceFragment(textBookFragment);
+        replaceFragment(examFragment);
     }
 
     @Override

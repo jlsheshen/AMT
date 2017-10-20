@@ -1,8 +1,5 @@
 package com.edu.subject.bill.view;
 
-import java.text.DecimalFormat;
-import java.util.Arrays;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.text.Editable;
@@ -28,6 +25,12 @@ import com.edu.subject.bill.element.ElementType;
 import com.edu.subject.bill.element.info.BlankInfo;
 import com.edu.subject.bill.scale.IScaleable;
 import com.edu.subject.bill.scale.ScaleUtil;
+import com.edu.subject.util.MyScaleUtil;
+
+import java.text.DecimalFormat;
+import java.util.Arrays;
+
+import static com.loopj.android.http.AsyncHttpClient.log;
 
 /**
  * 单据里对应空的封装,支持缩放
@@ -236,8 +239,6 @@ public class BlankEditText extends EditText implements IScaleable {
 	 * 
 	 * @param data
 	 *            数据
-	 * @param textSize
-	 *            字体大小
 	 * @param scale
 	 *            缩放比例
 	 * @param scaleWeight
@@ -245,8 +246,9 @@ public class BlankEditText extends EditText implements IScaleable {
 	 */
 	public void apply(BlankInfo data, float scale, float scaleWeight) {
 		mData = data;
+		Log.d(TAG, "MyScaleUtil.getInstance(getContext()).mDensity:" + DEFAULT_TEXT_SIZE * MyScaleUtil.getInstance(getContext()).mDensity);
 		if (data.getTextSize() <= 0) {
-			data.setTextSize(DEFAULT_TEXT_SIZE);
+			data.setTextSize((int) (DEFAULT_TEXT_SIZE * MyScaleUtil.getInstance(getContext()).mDensity));
 		}
 		initBlank();
 
@@ -274,6 +276,7 @@ public class BlankEditText extends EditText implements IScaleable {
 		// 字体缩放
 		float textSize = mData.getTextSize() * (float) Math.pow(mScaleWeight, (scaleTimes + 1));
 		setTextSize(textSize);
+//		setTextSize(getContext().getResources().getDimension(R.dimen.bill_template_text_size));
 
 		// 宽高缩放-如果不缩放，可能引起内容显示不全
 		setWidth(scaledWidth);

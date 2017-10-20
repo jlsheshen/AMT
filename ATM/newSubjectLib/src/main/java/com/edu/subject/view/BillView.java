@@ -1,12 +1,10 @@
 package com.edu.subject.view;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.edu.library.util.ToastUtil;
@@ -29,6 +27,8 @@ import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.TestBillData;
 import com.edu.subject.util.SoundPoolUtil;
 
+import java.util.List;
+
 /**
  * 单据题型视图
  * 
@@ -38,14 +38,14 @@ import com.edu.subject.util.SoundPoolUtil;
 public class BillView extends RelativeLayout implements ISubject, BillZoomListener, SignViewListener, OnClickListener, CloseListener {
 
 	// 缩放按钮
-	private ImageButton btnZoomIn, btnZoomOut;
+	private ImageView btnZoomIn, btnZoomOut;
 	private View switchAnswer;
 	private Button btnShowUser, btnShowRight;
 
 	private Context mContext;
 	public ZoomableBillView billView;
 	// 显示图片的小角标
-	private ImageButton ibtnPic;
+	private ImageView ibtnPic;
 	// 滑动菜单控件
 	private SlidingDragLayout slidingLayout;
 	// 图片查看控件
@@ -86,14 +86,14 @@ public class BillView extends RelativeLayout implements ISubject, BillZoomListen
 	 * 初始化
 	 */
 	private void init() {
-		btnZoomIn = (ImageButton) findViewById(R.id.ibtnZoomIn);
-		btnZoomOut = (ImageButton) findViewById(R.id.ibtnZoomOut);
+		btnZoomIn = (ImageView) findViewById(R.id.ibtnZoomIn);
+		btnZoomOut = (ImageView) findViewById(R.id.ibtnZoomOut);
 		btnZoomIn.setOnClickListener(this);
 		btnZoomOut.setOnClickListener(this);
 		billView = (ZoomableBillView) findViewById(R.id.billView);
 		billView.setBillZoomListener(this);
 		billView.setSignListener(this);
-		ibtnPic = (ImageButton) findViewById(R.id.ibtnPic);
+		ibtnPic = (ImageView) findViewById(R.id.ibtnPic);
 
 		btnShowUser = (Button) findViewById(R.id.btnShowUser);
 		btnShowRight = (Button) findViewById(R.id.btnShowRight);

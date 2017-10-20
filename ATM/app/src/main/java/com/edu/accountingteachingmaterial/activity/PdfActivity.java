@@ -65,10 +65,7 @@ public class PdfActivity extends BaseActivity {
     }
 
     private void show() {
-//        String url = "/sdcard/EduResources/AccCourse/pdf/" + exampleBeans.getUrl();
-//        String url = UriConstant.PDF_PATH + exampleBeans.getUrl();
-//        String[] tmp = exampleBeans.getUrl().split("/");
-//        String url = UriConstant.PDF_PATH  + tmp[tmp.length - 1];
+
         Log.d("PdfActivity1", target);
         File file = new File(target);
         pdfView.fromFile(file)

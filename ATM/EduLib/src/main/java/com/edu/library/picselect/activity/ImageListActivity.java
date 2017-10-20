@@ -85,7 +85,7 @@ public class ImageListActivity extends Activity implements OnItemClickListener, 
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// 全屏
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.activity_image_list);
+		setContentView(R.layout.activity_image);
 
 		Bundle bundle = getIntent().getExtras();
 		if (bundle != null) {

@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ibtnZoomOut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
             android:onClick="onClick"
             android:src="@drawable/ibtn_selector_zoomout" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ibtnZoomIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:onClick="onClick"
             android:src="@drawable/ibtn_selector_zoomin" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/ibtnPic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

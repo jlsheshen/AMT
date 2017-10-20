@@ -37,7 +37,9 @@ public class TextbookFragment extends BaseFragment implements AdapterView.OnItem
 
     @Override
     protected void initData() {
-        TextBookListManager.getSingleton(getContext()).getTextBookList(this);
+        //        只有考试的版本 不加载此数据
+
+//        TextBookListManager.getSingleton(getContext()).getTextBookList(this);
         adapter = new TextBookGvAdapter();
     }
 

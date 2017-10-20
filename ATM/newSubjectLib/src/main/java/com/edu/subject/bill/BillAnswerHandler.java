@@ -190,6 +190,7 @@ public class BillAnswerHandler {
 			if (isGroupBlank(data.getType())) {
 				String remark = data.getRemark();
 				int groupId = Integer.valueOf(remark);
+
 				if (groups.get(groupId) == null) {
 					List<BlankResult> list = new ArrayList<BlankResult>(3);
 					groups.put(groupId, list);

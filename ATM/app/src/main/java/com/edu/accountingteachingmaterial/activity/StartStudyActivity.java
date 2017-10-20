@@ -184,7 +184,8 @@ public class StartStudyActivity extends BaseActivity {
      * @param s
      */
     private void showIp(String s) {
-        TEMP_URL = "http://" + s;
+
+        TEMP_URL = "http://" +s.replace(" ","");
         Log.d("StartStudyActivity", "---------" + NetUrlContstant.getSettingIpUrl());
         SendJsonNetReqManager sendJsonNetReqManager = SendJsonNetReqManager.newInstance();
         NetSendCodeEntity netSendCodeEntity = new NetSendCodeEntity(this, RequestMethod.POST, NetUrlContstant.getSettingIpUrl());

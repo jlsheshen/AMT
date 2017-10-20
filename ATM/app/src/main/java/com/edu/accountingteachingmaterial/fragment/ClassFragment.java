@@ -32,7 +32,8 @@ public class ClassFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     protected void initData() {
         adapter = new ClassGvAdapter();
-        ClassListManager.getSingleton(getContext()).getClassList(this);
+//        只有考试的版本 不加载此数据
+//        ClassListManager.getSingleton(getContext()).getClassList(this);
     }
 
     @Override

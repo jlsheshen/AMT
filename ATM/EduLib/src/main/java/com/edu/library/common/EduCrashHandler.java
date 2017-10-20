@@ -153,7 +153,7 @@ public class EduCrashHandler implements UncaughtExceptionHandler {
 		printWriter.close();
 		String result = writer.toString();
 		sb.append(result);
-		LogUtil.log(sb.toString());
+		LogUtil.commonLog(sb.toString());
 		Log.e(TAG, sb.toString());
 	}
 }

@@ -14,6 +14,7 @@ import com.edu.subject.bill.element.info.BlankInfo;
 import com.edu.subject.bill.element.info.FlashInfo;
 import com.edu.subject.bill.element.info.SignInfo;
 import com.edu.subject.data.answer.BillAnswerData.SignResult;
+import com.edu.subject.util.MyScaleUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,7 @@ public class BillTemplateDao {
 					element = new BlankInfo();
 					initElement(element, curs);
 					try {
-						((BlankInfo) element).setTextSize(curs.getInt(curs.getColumnIndex(CONTENT)));
+						((BlankInfo) element).setTextSize((int) (curs.getInt(curs.getColumnIndex(CONTENT)) * MyScaleUtil.getInstance(mContext).mDensity));
 					} catch (Exception e) {
 						e.printStackTrace();
 						ToastUtil.showToast(mContext, "字体大小必须为整数：" + element);

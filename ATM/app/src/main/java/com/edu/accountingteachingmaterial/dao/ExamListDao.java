@@ -31,6 +31,7 @@ public class ExamListDao extends BaseDataDao {
     public static ExamListDao getInstance(Context context) {
         if (instance == null)
             instance = new ExamListDao(context, Constant.DATABASE_NAME);
+
         return instance;
     }
 

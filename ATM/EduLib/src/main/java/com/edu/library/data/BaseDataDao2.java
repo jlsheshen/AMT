@@ -1,14 +1,14 @@
 package com.edu.library.data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 数据库操作dao层基类,注：需要在子类里对TABLE_NAME进行赋值
@@ -89,7 +89,7 @@ public abstract class BaseDataDao2 {
 	/**
 	 * 获取所有数据
 	 * 
-	 * @param id
+	 * @param
 	 * @return
 	 */
 	public synchronized List<? extends BaseData> getAllDatas() {
@@ -225,7 +225,7 @@ public abstract class BaseDataDao2 {
 	/**
 	 * 执行sql获取数据
 	 * @param sql
-	 * @param db
+	 * @param
 	 * @return
 	 */
 	public synchronized List<? extends BaseData> queryList(String sql) {

@@ -8,4 +8,5 @@
     <dimen name="entry_loan_margin">32sp</dimen>
     <!-- 富文本字体大小 -->
     <dimen name="rich_text_size">24sp</dimen>
+    <dimen name="bill_template_text_size">16sp</dimen>
 </resources>

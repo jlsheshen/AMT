@@ -14,6 +14,7 @@ public class ToastUtil {
 
 	private static final String TAG = "ToastUtil";
 	private static Toast toast;
+	static boolean inTest = false;
 
 	/**
 	 * 显示toast，若多次触发，按最后一次的显示时间显示
@@ -61,7 +62,9 @@ public class ToastUtil {
 	 * @param msg
 	 */
 	public static void showToast(Context context, String msg) {
-		showToast(context, msg, 1000);
+
+		if (inTest){
+		showToast(context, msg, 1000);}
 	}
 
 	/**

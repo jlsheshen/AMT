@@ -1,13 +1,10 @@
 package com.edu.subject.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Context;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -28,6 +25,9 @@ import com.edu.subject.data.BaseTestData;
 import com.edu.subject.data.TestBillData;
 import com.edu.subject.data.TestGroupBillData;
 import com.edu.subject.data.answer.BillAnswerData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 分组单据题型视图
@@ -51,7 +51,7 @@ public class BillGroupView extends RelativeLayout implements ISubject, OnChecked
 	private RelativeLayout billContent;
 
 	// 显示图片的小角标
-	private ImageButton ibtnPic;
+	private ImageView ibtnPic;
 	// 滑动菜单控件
 	private SlidingDragLayout slidingLayout;
 	// 图片查看控件
@@ -90,7 +90,7 @@ public class BillGroupView extends RelativeLayout implements ISubject, OnChecked
 		tabs.setOnCheckedChangeListener(this);
 		billContent = (RelativeLayout) findViewById(R.id.billContent);
 		billViews = new ArrayList<BillView>(mData.getTestDatas().size());
-		ibtnPic = (ImageButton) findViewById(R.id.ibtnPic);
+		ibtnPic = (ImageView) findViewById(R.id.ibtnPic);
 		slidingLayout = (SlidingDragLayout) findViewById(R.id.sliding_menu);
 		slidingLayout.setBadgeView(ibtnPic);
 		slidingLayout.setDragListener(new DragListener() {

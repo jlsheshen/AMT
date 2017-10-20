@@ -28,31 +28,42 @@
 
         <RadioGroup
             style="@style/SizeBarStyle"
+            android:paddingTop="80dp"
+            android:paddingBottom="80dp"
             
             >
 
             <RadioButton
                 android:id="@+id/textbook_iv"
                 style="@style/SizeBarButtonStyle"
-                android:checked="true"
-                android:drawableTop="@drawable/selector_textbook" />
+                android:enabled="false"
+                android:drawableTop="@drawable/selector_textbook"
+                android:visibility="gone"
+                />
 
             <RadioButton
                 android:id="@+id/class_iv"
                 style="@style/SizeBarButtonStyle"
+                android:enabled="false"
+                android:visibility="gone"
+
                 android:drawableTop="@drawable/selector_class" />
 
             <RadioButton
                 android:id="@+id/exam_iv"
                 style="@style/SizeBarButtonStyle"
+                android:checked="true"
+
                 android:drawableTop="@drawable/selector_exam" />
             <RadioButton
                 android:id="@+id/my_iv"
                 style="@style/SizeBarButtonStyle"
+
                 android:drawableTop="@drawable/selector_main_my" />
             <Button
                 android:id="@+id/setting_iv"
                 style="@style/SizeBarButtonStyle"
+
                 android:drawableTop="@drawable/selector_main_setting"
                 android:background="@null"
                 />

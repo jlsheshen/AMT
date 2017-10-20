@@ -20,6 +20,7 @@ public class PreferenceHelper {
 	 */
 	private static final String PREFERENCE_VALUE_KEY = "value";
 
+
 	private static Context mContext;
 
 	/**

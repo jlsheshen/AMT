@@ -61,6 +61,16 @@ public class LogUtil {
 	}
 
 	/**
+	 * 写下日志
+	 *
+	 * @param log
+	 *            日志内容
+	 */
+	public static void commonLog(String log) {
+		Log.d("LogUtil", log);
+	}
+
+	/**
 	 * 检查日志文件是否存在，没有则创建
 	 */
 	public static File checkLogFile() {
