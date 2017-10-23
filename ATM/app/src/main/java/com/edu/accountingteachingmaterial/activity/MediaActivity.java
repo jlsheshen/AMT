@@ -11,8 +11,8 @@ import com.edu.accountingteachingmaterial.constant.NetUrlContstant;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyPresenter;
 import com.edu.accountingteachingmaterial.presenterview.MediaAtyView;
 
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
-import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
+import cn.jzvd.JZVideoPlayer;
+import cn.jzvd.JZVideoPlayerStandard;
 
 /**
  * Created by Administrator on 2016/11/8.
@@ -20,7 +20,7 @@ import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresenter> implements MediaAtyView {
 
     private boolean isPlaying;
-    JCVideoPlayerStandard player;
+    JZVideoPlayerStandard player;
     private String url = NetUrlContstant.getMediaorPdfUrl();
     ExampleBean exampleBeans;
 
@@ -36,10 +36,10 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
         String mUrl = url + exampleBeans.getUrl();
         Log.d("MediaActivity", mUrl);
 
-        player = (JCVideoPlayerStandard) findViewById(R.id.player_video);
-        if (player != null) {
-            player.release();
-        }
+        player = (JZVideoPlayerStandard) findViewById(R.id.player_video);
+//        if (player != null) {
+//            player.release();
+//        }
         player.fullscreenButton.setVisibility(View.GONE);
         player.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,18 +48,23 @@ public class MediaActivity extends BaseMvpActivity<MediaAtyView, MediaAtyPresent
                 finish();
             }
         });
-        boolean setUp = player.setUp(mUrl, JCVideoPlayer.SCREEN_WINDOW_FULLSCREEN, "");
+        player.setUp(mUrl, JZVideoPlayer.SCREEN_WINDOW_FULLSCREEN, "");
 
     }
 
     @Override
     public void onBackPressed() {
+        if (JZVideoPlayer.backPress()) {
+            finish();
+            return;
+        }
         super.onBackPressed();
-        player.backPress();
-        finish();
     }
-
-
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JZVideoPlayer.releaseAllVideos();
+    }
     @Override
     public void initData() {
 

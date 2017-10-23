@@ -66,6 +66,8 @@
         <activity
             android:name=".activity.MediaActivity"
             android:configChanges="keyboard|keyboardHidden|screenSize|orientation|navigation"
+
+
             android:launchMode="singleTask"
             android:screenOrientation="landscape" />
         <activity
